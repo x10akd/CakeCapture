@@ -4,5 +4,5 @@ from pages import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("item_detail/", views.detail, name="detail"),
+    path("", include("pages.urls")),
 ]
