@@ -17,15 +17,15 @@
 			transform: scale(1.1);
 		}
 	</style>
-<!-- 引入SweetAlert庫 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- 引入SweetAlert庫 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-	
+
 
 	<!-- nav -->
-	<nav class="bg-red-300 py-6 fixed w-full top-0 z-10">
+	<nav class="bg-red-300 py-6 fixed w-screen max-w-screen-2xl top-0 z-10 rounded-full mx-auto left-0 right-0 px-6">
 		<div class="container mx-auto flex justify-between items-center">
 			<!-- 品牌標誌 -->
 			<a href="#" class="text-white text-2xl font-bold">CakeCapture</a>
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</nav>
-	{% include "shared/message.html" %}
+	<!-- {% include "shared/message.html" %} -->
 	{% block content%}
 	{% endblock%}
 	<footer class="bg-red-300 text-white py-8">
@@ -73,9 +73,27 @@
 			</div>
 		</div>
 	</footer>
-
-
-
+	
+	{% if show_popup %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function ()
+		{
+			Swal.fire({
+				icon: 'success',
+				title: '登入成功!',
+				// text: '你好, {{ user.username }}',
+				showConfirmButton: false,
+				timer: 2000,
+				customClass: {
+					popup: 'small-alert',
+					title: 'small-alert-title',
+					content: 'small-alert-content',
+					icon: 'icon-class'
+				}
+			})
+		})	
+	</script>
+	{% endif %}
 </body>
 
 </html>
