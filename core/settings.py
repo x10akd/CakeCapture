@@ -130,19 +130,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'home'
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        # "APP": {
-        #     "client_id": "<120977077552-0f08d7p4si21uvfieqsk97u6dvsosb04.apps.googleusercontent.com>",
-        #     "secret": "<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>",
-        #     "key": "",
-        # },
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
-        "AUTH_PARAMS": {
-            "access_type": "online",
-        },
-    }
-}
+
