@@ -3,3 +3,5 @@ node_modules
 static/styles/output.css
 static/scripts/output.js
 db.sqlite3
+core/__pycache__
+accounts/__pycache__
