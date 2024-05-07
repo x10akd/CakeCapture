@@ -1,5 +1,5 @@
 {% extends 'shared/base.html' %}
-
+{% load socialaccount %}
 
 {% block content %}
 <div class="bg-gray-100 flex justify-center items-center h-screen">
@@ -16,14 +16,15 @@
         {{form.password}}
       </div>
       <div class="flex items-center justify-between">
-        <div class="flex items-center">
-          <input type="checkbox" id="remember-me" name="remember-me"
-            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-          <label for="remember-me" class="ml-2 block text-sm text-gray-900">記住我</label>
-        </div>
         <div class="text-sm">
           <a href="#" class="font-medium text-blue-600 hover:text-blue-500">忘記密碼？</a>
+          <div class="my-6 mx-auto">
+            <button class="flex justify-center rounded-3xl border-2 bg-white p-1 text-black hover:bg-gray-200 sm:p-2">
+              <img src="https://freesvg.org/img/1534129544.png" class="mr-2 w-6 object-fill" /><a href="{% provider_login_url 'google' %}?next=/">Log in with Google</a>
+            </img>
+          </div>
           
+        
         </div>
       </div>
       <div>
@@ -35,4 +36,5 @@
     </form>
   </div>
 </div>
+
 {% endblock %}

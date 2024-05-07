@@ -5,3 +5,8 @@
 body {
     background-color: #d8c7ef;
 }
+
+.flash .success {
+    
+    @apply bg-green-300;
+}

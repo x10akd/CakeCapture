@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-
+from django.contrib import messages
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
 from . import models
@@ -15,7 +15,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  #重新導向到登入畫面
+            
+            return redirect('login')
+        else:
+          print(form.errors)  #重新導向到登入畫面
     context = {
         'form': form
     }
@@ -32,7 +35,9 @@ def sign_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, '登入成功！')
             return redirect('/')  #重新導向到首頁
+        
     context = {
         'form': form
     }
