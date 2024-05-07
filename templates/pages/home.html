@@ -1,0 +1,88 @@
+{% extends 'shared/base.html' %}
+{% block content%}
+<!-- 圖片輪播 -->
+<div class="swiper-container w-full h-screen">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <img src="/img/2003030407488455460940.jpeg" alt="Image 1" class="w-full h-full object-cover">
+    </div>
+    <div class="swiper-slide">
+      <img src="/img/2103050703426706580200.jpeg" alt="Image 2" class="w-full h-full object-cover">
+    </div>
+    <div class="swiper-slide">
+      <img src="/img/f4421ee787e04ff68ee71f6cd0952cfd_61e9e80e413d43778ee08ee67d633afb.jpeg" alt="Image 3"
+        class="w-full h-full object-cover">
+    </div>
+    <!-- 添加更多圖片 -->
+  </div>
+  <!-- 如果需要分頁，可以添加以下代碼 -->
+  <div class="swiper-pagination"></div>
+</div>
+
+<div class="min-h-screen flex items-center justify-center"
+  style="background-image: url('/img/macarons.jpeg'); background-size: cover; background-position: center;">
+  <!-- Your content goes here -->
+  <a href="">
+    <h1
+      class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
+      Macarons</h1>
+
+  </a>
+</div>
+<div class="min-h-screen flex items-center justify-center"
+  style="background-image: url('/img/poundcake4.jpeg'); background-size: cover; background-position: center;">
+  <!-- Your content goes here -->
+  <a href="">
+    <h1
+      class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
+      Poundcakes</h1>
+  </a>
+</div>
+<div class="min-h-screen flex items-center justify-center"
+  style="background-image: url('/img/creamcake.jpeg'); background-size: cover; background-position: center;">
+  <!-- Your content goes here -->
+  <a href="">
+    <h1
+      class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
+      Fresh cream cake</h1>
+  </a>
+</div>
+<div class="min-h-screen flex items-center justify-center"
+  style="background-image: url('/img/pastry.jpeg'); background-size: cover; background-position: center;">
+  <!-- Your content goes here -->
+  <a href="">
+    <h1
+      class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
+      French pastry</h1>
+  </a>
+</div>
+<div class="min-h-screen flex items-center justify-center"
+  style="background-image: url('/img/chocolate.jpeg'); background-size: cover; background-position: center;">
+  <a href="">
+    <h1
+      class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
+      Chocolate</h1>
+  </a>
+  <!-- Your content goes here -->
+</div>
+<!-- 引入 Swiper.js -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
+
+<script>
+  // 初始化 Swiper
+  var swiper = new Swiper('.swiper-container', {
+    // 設置輪播效果
+    autoplay: {
+      delay: 3000, // 自動播放間隔時間（毫秒）
+    },
+    // 如果需要分頁，設置分頁容器
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true, // 是否可以點擊分頁切換
+    },
+  });
+
+
+</script>
+{% endblock%}

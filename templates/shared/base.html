@@ -2,15 +2,76 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cake Capture</title>
-	<link rel="stylesheet" href="{% static "styles/output.css" %}">
+	<title>Document</title>
+	<!-- 引入 Tailwind CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<!-- 引入 Swiper.js CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+	<style>
+		.hover\:scale-110:hover {
+			transform: scale(1.1);
+		}
+	</style>
+
 </head>
+
 <body>
-	{% block content %}
-	
-	{% endblock content %}
+	<!-- nav -->
+	<nav class="bg-red-300 py-6 fixed w-full top-0 z-10">
+		<div class="container mx-auto flex justify-between items-center">
+			<!-- 品牌標誌 -->
+			<a href="#" class="text-white text-2xl font-bold">CakeCapture</a>
+
+			<!-- 導航連結 -->
+			<div class="flex space-x-4 text-xl">
+				<a href="{% url 'home' %}" class="text-white hover:text-red-600">Home</a>
+				<a href="#" class="text-white hover:text-red-600">About</a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'logout' %}" class="text-white hover:text-red-600">登出</a>
+				{% else %}
+				<a href="{% url 'register' %}" class="text-white hover:text-red-600">註冊</a>
+				<a href="{% url 'login' %}" class="text-white hover:text-red-600">登入</a>
+				{% endif %}
+				<a href="#" class="text-white hover:text-red-600">購物車</a>
+			</div>
+		</div>
+	</nav>
+	{% block content%}
+	{% endblock%}
+	<footer class="bg-red-300 text-white py-8">
+		<div class="container mx-auto flex flex-col lg:flex-row items-center justify-between">
+			<div class="text-center lg:text-left mb-4 lg:mb-0">
+				<h2 class="text-2xl font-bold">CakeCapture</h2>
+				<p class="text-sm">食品業者登錄字號：A-153674659-00000-3
+					© 2024 Cakecapture. All Rights Reserved.</p>
+			</div>
+			<div class="text-center lg:text-left mb-4 lg:mb-0">
+				<h3 class="text-lg font-bold mb-2">Quick Links</h3>
+				<ul class="text-lg">
+					<li><a href="#">關於我們</a></li>
+					<li><a href="#">服務項目</a></li>
+					<li><a href="#">客戶案例</a></li>
+					<li><a href="#">聯絡我們</a></li>
+				</ul>
+			</div>
+			<div class="text-center lg:text-left">
+				<h3 class="text-lg font-bold mb-2">Follow Us</h3>
+				<div class="flex justify-center lg:justify-start">
+					<a class="inline-block" href=""><i class="fa-brands fa-facebook text-2xl hover:text-red-600"></i></a>
+					<a class="inline-block ml-4" href=""><i class="fa-brands fa-line text-2xl hover:text-red-600"></i></a>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+
 </body>
+
 </html>
