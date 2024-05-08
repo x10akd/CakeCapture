@@ -2,25 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- 引入 Tailwind CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <!-- 引入 Swiper.js CSS -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper/swiper-bundle.min.css"
+        />
+        <link rel="stylesheet" href="{% static 'styles/about.css' %}" />
+        <style>
+            .hover\:scale-110:hover {
+                transform: scale(1.1);
+            }
+        </style>
+        <!-- 引入SweetAlert庫 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<!-- 引入 Tailwind CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-	<!-- 引入 Swiper.js CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-	<link rel="stylesheet" href="{% static 'styles/about.css' %}"/>
-	<style>
-		.hover\:scale-110:hover {
-			transform: scale(1.1);
-		}
-	</style>
-<!-- 引入SweetAlert庫 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
+    <body>
+        <!-- nav -->
+        <nav
+            class="bg-red-300 py-6 fixed w-screen max-w-screen-2xl top-0 z-10 rounded-full mx-auto left-0 right-0 px-6"
+        >
+            <div class="container mx-auto flex justify-between items-center">
+                <!-- 品牌標誌 -->
+                <a href="#" class="text-white text-2xl font-bold"
+                    >CakeCapture</a
+                >
 
 <body class="bg-gray-100">
 	
