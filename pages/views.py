@@ -9,3 +9,6 @@ def detail(req):
 
 def about(req):
     return render(req, "pages/about.html")
+
+def cart_detail(req):
+    return render(req, "pages/cart_detail.html")

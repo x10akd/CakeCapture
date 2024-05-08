@@ -1,0 +1,155 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<div class="carts-container">
+
+    <!-- section-title -->
+    <div class="section-title">
+        <p>會員 id 您好</p>
+    </div>
+    <!-- section-order -->
+    <form method="POST" action="#" class="section-order">
+        <!-- order-tag -->
+        <div class="order-tag">
+            <div class="title-tag">
+                <div class="main-tag">
+                    <a href="#">購物明細</a>
+                </div>
+                <div class="tag-02">
+                    <a href="#"><h3>免費贈品</h3></a>
+                </div>
+                <div class="tag-03">
+                    <a href="#"><h3>點數回饋</h3></a>
+                </div>
+                <div class="tag-04">
+                    <a href="#"><h3>下次再買清單</h3></a>
+                </div>
+                <div class="tag-05">
+                    <a href="#"><h3>注意事項</h3></a>
+                </div>
+            </div>
+        </div>
+        <span class="underline"></span>
+        <!-- order-header -->
+        <div class="order-header">
+            <div class="header-checkbox">
+                <input type="checkbox">
+            </div>
+            <div class="header-detail">
+                <p>商品明細</p>
+            </div>
+            <div class="header-price">
+                <p>優惠價/點數兌換價</p>
+            </div>
+            <div class="header-number">
+                <p>數量</p>
+            </div>
+            <div class="header-total">
+                <p>金額</p>
+            </div>
+            <div class="header-storage">
+                <p>庫存</p>
+            </div>
+            <div class="header-option">
+                <p>變更明細</p>
+            </div>
+        </div>
+        <!-- order-body -->
+        <div class="order-item">
+            <div class="item-checkbox">
+                <input type="checkbox">
+            </div>
+            <div class="item-product">
+                <div class="product-img">
+                    <a href="#">img</a>
+                </div>
+                <div class="product-title">
+                    <a href="#">title</a>
+                </div>
+            </div>
+            <div class="item-discount">
+                <p>discount</p>
+            </div>
+            <div class="item-number">
+                <p>N</p>
+            </div>
+            <div class="item-total">
+                <p>total</p>
+            </div>
+            <div class="item-storage">
+                <p>Y / N</p>
+            </div>
+            <div class="item-option">
+                <div class="option-buy-next">
+                    <a href="#">下次再買</a>
+                </div>
+                <div class="option-delete">
+                    <a href="#">刪除</a>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- order-footer -->
+        <div class="order-footer">
+            <div class="status-check">
+                <div class="order-buy-next">
+                    <a href="#">訂單下次再買</a>
+                </div>
+                <div class="order-delete">
+                    <a href="#">整筆訂單刪除</a>
+                </div>
+            </div>
+            <div class="total-check">
+                <div class="order-numbers">
+                    <p>共 N 項商品, 數量 N 個</p>
+                </div>
+                <div class="order-total">
+                    <div class="description">
+                        <p>金額總計</p>
+                    </div>
+                    <div class="total-price">
+                        <p>NT$ N 元</p>
+                    </div>
+                </div>
+                <div class="order-weight">
+                    <div class="description">
+                        <p>宅配郵資計算重量</p>
+                    </div>
+                    <div class="total-weight">
+                        <p>N 公克</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- section-notice -->
+    <div class="section-notice">
+        <div class="title-tag">
+            <div class="main-tag">重要提醒</div>
+        </div>
+        <span class="underline"></span>
+        <div class="notice-txt">
+            <ul>
+                <li>提醒 1</li>
+                <li>提醒 2</li>
+                <li>提醒 3</li>
+                <li>提醒 4</li>
+                <li>提醒 5</li>
+            </ul>
+        </div>
+    </div>
+    <!-- section-redirect -->
+    <div class="section-redirect">
+        <div class="page-index">
+            <a href="#">回到首頁</a>
+        </div>
+        <div class="oversea-payment">
+            <a href="#">海外結帳</a>
+        </div>
+        <div class="page-payment">
+            <a href="#">國內結帳</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
