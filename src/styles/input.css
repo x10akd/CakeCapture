@@ -7,6 +7,5 @@ body {
 }
 
 .flash .success {
-    
     @apply bg-green-300;
 }

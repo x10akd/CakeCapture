@@ -1,0 +1,25 @@
+
+.about-container {
+    margin-top: 2.3rem;
+    background-color: #eeede2;
+    padding: 1rem 5rem;
+    display: flex;**
+    justify-content: space-between;
+}
+.about-text {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 3rem;
+    color: #333333;
+    width: 50%;
+    line-height: 2;
+}
+.about-main-img {
+    width: 45%;
+    margin-top: 50px;
+}
+
+.about-main-img img {
+    width: 100%;
+}

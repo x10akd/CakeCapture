@@ -6,6 +6,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("allauth.urls")),
     path("item_detail", views.detail, name="detail"),
+    path("about/",views.about,name="about"),
 ]
+
+
 
 # path('accounts/', include('allauth.urls')),

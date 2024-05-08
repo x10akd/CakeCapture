@@ -12,6 +12,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 	<!-- 引入 Swiper.js CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+	<link rel="stylesheet" href="{% static 'styles/about.css' %}"/>
 	<style>
 		.hover\:scale-110:hover {
 			transform: scale(1.1);
@@ -33,7 +34,7 @@
 			<!-- 導航連結 -->
 			<div class="flex space-x-4 text-xl">
 				<a href="{% url 'home' %}" class="text-white hover:text-red-600">Home</a>
-				<a href="#" class="text-white hover:text-red-600">About</a>
+				<a href="{% url 'about' %}" class="text-white hover:text-red-600">About</a>
 				{% if user.is_authenticated %}
 				<a href="{% url 'logout' %}" class="text-white hover:text-red-600">登出</a>
 				{% else %}
