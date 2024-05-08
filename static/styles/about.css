@@ -1,9 +1,7 @@
-
 .about-container {
-    margin-top: 2.3rem;
     background-color: #eeede2;
-    padding: 1rem 5rem;
-    display: flex;**
+    padding: 90px 4rem 1rem;
+    display: flex;
     justify-content: space-between;
 }
 .about-text {
