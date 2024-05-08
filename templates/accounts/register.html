@@ -2,6 +2,9 @@
 {% block content%}
 <div class="bg-gray-100 flex justify-center items-center h-screen">
   <div class="max-w-md w-full bg-white p-8 shadow-md rounded-md">
+    {% if user.is_authenticated %}
+    <h2 class="text-2xl font-bold text-red-600">請先登出再使用註冊功能</h2>
+    {% else %}
     <h2 class="text-2xl font-bold mb-6">註冊</h2>
     <form action="" method="POST" class="space-y-4">
       {% csrf_token %}
@@ -29,6 +32,7 @@
         </button>
       </div>
     </form>
+    {% endif %}
   </div>
 </div>
 
