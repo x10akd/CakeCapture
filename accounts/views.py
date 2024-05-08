@@ -36,11 +36,10 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             messages.success(request, '登入成功！')
-            return render(request, 'pages/home.html', {'show_popup': True})  #重新導向到首頁
+            return redirect('/')  #重新導向到首頁
         
     context = {
-        'form': form,
-         
+        'form': form
     }
     return render(request, 'accounts/login.html', context)
  

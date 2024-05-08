@@ -2,4 +2,5 @@ node_modules
 .venv
 static/styles/output.css
 static/scripts/output.js
+db.sqlite3
 */__pycache__

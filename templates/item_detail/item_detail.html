@@ -1,21 +1,70 @@
 {% extends "shared/base.html" %}
 
+
 {% block content %}
-	<nav>
-		<div class="via-violet-300 flex ">
-			<div class="p-1.5">Shop</div>
-			<div class="p-1.5">Who We Are</div>
-			<div class="p-1.5">Blog</div>
-			<div class="p-1.5">FAQ</div>
-			<div class="p-1.5">Refill Program</div>
-			<div class="p-1.5">Rewards Program</div>
-		</div>
-	</nav>
-	<div>
-
+	<div class="container bg-white mx-auto px-8 grid grid-cols-2 mt-32 rounded-2xl p-20 relative">
+		<div class="discount-btn w-20 h-20 bg-red-100 bottom-4 right-4 absolute rounded-full flex items-center justify-center "><span class="text-white font-semibold">Chatbot</span></div>
+		<div class="help-btn w-11 h-11 bg-red-100 bottom-4 left-4 absolute rounded-full flex items-center justify-center "><span class="text-white font-semibold">Top</span></div>
+		<!-- 左邊圖片區 -->
+		<section class="product-photo flex p-10">
+			<div class="side-photo flex flex-col items-start">
+				<div class="rounded-2xl mb-4"><img src="https://fakeimg.pl/75x75/200"> </div>
+				<div class="rounded-2xl mb-4"><img src="https://fakeimg.pl/75x75/200"> </div>
+				<div class="rounded-2xl mb-4"><img src="https://fakeimg.pl/75x75/200"> </div>
+			</div>
+			<div class="main-photo col-span-2 ml-4">
+				<div class="rounded-2xl"><img src="https://fakeimg.pl/522x522/200"></div>
+			</div>
+		</section>
+		<!-- 右邊文字說明區 -->
+		<section class="product-description p-10">
+			<div class="product-title">
+				<h1 class="font-bold text-3xl mb-4">Pound Bread</h1>
+				<em class="italic text-2xl">Fruit Flavor</em>
+				<div class="price-info">
+					<span class="text-gray-400">$14.00 USD</span>
+				</div>
+			</div>
+			<div class="product-star">
+				*****(151)
+			</div>
+			<div class="product-subheading font-medium">
+				<p>It is really tasty.</p>
+			</div>
+			<div class="product-tab-wrapper mt-2">
+				<div class="tab-title">
+					<ul class="flex justify-start">
+						<div class="bg-red-300 px-8 py-1 mr-2 rounded-2xl">
+							<li class="font-medium">商品介紹</li>
+						</div>
+						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
+							<li class="font-medium">顧客評論</li>
+						</div>
+						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
+							<li class="font-medium">原物料食材</li>
+						</div>
+					</ul>
+				</div>
+				<div class="tab-content py-2 text-lg font-extralight">
+					No more fingers in your armpits! Our compostable stick deodorant is a synergy of potent plant and mineral
+					powders with sweet smelling and mighty essential oils that will keep you smelling oh-so fresh! Not only does
+					it work, but the packaging is biodegradable—it will compost in a year! The scent is sweet floral and zesty
+					citrus and the texture is a powder-ey balm.
+				</div>
+				<div class="mt-2">
+					<label for="" class="pr-5"><span class="bg-red-300 px-8 py-2 rounded-2xl text-sm">4 吋</span></label>
+					<label for="" class="pr-5"><span class="bg-red-300 px-8 py-2 rounded-2xl text-sm">8 吋</span></label>
+				</div>
+				<div class="product-action-btn flex flex-col my-2">
+					<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3">
+						<button type="submit"><a href="#">收藏商品</a></button>
+					</div>
+					<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3">
+						<button type="submit"><a href="#">放到購物車</a></button>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
+{% endblock %}
 	
-
-{% endblock content %}
-
-
