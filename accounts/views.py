@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
+
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
 from . import models
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterForm, LoginForm
+
 
 # Create your views here.
 # 註冊
@@ -15,18 +17,15 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            
-            return redirect('login')
+
+            return redirect("login")
         else:
-          print(form.errors)  #重新導向到登入畫面
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts/register.html', context)
+            print(form.errors)  # 重新導向到登入畫面
+    context = {"form": form}
+    return render(request, "accounts/register.html", context)
 
 
-
-#登入
+# 登入
 def sign_in(request):
     form = LoginForm()
     if request.method == "POST":
@@ -35,15 +34,16 @@ def sign_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, '登入成功！')
-            return redirect('/')  #重新導向到首頁
-        
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts/login.html', context)
- 
+            messages.success(request, "登入成功！")
+            return render(
+                request, "pages/home.html", {"show_popup": True}
+            )  # 重新導向到首頁
+
+    context = {"form": form}
+    return render(request, "accounts/login.html", context)
+
+
 # 登出
 def log_out(request):
     logout(request)
-    return redirect('login') #重新導向到登入畫面
+    return redirect("login")  # 重新導向到登入畫面
