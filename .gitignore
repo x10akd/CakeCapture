@@ -4,3 +4,4 @@ static/styles/output.css
 static/scripts/output.js
 */__pycache__
 .vscode
+.env
