@@ -23,3 +23,11 @@ def products_list(request):
 
 def my_favorite(request):
     return render(request, "my_favorite/my_favorite.html")
+
+
+def cart_list(request):
+    return render(request, "pages/cart_list.html")
+
+
+def cart_confirm(request):
+    return render(request, "pages/cart_confirm")
