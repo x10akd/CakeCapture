@@ -1,14 +1,14 @@
 from django.shortcuts import render
 
 
-def home(req):
-    return render(req, "pages/home.html")
+def home(request):
+    return render(request, "pages/home.html")
 
-def detail(req):
-    return render(req, "item_detail/item_detail.html")
+def detail(request):
+    return render(request, "item_detail/item_detail.html")
 
-def about(req):
-    return render(req, "pages/about.html")
+def about(request):
+    return render(request, "pages/about.html")
 
-def cart_detail(req):
-    return render(req, "pages/cart_detail.html")
+def cart_detail(request):
+    return render(request, "pages/cart_detail.html")
