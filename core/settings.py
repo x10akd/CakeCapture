@@ -1,5 +1,12 @@
 from pathlib import Path
 
+# Import environment variable
+import environ
+
+env = environ.Env()
+env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,7 +15,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-y1gkrdf9wpvr#^l$^-6nx7sf2h+y-t58y_nhfs@3c6$a+!#&la"
+# Use environment variable
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,6 +77,8 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Use environment variable instead
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -76,11 +86,11 @@ DATABASES = {
             "service": "my_service",
             "passfile": ".my_pgpass",
         },
-        "NAME": "cakecapture_db",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 
