@@ -1,6 +1,77 @@
 {% extends 'shared/base.html' %}
 {% block content %}
+<div class="cart-container">
+    <!-- section-title -->
+    <div class="section-title">
+        <p>親愛的會員 ID 您好，請確認下列購物資訊是否正確</p>
+    </div>
 
+    <!-- section-confirm-detail -->
+    <div class="confirm-detail">
+        <div class="title-tag">
+            <div class="main-tag">購物明細</div>
+        </div>
+        <span class="underline"></span>
+
+        <!-- detail-column -->
+        <div class="detail-column">
+            <div class="column-title">
+                <p>商品明細</p>
+            </div>
+            <div class="column-coupon">
+                <p>優惠價/點數兌換價</p>
+            </div>
+            <div class="column-number">
+                <p>數量</p>
+            </div>
+            <div class="column-total">
+                <p>金額</p>
+            </div>
+            <div class="column-storage">
+                <p>庫存</p>
+            </div>
+        </div>
+
+        <!-- detail-product -->
+        <div class="detail-product">
+            <div class="p-title">
+                <p>title</p>
+            </div>
+            <div class="p-coupon">
+                <p>$ price</p>
+            </div>
+            <div class="p-number">
+                <p>N</p>
+            </div>
+            <div class="p-total">
+                <p>$ price</p>
+            </div>
+            <div class="p-storage">
+                <p>Y/N</p>
+            </div>
+        </div>
+
+        <!-- detail-summary -->
+        <div class="detail-summary">
+            <div class="order-quantity">
+                <div class="summary-txt">
+                    <p>商品數量</p>
+                </div>
+                <div class="summary-numbers">
+                    <p>
+                    共 <span> N </span> 項商品，數量 <span> N </span> 個
+                    </p>
+                </div>
+                <div class="summart-toatl">
+                    <p>NT $ <span> N </span></p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+</div>
 
 
 {% endblock %}

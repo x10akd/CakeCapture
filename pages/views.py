@@ -30,4 +30,4 @@ def cart_list(request):
 
 
 def cart_confirm(request):
-    return render(request, "pages/cart_confirm")
+    return render(request, "pages/cart_confirm.html")

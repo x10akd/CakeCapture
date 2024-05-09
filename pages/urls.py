@@ -10,5 +10,6 @@ urlpatterns = [
     path("my_favorite/", views.my_favorite, name="my_favorite"),
     path("cart/detail", views.cart_detail, name="cart_detail"),
     path("about/",views.about,name="about"),
+    path("cart/list", views.cart_list, name="cart_list"),
     path("cart/confirm", views.cart_confirm, name="cart_confirm"),
 ]
