@@ -13,10 +13,6 @@ def about(request):
     return render(request, "pages/about.html")
 
 
-def cart_detail(request):
-    return render(request, "cart/cart_detail.html")
-
-
 def products_list(request):
     return render(request, "products/products_list.html")
 
@@ -31,3 +27,4 @@ def cart_list(request):
 
 def cart_confirm(request):
     return render(request, "pages/cart_confirm.html")
+
