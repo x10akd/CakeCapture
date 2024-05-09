@@ -2,36 +2,30 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <!-- 引入 Tailwind CSS -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-            rel="stylesheet"
-        />
-        <!-- 引入 Swiper.js CSS -->
-        <link
-            rel="stylesheet"
-            href="https://unpkg.com/swiper/swiper-bundle.min.css"
-        />
-        <link rel="stylesheet" href="{% static 'styles/about.css' %}" />
-		<!-- 引入 cart_base.css CSS -->
-		<link rel="stylesheet" href="{% static 'styles/cart_base.css' %}">
-        <style>
-            .hover\:scale-110:hover {
-                transform: scale(1.1);
-            }
-        </style>
-        <!-- 引入SweetAlert庫 -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </head>
-		
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<!-- 引入 Tailwind CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+	<!-- 引入 Swiper.js CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="{% static 'styles/about.css' %}" />
+	<style>
+		.hover\:scale-110:hover {
+			transform: scale(1.1);
+		}
+	</style>
+	<!-- 引入SweetAlert庫 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
 
 <body class="bg-gray-100">
-	
+
 
 	<!-- nav -->
 	<nav class="bg-red-300 py-6 fixed w-full top-0 z-10">
@@ -50,10 +44,24 @@
 				<a href="{% url 'login' %}" class="text-white hover:text-red-600">登入</a>
 				{% endif %}
 				<a href="#" class="text-white hover:text-red-600">購物車</a>
+				<div class="relative" x-data="{show:false}">
+					<button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
+						Products
+					</button>
+					<!-- 下拉菜单 -->
+					<div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-show="show">
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">all</a>
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">macarons</a>
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">fresh cream cake</a>
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">french pastry</a>
+						<a href="#" class="block px-4 py-2 hover:bg-red-300">chocolate</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</nav>
-	{% comment %} {% include "shared/message.html" %} {% endcomment %}
+	{% comment %} {% endcomment %}
 	{% block content %}
 	{% endblock %}
 	<footer class="bg-red-300 text-white py-8">
@@ -82,28 +90,54 @@
 			</div>
 		</div>
 	</footer>
-	{% if show_popup %}
+
+	{% if messages %}
+	{% for message in messages %}
 	<script>
+		// 切换下拉菜单的显示/隐藏
+		document.addEventListener('DOMContentLoaded', function ()
+		{
+			const dropdownBtn = document.querySelector('.relative button');
+			const dropdownMenu = document.querySelector('.relative .hidden');
+			dropdownBtn.addEventListener('click', function ()
+			{
+				dropdownMenu.classList.toggle('hidden');
+			});
+		});
+		//sweetalert
+		const Toast = Swal.mixin({
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timer: 2000,
+			timerProgressBar: true,
+			didOpen: (toast) =>
+			{
+				toast.onmouseenter = Swal.stopTimer;
+				toast.onmouseleave = Swal.resumeTimer;
+			},
+			html: `
+        <button id="close-toast" class="swal2-close w-0 h-0" style="display: block; background-color: transparent; border: none; position: absolute; top: 0; right: 0;">&#x2715;</button>
+    `,
+			didRender: (toast) =>
+			{
+				const closeButton = toast.querySelector('#close-toast');
+				closeButton.addEventListener('click', () =>
+				{
+					Swal.close();
+				});
+			}
+		});
 		document.addEventListener('DOMContentLoaded', function ()
 		{
 			Swal.fire({
-				icon: 'success',
-				title: '登入成功!',
-				// text: '你好, {{ user.username }}',
-				showConfirmButton: false,
-				timer: 2000,
-				customClass: {
-					popup: 'small-alert',
-					title: 'small-alert-title',
-					content: 'small-alert-content',
-					icon: 'icon-class'
-				}
+				icon: '{{ message.tags }}',
+				title: '{{ message }}',
 			})
-		})	
+		})
 	</script>
+	{% endfor %}
 	{% endif %}
-
-
 
 </body>
 

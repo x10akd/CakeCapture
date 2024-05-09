@@ -17,9 +17,10 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-
+            messages.success(request, "註冊成功!")
             return redirect("login")
         else:
+            messages.error(request, "註冊失敗, 請確認輸入的訊息!")
             print(form.errors)  # 重新導向到登入畫面
     context = {"form": form}
     return render(request, "accounts/register.html", context)
@@ -40,9 +41,11 @@ def sign_in(request):
     context = {
         'form': form,
     }
+    messages.error(request, "登入失敗, 請確認輸入的訊息!")
     return render(request, 'accounts/login.html', context)
 
 # 登出
 def log_out(request):
+    messages.success(request, "登出成功!")
     logout(request)
     return redirect("login")  # 重新導向到登入畫面
