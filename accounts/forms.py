@@ -25,9 +25,12 @@ class RegisterForm(UserCreationForm):
 class LoginForm(forms.Form):
         username = forms.CharField(
         label="帳號",
-        widget=forms.TextInput(attrs={'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
+        widget=forms.TextInput(attrs={'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}),
+        required=False
+    
     )
         password = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(attrs={'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}),
+        required=False
     )
