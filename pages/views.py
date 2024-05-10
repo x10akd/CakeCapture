@@ -19,3 +19,7 @@ def cart_detail(request):
 
 def products_list(request):
     return render(request, "products/products_list.html")
+
+
+def my_favourite(request):
+    return render(request, "my_favourite/my_favourite.html")
