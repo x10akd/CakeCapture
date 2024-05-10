@@ -1,62 +1,142 @@
 {% extends 'shared/base.html' %}
 {% block content %}
-<div class="cart-container">
-    <!-- section-title -->
-    <div class="section-title">
-        <p>會員 id 您好</p>
+<!-- container -->
+<div class="mt-28 w-full">
+  <!-- section-title -->
+  <div class="m-2 p-1 text-2xl font-semibold">
+    <p>親愛的會員 ID 您好</p>
+  </div>
+  <!-- section-order -->
+  <div class="mt-12 m-2 p-1 text-center text-xl font-semibold border border-black">
+    <!-- order-tag -->
+    <div class="flex">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>購物明細</h3>
+      </div>
+      <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+        <h3>免費贈品</h3>
+      </div>
+      <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+        <h3>點數回饋</h3>
+      </div>
+      <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+        <h3>下次再買清單</h3>
+      </div>
     </div>
+    <span class="block w-full h-1 bg-red-300"></span>
+    <!-- order-header -->
+    <div class="flex mt-2 p-2 bg-red-200 text-xl rounded-xl">
+      <div class="w-1/12 p-2 text-center">
+        <input type="checkbox" class="block m-auto w-7 h-7 p-2">
+      </div>
+      <div class="w-1/3 p-2 border-l-2 border-red-400">
+        <p>商品明細</p>
+      </div>
+      <div class="w-1/6 p-2 border-l-2 border-red-400">
+        <p>優惠價/點數兌換價</p>
+      </div>
+      <div class="w-1/12 p-2 border-l-2 border-red-400">
+        <p>數量</p>
+      </div>
+      <div class="w-1/12 p-2 border-l-2 border-red-400">
+        <p>金額</p>
+      </div>
+      <div class="w-1/12 p-2 border-l-2 border-red-400">
+        <p>庫存</p>
+      </div>
+      <div class="w-1/6 p-2 border-l-2 border-red-400">
+        <p>變更明細</p>
+      </div>
+    </div>
+
+    <!-- order-list -->
+    <div class="flex mt-2 p-2 ">
+      <div class="border border-black">
+        <input type="checkbox" class="flex-col m-auto">
+      </div>
+      <div class="border border-black">
+        <div class="w-1/12 h-1/6">
+          <a href="#" class="w-full"></a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="cart-container">
+    
     <!-- section-order -->
     <form method="POST" action="#" class="section-order">
-        <!-- order-tag -->
-        <div class="order-tag">
-            <div class="title-tag">
-                <div class="main-tag">
-                    <a href="#"><h3>購物明細</h3></a>
-                </div>
-                <div class="tag-02">
-                    <a href="#"><h3>免費贈品</h3></a>
-                </div>
-                <div class="tag-03">
-                    <a href="#"><h3>點數回饋</h3></a>
-                </div>
-                <div class="tag-04">
-                    <a href="#"><h3>下次再買清單</h3></a>
-                </div>
-                <div class="tag-05">
-                    <a href="#"><h3>注意事項</h3></a>
-                </div>
-            </div>
-        </div>
-        <span class="underline"></span>
+        
         <!-- order-header -->
         <div class="order-header">
             <div class="header-checkbox">
-                <input type="checkbox">
+                <input type="checkbox" />
             </div>
             <div class="header-detail">
-                <p>商品明細</p>
+
             </div>
             <div class="header-coupon">
-                <p>優惠價/點數兌換價</p>
+
             </div>
             <div class="header-number">
-                <p>數量</p>
+                
             </div>
             <div class="header-total">
-                <p>金額</p>
+                
             </div>
             <div class="header-storage">
-                <p>庫存</p>
+                
             </div>
             <div class="header-option">
-                <p>變更明細</p>
+                
             </div>
         </div>
         <!-- order-body -->
         <div class="order-item">
-            <div class="item-checkbox">
-                <input type="checkbox">
-            </div>
+            
             <div class="item-product">
                 <div class="product-img">
                     <a href="#">img</a>
