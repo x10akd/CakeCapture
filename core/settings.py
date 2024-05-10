@@ -68,7 +68,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "cart.context_processors.cart"
+                "cart.context_processors.cart",
             ],
         },
     },
@@ -173,45 +173,44 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# 定義 SESSION 跟 cookie 的存活時間, 單位為秒, 分, 時, 日, 底下約 30日 
+# 定義 SESSION 跟 cookie 的存活時間, 單位為秒, 分, 時, 日, 底下約 30日
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 # 設定登入後, 使用者會導向首頁
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "login"
 
 # email 設定
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 
-
 # Logs
 # if settings.DEBUG:
-    # LOGGING = {
-    #     "version": 1,
-    #     "disable_existing_loggers": False,
-    #     "handlers": {
-    #         "console": {
-    #             "level": "DEBUG",
-    #             "class": "rich.logging.RichHandler",
-    #             "show_time": False,
-    #         },
-    #         "file": {
-    #             "level": "DEBUG",
-    #             "class": "logging.FileHandler",
-    #             "filename": "logs/development.log",  # Choose a file name and path
-    #         },
-    #     },
-    #     "loggers": {
-    #         "django.db.backends": {
-    #             "handlers": ["console", "file"],
-    #             "level": "DEBUG",
-    #             "propagate": False,
-    #         },
-    #     },
-    # }
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "console": {
+#             "level": "DEBUG",
+#             "class": "rich.logging.RichHandler",
+#             "show_time": False,
+#         },
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": "logs/development.log",  # Choose a file name and path
+#         },
+#     },
+#     "loggers": {
+#         "django.db.backends": {
+#             "handlers": ["console", "file"],
+#             "level": "DEBUG",
+#             "propagate": False,
+#         },
+#     },
+# }

@@ -8,8 +8,10 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("my_favorite/", views.my_favorite, name="my_favorite"),
     path("item_detail", views.detail, name="detail"),
-    path("cart/list", views.cart_list, name="cart_list"),
-    path("cart/confirm", views.cart_confirm, name="cart_confirm"),
-    path("cart/payment", views.cart_payment, name="cart_payment"),
-    path("cart/checkout", views.cart_checkout, name="cart_checkout"),
+    path("products_list", views.products_list, name="products_list"),
+    path("about/", views.about, name="about"),
+    path("cart/detail", views.cart_detail, name="cart_detail"),
 ]
+
+
+# path('accounts/', include('allauth.urls')),
