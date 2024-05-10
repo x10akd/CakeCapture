@@ -7,7 +7,6 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Document</title>
-
 	<!-- Using Tailwindcss -->
 	<link rel="stylesheet" href="{% static 'styles/output.css' %}">
 
@@ -16,7 +15,6 @@
 
 	<!-- 引入 Swiper.js CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
 	<style>
 		.hover\:scale-110:hover {
 			transform: scale(1.1);
@@ -30,13 +28,10 @@
 </head>
 
 <body>
-
-	{% include "shared/navbar.html" %}
-
+	{% include 'shared/nav.html' %}
 	{% block content %}
 	{% endblock %}
-
-	{% include "shared/footer.html" %}
+	{% include 'shared/footer.html'%}
 
 	{% if messages %}
 	{% for message in messages %}
