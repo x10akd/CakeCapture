@@ -49,3 +49,7 @@ def log_out(request):
     messages.success(request, "登出成功!")
     logout(request)
     return redirect("login")  # 重新導向到登入畫面
+
+
+def user(request):
+    return render(request, 'accounts/user.html')

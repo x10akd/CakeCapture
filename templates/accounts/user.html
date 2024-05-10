@@ -1,0 +1,321 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+></script>
+
+{% extends 'shared/base.html' %} {% block content%}
+<div class="m-6" style="margin-top: 88px;">
+  <div x-data="{ tab: 'user-orderlist' }">
+    <nav class="bg-red-300">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <!-- <div class="hidden md:block"> -->
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a
+                href="#"
+                id="user-info"
+                @click="tab ='user-info'"
+                :class="{ 'bg-red-200 text-black rounded-md px-3 py-2 text-sm font-medium': tab === 'user-info', 'text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium': tab !== 'user-info' }"
+                aria-current="page"
+                >個人資訊</a
+              >
+              <a
+                href="#"
+                id="user-bouns"
+                @click="tab='user-bouns'"
+                class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                :class="{ 'bg-red-200 text-black': tab === 'user-bouns', 'text-red-800': tab !== 'user-bouns' }"
+                >商店積點</a
+              >
+              <a
+                href="#"
+                id="user-message"
+                @click="tab='user-message'"
+                class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                :class="{ 'bg-red-200 text-black': tab === 'user-message', 'text-red-800': tab !== 'user-message' }"
+                >訊息</a
+              >
+              <a
+                href="#"
+                id="user-favourite"
+                @click="tab='user-favourite'"
+                class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                :class="{ 'bg-red-200 text-black': tab === 'user-favourite', 'text-red-800': tab !== 'user-favourite' }"
+                >我的最愛</a
+              >
+              <a
+                href="#"
+                id="user-orderlist"
+                @click="tab='user-orderlist'"
+                class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                :class="{ 'bg-red-200 text-black': tab === 'user-orderlist', 'text-red-800': tab !== 'user-orderlist' }"
+                >訂單詳情</a
+              >
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="user-info p-6" x-show="tab === 'user-info'">
+      <h2 class="font-bold text-2xl leading-10 text-black">個人資訊</h2>
+      <form action="#" method="post" id="user-info-form">
+        <!-- {% csrf_token %} -->
+        <div class="border-b border-gray-900/10 pb-12 relative">
+          <h3 class="text-base font-semibold leading-normal text-gray-600">
+            會員基本資料
+          </h3>
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <label
+                for="first-name"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >名字</label
+              >
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="first-name"
+                  id="first-name"
+                  autocomplete="given-name"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="last-name"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >姓氏</label
+              >
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  autocomplete="family-name"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <label
+                for="phone"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >聯絡電話 (手機)</label
+              >
+              <div class="mt-2">
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autocomplete="phone"
+                  placeholder="09xx xxx xxx"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label
+                for="birthday"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >出生日期</label
+              >
+              <div class="mt-2">
+                <input
+                  id="birthday"
+                  name="birthday"
+                  type="date"
+                  autocomplete="birthday"
+                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <label
+              for="email"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Email 信箱</label
+            >
+            <div class="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <label
+              for="country"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >地區</label
+            >
+            <div class="mt-2">
+              <select
+                id="country"
+                name="country"
+                autocomplete="country-name"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+              >
+                <option>臺北市</option>
+                <option>新北市</option>
+                <option>基隆市</option>
+                <option>桃園市</option>
+                <option>新竹市</option>
+                <option>新竹縣</option>
+                <option>宜蘭縣</option>
+                <option>臺中市</option>
+                <option>苗栗縣</option>
+                <option>彰化縣</option>
+                <option>南投縣</option>
+                <option>雲林縣</option>
+                <option>高雄市</option>
+                <option>臺南市</option>
+                <option>嘉義市</option>
+                <option>嘉義縣</option>
+                <option>屏東縣</option>
+                <option>臺東縣</option>
+                <option>花蓮縣</option>
+                <option>離島地區</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-span-full">
+            <label
+              for="street-address"
+              class="block text-sm font-medium leading-6 text-gray-900">詳細地址</label>
+            <div class="mt-2">
+              <input
+                type="text"
+                name="street-address"
+                id="street-address"
+                autocomplete="street-address"
+                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <form action="#" method="post" class="pt-10">
+            <div class="mt-6">
+              <button
+                type="reset"
+                class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+              >
+                取消
+              </button>
+              <button
+                type="submit"
+                class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+              >
+                儲存變更
+              </button>
+            </div>
+          </form>
+        </div>
+      </form>
+    </div>
+
+    <div class="user-bouns p-6" x-show="tab === 'user-bouns'">
+      <h2 class="font-bold text-2xl leading-10 text-black">商店積點</h2>
+      <div class="m-3 flex justify-evenly">
+        <h3 class="font-bold text-l leading-10 text-gray-600">目前點數</h3>
+        <p class="font-medium text-m leading-10 text-gray-600">Num</p>
+      </div>
+      <div class="pt-6">
+        <table class="w-full table-auto shadow-md">
+          <tr class="border-b border-gray-900/10 pb-12">
+            <th class="text-md px-6 py-3">日期</th>
+            <th class="text-md px-6 py-3">項目</th>
+            <th class="text-md px-6 py-3">回饋金額</th>
+            <th class="text-md px-6 py-3">到期日</th>
+            <th class="text-md px-6 py-3">餘額</th>
+          </tr>
+          <tr>
+            <td class="text-md px-6 py-3">內容一</td>
+            <td class="text-md px-6 py-3">內容二</td>
+            <td class="text-md px-6 py-3">內容三</td>
+            <td class="text-md px-6 py-3">內容四</td>
+            <td class="text-md px-6 py-3">內容五</td>
+          </tr>
+          <tr>
+            <td class="text-md px-6 py-3">內容一</td>
+            <td class="text-md px-6 py-3">內容二</td>
+            <td class="text-md px-6 py-3">內容三</td>
+            <td class="text-md px-6 py-3">內容四</td>
+            <td class="text-md px-6 py-3">內容五</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="user-message p-6" x-show="tab === 'user-message'">
+      <h2 class="font-bold text-2xl leading-10 text-black">訊息</h2>
+      <div class="w">
+        <div class="">
+          <p>預計與店家供通的訊息發此</p>
+          <div class="additional-box"></div>
+          <div class="chat-widget"></div>
+        </div>
+      </div>
+    </div>
+    <div class="user-favourite p-6" x-show="tab === 'user-favourite'">
+      <h2 class="font-bold text-2xl leading-10 text-black">我的最愛</h2>
+      <div class="w-full max-w-screen-lg mx-auto">
+        <div class="">
+          <p>預計將願望清單放此</p>
+          <div class="additional-box"></div>
+          <div class="chat-widget"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="user-orderlist p-6" x-show="tab === 'user-orderlist'">
+      <h2 class="font-bold text-2xl leading-10 text-black">訂單詳情</h2>
+      <div class="pt-6">
+        <table class="w-full table-auto shadow-md">
+          <tr class="border-b border-gray-900/10 pb-12">
+            <th class="text-md px-6 py-3">訂單號碼</th>
+            <th class="text-md px-6 py-3">訂購日期</th>
+            <th class="text-md px-6 py-3">訂單金額</th>
+            <th class="text-md px-6 py-3">訂單狀況</th>
+            <th class="text-md px-6 py-3"></th>
+          </tr>
+          <tr>
+            <td class="text-md px-6 py-3">內容一</td>
+            <td class="text-md px-6 py-3">內容二</td>
+            <td class="text-md px-6 py-3">內容三</td>
+            <td class="text-md px-6 py-3">內容四</td>
+            <td class="text-md px-6 py-3">
+              <a href="#"
+                class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200"
+              >詳細訂單</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-md px-6 py-3">內容一</td>
+            <td class="text-md px-6 py-3">內容二</td>
+            <td class="text-md px-6 py-3">內容三</td>
+            <td class="text-md px-6 py-3">內容四</td>
+            <td class="text-md px-6 py-3">
+              <a href="#"
+                class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200"
+              >詳細訂單</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock%}
