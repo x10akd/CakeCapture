@@ -5,7 +5,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Document</title>
 
 	<!-- Using Tailwindcss -->
@@ -13,15 +13,20 @@
 
 	<!-- Using Alpine.js -->
 	<script src="{% static 'scripts/output.js' %}" type="module"></script>
-	
+
 	<!-- 引入 Swiper.js CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-	
+
 	<style>
 		.hover\:scale-110:hover {
 			transform: scale(1.1);
 		}
 	</style>
+	<!-- 引入打包 bulid.js -->
+	<script src="{% static 'scripts/output.js' %}" defer></script>
+
+	<!-- font awesome -->
+	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -30,46 +35,12 @@
 
 	{% block content %}
 	{% endblock %}
-	
+
 	{% include "shared/footer.html" %}
 
 	{% if messages %}
 	{% for message in messages %}
 	<script>
-		// 切换下拉菜单的显示/隐藏
-		document.addEventListener('DOMContentLoaded', function ()
-		{
-			const dropdownBtn = document.querySelector('.relative button');
-			const dropdownMenu = document.querySelector('.relative .hidden');
-			dropdownBtn.addEventListener('click', function ()
-			{
-				dropdownMenu.classList.toggle('hidden');
-			});
-		});
-		//sweetalert
-		const Toast = Swal.mixin({
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timer: 2000,
-			timerProgressBar: true,
-			didOpen: (toast) =>
-			{
-				toast.onmouseenter = Swal.stopTimer;
-				toast.onmouseleave = Swal.resumeTimer;
-			},
-			html: `
-        <button id="close-toast" class="swal2-close w-0 h-0" style="display: block; background-color: transparent; border: none; position: absolute; top: 0; right: 0;">&#x2715;</button>
-    `,
-			didRender: (toast) =>
-			{
-				const closeButton = toast.querySelector('#close-toast');
-				closeButton.addEventListener('click', () =>
-				{
-					Swal.close();
-				});
-			}
-		});
 		document.addEventListener('DOMContentLoaded', function ()
 		{
 			Swal.fire({

@@ -1,10 +1,9 @@
-import Alpine from "alpinejs"
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
+import Alpine from "alpinejs";
+import Toast from "./alert.js";
 
+window.Toast = Toast;
+window.Alpine = Alpine;
+window.Swal = Swal;
 
-// Activate Alpine in browser
-window.Alpine = Alpine
-Alpine.start()
-
-// Swal2
-window.Swal = Swal
+Alpine.start();
