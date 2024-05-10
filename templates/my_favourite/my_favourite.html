@@ -3,41 +3,40 @@
 {% block content %}
 
 <body>
-    <div class="mt-28 w-full ">
-        <table class="w-full bg-red-300">
-            <tbody>
-                <tr>
-                    <td class="w-1/4 border border-black p-4">商品明細</td>
-                    <td class="w-1/4 border border-black p-4">優惠價/點數兌換價</td>
-                    <td class="w-1/4 border border-black p-4">庫存</td>
-                    <td class="w-1/4 border border-black p-4">變更明細</td>
-                </tr>
-            </tbody>
-        </table>
+  <div class="mt-28 w-full ">
+    <table class="w-full bg-red-300">
+      <tbody>
+        <tr>
+          <td class="w-1/4 border border-black p-4">商品明細</td>
+          <td class="w-1/4 border border-black p-4">優惠價/點數兌換價</td>
+          <td class="w-1/4 border border-black p-4">庫存</td>
+          <td class="w-1/4 border border-black p-4">變更明細</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <div class="text-center text-sm  p-4">
-            <div>無商品資料</div>
-        </div>
-
-        <div class="px-13 py-3">
-            <h3 class="bg-red-300 inline-block text-sm px-4">重要提醒</h3>
-        </div>
-        <ul class="p-4 border-dotted border">
-            <li>此頁僅會顯示10項下次再買商品，完整的下次再買清單內容，請您可至<a href="https://myaccount.books.com.tw/" target="_blank">會員專區</a>中的「<a href="https://myaccount.books.com.tw/myaccount/myaccount/nextbuylist/" target="_blank">下次再買清單 </a>」裡查詢。</li>
-            <li>下次再買清單中的商品優惠價金額與供貨狀況是最更新的訊息。</li>
-            <li><strong>商品售價以訂單成立時之即時價格為準。<strong>下次再買清單不保留商品之優惠價及優先購買權。</li>
-            <li>可保存的商品品項至多為30項。</li>
-        </ul>
-
-        <div class="flex justify-end">
-            <div class="mr-auto"></div>
-            <div class="grid grid-cols-2 gap-4">
-                <input type="hidden" id="nt" name="nt">
-                <button class="bg-gray-500 text-white py-2 px-4 rounded">回首頁</button>
-                <button class="bg-pink-700 text-white py-2 px-4 rounded">回購物車明細</button>
-            </div>
-        </div>
+    <div class="text-center text-sm  p-4">
+      <div>無商品資料</div>
     </div>
 
+    <div class="px-13 py-3">
+      <h3 class="bg-red-300 inline-block text-sm px-4">重要提醒</h3>
+    </div>
+    <ul class="p-4 border-dotted border">
+      <li>此頁僅會顯示10項下次再買商品，完整的下次再買清單內容，請您可至<a href="https://myaccount.books.com.tw/" target="_blank">會員專區</a>中的「<a href="https://myaccount.books.com.tw/myaccount/myaccount/nextbuylist/" target="_blank">下次再買清單 </a>」裡查詢。</li>
+      <li>下次再買清單中的商品優惠價金額與供貨狀況是最更新的訊息。</li>
+      <li><strong>商品售價以訂單成立時之即時價格為準。<strong>下次再買清單不保留商品之優惠價及優先購買權。</li>
+      <li>可保存的商品品項至多為30項。</li>
+    </ul>
+
+    <div class="flex justify-end">
+      <div class="mr-auto"></div>
+      <div class="grid grid-cols-2 gap-4">
+        <input type="hidden" id="nt" name="nt">
+        <button class="bg-gray-500 text-white py-2 px-4 rounded">回首頁</button>
+        <button class="bg-pink-700 text-white py-2 px-4 rounded">回購物車明細</button>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
