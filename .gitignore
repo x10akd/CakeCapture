@@ -1,7 +1,9 @@
-node_modules
+node_modules/
 .venv
 static/styles/output.css
 static/scripts/output.js
 __pycache__
 .vscode
 .env
+db.sqlite3
+
