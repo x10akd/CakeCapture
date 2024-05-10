@@ -1,9 +1,15 @@
 {
     "scripts": {
-        "dev": "tailwindcss -i ./src/styles/input.css -o ./static/styles/output.css --watch"
+        "dev": "concurrently \"tailwindcss -i ./src/styles/input.css -o ./static/styles/output.css --watch\" \"esbuild ./src/scripts/input.js --bundle --outfile=./static/scripts/output.js --watch\"",
+        "build": "tailwindcss -i ./src/styles/input.css -o ./static/styles/output.css && esbuild ./src/scripts/input.js --minify --bundle --outfile=./static/scripts/output.js"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",
+        "esbuild": "0.21.1",
         "tailwindcss": "^3.4.3"
+    },
+    "dependencies": {
+        "alpinejs": "^3.13.10",
+        "sweetalert2": "^11.10.8"
     }
 }

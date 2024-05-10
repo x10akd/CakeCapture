@@ -6,7 +6,7 @@ def home(request):
 
 
 def detail(request):
-    return render(request, "products/item_detail.html")
+    return render(request, "products/product_detail.html")
 
 
 def about(request):
