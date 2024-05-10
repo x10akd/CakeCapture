@@ -1,0 +1,560 @@
+{% extends "shared/base.html" %} 
+
+{% block content %}
+	<section
+		class="py-[100px] px-[20px] h-full bg-gray-100 flex justify-center gap-2"
+	>
+		<!-- sidebar -->
+		<div
+			class="w-1/6 flex flex-col gap-y-2 text-black font-bold text-xl min-w-[120px]"
+		>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>所有商品</a
+			>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>Macarons</a
+			>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>Poundcakes</a
+			>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>Fresh Cream Cake</a
+			>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>French Pastry</a
+			>
+			<a
+				href="#"
+				class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"
+				>Chocolate</a
+			>
+		</div>
+		<!-- products area -->
+		<div class="w-2/3 px-6 text-black">
+			<!-- title -->
+			<h2 class="text-2xl font-bold">| 生乳捲</h2>
+			<!-- drop-down menu -->
+			<div
+				x-data="{ dropdownOpen: false }"
+				class="my-6 text-md relative p-2 font-bold"
+			>
+				<div
+					@click="dropdownOpen = !dropdownOpen"
+					@click.away="dropdownOpen = false"
+					class="cursor-pointer select-none flex gap-1"
+				>
+					<p class="text-lg">預設排序</p>
+					<img
+						x-bind:class="dropdownOpen ? 'rotate-180 duration-300' : 'rotate-0 duration-300'"
+						class="w-4"
+						src="https://img.icons8.com/material/24/expand-arrow--v1.png"
+						alt="expand-arrow--v1"
+					/>
+				</div>
+
+				<div
+					x-show="dropdownOpen"
+					x-cloak
+					class="absolute left-0 bg-gray-100 text-black text-lg border border-gray-300 shadow rounded-lg w-45 p-3 z-20"
+					x-transition:enter="duration-300 ease-out"
+					x-transition:enter-start="opacity-0 -translate-y-5 scale-90"
+					x-transition:enter-end="opacity-100 -translate-y-0 scale-100"
+				>
+					<ul>
+						<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2">
+							<a href="#">預設排序</a>
+						</li>
+						<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2">
+							<a href="#">價格由高到低</a>
+						</li>
+						<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2">
+							<a href="#">價格由低到高</a>
+						</li>
+						<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2">
+							<a href="#">上市日期由舊到新</a>
+						</li>
+						<li class="rounded-lg hover:bg-red-200 block pd-1">
+							<a href="#">上市日期由新到舊</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- cards -->
+			<div class="flex flex-wrap gap-6">
+				<!-- card -->
+				<div
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300"
+				>
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
+					>
+						<img
+							src="https://cdn1.cybassets.com/media/W1siZiIsIjI3NDI5L3Byb2R1Y3RzLzQ0NzA2MjQyLzE3MTE2OTI5MzFfNDczODU5ZjYwNTJjZTQ4NjIxMWEuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=15cd9472bf3a7c09"
+						/>
+						<!-- heart -->
+						<button
+							class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/70 active:bg-red-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+									class="h-6 w-6"
+								>
+									<path
+										d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+									></path>
+								</svg>
+							</span>
+						</button>
+						<!-- cart -->
+						<button
+							class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/70 active:bg-blue-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="file: mt-4 h-6 w-6 text-sky-600"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<a href="">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<h5
+									class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+								>
+									提拉米蘇生乳捲
+								</h5>
+								<p
+									class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+										class="-mt-0.5 h-5 w-5 text-yellow-500"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+									5.0
+								</p>
+							</div>
+							<div class="flex items-center justify-between">
+								<p class="block text-base font-bold text-blue-500">NT$ 520</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300"
+				>
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
+					>
+						<img
+							src="https://cdn1.cybassets.com/media/W1siZiIsIjI3NDI5L3Byb2R1Y3RzLzQ0NzA2MjQ2LzE3MTExODM4MzRfYTVhZjNjNzQ1Y2QzYWQxOWU3YjUuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=a69380623c40253a"
+						/>
+						<!-- heart -->
+						<button
+							class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/70 active:bg-red-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+									class="h-6 w-6"
+								>
+									<path
+										d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+									></path>
+								</svg>
+							</span>
+						</button>
+						<!-- cart -->
+						<button
+							class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/70 active:bg-blue-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="file: mt-4 h-6 w-6 text-sky-600"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<a href="">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<h5
+									class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+								>
+									鐵觀音生乳捲
+								</h5>
+								<p
+									class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+										class="-mt-0.5 h-5 w-5 text-yellow-500"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+									5.0
+								</p>
+							</div>
+							<div class="flex items-center justify-between">
+								<p class="block text-base font-bold text-blue-500">NT$ 460</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300"
+				>
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
+					>
+						<img
+							src="https://cdn1.cybassets.com/media/W1siZiIsIjI3NDI5L3Byb2R1Y3RzLzQ0NzA2MjE4LzE3MTE2MTAxNTRfZTc0ODBkYzJmMjE0NjJiNjA1NzUuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=dcb48d8f59feeda9"
+						/>
+						<!-- heart -->
+						<button
+							class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/70 active:bg-red-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+									class="h-6 w-6"
+								>
+									<path
+										d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+									></path>
+								</svg>
+							</span>
+						</button>
+						<!-- cart -->
+						<button
+							class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/70 active:bg-blue-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="file: mt-4 h-6 w-6 text-sky-600"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<a href="">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<h5
+									class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+								>
+									巧克力生乳捲
+								</h5>
+								<p
+									class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+										class="-mt-0.5 h-5 w-5 text-yellow-500"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+									5.0
+								</p>
+							</div>
+							<div class="flex items-center justify-between">
+								<p class="block text-base font-bold text-blue-500">NT$ 460</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300"
+				>
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
+					>
+						<img
+							src="https://cdn1.cybassets.com/media/W1siZiIsIjI3NDI5L3Byb2R1Y3RzLzQ0NzA2MjI1LzE3MTE2MTExNTlfMjcwMjEyNDYyYzViOGY0OWZhMzIuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=a28570fdf3df4f8b"
+						/>
+						<!-- heart -->
+						<button
+							class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/70 active:bg-red-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+									class="h-6 w-6"
+								>
+									<path
+										d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+									></path>
+								</svg>
+							</span>
+						</button>
+						<!-- cart -->
+						<button
+							class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/70 active:bg-blue-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="file: mt-4 h-6 w-6 text-sky-600"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<a href="">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<h5
+									class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+								>
+									咖啡海鹽生乳捲
+								</h5>
+								<p
+									class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+										class="-mt-0.5 h-5 w-5 text-yellow-500"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+									5.0
+								</p>
+							</div>
+							<div class="flex items-center justify-between">
+								<p class="block text-base font-bold text-blue-500">NT$ 460</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300"
+				>
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40"
+					>
+						<img
+							src="https://cdn1.cybassets.com/media/W1siZiIsIjI3NDI5L3Byb2R1Y3RzLzQ0NzA2MjI5LzE3MTE2MTIwNzRfM2Q0NmUzNjZjMGFmMGNkZWE5YmYuanBlZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCJdXQ.jpeg?sha=333e01575e97a1f6"
+						/>
+						<!-- heart -->
+						<button
+							class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/70 active:bg-red-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+									class="h-6 w-6"
+								>
+									<path
+										d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+									></path>
+								</svg>
+							</span>
+						</button>
+						<!-- cart -->
+						<button
+							class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/70 active:bg-blue-500/30"
+							type="button"
+							data-ripple-dark="true"
+						>
+							<span
+								class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="file: mt-4 h-6 w-6 text-sky-600"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+									/>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<a href="">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<h5
+									class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased"
+								>
+									抹茶生乳捲
+								</h5>
+								<p
+									class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										aria-hidden="true"
+										class="-mt-0.5 h-5 w-5 text-yellow-500"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+											clip-rule="evenodd"
+										></path>
+									</svg>
+									5.0
+								</p>
+							</div>
+							<div class="flex items-center justify-between">
+								<p class="block text-base font-bold text-blue-500">NT$ 490</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="flex justify-end pt-8 text-2xl gap-3">
+				<a href=""><p>1</p></a>
+				<a href="" class="text-gray-400"><p>2</p></a>
+				<a href="" class="flex">
+					<img
+						src="https://img.icons8.com/ios/50/expand-arrow--v1.png"
+						alt="expand-arrow--v1"
+						class="rotate-[-90deg] w-8 ml-3"
+					/>
+					<p>next</p>
+				</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}
