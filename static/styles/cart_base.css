@@ -26,29 +26,29 @@
 }
 
 /* order-tag */
-.title-tag {
+/* .title-tag {
     display: flex;
-}
-.title-tag div{
+} */
+/* .title-tag div{
     border: solid rgb(240, 169, 167);
     border-width: 1px 1px 0px 1px;
     width: 150px;
     border-radius: 5px 5px 0px 0px;
     text-align: center;
     font-size: 15px;
-}
-.main-tag {
+} */
+/* .main-tag {
     background-color: rgb(240, 169, 167);
     color: white;
     font-weight: 600;
-}
-.underline {
+} */
+/* .underline {
     margin: auto;
     width: 100%;
     height: 5px;
     display: block;
     background-color: rgb(240, 169, 167);
-}
+} */
 
 /* order-header */
 .order-header {
@@ -288,122 +288,3 @@
     background-color: #fef4f4;
     border-radius: 5px 5px 5px 5px;
 }
-
-/* confirm.html */
-
-/* section-confirm-detail */
-.confirm-detail {
-    width: 99%;
-    margin: auto;
-    margin-top: 5px;
-    text-align: center;
-    border: 1px solid black;
-}
-
-/* detail-column */
-.detail-column {
-    margin-top: 5px;
-    padding: 5px;
-    background-color: #e6cde3;
-    border-radius: 5px 5px 5px 5px;
-    display: flex;
-    justify-content: space-between;
-}
-.column-title {
-    width: 40%;
-    padding: 5px;
-}
-.column-coupon {
-    width: 20%;
-    padding: 5px;
-    border-left: 2px solid #e6b8e0;
-}
-.column-number {
-    width: 15%;
-    padding: 5px;
-    border-left: 2px solid #e6b8e0;
-}
-.column-total {
-    width: 20%;
-    padding: 5px;
-    border-left: 2px solid #e6b8e0;
-}
-.column-storage {
-    width: 5%;
-    padding: 5px;
-    border-left: 2px solid #e6b8e0;
-}
-
-/* detail-product */
-.detail-product {
-    margin-top: 5px;
-    padding: 5px;
-    /* background-color: #e6cde3; */
-    border-radius: 5px 5px 0px 0px;
-    border: 2px solid #e6b8e0;
-    display: flex;
-    justify-content: space-between;
-}
-.p-title {
-    width: 40%;
-    padding: 5px;
-    text-align: start;
-}
-.p-coupon {
-    width: 20%;
-    padding: 5px;
-    text-align: end;
-}
-.p-number {
-    width: 15%;
-    padding: 5px;
-    text-align: end;
-}
-.p-total {
-    width: 20%;
-    padding: 5px;
-    text-align: end;
-}
-.p-storage {
-    width: 5%;
-    padding: 5px;
-    text-align: center;
-}
-
-/* detail-summary */
-.detail-summary {
-    padding: 5px;
-    background-color: #e6cde3;
-    border: 1px solid black;
-}
-.order-quantity {
-    padding: 5px;
-    display: flex;
-    border: 1px solid black;
-}
-.summary-txt {
-    width: 70%;
-    padding: 5px;
-    text-align: end;
-    font-size: larger;
-    border: 1px solid black;
-}
-.summary-txt p {
-    border: 1px solid black;
-}
-.summary-numbers {
-    width: 30%;
-    padding: 5px;
-    text-align: end;
-    border: 1px solid black;
-}
-.summary-numbers p {
-    padding-right: 10px;
-    border: 1px solid black;
-}
-.summary-numbers span {
-    color: red;
-    font-size: larger;
-    font-weight: 500;
-}
-
