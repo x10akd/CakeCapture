@@ -21,5 +21,5 @@ def products_list(request):
     return render(request, "products/products_list.html")
 
 
-def my_favourite(request):
-    return render(request, "my_favourite/my_favourite.html")
+def my_favorite(request):
+    return render(request, "my_favorite/my_favorite.html")
