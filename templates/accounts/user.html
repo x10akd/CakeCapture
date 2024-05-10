@@ -8,10 +8,10 @@
 ></script>
 
 {% extends 'shared/base.html' %} {% block content%}
-<div class="m-6" style="margin-top: 88px;">
-  <div x-data="{ tab: 'user-orderlist' }">
-    <nav class="bg-red-300">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="m-auto w-screen max-w-screen-2xl" style="margin-top: 85px">
+  <div x-data="{ tab: 'user-info' }">
+    <nav class="bg-red-300 rounded-tl-xl rounded-tr-xl">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <!-- <div class="hidden md:block"> -->
@@ -83,7 +83,7 @@
                   name="first-name"
                   id="first-name"
                   autocomplete="given-name"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@
                   name="last-name"
                   id="last-name"
                   autocomplete="family-name"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -118,7 +118,7 @@
                   type="tel"
                   autocomplete="phone"
                   placeholder="09xx xxx xxx"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -135,7 +135,8 @@
                   name="birthday"
                   type="date"
                   autocomplete="birthday"
-                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="yyyy/mm/dd"
                 />
               </div>
             </div>
@@ -152,7 +153,7 @@
                 name="email"
                 type="email"
                 autocomplete="email"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -195,14 +196,16 @@
           <div class="col-span-full">
             <label
               for="street-address"
-              class="block text-sm font-medium leading-6 text-gray-900">詳細地址</label>
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >詳細地址</label
+            >
             <div class="mt-2">
               <input
                 type="text"
                 name="street-address"
                 id="street-address"
                 autocomplete="street-address"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -279,7 +282,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="user-orderlist p-6" x-show="tab === 'user-orderlist'">
       <h2 class="font-bold text-2xl leading-10 text-black">訂單詳情</h2>
       <div class="pt-6">
@@ -297,9 +300,11 @@
             <td class="text-md px-6 py-3">內容三</td>
             <td class="text-md px-6 py-3">內容四</td>
             <td class="text-md px-6 py-3">
-              <a href="#"
+              <a
+                href="#"
                 class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200"
-              >詳細訂單</a>
+                >詳細訂單</a
+              >
             </td>
           </tr>
           <tr>
@@ -308,9 +313,12 @@
             <td class="text-md px-6 py-3">內容三</td>
             <td class="text-md px-6 py-3">內容四</td>
             <td class="text-md px-6 py-3">
-              <a href="#"
+              <a
+                href="#"
                 class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200"
-              >詳細訂單</a></td>
+                >詳細訂單</a
+              >
+            </td>
           </tr>
         </table>
       </div>
