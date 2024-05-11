@@ -22,9 +22,12 @@ def my_favorite(request):
 
 
 def cart_list(request):
-    return render(request, "pages/cart_list.html")
+    return render(request, "cart/cart_list.html")
 
 
 def cart_confirm(request):
-    return render(request, "pages/cart_confirm.html")
+    return render(request, "cart/cart_confirm.html")
 
+
+def cart_payment(request):
+    return render(request, "cart/cart_payment.html")

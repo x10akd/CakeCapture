@@ -12,6 +12,7 @@ urlpatterns = [
     path("about/",views.about,name="about"),
     path("cart/list", views.cart_list, name="cart_list"),
     path("cart/confirm", views.cart_confirm, name="cart_confirm"),
+    path("cart/payment", views.cart_payment, name="cart_payment"),
 ]
 
 # path('accounts/', include('allauth.urls')),
