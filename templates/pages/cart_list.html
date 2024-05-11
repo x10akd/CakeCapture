@@ -3,13 +3,13 @@
 <!-- container -->
 <div class="mt-28 w-full">
   <!-- section-title -->
-  <div class="m-2 p-1 text-2xl font-semibold">
+  <div class="m-2 p-2 text-2xl font-semibold">
     <p>親愛的會員 ID 您好</p>
   </div>
   <!-- section-order -->
-  <div class="mt-12 m-2 p-1 text-center text-xl font-semibold border border-black">
+  <div class="mt-12 m-2 p-2 text-center">
     <!-- order-tag -->
-    <div class="flex">
+    <div class="flex text-xl font-semibold">
       <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
         <h3>購物明細</h3>
       </div>
@@ -25,7 +25,7 @@
     </div>
     <span class="block w-full h-1 bg-red-300"></span>
     <!-- order-header -->
-    <div class="flex mt-2 p-2 bg-red-200 text-xl rounded-xl">
+    <div class="flex mt-2 p-2 bg-red-200 text-xl font-semibold rounded-xl">
       <div class="w-1/12 p-2 text-center">
         <input type="checkbox" class="block m-auto w-7 h-7 p-2">
       </div>
@@ -48,184 +48,111 @@
         <p>變更明細</p>
       </div>
     </div>
-
     <!-- order-list -->
-    <div class="flex mt-2 p-2 ">
-      <div class="border border-black">
-        <input type="checkbox" class="flex-col m-auto">
+    <div class="flex mt-2 p-2 h-52 rounded-xl text-lg border-2 border-red-300">
+      <div class="w-1/12 felx flex-col m-auto">
+        <input type="checkbox" class="w-7 h-7 m-auto p-2">
       </div>
-      <div class="border border-black">
-        <div class="w-1/12 h-1/6">
-          <a href="#" class="w-full"></a>
+      <div class="flex w-1/3 p-2">
+        <div class="w-1/2">
+          <img src="https://fakeimg.pl/300/" alt="#" class="w-full h-full">
+        </div>
+        <div class="felx flex-col m-auto w-1/2 p-2">
+          <p>Ex: title</p>
         </div>
       </div>
-
+      <div class="felx flex-col m-auto w-1/6 p-2">
+        <p>Ex: discount</p>
+      </div>
+      <div class="felx flex-col m-auto w-1/12 p-2">
+        <p>Ex: N</p>
+      </div>
+      <div class="felx flex-col m-auto w-1/12 p-2">
+        <p>Ex: Price</p>
+      </div>
+      <div class="felx flex-col m-auto w-1/12 p-2">
+        <p>Ex: Y/N</p>
+      </div>
+      <div class="felx flex-col m-auto w-1/6 p-2">
+        <div class="m-2 p-2">
+          <a href="#" class="block rounded-xl p-2 bg-purple-200">
+            下次再買
+          </a>
+        </div>
+        <div class="m-2 p-2">
+          <a href="#" class="block rounded-xl p-2 bg-purple-200">
+            刪除
+          </a>
+        </div>
+      </div>
     </div>
-
-
-
-
-
-
-
-
-
-
+    <!-- order-footer -->
+    <div class="flex justify-between mt-2 rounded-xl p-2 bg-red-200 text-lg">
+      <div class="flex flex-col justify-evenly w-1/4 p-2">
+        <a href="#" class="bolck m-2 rounded-xl p-2 bg-red-400">訂單下次再買</a>
+        <a href="#" class="bolck m-2 rounded-xl p-2 bg-red-400">訂單刪除</a>
+      </div>
+      <div class="w-1/2 p-2">
+        <div class="text-right p-2">
+          共&nbsp;
+          <span class="text-2xl font-semibold text-red-500">&nbsp;N&nbsp;</span>
+          &nbsp;項商品, 數量&nbsp;
+          <span class="text-2xl font-semibold text-red-500">&nbsp;N&nbsp;</span>
+          &nbsp;個
+        </div>
+        <div class="flex justify-end text-right">
+          <div class="w-1/2 p-3">金額</div>
+          <div class="w-1/3 p-2">
+            NT$&nbsp;
+            <span class="text-2xl font-semibold text-red-500">&nbsp;N&nbsp;</span>
+          </div>
+        </div>
+        <div class="flex justify-end text-right">
+          <div class="w-1/2 p-3">海外宅配郵資計算重量</div>
+          <div class="w-1/3 p-2">
+            <span class="text-2xl">&nbsp;N&nbsp;</span>
+            &nbsp;公克
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<div class="cart-container">
-    
-    <!-- section-order -->
-    <form method="POST" action="#" class="section-order">
-        
-        <!-- order-header -->
-        <div class="order-header">
-            <div class="header-checkbox">
-                <input type="checkbox" />
-            </div>
-            <div class="header-detail">
-
-            </div>
-            <div class="header-coupon">
-
-            </div>
-            <div class="header-number">
-                
-            </div>
-            <div class="header-total">
-                
-            </div>
-            <div class="header-storage">
-                
-            </div>
-            <div class="header-option">
-                
-            </div>
-        </div>
-        <!-- order-body -->
-        <div class="order-item">
-            
-            <div class="item-product">
-                <div class="product-img">
-                    <a href="#">img</a>
-                </div>
-                <div class="product-title">
-                    <a href="#">title</a>
-                </div>
-            </div>
-            <div class="item-discount">
-                <p>discount</p>
-            </div>
-            <div class="item-number">
-                <p>N</p>
-            </div>
-            <div class="item-total">
-                <p>total</p>
-            </div>
-            <div class="item-storage">
-                <p>Y / N</p>
-            </div>
-            <div class="item-option">
-                <div class="option-buy-next">
-                    <a href="#">下次再買</a>
-                </div>
-                <div class="option-delete">
-                    <a href="#">刪除</a>
-                </div>
-            </div>
-        </div>
-        <!-- order-footer -->
-        <div class="order-footer">
-            <div class="status-check">
-                <div class="order-buy-next">
-                    <a href="#">訂單下次再買</a>
-                </div>
-                <div class="order-delete">
-                    <a href="#">整筆訂單刪除</a>
-                </div>
-            </div>
-            <div class="total-check">
-                <div class="order-numbers">
-                    <p>共 N 項商品, 數量 N 個</p>
-                </div>
-                <div class="order-total">
-                    <div class="description">
-                        <p>金額總計</p>
-                    </div>
-                    <div class="total-price">
-                        <p>NT$ N 元</p>
-                    </div>
-                </div>
-                <div class="order-weight">
-                    <div class="description">
-                        <p>宅配郵資計算重量</p>
-                    </div>
-                    <div class="total-weight">
-                        <p>N 公克</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <!-- section-notice -->
-    <div class="section-notice">
-        <div class="title-tag">
-            <div class="main-tag">重要提醒</div>
-        </div>
-        <span class="underline"></span>
-        <div class="notice-txt">
-            <ul>
-                <li>提醒 1</li>
-                <li>提醒 2</li>
-                <li>提醒 3</li>
-                <li>提醒 4</li>
-                <li>提醒 5</li>
-            </ul>
-        </div>
+  <!-- section-notice -->
+  <div class="mt-12 m-2 p-2 text-center">
+    <!-- notice-tag -->
+    <div class="w-60 rounded-t-xl bg-green-400 p-2 text-center text-xl font-semibold text-white">
+      <h3>重要提醒</h3>
     </div>
-    <!-- section-redirect -->
-    <div class="section-redirect">
-        <div class="page-index">
-            <a href="#">回到首頁</a>
-        </div>
-        <div class="oversea-payment">
-            <a href="#">海外結帳</a>
-        </div>
-        <div class="page-payment">
-            <a href="#">國內結帳</a>
-        </div>
+    <span class="block w-full h-1 bg-green-400"></span>
+    <div class="mt-2 rounded-xl border-2 border-green-400 p-2 text-left text-lg">
+      <div>
+        <p>提醒 1</p>
+      </div>
+      <div>
+        <p>提醒 2</p>
+      </div>
+      <div>
+        <p>提醒 3</p>
+      </div>
+      <div>
+        <p>提醒 4</p>
+      </div>
+      <div>
+        <p>提醒 5</p>
+      </div>
     </div>
+  </div>
+  <!-- section-redirect -->
+  <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
+    <a href="#" class="block w-1/5 rounded-xl bg-gray-300 p-4">
+      回首頁
+    </a>
+    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-purple-200 p-4">
+      海外結帳
+    </a>
+    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-purple-200 p-4">
+      國內結帳
+    </a>
+  </div>
 </div>
 {% endblock %}
