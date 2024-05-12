@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import NewUser
+
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
         label="帳號",
@@ -19,7 +21,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
     )
     class Meta:
-        model = User
+        model = NewUser
         fields = ('username', 'email', 'password1', 'password2')
 
 class LoginForm(forms.Form):

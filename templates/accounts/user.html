@@ -31,8 +31,8 @@
     </nav>
     <div class="user-info p-6" x-show="tab === 'user-info'">
       <h2 class="font-bold text-2xl leading-10 text-black">個人資訊</h2>
-      <form action="#" method="post" id="user-info-form">
-        <!-- {% csrf_token %} -->
+      <form action="{% url 'edit' %}" method="post" id="user-info-form">
+        {% csrf_token %}
         <div class="border-b border-gray-900/10 pb-12 relative">
           <h3 class="text-base font-semibold leading-normal text-gray-600">
             會員基本資料
@@ -40,15 +40,16 @@
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
             <div class="sm:col-span-2">
               <label
-                for="first-name"
+                for="first_name"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >名字</label
               >
               <div class="mt-2">
                 <input
                   type="text"
-                  name="first-name"
-                  id="first-name"
+                  name="first_name"
+                  id="first_name"
+                  value="{{user.first_name}}"
                   autocomplete="given-name"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -56,15 +57,16 @@
             </div>
             <div class="sm:col-span-2">
               <label
-                for="last-name"
+                for="last_name"
                 class="block text-sm font-medium leading-6 text-gray-900"
                 >姓氏</label
               >
               <div class="mt-2">
                 <input
                   type="text"
-                  name="last-name"
-                  id="last-name"
+                  name="last_name"
+                  id="last_name"
+                  value="{{user.last_name}}"
                   autocomplete="family-name"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -84,6 +86,7 @@
                   name="phone"
                   type="tel"
                   autocomplete="phone"
+                  value="{{user.phone}}"
                   placeholder="09xx xxx xxx"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -102,6 +105,7 @@
                   name="birthday"
                   type="date"
                   autocomplete="birthday"
+                  value="{{user.birthday}}"
                   class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="yyyy/mm/dd"
                 />
@@ -120,6 +124,7 @@
                 name="email"
                 type="email"
                 autocomplete="email"
+                value="{{user.email}}"
                 class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -135,6 +140,7 @@
                 id="country"
                 name="country"
                 autocomplete="country-name"
+                value="{{user.country}}"
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option>臺北市</option>
@@ -162,36 +168,35 @@
           </div>
           <div class="col-span-full">
             <label
-              for="street-address"
+              for="street_address"
               class="block text-sm font-medium leading-6 text-gray-900"
               >詳細地址</label
             >
             <div class="mt-2">
               <input
                 type="text"
-                name="street-address"
-                id="street-address"
-                autocomplete="street-address"
+                name="street_address"
+                id="street_address"
+                autocomplete="street_address"
+                value="{{user.street_address}}"
                 class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-          <form action="#" method="post" class="pt-10">
-            <div class="mt-6">
-              <button
+          <div class="mt-6">
+            <button
                 type="reset"
                 class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
               >
                 取消
-              </button>
-              <button
+            </button>
+            <button
                 type="submit"
                 class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
               >
-                儲存變更
-              </button>
-            </div>
-          </form>
+              儲存變更
+            </button>
+          </div>
         </div>
       </form>
     </div>

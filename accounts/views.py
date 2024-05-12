@@ -1,15 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-# Create your views here.
 from django.contrib.auth import authenticate, login, logout
-from . import models
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from . import models
 from .forms import RegisterForm, LoginForm
 
 
 # Create your views here.
-# 註冊
 # 註冊
 def register(request):
     form = RegisterForm()
@@ -52,5 +50,48 @@ def log_out(request):
     return redirect("login")  # 重新導向到登入畫面
 
 
+
 def user(request):
-    return render(request, 'accounts/user.html')
+    # 判斷有無登入無登入導向登入頁
+    user_id = request.user.id
+    user = User.objects.get(pk=user_id)
+    return render(request, 'accounts/user.html', {'user': user})
+
+
+def test(request):
+    # 判斷有無登入無登入導向登入頁
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    user_id = request.user.id
+    user = User.objects.get(pk=user_id)
+
+    if request.method == 'POST':
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.phone = request.POST['phone']
+        user.birthday = request.POST['birthday']
+        user.email = request.POST['email']
+        user.country = request.POST['country']
+        user.street_address = request.POST['street_address']
+        user.save()
+        return render(request, 'accounts/user.html', {'user': user})
+    else:
+
+        return render(request, 'accounts/user.html', {'user': user})
+
+
+# 'logentry', 'emailaddress', 'socialaccount', 'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'groups', 'user_permissions'
+
+# 名字
+# 姓氏
+# 聯絡電話(手機)
+# 09xx xxx xxx
+# 出生日期
+
+# yyyy/月/dd
+# Email 信箱
+# 地區
+
+# 臺北市
+# 詳細地址
