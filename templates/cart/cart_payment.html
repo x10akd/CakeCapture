@@ -171,28 +171,74 @@
       </div>
     </div>
   </div>
-  <!-- section-receipt -->
+  <!-- section-invoice -->
   <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-    <!-- receipt-tag -->
+    <!-- invoice-tag -->
     <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
       <h3>發票資訊</h3>
     </div>
     <span class="block w-full h-1 bg-red-300"></span>
-    <!-- receipt-options -->
+    <!-- invoice-options -->
     <div class="mt-2">
-      <div class="flex items-center rounded-t-xl border-b-2 border-gray-100 p-3 bg-gray-200">
-        <input type="radio" name="delivery-method" id="method_1" class="w-7 h-7">
-        <label for="method_1" class="circle ml-3 font-semibold">捐贈發票</label>
+      <!-- donate-community -->
+      <div class=" border-b-2 border-gray-100">
+        <div class="flex items-center rounded-t-xl p-3 bg-gray-200">
+          <input type="radio" name="invoice-options" id="donate" class="w-7 h-7">
+          <label for="donate" class="ml-3 font-semibold">捐贈發票</label>
+        </div>
+        <div class="flex items-center p-2 border-l-2 border-r-2 border-gray-200">
+          <input type="radio" id="donate_community" name="invoice_donate" class="ml-10 w-7 h-7">
+          <label for="donate_community" class="ml-3">
+            <span>捐贈單位 :</span>
+            <select name="invoice_to_community" id="invoice_to_community" class="ml-3 p-2 border-2 border-gray-200">
+              <option value="001::財團法人伊甸社會福利基金會">財團法人伊甸社會福利基金會</option>
+              <option value="002::財團法人肝病防治學術基金會">財團法人肝病防治學術基金會</option>
+              <option value="003::財團法人心路社會福利基金會">財團法人心路社會福利基金會</option>
+              <option value="004::財團法人中華民國兒童福利聯盟文教基金會">財團法人中華民國兒童福利聯盟文教基金會</option>
+            </select>
+          </label>
+        </div>
       </div>
-      <div class="flex items-center border-b-2 border-gray-100 p-3 bg-gray-200">
-        <input type="radio" name="delivery-method" id="method_1" class="w-7 h-7">
-        <label for="method_1" class="circle ml-3 font-semibold">二聯式電子發票</label>
-        <p class="ml-7 text-base text-gray-500">配合國稅局勸止二聯換開三聯之政策，本公司保留換開發票的權利。</p>
+      <!-- two-parts -->
+      <div class=" border-b-2 border-gray-100">
+        <div class="flex items-center p-3 bg-gray-200">
+          <input type="radio" name="invoice-options" id="two_parts" class="w-7 h-7">
+          <label for="two_parts" class="ml-3 font-semibold">二聯式電子發票</label>
+          <p class="ml-7 text-base text-gray-500">配合國稅局勸止二聯換開三聯之政策，本公司保留換開發票的權利。</p>
+        </div>
+        <div class="flex items-center p-2 border-l-2 border-r-2 border-gray-200">
+          <input type="radio" id="cell-barcode" name="two-parts" class="ml-10 w-7 h-7">
+          <label for="cell-barcode" class="ml-3 p-2">
+            手機條碼載具
+          </label>
+        </div>
+        <div class="flex items-center p-2 border-t-2 border-x-2 border-gray-200">
+          <input type="radio" id="citizen-barcode" name="two-parts" class="ml-10 w-7 h-7">
+          <label for="citizen-barcode" class="ml-3 p-2">
+            自然人憑證載具
+          </label>
+        </div>
       </div>
-      <div class="flex items-center rounded-b-xl p-3 bg-gray-200">
-        <input type="radio" name="delivery-method" id="method_2" class="w-7 h-7">
-        <label for="method_2" class="circle ml-3 font-semibold">三聯式電子發票</label>
+      
+      <!-- three-parts -->
+      <div class="rounded-b-xl border-b-2 border-gray-200">
+        <div class="flex items-center p-3 bg-gray-200">
+          <input type="radio" name="invoice-options" id="three_parts" class="w-7 h-7">
+          <label for="three_parts" class="ml-3 font-semibold">三聯式電子發票</label>
+        </div>
+        <div class="flex items-center rounded-b-xl border-x-2 border-gray-200 p-2">
+          <label for="uniform-numbers" class="ml-10">請輸入統一編號 :</label>
+          <input type="text" maxlength="8" name="uniform-numbers" class="ml-3 p-2 border-2 border-gray-200">
+        </div>
       </div>
+
+      
+
+
+
+
+
+
     </div>
   </div>
   <!-- section-return-goods -->
