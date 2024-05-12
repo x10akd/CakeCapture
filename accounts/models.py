@@ -29,8 +29,8 @@ AREA_OPTIONS = [
 
 class NewUser(AbstractUser):
     phone = models.CharField(max_length=15, null=True, blank=True)
-    birthday = models.DateField(max_length=3, null=True, blank=True)
-    county = models.CharField(
+    birthday = models.DateField(null=True, blank=True)
+    country = models.CharField(
         max_length=100, choices=AREA_OPTIONS, null=True, blank=True)
     street_address = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

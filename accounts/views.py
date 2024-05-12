@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from . import models
+from .models import NewUser
 from .forms import RegisterForm, LoginForm
 
 
@@ -54,7 +54,8 @@ def log_out(request):
 def user(request):
     # 判斷有無登入無登入導向登入頁
     user_id = request.user.id
-    user = User.objects.get(pk=user_id)
+    user = NewUser.objects.get(pk=user_id)
+    # breakpoint()
     return render(request, 'accounts/user.html', {'user': user})
 
 
@@ -64,8 +65,8 @@ def test(request):
         return redirect('login')
     
     user_id = request.user.id
-    user = User.objects.get(pk=user_id)
-
+    user = NewUser.objects.get(pk=user_id)
+    # breakpoint()
     if request.method == 'POST':
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
@@ -75,9 +76,8 @@ def test(request):
         user.country = request.POST['country']
         user.street_address = request.POST['street_address']
         user.save()
-        return render(request, 'accounts/user.html', {'user': user})
+        return redirect('user')
     else:
-
         return render(request, 'accounts/user.html', {'user': user})
 
 
