@@ -44,3 +44,8 @@ def search(request):
             "products/search.html",
             {"products": products, "query": query},
         )
+
+
+def product_detail(request, pk):
+    product = Product.objects.get(id=pk)
+    return render(request, "products/product_detail.html", {"product": product})
