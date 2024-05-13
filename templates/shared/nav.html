@@ -17,8 +17,8 @@
         <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
           Products
         </button>
-        <!-- 下拉菜单 -->
-        <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-show="show">
+        <!-- 下拉選單 -->
+        <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-cloak x-show="show">
           <a href="{% url 'store:products_list' %}" class="block px-4 py-2 hover:bg-red-300">all</a>
           <a href="{% url 'store:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">macarons</a>
           <a href="{% url 'store:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
