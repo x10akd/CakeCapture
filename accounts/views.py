@@ -53,20 +53,19 @@ def log_out(request):
 
 def user(request):
     # 判斷有無登入無登入導向登入頁
+    if not request.user.is_authenticated:
+        return redirect('login')
     user_id = request.user.id
     user = NewUser.objects.get(pk=user_id)
-    # breakpoint()
     return render(request, 'accounts/user.html', {'user': user})
 
 
 def test(request):
     # 判斷有無登入無登入導向登入頁
-    if not request.user.is_authenticated:
-        return redirect('login')
+
     
     user_id = request.user.id
     user = NewUser.objects.get(pk=user_id)
-    # breakpoint()
     if request.method == 'POST':
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
