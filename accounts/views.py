@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from .models import NewUser
 from .forms import RegisterForm, LoginForm
 
@@ -80,17 +78,4 @@ def test(request):
         return render(request, 'accounts/user.html', {'user': user})
 
 
-# 'logentry', 'emailaddress', 'socialaccount', 'id', 'password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'groups', 'user_permissions'
 
-# 名字
-# 姓氏
-# 聯絡電話(手機)
-# 09xx xxx xxx
-# 出生日期
-
-# yyyy/月/dd
-# Email 信箱
-# 地區
-
-# 臺北市
-# 詳細地址
