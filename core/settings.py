@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.facebook",  # new
     "accounts",
     "store",
+    "cart",
 ]
 
 MIDDLEWARE = [
