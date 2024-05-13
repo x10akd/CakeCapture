@@ -30,7 +30,7 @@
       </div>
     </div>
     <!-- detail-product -->
-    <div class="flex justify-around mt-1 rounded-t-xl border-red-200 border-2 p-2 text-2xl">
+    <div class="flex justify-around mt-2 rounded-t-xl border-red-200 border-2 p-2 text-2xl">
       <div class="w-2/5 p-2 text-left border-r-2 border-transparent">
         <p>title</p>
       </div>
@@ -198,16 +198,12 @@
     </div>
   </div>
   <!-- section-check-btn -->
-  <div class="flex mt-12 m-2 p-1 justify-end text-xl">
-    <a href="#" class="w-1/4 p-2 rounded-xl bg-gray-300 text-center">
-      <div>
-        <p>&#10094;&nbsp;&nbsp;上一步</p>
-      </div>
+  <div class="flex justify-end mt-12 m-2 p-2 text-xl">
+    <a href="{% url 'cart_payment' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
+      &#10094;&nbsp;&nbsp;上一步
     </a>
-    <a href="#" class="w-1/4 ml-2 p-2 rounded-xl bg-red-300 text-center">
-      <div>
-        <p>確認, 送出訂單&nbsp;&nbsp;&check;</p>
-      </div>
+    <a href="{% url 'cart_checkout' %}" class="w-1/4 ml-10 p-4 rounded-xl bg-red-300 text-center">
+      確認, 送出訂單&nbsp;&nbsp;&check;
     </a>
   </div>
 </div>

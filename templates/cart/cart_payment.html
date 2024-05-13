@@ -237,7 +237,7 @@
     <div class="mt-2 rounded-xl bg-gray-200 p-3">
       <div class="flex items-center">
         <input type="checkbox" id="return-check" name="return-goods" checked class="w-7 h-7">
-        <label for="return-check" class="ml-3">我同意辦理退貨時，由博客來代為處理發票及銷貨退回證明單，以加速退貨退款作業。
+        <label for="return-check" class="ml-3">我同意辦理退貨時，由 CakeCapture 代為處理發票及銷貨退回證明單，以加速退貨退款作業。
         </label>
       </div>
     </div>
@@ -250,10 +250,10 @@
   </div>
   <!-- section-redirect -->
   <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
-    <a href="#" class="block w-1/5 rounded-xl bg-gray-300 p-4">
+    <a href="{% url 'cart_list' %}" class="w-1/5 rounded-xl bg-gray-300 p-4">
       上一步
     </a>
-    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
+    <a href="{% url 'cart_confirm' %}" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
       下一步
     </a>
   </div>
