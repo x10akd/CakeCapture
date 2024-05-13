@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import NewUser
+from .models import SubUser
 from .forms import RegisterForm, LoginForm
 
 
@@ -54,7 +54,7 @@ def user(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user_id = request.user.id
-    user = NewUser.objects.get(pk=user_id)
+    user = SubUser.objects.get(pk=user_id)
     return render(request, 'accounts/user.html', {'user': user})
 
 
@@ -63,7 +63,7 @@ def test(request):
 
     
     user_id = request.user.id
-    user = NewUser.objects.get(pk=user_id)
+    user = SubUser.objects.get(pk=user_id)
     if request.method == 'POST':
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']

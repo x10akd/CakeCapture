@@ -27,7 +27,7 @@ AREA_OPTIONS = [
     ("LNN", "連江縣"),
 ]
 
-class NewUser(AbstractUser):
+class SubUser(AbstractUser):
     phone = models.CharField(max_length=15, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
     country = models.CharField(max_length=100, choices=AREA_OPTIONS, null=True, blank=True)

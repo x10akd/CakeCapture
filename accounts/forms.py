@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import NewUser
+from .models import SubUser
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
@@ -21,7 +21,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
     )
     class Meta:
-        model = NewUser
+        model = SubUser
         fields = ('username', 'email', 'password1', 'password2')
 
 class LoginForm(forms.Form):

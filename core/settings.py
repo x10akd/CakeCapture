@@ -174,4 +174,4 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 # 將原始模組改套用新模組
-AUTH_USER_MODEL = "accounts.NewUser"
+AUTH_USER_MODEL = "accounts.SubUser"
