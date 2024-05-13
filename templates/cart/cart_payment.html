@@ -1,7 +1,7 @@
 {% extends 'shared/base.html' %}
 {% block content %}
 <!-- container -->
-<div class="mt-28 w-full">
+<div class="mt-28 w-screen max-w-screen-2xl mx-auto">
   <!-- section-delivery -->
   <div class="m-2 p-2 text-center text-xl font-semibold">
     <!-- delivery-tag -->
@@ -25,17 +25,17 @@
   <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
     <!-- payment-tag -->
     <div class="flex justify-between items-center">
-      <div class="w-60 rounded-t-xl p-2 bg-green-500 text-white">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
         <h3>選擇付款方式</h3>
       </div>
       <a href="#" class="block">
         <div class="flex items-center">
           <p class="mr-2 text-gray-700">付款說明</p>
-        <p class="w-7 h-7 rounded-3xl bg-green-500 text-lg text-white">？</p>
+        <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
         </div>
       </a>
     </div>
-    <span class="block w-full h-1 bg-green-500"></span>
+    <span class="block w-full h-1 bg-red-300"></span>
     <!-- payment-options -->
     <div class="mt-2 text-center text-xl font-semibold">
       <div class="flex items-center rounded-t-xl border-b-2 border-gray-100 p-3 bg-gray-200">
@@ -56,7 +56,7 @@
       </div>
     </div>
     <!-- payment-notice -->
-    <div class="mt-2 rounded-xl border-2 border-green-500 p-3 text-left text-gray-700 -indent-6">
+    <div class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6">
       <p class="ml-4 text-justify">
         <span>・</span>
         信用卡僅限持卡人本人使用，本公司得就本件交易資料向發卡銀行、收單行、及持卡人照會是否屬實，核對無誤後付款才算完成。
@@ -85,15 +85,15 @@
   </div>
   <!-- section-store-choice -->
   <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-    <div class="w-60 rounded-t-xl p-2 bg-green-500 text-white">
+    <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
       <h3>選擇超商取貨門市</h3>
     </div>
-    <span class="block w-full h-1 bg-green-500"></span>
+    <span class="block w-full h-1 bg-red-300"></span>
     <!-- store-options -->
-    <div class="mt-2 rounded-xl border-2 border-green-500 p-2">
+    <div class="mt-2 rounded-xl border-2 border-red-300 p-2">
       <div class="flex justify-start font-semibold text-center">
         <a href="#" class="w-56 rounded-xl p-3 bg-gray-200">依地圖選擇</a>
-        <a href="#" class="w-56 ml-3 rounded-xl p-3 bg-purple-200">選擇常用門市</a>
+        <a href="#" class="w-56 ml-3 rounded-xl p-3 bg-red-300">選擇常用門市</a>
       </div>
       <div class="flex mt-4 p-2">
         <p>門市名稱：</p>
@@ -141,32 +141,32 @@
   <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
     <!-- recipient-info-tag -->
     <div class="flex justify-between items-center">
-      <div class="w-60 rounded-t-xl p-2 bg-green-500 text-white">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
         <h3>收件人資訊</h3>
       </div>
       <a href="#" class="block">
         <div class="flex items-center">
           <p class="mr-2 text-gray-700">寄送說明</p>
-        <p class="w-7 h-7 rounded-3xl bg-green-500 text-lg text-white">？</p>
+        <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
         </div>
       </a>
     </div>
-    <span class="block w-full h-1 bg-green-500"></span>
+    <span class="block w-full h-1 bg-red-300"></span>
     <!-- recipient-info-detail -->
-    <div class="mt-2 p-3 rounded-xl border-2 border-green-500">
+    <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
       <div class="flex justify-start items-center">
         <label for="order_name" class="w-1/12 p-2 text-left">收件人</label>
-        <input type="text" name="order_name" id="order_name" maxlength="50" value="XXX" class="ml-7 w-1/2 rounded-xl border border-green-500 p-2">
+        <input type="text" name="order_name" id="order_name" maxlength="50" value="XXX" class="ml-7 w-1/2 rounded-xl border border-red-300 p-2">
         <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
       </div>
       <div class="flex justify-start items-center mt-2">
         <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-        <input type="tel" name="order_cell_phone" id="order_cell_phone" maxlength="10" value="0123456789" class="ml-7 w-1/2 rounded-xl border border-green-500 p-2">
+        <input type="tel" name="order_cell_phone" id="order_cell_phone" maxlength="10" value="0123456789" class="ml-7 w-1/2 rounded-xl border border-red-300 p-2">
         <p class="ml-7 text-base text-gray-500">輸入格式09XXXXXXXX，將以此資料發送超商未取簡訊提醒</p>
       </div>
       <div class="flex justify-start items-center mt-2">
         <label for="order_mail" class="w-1/12 p-2 text-left">E-mail</label>
-        <input type="email" name="order_mail" id="order_mail" maxlength="50" value="abc@gmail.com" class="ml-7 w-1/2 rounded-xl border border-green-500 p-2">
+        <input type="email" name="order_mail" id="order_mail" maxlength="50" value="abc@gmail.com" class="ml-7 w-1/2 rounded-xl border border-red-300 p-2">
         <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
       </div>
     </div>
@@ -253,7 +253,7 @@
     <a href="#" class="block w-1/5 rounded-xl bg-gray-300 p-4">
       上一步
     </a>
-    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-purple-200 p-4">
+    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
       下一步
     </a>
   </div>
