@@ -37,11 +37,12 @@ def sign_in(request):
             login(request, user)
             messages.success(request, '登入成功！')
             return render(request, 'pages/home.html', {'show_popup': True}) #重新導向到首頁
-        
+        else:
+            messages.error(request, "登入失敗, 請確認輸入的訊息!")
     context = {
         'form': form,
     }
-    messages.error(request, "登入失敗, 請確認輸入的訊息!")
+    
     return render(request, 'accounts/login.html', context)
 
 # 登出
