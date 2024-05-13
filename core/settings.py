@@ -1,7 +1,6 @@
 from pathlib import Path
+from django.conf import settings
 import os
-
-# Import environment variable
 import environ
 
 env = environ.Env()
@@ -175,3 +174,29 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # 將原始模組改套用新模組
 AUTH_USER_MODEL = "accounts.SubUser"
+
+# Logs
+if settings.DEBUG:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "handlers": {
+            "console": {
+                "level": "DEBUG",
+                "class": "rich.logging.RichHandler",
+                "show_time": False,
+            },
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "logs/development.log",  # Choose a file name and path
+            },
+        },
+        "loggers": {
+            "django.db.backends": {
+                "handlers": ["console", "file"],
+                "level": "DEBUG",
+                "propagate": False,
+            },
+        },
+    }
