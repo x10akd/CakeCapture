@@ -19,7 +19,7 @@
 				<div class="flex justify-between align-text-bottom">
 					<!-- drop-down menu -->
 					<div
-						x-data="{ dropdownOpen: false, selectedOption: '預設排序' }"
+						x-data="{ dropdownOpen: false, selectedOption: '{{ selected_option }}' }"
 						class="my-6 text-md relative p-2 font-bold min-w-[8rem]"
 					>
 						<div
@@ -45,36 +45,46 @@
 							x-transition:enter-end="opacity-100 -translate-y-0 scale-100"
 						>
 							<ul>
-								<li
-									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
-									@click="selectedOption = '預設排序'"
-								>
-									<a href="#">預設排序</a>
-								</li>
-								<li
-									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
-									@click="selectedOption = '價格由高到低'"
-								>
-									<a href="#">價格由高到低</a>
-								</li>
-								<li
+								<a href="?sort=default">
+									<li
+										class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
+										@click="selectedOption = '預設排序'"
+									>
+									預設排序
+									</li>
+								</a>
+								<a href="?sort=ph2l">
+									<li
+										class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
+										@click="selectedOption = '價格由高到低'"
+									>
+									價格由高到低
+									</li>
+								</a>
+								<a href="?sort=pl2h">
+									<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '價格由低到高'"
-								>
-									<a href="#">價格由低到高</a>
-								</li>
-								<li
-									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
-									@click="selectedOption = '上市日期由舊到新'"
-								>
-									<a href="#">上市日期由舊到新</a>
-								</li>
-								<li
-									class="rounded-lg hover:bg-red-200 block pd-1"
-									@click="selectedOption = '上市日期由新到舊'"
-								>
-									<a href="#">上市日期由新到舊</a>
-								</li>
+									>
+									價格由低到高
+									</li>
+								</a>
+								<a href="#">
+									<li
+										class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
+										@click="selectedOption = '上市日期由舊到新'"
+									>
+									上市日期由舊到新
+									</li>
+								</a>
+								<a href="#">
+									<li
+										class="rounded-lg hover:bg-red-200 block pd-1"
+										@click="selectedOption = '上市日期由新到舊'"
+									>
+									上市日期由新到舊
+									</li>
+								</a>
 							</ul>
 						</div>
 					</div>
