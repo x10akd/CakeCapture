@@ -31,3 +31,7 @@ def cart_confirm(request):
 
 def cart_payment(request):
     return render(request, "cart/cart_payment.html")
+
+
+def cart_checkout(request):
+    return render(request, "cart/cart_checkout.html")
