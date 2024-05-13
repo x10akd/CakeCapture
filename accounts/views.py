@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import SubUser
 from .forms import RegisterForm, LoginForm
-
 
 # Create your views here.
 # 註冊
@@ -50,18 +50,16 @@ def log_out(request):
 
 
 def user(request):
-    # 判斷有無登入無登入導向登入頁
     if not request.user.is_authenticated:
         return redirect('login')
+    # 判斷有無登入無登入導向登入頁
     user_id = request.user.id
     user = SubUser.objects.get(pk=user_id)
     return render(request, 'accounts/user.html', {'user': user})
 
 
-def test(request):
-    # 判斷有無登入無登入導向登入頁
-
-    
+@login_required
+def edit_user_info(request):
     user_id = request.user.id
     user = SubUser.objects.get(pk=user_id)
     if request.method == 'POST':
