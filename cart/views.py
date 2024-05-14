@@ -4,8 +4,6 @@ from store.models import Product
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-def cart_confirm(request):
-    return render(request, "cart/cart_confirm.html")
 def cart_payment(request):
     return render(request, "cart/cart_payment.html")
 
@@ -16,7 +14,7 @@ def cart_summary(request):
   quantities = cart.get_quants
   totals = cart.cart_total()
   return render(request,'cart/cart_list.html',{'cart_products':cart_products,'quantities':quantities,'totals':totals
-  })
+   })
 
 def cart_add(request):
     #get the cart
