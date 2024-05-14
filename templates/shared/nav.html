@@ -31,7 +31,7 @@
       <a href="{% url 'cart_summary' %}" class=" text-white hover:text-red-600 relative">
         Cart
         <span
-          class="absolute top-0 left-11 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center">0</span>
+          class="absolute top-0 left-11 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
       </a>
 
 

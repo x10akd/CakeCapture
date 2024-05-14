@@ -2,65 +2,114 @@
 
 
 {% block content %}
-	<div class="container bg-white mx-auto px-8 grid grid-cols-2 mt-32 mb-10 rounded-2xl p-20 relative">
-		<div class="discount-btn w-20 h-20 bg-red-100 bottom-4 right-4 absolute rounded-full flex items-center justify-center "><span class="text-white font-semibold">Chatbot</span></div>
-		<div class="help-btn w-11 h-11 bg-red-100 bottom-4 left-4 absolute rounded-full flex items-center justify-center "><span class="text-white font-semibold">Top</span></div>
-		<!-- 左邊圖片區 -->
-		<section class="product-photo flex p-10">
-			
-			<div class="main-photo col-span-2 ml-4">
-				<div class="rounded-2xl w-[500px] h-[500px] overflow-hidden">
-					<img src="{{ product.image.url }}" class="w-full h-full object-cover" alt="Product Image">
-				</div>
+<div class="container bg-white mx-auto px-8 grid grid-cols-2 mt-32 mb-10 rounded-2xl p-20 relative">
+	<div
+		class="discount-btn w-20 h-20 bg-red-100 bottom-4 right-4 absolute rounded-full flex items-center justify-center ">
+		<span class="text-white font-semibold">Chatbot</span>
+	</div>
+	<div class="help-btn w-11 h-11 bg-red-100 bottom-4 left-4 absolute rounded-full flex items-center justify-center ">
+		<span class="text-white font-semibold">Top</span>
+	</div>
+	<!-- 左邊圖片區 -->
+	<section class="product-photo flex p-10">
+
+		<div class="main-photo col-span-2 ml-4">
+			<div class="rounded-2xl w-[500px] h-[500px] overflow-hidden">
+				<img src="{{ product.image.url }}" class="w-full h-full object-cover" alt="Product Image">
+			</div>
+		</div>
+
+	</section>
+	<!-- 右邊文字說明區 -->
+	<section class="product-description p-10">
+		<div class="product-title">
+			<h1 class="font-bold text-3xl mb-4">{{product.name}}</h1>
+			<em class="italic text-2xl">{{product.category}}</em>
+			<div class="price-info">
+				<br>
+				<span class="text-gray-400 text-3xl">${{product.price}}</span>
+				<br>
+				<br>
+				數量： <input type="number" id="quantity-input" min="1" value="1" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">
+				<br>
+				<br>
+			</div>
+		</div>
+		<div class="product-star">
+			*****(151)
+		</div>
+		<div class="product-subheading font-medium">
+			<!-- <p>It is really tasty.</p> -->
+		</div>
+		<div class="product-tab-wrapper mt-2" x-data="{}">
+			<div class="tab-title">
+				<ul class="flex justify-start">
+					<div class="bg-red-300 px-8 py-1 mr-2 rounded-2xl">
+						<li class="font-medium">商品介紹</li>
+					</div>
+					<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
+						<li class="font-medium">顧客評論</li>
+					</div>
+					<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
+						<li class="font-medium">原物料食材</li>
+					</div>
+				</ul>
+			</div>
+			<div class="tab-content py-2 text-lg font-extralight my-10">
+				{{product.description}}
 			</div>
 
-		</section>
-		<!-- 右邊文字說明區 -->
-		<section class="product-description p-10">
-			<div class="product-title">
-				<h1 class="font-bold text-3xl mb-4">{{product.name}}</h1>
-				<em class="italic text-2xl">{{product.category}}</em>
-				<div class="price-info">
-					<br>
-					<span class="text-gray-400 text-3xl">${{product.price}}</span>
-					<br>
-					<br>
+			<div class="product-action-btn flex flex-col my-2">
+				<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+					<button type="submit"><a href="#">收藏商品</a></button>
+				</div>
+				<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+					<button type="button" value="{{ product.id }}" id="add_cart">放到購物車</button>
 				</div>
 			</div>
-			<div class="product-star">
-				*****(151)
-			</div>
-			<div class="product-subheading font-medium">
-				<!-- <p>It is really tasty.</p> -->
-			</div>
-			<div class="product-tab-wrapper mt-2" x-data="{}" >
-				<div class="tab-title">
-					<ul class="flex justify-start">
-						<div class="bg-red-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">商品介紹</li>
-						</div>
-						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">顧客評論</li>
-						</div>
-						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">原物料食材</li>
-						</div>
-					</ul>
-				</div>
-				<div class="tab-content py-2 text-lg font-extralight my-10">
-					{{product.description}}
-				</div>
-				
-				<div class="product-action-btn flex flex-col my-2">
-					<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit"><a href="#" >收藏商品</a></button>
-					</div>
-					<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit"><a href="#">放到購物車</a></button>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-{% endblock %}
+		</div>
+	</section>
+</div>
+
+
+
+<!-- #check if btn pressed -->
+<script>
 	
+	$(document).on('click', '#add_cart', function (e)
+	{
+		e.preventDefault();
+		
+		$.ajax({
+			type: 'POST',
+			url: "{% url 'cart_add' %}",
+			data: {
+				product_id: $('#add_cart').val(),
+				product_qty: $('#quantity-input').val(),
+				csrfmiddlewaretoken : '{{ csrf_token }}',
+				action: 'post'
+			},
+
+			success: function (json)
+			{
+				console.log(json)
+				document.getElementById('cart_quantity').textContent = json.qty
+				// 使用SweetAlert2顯示提示框
+				Swal.fire({
+					icon: 'success',
+					title: '商品已被加入購物車',
+					showConfirmButton: false, // 隱藏確認按鈕
+					timer: 1500 // 提示框顯示時間
+				});
+			},
+			error: function (xhr, errmsg, err)
+			{
+
+			}
+
+		})
+
+	})
+</script>
+
+{% endblock %}
