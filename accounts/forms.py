@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Profile
 
+
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
         label="帳號",
@@ -26,8 +27,8 @@ class RegisterForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-        required=True,
         username = forms.CharField(
+        required=True,
         label="帳號",
         widget=forms.TextInput(attrs={'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'}),
     
@@ -48,23 +49,49 @@ class UpdateUserForm(forms.ModelForm):
         required=True,
         label="帳號",
         widget=forms.TextInput(attrs={
-                                'class': 'form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
+                                'class': "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
     )
     email = forms.EmailField(
         required=True,
         label="電子郵件",
         widget=forms.EmailInput(attrs={
-                                'class': 'form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'})
+                                'class': "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
     )
     class Meta:
         model = User
         fields = ["username", "email"]
 
 class UpdateProfileFrom(forms.ModelForm):
-    phone = forms.CharField(max_length=15)
-    birthday = forms.DateField()
-    country = forms.CharField(max_length=100)
-    street_address = forms.CharField(max_length=100)
+    phone = forms.CharField(
+        max_length=15,
+        label="手機號碼",
+        required=False,
+        widget=forms.TextInput(attrs={
+                                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
+    )
+    birthday = forms.DateField(
+        label="出生日期",
+        required=False,
+        widget=forms.DateInput(attrs={
+            "type": "date",  # 設置為 date 類型
+            "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"},
+            format='%Y-%m-%d')  # 確保後端接收的格式是 YYYY-MM-DD
+    )
+    country = forms.CharField(
+        max_length=10,
+        label="縣市地區",
+        required=False,
+        widget=forms.TextInput(attrs={
+                                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
+
+    )
+    street_address = forms.CharField(
+        max_length=100,
+        label="詳細地址",
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
+        )
 
 
     class Meta:

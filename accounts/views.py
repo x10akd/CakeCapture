@@ -58,6 +58,8 @@ def profile(request):
             profile_form.save()
             messages.success(request, '個人資料更新成功')
             return redirect('user')
+        else:
+            messages.error(request, '更新失敗，請檢查輸入的資料。')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileFrom(instance=request.user.profile)
