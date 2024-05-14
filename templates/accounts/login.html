@@ -8,7 +8,7 @@
     <h2 class="text-2xl font-bold text-red-600">請先登出再執行登入</h2>
     {% else %}
     <h2 class="text-2xl font-bold mb-6">登入</h2>
-    <form action="" method="POST" class="space-y-4">
+    <form method="POST" class="space-y-4">
       {% csrf_token %}
       <div>
         <label for="username" class="block text-sm font-medium text-gray-700">帳號</label>
@@ -17,6 +17,10 @@
       <div>
         <label for="password" class="block text-sm font-medium text-gray-700">密碼</label>
         {{form.password}}
+      </div>
+      <div>
+        <label for="remember_me" class="block text-sm font-medium text-gray-700">保持登入30天？</label>
+        {{form.remember_me}}
       </div>
       <div class="flex items-center justify-between">
         <div class="text-sm">

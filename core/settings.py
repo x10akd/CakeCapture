@@ -171,9 +171,12 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# 定義 SESSION 跟 cookie 的存活時間, 單位為秒, 分, 時, 日, 底下約 30日 
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
-# 將原始模組改套用新模組
-AUTH_USER_MODEL = "accounts.SubUser"
+# 設定登入後, 使用者會導向首頁
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
 
 # Logs
 if settings.DEBUG:

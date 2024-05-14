@@ -1,9 +1,11 @@
+from .forms import LoginForm
+from django.shortcuts import redirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from .models import SubUser
-from .forms import RegisterForm, LoginForm
+from django.contrib.auth.views import LoginView
+from .forms import RegisterForm, LoginForm, UpdateProfileFrom, UpdateUserForm
 
 # Create your views here.
 # 註冊
@@ -23,23 +25,20 @@ def register(request):
 
 
 # 登入
-def sign_in(request):
-    form = LoginForm()
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, '登入成功！')
-            return render(request, 'pages/home.html', {'show_popup': True}) #重新導向到首頁
-        else:
-            messages.error(request, "登入失敗, 請確認輸入的訊息!")
-    context = {
-        'form': form,
-    }
-    
-    return render(request, 'accounts/login.html', context)
+class NewLoginView(LoginView):
+    form_class = LoginForm
+    def form_valid(self, form):
+        response = super(NewLoginView, self).form_valid(form)
+        messages.success(self.request, '登入成功！')
+        remember_me = form.cleaned_data.get('remember_me')
+        if not remember_me:
+            self.request.session.set_expiry(0)
+            self.request.session.modified = True
+        return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, '登入失敗, 請確認輸入的訊息!')
+        return super(NewLoginView, self).form_invalid(form)
 
 # 登出
 def log_out(request):
@@ -48,32 +47,27 @@ def log_out(request):
     return redirect("login")  # 重新導向到登入畫面
 
 
-
-def user(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    # 判斷有無登入無登入導向登入頁
-    user_id = request.user.id
-    user = SubUser.objects.get(pk=user_id)
-    return render(request, 'accounts/user.html', {'user': user})
-
-
 @login_required
-def edit_user_info(request):
-    user_id = request.user.id
-    user = SubUser.objects.get(pk=user_id)
+def profile(request):
     if request.method == 'POST':
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        user.phone = request.POST['phone']
-        user.birthday = request.POST['birthday']
-        user.email = request.POST['email']
-        user.country = request.POST['country']
-        user.street_address = request.POST['street_address']
-        user.save()
-        return redirect('user')
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileFrom(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, '個人資料更新成功')
+            return redirect('user')
     else:
-        return render(request, 'accounts/user.html', {'user': user})
+        user_form = UpdateProfileFrom(instance=request.user)
+        profile_form = UpdateProfileFrom(instance=request.user.profile)
+    
+    return render(request, 'accounts/user.html', {'user_form': user_form, 'profile_form':profile_form})
+
+
+
+
+
 
 
 
