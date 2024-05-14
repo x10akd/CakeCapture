@@ -59,7 +59,7 @@ def profile(request):
             messages.success(request, '個人資料更新成功')
             return redirect('user')
     else:
-        user_form = UpdateProfileFrom(instance=request.user)
+        user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileFrom(instance=request.user.profile)
     
     return render(request, 'accounts/user.html', {'user_form': user_form, 'profile_form':profile_form})
