@@ -1,21 +1,20 @@
 from .forms import LoginForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+from products.models import Favorite
+from messagememos.models import MessageModel
 from .forms import *
 from .models import Profile
 import json
-from django.contrib.auth.models import User
-from messagememos.models import MessageModel
 from carts.cart import *
 
-from products.models import Favorite
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 
 
 def register(request):
