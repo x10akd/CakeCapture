@@ -52,7 +52,8 @@
         <!-- order-list -->
         <div class="order-list">
             {% for product in cart_products %}
-            <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300" data-product-id="{{product.id}}">
+            <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake"
+                data-product-id="{{product.id}}">
                 <div class="w-1/12 felx flex-col m-auto">
                     <input type="checkbox" class="w-7 h-7 m-auto p-2 cb">
                 </div>
@@ -265,25 +266,21 @@
     $(document).on('click', '#deleteall', function (e)
     {
         e.preventDefault();
-        console.log(e)
 
         // 創建一個空列表，用於存儲要刪除的商品 ID
         var productsToDelete = [];
 
         // 遍歷所有的商品項目，如果 checkbox 被選中，則將商品 ID 添加到列表中
-        $('.order-list').each(function ()
+        const products = document.querySelectorAll(".cake")
+
+        products.forEach((e) =>
         {
-            var checkbox = $(this).find('.cb');
-            if (checkbox.prop('checked'))
+            let checkbox = e.querySelector("input")
+            if (checkbox.checked)
             {
-                var productId = $(this).data('product-id'); // 假設您的商品項目具有 data-product-id 屬性來存儲商品 ID
-                productsToDelete.push(productId);
-
-                $(this).remove();
+                productsToDelete.push(e.dataset.productId)
             }
-        });
-        console.log(productsToDelete);
-
+        })
         // 向後端發送 AJAX 請求，刪除所有要刪除的商品
         $.ajax({
             type: 'POST',

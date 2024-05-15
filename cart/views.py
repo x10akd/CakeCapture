@@ -15,7 +15,7 @@ def cart_summary(request):
   quantities = cart.get_quants
   totals = cart.cart_total()
   return render(request,'cart/cart_list.html',{'cart_products':cart_products,'quantities':quantities,'totals':totals
-   })
+  })
 
 def cart_add(request):
     #get the cart
@@ -65,8 +65,7 @@ def cart_update(request):
 def cart_delete1(request):
     if request.POST.get('action') == 'delete-all':
         # 從 POST 請求中獲取要刪除的商品 ID 列表
-        product_ids = request.POST.getlist('product_ids')
-
+        product_ids = request.POST.getlist('product_ids[]')
         # 在這裡執行刪除商品的邏輯，例如從購物車中刪除指定的商品
         cart = Cart(request)
         for product_id in product_ids:
