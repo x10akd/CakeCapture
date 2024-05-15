@@ -30,7 +30,8 @@
 				<span class="text-gray-400 text-3xl">${{product.price}}</span>
 				<br>
 				<br>
-				數量： <input type="number" id="quantity-input" min="1" value="1" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">
+				數量： <input type="number" id="quantity-input" min="1" max="{{product.quantity}}" value="1" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">      
+				<span class="text-gray-400 text-l">庫存：{{product.quantity}}</span>
 				<br>
 				<br>
 			</div>
