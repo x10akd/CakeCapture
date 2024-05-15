@@ -4,6 +4,8 @@ from django.db.models import Avg
 
 import datetime
 
+import datetime
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
