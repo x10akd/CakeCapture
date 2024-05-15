@@ -14,7 +14,7 @@
       <a href="{% url 'register' %}" class=" text-white hover:text-red-600">Register</a>
       <a href="{% url 'login' %}" class=" text-white hover:text-red-600">Log in </a>
       {% endif %}
-      <div class="relative" x-data="{show:false}">
+      <div class="relative" x-data="{show:false}" @click.away="show = false">
         <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
           Products
         </button>

@@ -95,7 +95,7 @@
             </span>
           </button>
           <!-- cart -->
-          <button class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/90 active:bg-blue-500/30" type="button" data-ripple-dark="true">
+          <button class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/90 active:bg-blue-500/30 add_cart" type="button" data-ripple-dark="true" value="{{product.id}}" data-product-id="{{product.id}}">
             <span class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -143,5 +143,44 @@
 	<!-- 換頁區域 -->
 	{% block products_paginator %} {% endblock %}
 </section>
+<script>
+
+  $(document).on('click', '.add_cart', function (e)
+  {
+    e.preventDefault();
+    // let product_id = document.querySelector('.add_cart').value
+    let product_id = $(this).data('product-id');
+    console.log(product_id);
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_add' %}",
+      data: {
+        product_id: product_id,
+        product_qty: 1,
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+
+      success: function (json)
+      {
+        console.log(json)
+        document.getElementById('cart_quantity').textContent = json.qty
+        // 使用SweetAlert2顯示提示框
+        Swal.fire({
+          icon: 'success',
+          title: '商品已被加入購物車',
+          showConfirmButton: false, // 隱藏確認按鈕
+          timer: 1500 // 提示框顯示時間
+        });
+      },
+      error: function (xhr, errmsg, err)
+      {
+
+      }
+
+    })
+
+  })
+</script>
 
 {% endblock %}
