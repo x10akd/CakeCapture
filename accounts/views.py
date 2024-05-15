@@ -1,13 +1,14 @@
 from .forms import LoginForm
-from django.shortcuts import redirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from .forms import RegisterForm, LoginForm, UpdateProfileFrom, UpdateUserForm
 
-# Create your views here.
+
 # 註冊
 def register(request):
     form = RegisterForm()
@@ -46,7 +47,7 @@ def log_out(request):
     logout(request)
     return redirect("login")  # 重新導向到登入畫面
 
-
+# get先給予DB內個人資料, POST為修改個人資訊
 @login_required
 def profile(request):
     if request.method == 'POST':
@@ -67,7 +68,16 @@ def profile(request):
     return render(request, 'accounts/user.html', {'user_form': user_form, 'profile_form':profile_form})
 
 
-
+#忘記密碼
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = "accounts/password_reset.html"
+    email_template_name = "accounts/password_reset_email.html"
+    subject_template_name = "accounts/password_reset_subject"
+    success_message  = "我們已經寄出密碼重置信, "\
+                        "你會在最初所填入註冊的信箱收到; "\
+                        "如果沒有收到該信件, "\
+                        "請確認是否為當初註冊信箱, 並檢查垃圾信箱"\
+    success_url = reverse_lazy('login')
 
 
 
