@@ -1,4 +1,3 @@
-from .forms import LoginForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -10,12 +9,10 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from products.models import Favorite
 from messagememos.models import MessageModel
-from .forms import *
-from .models import Profile
-from carts.cart import Cart
-import json
 from carts.cart import *
-
+from .models import Profile
+from .forms import *
+import json
 
 
 def register(request):
