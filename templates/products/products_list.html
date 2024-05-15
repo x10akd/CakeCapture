@@ -6,17 +6,17 @@
       
         {% block products_sort %}
           <ul>
-            <a href="?sort=default">
+            <a href="?sort_by=default">
               <li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedOption = '預設排序'">
               預設排序
               </li>
             </a>
-            <a href="?sort=ph2l">
+            <a href="?sort_by=ph2l">
               <li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedOption = '價格由高到低'">
               價格由高到低
               </li>
             </a>
-            <a href="?sort=pl2h">
+            <a href="?sort_by=pl2h">
               <li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedOption = '價格由低到高'">
               價格由低到高
               </li>

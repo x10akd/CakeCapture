@@ -6,7 +6,7 @@
 			
 					{% block products_sort %}
 						<ul>
-							<a href="?search={{ query }}&sort=default">
+							<a href="?search={{ query }}&sort_by=default">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '預設排序'"
@@ -14,7 +14,7 @@
 								預設排序
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort=ph2l">
+							<a href="?search={{ query }}&sort_by=ph2l">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '價格由高到低'"
@@ -22,7 +22,7 @@
 								價格由高到低
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort=pl2h">
+							<a href="?search={{ query }}&sort_by=pl2h">
 								<li
 								class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 								@click="selectedOption = '價格由低到高'"
