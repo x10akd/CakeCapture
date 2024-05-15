@@ -104,11 +104,11 @@
 		</section>
 	</div>
 	<!-- 相關商品 -->
-	<div class="px-16 py-6">
-		<div class="px-8 py-3 w-auto inline-block">
-			<h4 class="text-2xl font-bold">同類型商品</h4>
+	<div class="py-6 flex flex-col items-center">
+		<div class="py-3">
+			<h4 class="text-2xl font-bold">| 同類型商品 |</h4>
 		</div>
-		<div class="flex flex-wrap gap-6 px-12">
+		<div class="flex flex-wrap gap-6">
 			{% for related_p in related_ps %}
 			<!-- card -->
 			<div class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
