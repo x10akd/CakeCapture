@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import HttpResponse
 from django.http import JsonResponse
+from .models import ProductReview
 
 
 def products_list(request):
@@ -106,4 +107,19 @@ def search(request):
 
 def product_detail(request, pk):
     product = Product.objects.get(id=pk)
-    return render(request, "products/product_detail.html", {"product": product})
+    # 相關商品 (related_products)
+    related_ps = (
+        Product.objects.filter(category=product.category)
+        .exclude(id=pk)
+        .order_by("?")[0:4]
+    )
+    # product_rating = Product.objects.annotate(avg_rating=Avg("reviews__rating"))
+
+    # Getting all reviews
+    reviews = ProductReview.objects.filter(product=product)
+
+    return render(
+        request,
+        "products/product_detail.html",
+        {"product": product, "reviews": reviews, "related_ps": related_ps},
+    )
