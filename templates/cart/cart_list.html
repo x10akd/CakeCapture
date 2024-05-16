@@ -102,7 +102,7 @@
         <div class="flex justify-between mt-2 rounded-xl p-2 bg-red-200 text-lg">
             <div class="flex flex-col justify-evenly w-1/4 p-2">
                 <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300">訂單下次再買</a>
-                <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300" id="deleteall">訂單刪除</a>
+                <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300 hover:bg-red-500" id="deleteall">訂單刪除</a>
             </div>
             <div class="w-1/2 p-2">
                 <!-- <div class="text-right p-2">
@@ -156,7 +156,7 @@
         <!-- <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
             海外結帳 -->
         </a>
-        <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
+        <a href="{% url 'cart_payment' %}" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
             國內結帳
         </a>
     </div>

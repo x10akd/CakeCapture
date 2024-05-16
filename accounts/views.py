@@ -7,6 +7,10 @@ from django.contrib.auth.views import LoginView,PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from .forms import RegisterForm, LoginForm, UpdateProfileFrom, UpdateUserForm
+from .models import Profile
+from cart.cart import Cart
+import json
+
 
 
 
@@ -32,6 +36,13 @@ class NewLoginView(LoginView):
     form_class = LoginForm
     def form_valid(self, form):
         response = super(NewLoginView, self).form_valid(form)
+        current_user = Profile.objects.get(user__id = self.request.user.id)
+        saved_cart = current_user.old_cart
+        if saved_cart:
+            converted_cart = json.loads(saved_cart)
+            cart = Cart(self.request)
+            for key,value in converted_cart.items():
+                cart.db_add(product=key,quantity=value)
         messages.success(self.request, '登入成功！')
         remember_me = form.cleaned_data.get('remember_me')
         if not remember_me:

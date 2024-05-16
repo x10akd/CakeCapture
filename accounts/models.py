@@ -11,6 +11,7 @@ class Profile(models.Model):
     street_address = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    old_cart = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
