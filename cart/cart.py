@@ -1,8 +1,9 @@
 from store.models import Product
-
+from accounts.models import Profile
 class Cart():
     def __init__(self,request):
         self.session = request.session
+        self.request = request
         #get the current session key if exit
         cart =self.session.get('session_key')
         #if the user is new,no session ,create one
