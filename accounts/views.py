@@ -82,14 +82,3 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy('login')
 
 
-# class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-#     template_name = 'accounts/password_reset_confirm.html'
-#     success_url = reverse_lazy('password_reset_complete')
-
-#     def form_valid(self, form):
-#         response = super().form_valid(form)
-#         return redirect(self.success_url)
-
-#     def form_invalid(self, form):
-#         print(form.errors)  # 添加這行來打印表單錯誤信息
-#         return super().form_invalid(form)
