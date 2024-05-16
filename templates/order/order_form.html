@@ -1,0 +1,214 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+<form action="{% url 'order_confirm' %}" method="post">
+  {% csrf_token %}
+
+  <div class="mt-28 w-screen max-w-screen-2xl mx-auto">
+    <!-- section-delivery -->
+    <div class="m-2 p-2 text-center text-xl font-semibold">
+      <!-- delivery-tag -->
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>選擇配送方式</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- delivery-options -->
+      <div class="mt-2">
+        {% for field in form.delivery_method %}
+        <div
+          class="flex items-center {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %} p-3 bg-gray-200">
+          {{ field }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  
+    <!-- section-payment -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <!-- payment-tag -->
+      <div class="flex justify-between items-center">
+        <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+          <h3>選擇付款方式</h3>
+        </div>
+        <a href="#" class="block">
+          <div class="flex items-center">
+            <p class="mr-2 text-gray-700">付款說明</p>
+            <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+          </div>
+        </a>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- payment-options -->
+      <div class="mt-2 text-center text-xl font-semibold">
+        {% for field in form.payment_method %}
+        <div class="flex items-center rounded-{{ forloop.first|yesno:" t-," }}{{ forloop.last|yesno:"b," }}xl p-3
+          bg-gray-200">
+          {{ field }}
+        </div>
+        {% endfor %}
+      </div>
+      <!-- payment-notice -->
+      <div class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6">
+        <p class="ml-4 text-justify">
+          <span>・</span>
+          信用卡僅限持卡人本人使用，本公司得就本件交易資料向發卡銀行、收單行、及持卡人照會是否屬實，核對無誤後付款才算完成。
+        </p>
+        <p class="ml-4 text-justify">
+          <span>・</span>
+          選擇超商取貨付款前往門市取貨時，僅接受現金付款或5000元(含)以下可用信用卡，適用之信用卡發卡銀行依超商規定(後續如有退款之情事發生，款項將會退至訂購人之會員帳戶餘額內，請參考退款方式相關)。
+        </p>
+      </div>
+    </div>
+  
+    <!-- section-coupon -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <!-- coupon-tag -->
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>選擇優惠方式</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- coupon-check -->
+      <div class="mt-2 rounded-xl bg-gray-200 p-3 flex items-center">
+        {{ form.coupon_used }}
+        <label for="coupon-check" class="ml-3">E-Coupon 電子折價券 / 單品折價券<span class="text-base text-gray-500"> (
+            若要使用折價券，請先打勾即可輸入 )</span>
+        </label>
+      </div>
+    </div>
+  
+    <!-- section-store-choice -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>選擇超商取貨門市</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- store-options -->
+      <div class="mt-2 rounded-xl border-2 border-red-300 p-2">
+        <div class="flex justify-start font-semibold text-center">
+          <a href="#" class="w-56 rounded-xl p-3 bg-gray-200">依地圖選擇</a>
+          <a href="#" class="w-56 ml-3 rounded-xl p-3 bg-red-300">選擇常用門市</a>
+        </div>
+        <div class="flex mt-4 p-2">
+          <p>門市名稱：</p>
+          <span class="inline-block ml-10">{{ form.store_name }}</span>
+        </div>
+        <div class="flex p-2">
+          <p>門市地址：</p>
+          <span class="inline-block ml-10">{{ form.store_address }}</span>
+        </div>
+        <div class="p-2 text-left text-base text-gray-500">
+          <p>門市取件時需配合門市相關規範，部分門市已陸續調整為「自助取件」，可重新依地圖選擇確認。</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- section-order-info -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <!-- order-info-tag -->
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>訂購人資訊</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- order-info-detail -->
+      <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
+        <div class="flex justify-start">
+          <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
+          {{ form.order_name }}
+        </div>
+        <div class="flex justify-start items-center mt-2">
+          <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
+          {{ form.order_cell_phone }}
+          <p class="ml-7 text-base text-gray-500">手機市話可擇一填寫</p>
+        </div>
+        <div class="flex justify-start items-center mt-2">
+          <label for="order_phone" class="w-1/12 p-2 text-left">市話</label>
+          {{ form.order_phone }}
+          <p class="ml-7 text-base text-gray-500">手機市話可擇一填寫</p>
+        </div>
+        <div class="flex justify-start mt-2">
+          <label for="order_mail" class="w-1/12 p-2 text-left">E-mail</label>
+          {{ form.order_email }}
+        </div>
+      </div>
+    </div>
+  
+    <!-- section-recipient-info -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <!-- recipient-info-tag -->
+      <div class="flex justify-between items-center">
+        <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+          <h3>收件人資訊</h3>
+        </div>
+        <a href="#" class="block">
+          <div class="flex items-center">
+            <p class="mr-2 text-gray-700">寄送說明</p>
+            <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+          </div>
+        </a>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- recipient-info-detail -->
+      <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
+        <div class="flex justify-start items-center">
+          <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
+          {{ form.recipient_name }}
+          <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
+        </div>
+        <div class="flex justify-start items-center mt-2">
+          <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
+          {{ form.recipient_cell_phone }}
+          <p class="ml-7 text-base text-gray-500">輸入格式09XXXXXXXX，將以此資料發送超商未取簡訊提醒</p>
+        </div>
+        <div class="flex justify-start items-center mt-2">
+          <label for="recipient_mail" class="w-1/12 p-2 text-left">E-mail</label>
+          {{ form.recipient_email }}
+          <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
+        </div>
+      </div>
+    </div>
+  
+    
+    <!-- section-invoice -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <!-- invoice-tag -->
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>發票資訊</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <!-- invoice-options -->
+      <div class="mt-2">
+        {% for field in form.invoice_option %}
+        <div
+          class="flex items-center {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %} p-3 bg-gray-200">
+          {{ field }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    
+    <!-- section-return-agreement -->
+    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>退貨須知</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <div class="mt-2 rounded-xl bg-gray-200 p-3">
+        <div class="flex items-center">
+          {{ form.return_agreement }}
+          <label for="id_return_agreement" class="ml-3">我已閱讀並了解退貨須知</label>
+        </div>
+      </div>
+    </div>
+  <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
+    <a href="{% url 'cart_summary' %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
+      上一步
+    </a>
+    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
+    <button type="submit">下一步</button>
+    </a> 
+  </div>
+  
+</form>
+
+
+{% endblock %}
