@@ -72,9 +72,10 @@ def profile(request):
 
 #忘記密碼
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    # SuccessMessageMixin 用在class view上, 可自定義成功訊息, 並將網址轉向
     template_name = "accounts/password_reset.html"
-    email_template_name = "accounts/password_reset_email.html"
-    subject_template_name = "accounts/password_reset_subject.txt"
+    email_template_name = "accounts/password_reset_email.html" #信件內容
+    subject_template_name = "accounts/password_reset_subject.txt" #信件主旨
     success_message  = "我們已經寄出密碼重置信, "\
                         "你會在最初所填入註冊的信箱收到;"\
                         "如果沒有收到該信件, "\

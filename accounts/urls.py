@@ -3,8 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import NewLoginView, ResetPasswordView
 
-urlpatterns = [
-    
+urlpatterns = [   
     path('register',views.register,name="register"),
     path('login/', NewLoginView.as_view(
         template_name='accounts/login.html'), name='login'),
