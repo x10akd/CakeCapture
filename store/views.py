@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.core.paginator import Paginator
 from django.contrib import messages
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from .models import ProductReview
+from django.db.models import Avg
+from .form import ProductReviewForm
 
 
 def products_list(request):
@@ -69,7 +70,7 @@ def category(request, cat):
                 "selected_option": selected_option,
             },
         )
-    # 若再 Category 類別找不到輸入值，導回首頁
+    # 若 Category 類別找不到輸入值，導回首頁
     except Category.DoesNotExist:
         messages.error(request, ("That Category Doesn't Exist!"))
         return redirect("home")
@@ -113,13 +114,73 @@ def product_detail(request, pk):
         .exclude(id=pk)
         .order_by("?")[0:4]
     )
-    # product_rating = Product.objects.annotate(avg_rating=Avg("reviews__rating"))
+
+    review_form = ProductReviewForm()
 
     # Getting all reviews
-    reviews = ProductReview.objects.filter(product=product)
+    reviews = ProductReview.objects.filter(product=product).order_by("-date")
+
+    star_range = range(1, 6)
+
+    average_rating = ProductReview.objects.filter(product=product).aggregate(
+        rating=Avg("rating")
+    )
+
+    make_review = True
+
+    if request.user.is_authenticated:
+        user_review_count = ProductReview.objects.filter(
+            user=request.user, product=product
+        ).count()
+
+        if user_review_count > 0:
+            make_review = False
 
     return render(
         request,
         "products/product_detail.html",
-        {"product": product, "reviews": reviews, "related_ps": related_ps},
+        {
+            "product": product,
+            "reviews": reviews,
+            "review_form": review_form,
+            "related_ps": related_ps,
+            "star_range": star_range,
+            "average_rating": average_rating,
+            "make_review": make_review,
+        },
+    )
+
+
+def ajax_add_review(request, pk):
+    product = Product.objects.get(id=pk)
+    user = request.user
+
+    review = ProductReview.objects.create(
+        user=user,
+        product=product,
+        review=request.POST["review"],
+        rating=request.POST["rating"],
+    )
+
+    reviews_count = product.reviews.count()
+    average_rating = product.reviews.aggregate(Avg("rating"))["rating__avg"]
+
+    context = {
+        "user": user.username.capitalize(),
+        "review": request.POST["review"],
+        "rating": request.POST["rating"],
+        "reviews_count": reviews_count,
+        "average_rating": average_rating,
+    }
+
+    average_reviews = ProductReview.objects.filter(product=product).aggregate(
+        rating=Avg("rating")
+    )
+
+    return JsonResponse(
+        {
+            "bool": True,
+            "context": context,
+            "average_reviews": average_reviews,
+        }
     )
