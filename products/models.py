@@ -59,9 +59,6 @@ class ProductReview(models.Model):
     def get_rating(self):
         return self.rating
 
-   
- 
-
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -71,3 +68,19 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name}"
+
+class RelationalProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey('orders.Order', on_delete=models.CASCADE)
+    number = models.IntegerField(default=1)
+
+    @property
+    def name(self):
+        return self.product.name
+
+    @property
+    def price(self):
+        return self.product.price
+
+    def __str__(self):
+        return ""
