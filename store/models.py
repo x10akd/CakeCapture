@@ -55,5 +55,6 @@ class ProductReview(models.Model):
     def get_rating(self):
         return self.rating
 
-    # def average_rating(self):
-    #     return self.reviews.aggregate(Avg("rating"))["rating__avg"] or 0
+
+# def average_rating(self):
+#     return self.reviews.aggregate(Avg("rating"))["rating__avg"] or 0

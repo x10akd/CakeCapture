@@ -10,4 +10,9 @@ urlpatterns = [
     path("<pk>", views.product_detail, name="product_detail"),
     # add review
     path("ajax-add-review/<int:pk>/", views.ajax_add_review, name="ajax_add_review"),
+    path(
+        "ajax-edit-review/<int:review_id>/",
+        views.ajax_edit_review,
+        name="ajax_edit_review",
+    ),
 ]

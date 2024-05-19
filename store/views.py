@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -173,14 +173,44 @@ def ajax_add_review(request, pk):
         "average_rating": average_rating,
     }
 
-    average_reviews = ProductReview.objects.filter(product=product).aggregate(
-        rating=Avg("rating")
-    )
-
     return JsonResponse(
         {
             "bool": True,
             "context": context,
-            "average_reviews": average_reviews,
         }
     )
+
+
+def ajax_edit_review(request, review_id):
+    if request.method == "POST":
+        review = get_object_or_404(ProductReview, id=review_id, user=request.user)
+        review_text = request.POST.get("review")
+        review_rating = request.POST.get("rating")
+
+        if review_text and review_rating:
+            review.review = review_text
+            review.rating = review_rating
+            review.save()
+
+            product = review.product
+            reviews_count = product.reviews.count()
+            average_rating = product.reviews.aggregate(Avg("rating"))["rating__avg"]
+
+            context = {
+                "user": request.user.username.capitalize(),
+                "review": review_text,
+                "rating": int(review_rating),
+                "reviews_count": reviews_count,
+                "average_rating": average_rating,
+            }
+
+            return JsonResponse(
+                {
+                    "bool": True,
+                    "context": context,
+                }
+            )
+        else:
+            return JsonResponse({"bool": False})
+    else:
+        return JsonResponse({"bool": False})
