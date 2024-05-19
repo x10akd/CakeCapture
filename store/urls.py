@@ -15,4 +15,9 @@ urlpatterns = [
         views.ajax_edit_review,
         name="ajax_edit_review",
     ),
+    path(
+        "load_more_reviews/<int:product_id>",
+        views.load_more_reviews,
+        name="load_more_reviews",
+    ),
 ]

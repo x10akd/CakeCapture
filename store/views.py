@@ -112,20 +112,25 @@ def product_detail(request, pk):
     related_ps = (
         Product.objects.filter(category=product.category)
         .exclude(id=pk)
-        .order_by("?")[0:4]
+        .order_by("?")[0:4]  # 隨機排序
     )
 
     review_form = ProductReviewForm()
 
     # Getting all reviews
     reviews = ProductReview.objects.filter(product=product).order_by("-date")
+    p = Paginator(reviews, 10)
+    page_obj = p.get_page(1)  # 獲取第一頁評論
 
+    # render星星變數
     star_range = range(1, 6)
 
+    # 所有評價平均分數
     average_rating = ProductReview.objects.filter(product=product).aggregate(
         rating=Avg("rating")
     )
 
+    # 辨別是否顯示新增評論區變數
     make_review = True
 
     if request.user.is_authenticated:
@@ -141,9 +146,10 @@ def product_detail(request, pk):
         "products/product_detail.html",
         {
             "product": product,
-            "reviews": reviews,
-            "review_form": review_form,
             "related_ps": related_ps,
+            "reviews": page_obj,
+            "has_next": page_obj.has_next(),  # 是否有下一頁
+            "review_form": review_form,
             "star_range": star_range,
             "average_rating": average_rating,
             "make_review": make_review,
@@ -214,3 +220,30 @@ def ajax_edit_review(request, review_id):
             return JsonResponse({"bool": False})
     else:
         return JsonResponse({"bool": False})
+
+
+def load_more_reviews(request, product_id):
+    page = request.GET.get("page", 1)
+    reviews = ProductReview.objects.filter(product_id=product_id).order_by("-date")
+    paginator = Paginator(reviews, 10)
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        return JsonResponse({"reviews": [], "has_next": False})
+
+    reviews_data = []
+    for review in page_obj:
+        reviews_data.append(
+            {
+                "user": review.user.username,
+                "date": review.date.strftime("%d %b, %Y"),
+                "rating": review.rating,
+                "review": review.review,
+                "id": review.id,
+            }
+        )
+
+    return JsonResponse({"reviews": reviews_data, "has_next": page_obj.has_next()})

@@ -39,7 +39,7 @@
   <div class="flex justify-end gap-3 py-12 pr-11">
     {% if products.has_previous %}
     <a href="?page=1" class="text-gray-600 hover:text-red-400">&laquo 第一頁</a>
-    <a href="?page={{ products.previous_page_numver }}" class="text-gray-600 hover:text-red-400">上一頁</a>
+    <a href="?page={{ products.previous_page_number }}" class="text-gray-600 hover:text-red-400">上一頁</a>
     {% endif %}
 
     <p class="font-bold">Page {{ products.number }} of {{ products.paginator.num_pages }}</p>
