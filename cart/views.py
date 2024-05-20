@@ -63,7 +63,7 @@ def cart_update(request):
   
 
 @require_POST
-def cart_delete1(request):
+def cart_delete_all(request):
     if request.POST.get('action') == 'delete-all':
         # 從 POST 請求中獲取要刪除的商品 ID 列表
         product_ids = request.POST.getlist('product_ids[]')
