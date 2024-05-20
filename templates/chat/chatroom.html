@@ -22,10 +22,12 @@
         </div>
         <div class="sticky bottom-0 z-10 p-2 bg-purple-200">
 					<div class="flex items-center rounded-xl px-2 py-2">
-						<form id="chat_message_form" method='POST' class="w-full"
-						hx-post={% url "chat:home" %}
-						hx-target="#chat_messages"
-						hx-swap="beforeend">
+						<form id="chat_message_form" class="w-full"
+						hx-ext="ws"
+						hx-target="/ws/chatroom/public-chat"
+						ws-send
+						_="on htmx:wsAfterSend reset() me"
+						>
 							{% csrf_token %}
 							{{ form }}
 						</form>
@@ -36,7 +38,6 @@
 </content>
 
 <script>
-	
 	function scrollToButtom() {
 		const container = document.getElementById("chat_container");
 		container.scrollTop = container.scrollHeight;
