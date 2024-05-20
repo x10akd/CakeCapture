@@ -7,10 +7,16 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Document</title>
+	<!-- Using alpine / htmx / htmx-ws / hyperscript -->
+	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+	<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+	<script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+	<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+
 	<!-- Using Tailwindcss -->
 	<link rel="stylesheet" href="{% static 'styles/output.css' %}">
-	{% comment %} Using Tailwindcss CDN temporarily {% endcomment %}
-	{% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+	<!-- Using Tailwindcss CDN temporarily -->
+	<script src="https://cdn.tailwindcss.com"></script>
 
 	<!-- Using Alpine.js -->
 	<script src="{% static 'scripts/output.js' %}" type="module"></script>

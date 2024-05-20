@@ -11,17 +11,13 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-# Use environment variable
 SECRET_KEY = "django-insecure-y1gkrdf9wpvr#^l$^-6nx7sf2h+y-t58y_nhfs@3c6$a+!#&la"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
 
 
 # Application definition
@@ -35,12 +31,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",  # new
-    "allauth",  # new
-    "allauth.account",  # new
-    "allauth.socialaccount",  # new
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.facebook",  # new
+    "allauth.socialaccount.providers.facebook",
     "accounts",
     "store",
     "cart",
@@ -82,11 +78,12 @@ TEMPLATES = [
 # WSGI_APPLICATION = "core.wsgi.application"
 ASGI_APPLICATION = "core.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# Use environment variable instead
 
 DATABASES = {
     "default": {
@@ -102,9 +99,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
@@ -164,11 +158,6 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
-        # "APP": {
-        #     "client_id": "<120977077552-0f08d7p4si21uvfieqsk97u6dvsosb04.apps.googleusercontent.com>",
-        #     "secret": "<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>",
-        #     "key": "",
-        # },
         "SCOPE": [
             "profile",
             "email",
@@ -179,7 +168,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# 定義 SESSION 跟 cookie 的存活時間, 單位為秒, 分, 時, 日, 底下約 30日
+# 定義 SESSION 跟 cookie 的存活時間, 單位為秒
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 # 設定登入後, 使用者會導向首頁
@@ -197,26 +186,26 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # Logs
 # if settings.DEBUG:
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "handlers": {
-#         "console": {
-#             "level": "DEBUG",
-#             "class": "rich.logging.RichHandler",
-#             "show_time": False,
+#     LOGGING = {
+#         "version": 1,
+#         "disable_existing_loggers": False,
+#         "handlers": {
+#             "console": {
+#                 "level": "DEBUG",
+#                 "class": "rich.logging.RichHandler",
+#                 "show_time": False,
+#             },
+#             "file": {
+#                 "level": "DEBUG",
+#                 "class": "logging.FileHandler",
+#                 "filename": "logs/development.log",
+#             },
 #         },
-#         "file": {
-#             "level": "DEBUG",
-#             "class": "logging.FileHandler",
-#             "filename": "logs/development.log",  # Choose a file name and path
+#         "loggers": {
+#             "django.db.backends": {
+#                 "handlers": ["console", "file"],
+#                 "level": "DEBUG",
+#                 "propagate": False,
+#             },
 #         },
-#     },
-#     "loggers": {
-#         "django.db.backends": {
-#             "handlers": ["console", "file"],
-#             "level": "DEBUG",
-#             "propagate": False,
-#         },
-#     },
-# }
+#     }

@@ -24,7 +24,7 @@
 					<div class="flex items-center rounded-xl px-2 py-2">
 						<form id="chat_message_form" class="w-full"
 						hx-ext="ws"
-						hx-target="/ws/chatroom/public-chat"
+						ws-connect="/ws/chatroom/public-chat"
 						ws-send
 						_="on htmx:wsAfterSend reset() me"
 						>
