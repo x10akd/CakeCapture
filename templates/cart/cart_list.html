@@ -202,10 +202,10 @@
         $('.update').on('change', function ()
         {
             // 獲取商品 ID
-            var productId = $(this).data('index');
+            let productId = $(this).data('index');
             // 獲取數量
-            var quantity = $(this).val();
-            console.log('123');
+            let quantity = $(this).val();
+            
             // 向後端發送 AJAX POST 請求
             $.ajax({
                 type: 'POST',
@@ -279,7 +279,7 @@
         // 向後端發送 AJAX 請求，刪除所有要刪除的商品
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_delete1' %}",
+            url: "{% url 'cart_delete_all' %}",
             data: {
                 product_ids: productsToDelete, // 將要刪除的商品 ID 作為列表傳遞給後端
                 csrfmiddlewaretoken: '{{ csrf_token }}',

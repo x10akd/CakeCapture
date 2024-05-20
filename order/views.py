@@ -48,8 +48,19 @@ def order_process(request):
         create_order = Order(user=user,full_name=full_name,email=email,
         shipping_address=shipping_address,amount_paid=amount_paid)
         create_order.save()
+        #add order item
+        order_id = create_order.pk
+        for product in cart_products():
+            product_id = product.id
+            price = product.price
+            for key , value in quantities().items():
+                if int(key)== product.id:
+                    create_oder_item = OrderItem(order_id = order_id,product_id = product_id,user = user,quantity=value,price=price)
+                    create_oder_item.save()
+
         return redirect('home')
     else:        
+
         return redirect('home')
 
     

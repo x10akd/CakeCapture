@@ -192,7 +192,9 @@
     </a>
     <form action="{% url 'order_process' %}" method="POST">
     {% csrf_token %}
-      <button type="submit" class="w-1/4 p-2 rounded-xl bg-gray-300 text-center">送出定單</button>
+
+      <button type="submit" class="w-32 h-12 rounded-xl bg-red-300">送出定單</button>
+    
     </form>
   </div>
 </div>

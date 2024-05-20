@@ -5,7 +5,7 @@ class Cart():
         self.session = request.session
         self.request = request
         #get the current session key if exit
-        cart =self.session.get('session_key')
+        cart = self.session.get('session_key')
         #if the user is new,no session ,create one
         if 'session_key' not in request.session:
             cart = self.session['session_key']={}
@@ -14,7 +14,7 @@ class Cart():
         self.cart = cart
     def db_add(self,product,quantity):
         product_id = str(product)
-        product_qty=str(quantity)
+        product_qty = str(quantity)
         #logic
         if product_id in self.cart:
             pass
@@ -28,7 +28,7 @@ class Cart():
             current_user = Profile.objects.filter(user__id = self.request.user.id)
             #convert
             carty = str(self.cart)
-            carty=carty.replace("\'","\"")
+            carty = carty.replace("\'","\"")
             #save carty to Profile Model
             current_user.update(old_cart=str(carty))
 
@@ -104,8 +104,7 @@ class Cart():
     def update(self,product,quantity):
         product_id = str(product)
         product_qty = int(quantity)
-        ourcart = self.cart
-        ourcart[product_id]= product_qty
+        self.cart[product_id]= product_qty
         self.session.modified=True
         thing = self.cart
         return thing
