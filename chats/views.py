@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
@@ -21,8 +21,8 @@ def chat_view(request):
                 "message": message,
                 "user": request.user,
             }
-            return render(request, "chat/chatroom_msg_partial.html", context)
+            return render(request, "chats/chatroom_msg_partial.html", context)
 
     return render(
-        request, "chat/chatroom.html", {"chat_messages": chat_messages, "form": form}
+        request, "chats/chatroom.html", {"chat_messages": chat_messages, "form": form}
     )

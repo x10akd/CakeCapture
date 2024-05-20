@@ -5,6 +5,7 @@ from . import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("chats/", include("chats.urls")),
     path("", include("pages.urls")),
     path("products/", include("store.urls")),
     path("cart/", include("cart.urls")),

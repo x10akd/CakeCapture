@@ -13,7 +13,6 @@ urlpatterns = [
     path("cart/confirm", views.cart_confirm, name="cart_confirm"),
     path("cart/payment", views.cart_payment, name="cart_payment"),
     path("cart/checkout", views.cart_checkout, name="cart_checkout"),
-    path("chat", include("chat.urls")),
 ]
 
 

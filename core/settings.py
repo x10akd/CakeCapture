@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "store",
     "cart",
     "django_htmx",
-    "chat",
+    "chats",
 ]
 
 MIDDLEWARE = [

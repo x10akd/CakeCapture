@@ -54,5 +54,5 @@ class ChatroomConsumer(WebsocketConsumer):
             "user": self.user,
         }
 
-        html = render_to_string("chat/chatroom_msg_partial.html", context=context)
+        html = render_to_string("chats/chatroom_msg_partial.html", context=context)
         self.send(text_data=html)
