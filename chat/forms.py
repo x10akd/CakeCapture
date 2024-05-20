@@ -11,7 +11,7 @@ class ChatmessageCreateForm(ModelForm):
             "body": forms.TextInput(
                 attrs={
                     "placeholder": "Add message...",
-                    "class": "p-4 text-black",
+                    "class": "p-4 text-black w-full round-md",
                     "maxlength": "300",
                     "autofocus": True,
                 }
