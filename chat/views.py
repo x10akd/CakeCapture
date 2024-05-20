@@ -17,7 +17,7 @@ def chat_view(request):
             message.author = request.user
             message.group = chat_group
             message.save()
-            return redirect("home")
+            return redirect("chat:home")
 
     return render(
         request, "chat/chatroom.html", {"chat_messages": chat_messages, "form": form}
