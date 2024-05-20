@@ -1,5 +1,5 @@
 from django.db import models
-
+from store.models import Product,RelationalProduct
 
 class Order(models.Model):
     order_id = models.CharField(max_length=20)

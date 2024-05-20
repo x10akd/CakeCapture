@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import FormView
+from django.views.generic import FormView,TemplateView
 from .form import OrderForm
 from .models import Product, RelationalProduct
 from cart.cart import Cart  
@@ -47,3 +47,62 @@ class CheckoutView(FormView):
         context = self.get_context_data(form=form)
         context['order_id'] = self.object.order_id
         return render(self.request, self.success_url, context=context)
+
+
+class ECPayView(TemplateView):
+    template_name = "orders/ecpay.html"
+
+    def post(self, request, *args, **kwargs):
+        scheme = request.is_secure() and "https" or "http"
+        domain = request.META['HTTP_HOST']
+
+        order_id = request.POST.get("order_id")
+        order = Order.objects.get(order_id=order_id)
+        product_list = "#".join(
+            [product.name for product in order.product.all()])
+        order_params = {
+            'MerchantTradeNo': order.order_id,
+            'StoreID': '',
+            'MerchantTradeDate': datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
+            'PaymentType': 'aio',
+            'TotalAmount': order.total,
+            'TradeDesc': order.order_id,
+            'ItemName': product_list,
+            # ReturnURL為付款結果通知回傳網址，為特店server或主機的URL，用來接收綠界後端回傳的付款結果通知。
+            'ReturnURL': f'{scheme}://{domain}/orders/return/',
+            'ChoosePayment': 'ALL',
+            # 消費者點選此按鈕後，會將頁面導回到此設定的網址(返回商店按鈕)
+            'ClientBackURL': f'{scheme}://{domain}/products/list/',
+            'ItemURL': f'{scheme}://{domain}/products/list/',  # 商品銷售網址
+            'Remark': '交易備註',
+            'ChooseSubPayment': '',
+            # 消費者付款完成後，綠界會將付款結果參數以POST方式回傳到到該網址
+            'OrderResultURL': f'{scheme}://{domain}/orders/orderresult/',
+            'NeedExtraPaidInfo': 'Y',
+            'DeviceSource': '',
+            'IgnorePayment': '',
+            'PlatformID': '',
+            'InvoiceMark': 'N',
+            'CustomField1': '',
+            'CustomField2': '',
+            'CustomField3': '',
+            'CustomField4': '',
+            'EncryptType': 1,
+        }
+        # 建立實體
+        ecpay_payment_sdk = module.ECPayPaymentSdk(
+            MerchantID='3002607',
+            HashKey='pwFHCqoQZGmho4w6',
+            HashIV='EkRm7iFT261dpevs'
+        )
+        # 產生綠界訂單所需參數
+        final_order_params = ecpay_payment_sdk.create_order(order_params)
+
+        # 產生 html 的 form 格式
+        action_url = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'  # 測試環境
+        # action_url = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5' # 正式環境
+        ecpay_form = ecpay_payment_sdk.gen_html_post_form(
+            action_url, final_order_params)
+        context = self.get_context_data(**kwargs)
+        context['ecpay_form'] = ecpay_form
+        return self.render_to_response(context)
