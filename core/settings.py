@@ -133,12 +133,10 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
-        "SCOPE": [
-            "profile",
-            "email",
-        ],
-        "AUTH_PARAMS": {
-            "access_type": "online",
+        "APP": {
+            "client_id": env("CLIENT_ID"),
+            "secret": env("SECRET"),
+            "key": "",
         },
     }
 }
