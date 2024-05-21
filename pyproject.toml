@@ -2,7 +2,7 @@
 name = "core"
 version = "0.1.0"
 description = ""
-authors = ["Chien Chuan Wang <chien@chienchuan.com>"]
+authors = ["Cake Capture"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
