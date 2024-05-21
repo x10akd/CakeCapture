@@ -30,20 +30,20 @@
 									價格由低到高
 									</li>
 								</a>
-								<a href="#">
+								<a href="?sort_by=rh2l">
 									<li
 										class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
-										@click="selectedOption = '上市日期由舊到新'"
+										@click="selectedOption = '評分由高到低'"
 									>
-									上市日期由舊到新
+									評分由高到低
 									</li>
 								</a>
-								<a href="#">
+								<a href="?sort_by=rl2h">
 									<li
 										class="rounded-lg hover:bg-red-200 block pd-1"
-										@click="selectedOption = '上市日期由新到舊'"
+										@click="selectedOption = '評分由低到高'"
 									>
-									上市日期由新到舊
+									評分由低到高
 									</li>
 								</a>
 							</ul>
@@ -52,15 +52,15 @@
 {% block products_paginator %}					
 	<div class="flex justify-end gap-3 py-12 pr-11">
 		{% if products.has_previous %}
-		<a href="?page=1" class="text-gray-600 hover:text-red-400">&laquo 第一頁</a>
-		<a href="?page={{ products.previous_page_number }}" class="text-gray-600 hover:text-red-400">上一頁</a>
+		<a href="?sort_by={{ sort_by }}&page=1" class="text-gray-600 hover:text-red-400">&laquo 第一頁</a>
+		<a href="?sort_by={{ sort_by }}&page={{ products.previous_page_number }}" class="text-gray-600 hover:text-red-400">上一頁</a>
 		{% endif %}
 
 		<p class="font-bold">Page {{ products.number }} of {{ products.paginator.num_pages }}</p>
 
 		{% if products.has_next %}
-		<a href="?page={{ products.next_page_number }}" class="text-gray-600 hover:text-red-400">下一頁</a>
-		<a href="?page={{ products.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
+		<a href="?sort_by={{ sort_by }}&page={{ products.next_page_number }}" class="text-gray-600 hover:text-red-400">下一頁</a>
+		<a href="?sort_by={{ sort_by }}&page={{ products.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
 		{% endif %}
 	</div>
 {% endblock %}

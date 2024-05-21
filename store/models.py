@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Avg
 
 import datetime
 
@@ -26,6 +27,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def average_rating(self):
+        avg_rating = self.reviews.aggregate(Avg("rating"))["rating__avg"]
+        return avg_rating
 
 
 RATING = (
@@ -54,7 +59,3 @@ class ProductReview(models.Model):
 
     def get_rating(self):
         return self.rating
-
-
-# def average_rating(self):
-#     return self.reviews.aggregate(Avg("rating"))["rating__avg"] or 0

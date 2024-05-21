@@ -67,8 +67,21 @@
 					<button type="button" value="{{ product.id }}" id="add_cart" >放到購物車</button>
 				</div>
 			</div>
-			<div class="product-star">
-				*****(151)
+			<div class="product-star flex gap-3 mb-3">
+				<div class="flex items-center">
+					<div>
+						<svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+							<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+						</svg>
+					</div>
+					<p class="text-lg font-bold leading-relaxed text-gray-900 antialiased averageRating">
+					{% if product.average_rating is not None %}
+						{{ product.average_rating|floatformat:1 }}
+					{% else %}
+						---
+					{% endif %}</p>
+				</div>
+				<div class="text-lg font-bold leading-relaxed text-gray-900 antialiased">(<span class="reviewsCount">{{ reviews.paginator.count }}</span>)</div>
 			</div>
 			<div class="product-subheading font-medium">
 				<!-- <p>It is really tasty.</p> -->
@@ -125,8 +138,13 @@
     <div class="flex gap-6">
         <div class="w-full">
             <h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">
-                顧客評價(<span id="reviewsCount">{{ reviews.paginator.count }}</span>) 
-                <span class="text-lg text-gray-600">平均星數(<span id="averageRating">{{ average_rating.rating|floatformat:1 }}</span>)</span>
+                顧客評價(<span class="reviewsCount">{{ reviews.paginator.count }}</span>) 
+                <span class="text-lg text-gray-600">平均星數(<span class="averageRating">
+								{% if product.average_rating is not None %}
+									{{ product.average_rating|floatformat:1 }}
+								{% else %}
+									---
+								{% endif %}</span>)</span>
             </h4>
             <!-- reviews -->
             <div class="flex flex-col gap-6 comment-list">
@@ -155,7 +173,7 @@
 											</div>
 											<p class="my-5 review-text">{{ review.review }}</p>
 											{% if request.user == review.user %}
-												<div class="">
+												<div>
 													<button class="text-blue-500 hover:text-red-400 edit-button" data-review-id="{{ review.id }}" id="edit-review">編輯</button>
 												</div>
 											{% endif %}
@@ -163,7 +181,7 @@
 									<!-- 評論編輯區塊 -->
 									<div class="my-4" style="display:none" id="edit-review-form-{{ review.id }}">
 										<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
-										<form action="{% url 'store:ajax_edit_review' review.id %}" method="POST" class="flex gap-6" id="editCommentForm" data-review-id="{{ review.id }}">
+										<form action="{% url 'store:ajax_edit_review' review.id %}" method="POST" class="flex gap-6 editCommentForm"  data-review-id="{{ review.id }}">
 												{% csrf_token %}
 												<div>
 														<textarea name="review" id="editReviewText" rows="5" cols="80" class="focus:outline-none border-2 border-gray-300 rounded-xl p-5">{{ review.review }}</textarea>
@@ -250,7 +268,11 @@
 								>
 									<path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/>
 								</svg>
-								5.0
+								{% if related_p.average_rating is not None %}
+                	{{ related_p.average_rating|floatformat:1 }}
+              	{% else %}
+                	---
+              	{% endif %}
 							</p>
 						</div>
 						<div class="flex items-center justify-between">
@@ -285,14 +307,15 @@
 				method: $(this).attr("method"),
 				url: $(this).attr("action"),
 				dataType: "json",
+
 				success: function(response){
 
 						if(response.bool == true){
 								// 隱藏評論輸入框
 								$("#addReview").hide()
 								// 更新評論數及平均分數
-								$("#reviewsCount").text(response.context.reviews_count);
-                $("#averageRating").text(response.context.average_rating.toFixed(1));
+								$(".reviewsCount").text(response.context.reviews_count);
+                $(".averageRating").text(response.context.average_rating.toFixed(1));
 
 								// 動態渲染評論html
 								let _html = '<div class="rounded-xl bg-blue-100 p-5 shadow-lg shadow-blue-gray-500/40">';
@@ -329,13 +352,13 @@
 
 // 編輯評論
 // 點擊編輯按鈕展開編輯表單
-$('#edit-review').on('click', function() {
+$(document).on('click', '#edit-review', function() {
 	let reviewId = $(this).data('review-id');
 	$('#edit-review-form-' + reviewId).toggle();
 });
 
 // 處理表單資料
-$('#editCommentForm').on('submit', function(e) {
+$(document).on('submit', '.editCommentForm', function(e) {
 	e.preventDefault();
 	let reviewId = $(this).data('review-id');
 
@@ -354,11 +377,11 @@ $('#editCommentForm').on('submit', function(e) {
 				reviewElement.find('p.review-text').text(response.context.review);
 				reviewElement.find('svg').each(function(index) {
 					$(this).toggleClass('text-yellow-400', index < response.context.rating);
-					$(this).toggleClass('text-gray-500', index >= response.context.rating);
+					$(this).toggleClass('text-gray-300', index >= response.context.rating);
 			});
 				// 更新評論數及平均分數
-				$("#reviewsCount").text(response.context.reviews_count);
-        $("#averageRating").text(response.context.average_rating.toFixed(1));
+				$(".reviewsCount").text(response.context.reviews_count);
+        $(".averageRating").text(response.context.average_rating.toFixed(1));
 			}
 		}
 	})
@@ -367,9 +390,13 @@ $('#editCommentForm').on('submit', function(e) {
 
 // 加載更多評論
 $('#loadMoreReviewsBtn').on('click', function() {
+	// 定義模板上要用的資料
 	// 從button身上抓取page資料
 	let page = $(this).data('page');
 	let productId = '{{ product.id }}';
+	let ajaxEditReviewUrl = "{% url 'store:ajax_edit_review' 0 %}".slice(0, -2); // ajax_edit_review/0/ 切掉後面的 0/
+  let csrfToken = '{{ csrf_token }}';
+
 
 	$.ajax({
 			url: '{% url "store:load_more_reviews" product.id %}',
@@ -395,11 +422,33 @@ $('#loadMoreReviewsBtn').on('click', function() {
 													</div>
 											</div>
 											<p class="my-5 review-text">${review.review}</p>
-											{% if request.user == review.user %}
-											<div class="flex justify-end">
-													<button class="text-blue-500 edit-button" data-review-id="${review.id}" id="edit-review">编辑</button>
+											${review.is_user_review ? `
+											<div>
+													<button class="text-blue-500 hover:text-red-400 edit-button" data-review-id="${review.id}" id="edit-review">編輯</button>
 											</div>
-											{% endif %}
+											`	: ''}
+									</div>
+									<div class="my-4" style="display:none" id="edit-review-form-${review.id}">
+										<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
+										<form action="${ajaxEditReviewUrl}${review.id}/" method="POST" class="flex gap-6 editCommentForm"  data-review-id="${review.id}">
+											<input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+												<div>
+														<textarea name="review" id="editReviewText" rows="5" cols="80" class="focus:outline-none border-2 border-gray-300 rounded-xl p-5">${review.review}</textarea>
+												</div>
+												<div class="flex flex-col justify-between">
+													<select name="rating" id="editReviewRating" class="border-2 border-gray-300 rounded-xl p-2 focus:outline-none">
+															<option value="1" ${review.rating == 1 ? 'selected' : ''}>★☆☆☆☆</option>
+															<option value="2" ${review.rating == 2 ? 'selected' : ''}>★★☆☆☆</option>
+															<option value="3" ${review.rating == 3 ? 'selected' : ''}>★★★☆☆</option>
+															<option value="4" ${review.rating == 4 ? 'selected' : ''}>★★★★☆</option>
+															<option value="5" ${review.rating == 5 ? 'selected' : ''}>★★★★★</option>
+													</select>
+														<input type="hidden" name="review_id" id="editReviewId value="${review.id}">
+														<div>
+																<button type="submit" class="text-xl text-white font-bold p-3 rounded-xl bg-red-400 hover:scale-105">更新留言</button>
+														</div>
+												</div>
+										</form>
 									</div>
 							`;
 							$('.comment-list').append(reviewHtml);
