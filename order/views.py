@@ -57,6 +57,10 @@ def order_process(request):
                 if int(key)== product.id:
                     create_oder_item = OrderItem(order_id = order_id,product_id = product_id,user = user,quantity=value,price=price)
                     create_oder_item.save()
+        #delete our cart
+        for key in list(request.session.keys()):
+            if key == "session_key":
+                del request.session[key]
 
         return redirect('home')
     else:        

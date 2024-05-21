@@ -111,8 +111,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA_URL = "media/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -154,26 +154,37 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # Logs
 # if settings.DEBUG:
-#     LOGGING = {
-#         "version": 1,
-#         "disable_existing_loggers": False,
-#         "handlers": {
-#             "console": {
-#                 "level": "DEBUG",
-#                 "class": "rich.logging.RichHandler",
-#                 "show_time": False,
-#             },
-#             "file": {
-#                 "level": "DEBUG",
-#                 "class": "logging.FileHandler",
-#                 "filename": "logs/development.log",
-#             },
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "console": {
+#             "level": "DEBUG",
+#             "class": "rich.logging.RichHandler",
+#             "show_time": False,
 #         },
-#         "loggers": {
-#             "django.db.backends": {
-#                 "handlers": ["console", "file"],
-#                 "level": "DEBUG",
-#                 "propagate": False,
-#             },
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": "logs/development.log",  # Choose a file name and path
 #         },
-#     }
+#     },
+#     "loggers": {
+#         "django.db.backends": {
+#             "handlers": ["console", "file"],
+#             "level": "DEBUG",
+#             "propagate": False,
+#         },
+#     },
+# }
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+AWS_ACCESS_KEY_ID = "AKIAQ3EGWTI2HDRRTJ2E"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "cakecapture"
+AWS_S3_SIGNATURE_NAME = ("s3v4",)
+AWS_S3_REGION_NAME = "ap-southeast-2"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"

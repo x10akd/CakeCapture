@@ -47,6 +47,7 @@ class Order(models.Model):
     shipping_address = models.CharField(max_length=200)
     amount_paid = models.IntegerField()
     date_ordered=models.DateTimeField(auto_now_add=True)
+    shipped = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Order - {str(self.id)}'
