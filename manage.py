@@ -4,7 +4,6 @@ import os
 import sys
 
 
-# 繼續執行 Django 的管理命令
 def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
