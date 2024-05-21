@@ -6,7 +6,7 @@ from cart.cart import Cart
 
 
 class CheckoutView(FormView):
-    template_name = "orders/checkout.html" #需要修改
+    template_name = "orders/checkout.html"  # 需要修改
     form_class = OrderForm
     success_url = 'orders/confirmation.html' #需要修改
 
@@ -32,7 +32,7 @@ class CheckoutView(FormView):
     def form_valid(self, form):
         cart = Cart(self.request)
         self.object = form.save(commit=False)
-        self.object.save()  # 先保存订单以生成 ID
+        self.object.save() 
 
         total = 0
         for product in cart.get_prods():
