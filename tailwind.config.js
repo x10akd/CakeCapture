@@ -5,7 +5,5 @@ module.exports = {
         extend: {},
     },
     plugins: [],
-    safelist: [
-    ],
-}
-
+    safelist: [],
+};
