@@ -958,7 +958,11 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 lock-version = "2.0"
 python-versions = "^3.12"
 <<<<<<< HEAD
+<<<<<<< HEAD
 content-hash = "c5cc700ecd9790de6b0a3a2fb405446635751bef1faf6baf054c1db3df69ab0f"
 =======
 content-hash = "4df46e45c19d40ad4fa89b58281cff61ed4c4e34685eab3eeae673fb1c2f3875"
 >>>>>>> 776e947 (create order app)
+=======
+content-hash = "c5cc700ecd9790de6b0a3a2fb405446635751bef1faf6baf054c1db3df69ab0f"
+>>>>>>> ae04375 (poetry add)
