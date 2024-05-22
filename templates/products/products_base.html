@@ -167,7 +167,7 @@
           // 商品未在購物車中，發送Ajax請求
           $.ajax({
             type: 'POST',
-            url: "{% url 'cart_add' %}",
+            url: "{% url 'carts:add' %}",
             data: {
               product_id: product_id,
               product_qty: 1,

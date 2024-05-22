@@ -156,44 +156,7 @@
         </a>
     </div>
   </div>
-  <!-- section-notice -->
-  <div class="mt-12 m-2 p-2 text-center">
-    <!-- notice-tag -->
-    <div class="w-60 rounded-t-xl bg-red-300 p-2 text-center text-xl font-semibold text-white">
-      <h3>重要提醒</h3>
-    </div>
-    <span class="block w-full h-1 bg-red-300"></span>
-    <div class="mt-2 rounded-xl border-2 border-red-300 p-2 text-left text-lg">
-      <div>
-        <p>提醒 1</p>
-      </div>
-      <div>
-        <p>提醒 2</p>
-      </div>
-      <div>
-        <p>提醒 3</p>
-      </div>
-      <div>
-        <p>提醒 4</p>
-      </div>
-      <div>
-        <p>提醒 5</p>
-      </div>
-    </div>
-  </div>
-  <!-- section-redirect -->
-  <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
-    <a href="{% url 'home' %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
-      回首頁
-    </a>
-    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
-      海外結帳
-    </a>
-    <a href="{% url 'cart_payment' %}" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
-      國內結帳
-    </a>
-  </div>
-</div>
+  
 <script>
 
     $(document).ready(function ()
@@ -209,7 +172,7 @@
             // 向後端發送 AJAX POST 請求
             $.ajax({
                 type: 'POST',
-                url: "{% url 'cart_update' %}",   // 替換為您的後端 URL
+                url: "{% url 'carts:update' %}",   // 替換為您的後端 URL
                 data: {
                     product_id: productId,
                     product_qty: quantity,
@@ -239,7 +202,7 @@
 
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_delete' %}",
+            url: "{% url 'carts:delete' %}",
             data: {
                 product_id: $(this).data('index'),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -279,7 +242,7 @@
         // 向後端發送 AJAX 請求，刪除所有要刪除的商品
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_delete_all' %}",
+            url: "{% url 'carts:delete_all' %}",
             data: {
                 product_ids: productsToDelete, // 將要刪除的商品 ID 作為列表傳遞給後端
                 csrfmiddlewaretoken: '{{ csrf_token }}',
