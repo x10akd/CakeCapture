@@ -51,7 +51,7 @@
         </div>
         <!-- order-list -->
         {% for product in cart_products %}
-        <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300" data-product-id="{{product.id}}">
+        <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{product.id}}">
             <div class="w-1/12 felx flex-col m-auto">
                 <input type="checkbox" class="w-7 h-7 m-auto p-2 cb">
             </div>
@@ -68,11 +68,13 @@
             </div>
             <div class="felx flex-col m-auto w-1/12 p-2">
                 {% for key, value in quantities.items%}
-                    {% if key == product.id|slugify %}
-                    <input type="number" min="1" value="{{ value }}" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update" data-index="{{product.id}}">
-                    {% endif %}
+                {% if key == product.id|slugify %}
+                <input type="number" min="1" value="{{ value }}"
+                    class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update"
+                    data-index="{{product.id}}">
+                {% endif %}
                 {% endfor%}
-                
+
             </div>
             <div class="felx flex-col m-auto w-1/12 p-2">
                 <p>$ {{product.price}}</p>
@@ -88,7 +90,7 @@
                 </div>
                 <div class="m-2 p-2">
                     <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
-                    <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
+                        <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
                 </div>
             </div>
         </div>
@@ -155,8 +157,8 @@
             國內結帳
         </a>
     </div>
-  </div>
-  
+</div>
+
 <script>
 
     $(document).ready(function ()
@@ -168,7 +170,7 @@
             let productId = $(this).data('index');
             // 獲取數量
             let quantity = $(this).val();
-            
+
             // 向後端發送 AJAX POST 請求
             $.ajax({
                 type: 'POST',
@@ -239,6 +241,7 @@
                 productsToDelete.push(e.dataset.productId)
             }
         })
+        console.log(productsToDelete)
         // 向後端發送 AJAX 請求，刪除所有要刪除的商品
         $.ajax({
             type: 'POST',
@@ -251,7 +254,7 @@
             success: function (json)
             {
 
-                location.reload(); // 刷新頁面或者執行其他操作
+             location.reload(); // 刷新頁面或者執行其他操作
             },
             error: function (xhr, errmsg, err)
             {
