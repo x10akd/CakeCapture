@@ -8,7 +8,7 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-y1gkrdf9wpvr#^l$^-6nx7sf2h+y-t58y_nhfs@3c6$a+!#&la"
+SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
@@ -144,10 +144,10 @@ LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "login"
 
 # Related to reset email sender
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
