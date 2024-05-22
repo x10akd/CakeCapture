@@ -367,6 +367,7 @@ $(document).on('submit', '.editCommentForm', function(e) {
 		method: $(this).attr("method"),
 		url: $(this).attr("action"),
 		dataType: "json",
+
 		success: function(response) {
 			
 			if(response.bool == true) {
@@ -391,9 +392,9 @@ $(document).on('submit', '.editCommentForm', function(e) {
 // 加載更多評論
 $('#loadMoreReviewsBtn').on('click', function() {
 	// 定義模板上要用的資料
-	// 從button身上抓取page資料
 	let page = $(this).data('page');
 	let productId = '{{ product.id }}';
+	// 動態渲染的神社url會壞，所以用變數取代
 	let ajaxEditReviewUrl = "{% url 'store:ajax_edit_review' 0 %}".slice(0, -2); // ajax_edit_review/0/ 切掉後面的 0/
   let csrfToken = '{{ csrf_token }}';
 
