@@ -6,7 +6,7 @@
     <h2 class="text-2xl font-bold text-red-600">請先登出再使用註冊功能</h2>
     {% else %}
     <h2 class="text-2xl font-bold mb-6">註冊</h2>
-    <form action="" method="POST" class="space-y-4">
+    <form method="POST" class="space-y-4">
       {% csrf_token %}
       <div>
         <label for="username" class="block text-sm font-medium text-gray-700">帳號</label>
