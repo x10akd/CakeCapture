@@ -177,11 +177,10 @@ def search(request):
 
 def product_detail(request, pk):
     product = Product.objects.get(id=pk)
-    # 相關商品 (related_products)
-    related_ps = (
+    related_products = (
         Product.objects.filter(category=product.category)
         .exclude(id=pk)
-        .order_by("?")[0:4]  # 隨機排序
+        .order_by("?")[0:4]  # 想讓顯示商品隨機
     )
 
     review_form = ProductReviewForm()
@@ -215,7 +214,7 @@ def product_detail(request, pk):
         "products/product_detail.html",
         {
             "product": product,
-            "related_ps": related_ps,
+            "related_products": related_products,
             "reviews": page_obj,
             "has_next": page_obj.has_next(),  # 是否有下一頁
             "review_form": review_form,

@@ -138,7 +138,7 @@
     <div class="flex gap-6">
         <div class="w-full">
             <h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">
-                顧客評價(<span class="reviewsCount">{{ reviews.paginator.count }}</span>) 
+                顧客評論(<span class="reviewsCount">{{ reviews.paginator.count }}</span>) 
                 <span class="text-lg text-gray-600">平均星數(<span class="averageRating">
 								{% if product.average_rating is not None %}
 									{{ product.average_rating|floatformat:1 }}
@@ -215,7 +215,7 @@
 			<h4 class="text-2xl font-bold">| 同類型商品 |</h4>
 		</div>
 		<div class="flex gap-6">
-			{% for related_p in related_ps %}
+			{% for related_p in related_products %}
 			<!-- card -->
 			<div class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
         <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
