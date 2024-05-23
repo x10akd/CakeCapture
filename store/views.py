@@ -60,6 +60,7 @@ def products_list(request):
     )
 
 
+# 需要category資料，用cat變數來接
 def category(request, cat):
     selected_option = "預設排序"
     sort_by = request.GET.get("sort_by", "default")
