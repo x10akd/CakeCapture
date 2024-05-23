@@ -17,6 +17,7 @@ channels = {extras = ["daphne"], version = "^4.1.0"}
 django-htmx = "^1.17.3"
 django-storages = {extras = ["boto3"], version = "^1.14.3"}
 django = "^5.0.6"
+line-bot-sdk = "^3.11.0"
 
 
 
