@@ -160,29 +160,29 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # Logs
 # if settings.DEBUG:
-    # LOGGING = {
-    #     "version": 1,
-    #     "disable_existing_loggers": False,
-    #     "handlers": {
-    #         "console": {
-    #             "level": "DEBUG",
-    #             "class": "rich.logging.RichHandler",
-    #             "show_time": False,
-    #         },
-    #         "file": {
-    #             "level": "DEBUG",
-    #             "class": "logging.FileHandler",
-    #             "filename": "logs/development.log",  # Choose a file name and path
-    #         },
-    #     },
-    #     "loggers": {
-    #         "django.db.backends": {
-    #             "handlers": ["console", "file"],
-    #             "level": "DEBUG",
-    #             "propagate": False,
-    #         },
-    #     },
-    # }
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "console": {
+#             "level": "DEBUG",
+#             "class": "rich.logging.RichHandler",
+#             "show_time": False,
+#         },
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": "logs/development.log",  # Choose a file name and path
+#         },
+#     },
+#     "loggers": {
+#         "django.db.backends": {
+#             "handlers": ["console", "file"],
+#             "level": "DEBUG",
+#             "propagate": False,
+#         },
+#     },
+# }
 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
@@ -198,3 +198,5 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
 
+LINE_CHANNEL_ACCESS_TOKEN = env("LINE_ACCESS_TOKEN")
+LINE_CHANNEL_SECRET = env("LINE_CHANNEL_SECRET")
