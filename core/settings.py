@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "accounts",
     "store",
-    "cart",
     "django_htmx",
     "chats",
     "order",
@@ -112,9 +111,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# MEDIA_URL = "media/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTHENTICATION_BACKENDS = (
@@ -134,6 +130,13 @@ SOCIALACCOUNT_PROVIDERS = {
             "client_id": env("client_id"),
             "secret": env("secret"),
             "key": "",
+        },
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
         },
     }
 }
@@ -178,6 +181,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 #         },
 #     },
 # }
+
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
