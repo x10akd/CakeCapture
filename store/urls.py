@@ -5,14 +5,14 @@ app_name = "store"
 
 urlpatterns = [
     path("", views.products_list, name="products_list"),
-    path("category/<str:cat>", views.category, name="category"),
+    path("category/<str:category>", views.category, name="category"),
     path("search/", views.search, name="search"),
     path("<pk>", views.product_detail, name="product_detail"),
-    path("ajax-add-review/<int:pk>/", views.ajax_add_review, name="ajax_add_review"),
+    path("add-review/<int:pk>/", views.add_review, name="add_review"),
     path(
-        "ajax-edit-review/<int:review_id>/",
-        views.ajax_edit_review,
-        name="ajax_edit_review",
+        "edit-review/<int:review_id>/",
+        views.edit_review,
+        name="edit_review",
     ),
     path(
         "load_more_reviews/<int:product_id>",

@@ -14,44 +14,37 @@ def products_list(request):
 
     products = Product.objects.all()
 
-    if sort_by == "pl2h":  # pl2h = price low to high
+    if sort_by == "price_asc":
         products = products.order_by("price")
         selected_option = "價格由低到高"
-    elif sort_by == "ph2l":  # ph2l = price high to low
+    elif sort_by == "price_desc":
         products = products.order_by("-price")
         selected_option = "價格由高到低"
-    elif sort_by == "rl2h":  # rl2h = rating low to high
-        products = (
-            products.annotate(avg_rating=Avg("reviews__rating"))
-            .annotate(
-                sorted_rating=Case(
-                    When(avg_rating=None, then=Value(6.0)),
-                    default="avg_rating",
-                )
-            )
-            .order_by("sorted_rating")
-        )
+    elif sort_by == "rating_asc":
+        products = products.annotate(
+            avg_rating=Avg("reviews__rating"),
+            sorted_rating=Case(
+                When(avg_rating=None, then=Value(6.0)),
+                default="avg_rating",
+            ),
+        ).order_by("sorted_rating")
         selected_option = "評價由低到高"
-    elif sort_by == "rh2l":  # rh2l = rating high to low
-        products = (
-            products.annotate(avg_rating=Avg("reviews__rating"))
-            .annotate(
-                sorted_rating=Case(
-                    When(avg_rating=None, then=Value(-1.0)),
-                    default="avg_rating",
-                )
-            )
-            .order_by("-sorted_rating")
-        )
+    elif sort_by == "rating_des":
+        products = products.annotate(
+            avg_rating=Avg("reviews__rating"),
+            sorted_rating=Case(
+                When(avg_rating=None, then=Value(-1.0)),
+                default="avg_rating",
+            ),
+        ).order_by("-sorted_rating")
         selected_option = "評價由高到低"
     else:
         products = products
         selected_option = "預設排序"
 
-    # 使用 Paginator 分頁
-    p = Paginator(products, 9)
+    products = Paginator(products, 9)
     page = request.GET.get("page")
-    products = p.get_page(page)
+    products = products.get_page(page)
 
     return render(
         request,
@@ -60,51 +53,44 @@ def products_list(request):
     )
 
 
-# 需要category資料，用cat變數來接
-def category(request, cat):
+def category(request, category):
     selected_option = "預設排序"
     sort_by = request.GET.get("sort_by", "default")
     try:
-        category = Category.objects.get(name=cat)
+        category = Category.objects.get(name=category)
         products = Product.objects.filter(category=category)
 
-        if sort_by == "pl2h":
+        if sort_by == "price_asc":
             products = products.order_by("price")
             selected_option = "價格由低到高"
-        elif sort_by == "ph2l":
+        elif sort_by == "price_desc":
             products = products.order_by("-price")
             selected_option = "價格由高到低"
-        elif sort_by == "rl2h":
-            products = (
-                products.annotate(avg_rating=Avg("reviews__rating"))
-                .annotate(
-                    sorted_rating=Case(
-                        When(avg_rating=None, then=Value(6.0)),
-                        default="avg_rating",
-                    )
-                )
-                .order_by("sorted_rating")
-            )
+        elif sort_by == "rating_asc":
+            products = products.annotate(
+                avg_rating=Avg("reviews__rating"),
+                sorted_rating=Case(
+                    When(avg_rating=None, then=Value(6.0)),
+                    default="avg_rating",
+                ),
+            ).order_by("sorted_rating")
             selected_option = "評價由低到高"
-        elif sort_by == "rh2l":
-            products = (
-                products.annotate(avg_rating=Avg("reviews__rating"))
-                .annotate(
-                    sorted_rating=Case(
-                        When(avg_rating=None, then=Value(-1.0)),
-                        default="avg_rating",
-                    )
-                )
-                .order_by("-sorted_rating")
-            )
+        elif sort_by == "rating_desc":
+            products = products.annotate(
+                avg_rating=Avg("reviews__rating"),
+                sorted_rating=Case(
+                    When(avg_rating=None, then=Value(-1.0)),
+                    default="avg_rating",
+                ),
+            ).order_by("-sorted_rating")
             selected_option = "評價由高到低"
         else:
             products = products
             selected_option = "預設排序"
 
-        p = Paginator(products, 9)
+        products = Paginator(products, 9)
         page = request.GET.get("page")
-        products = p.get_page(page)
+        products = products.get_page(page)
         return render(
             request,
             "products/category.html",
@@ -127,43 +113,37 @@ def search(request):
     if query:
         products = Product.objects.filter(name__icontains=query)
 
-        if sort_by == "pl2h":
+        if sort_by == "price_asc":
             products = products.order_by("price")
             selected_option = "價格由低到高"
-        elif sort_by == "ph2l":
+        elif sort_by == "price_desc":
             products = products.order_by("-price")
             selected_option = "價格由高到低"
-        elif sort_by == "rl2h":
-            products = (
-                products.annotate(avg_rating=Avg("reviews__rating"))
-                .annotate(
-                    sorted_rating=Case(
-                        When(avg_rating=None, then=Value(6.0)),
-                        default="avg_rating",
-                    )
-                )
-                .order_by("sorted_rating")
-            )
+        elif sort_by == "rating_asc":
+            products = products.annotate(
+                avg_rating=Avg("reviews__rating"),
+                sorted_rating=Case(
+                    When(avg_rating=None, then=Value(6.0)),
+                    default="avg_rating",
+                ),
+            ).order_by("sorted_rating")
             selected_option = "評價由低到高"
-        elif sort_by == "rh2l":
-            products = (
-                products.annotate(avg_rating=Avg("reviews__rating"))
-                .annotate(
-                    sorted_rating=Case(
-                        When(avg_rating=None, then=Value(-1.0)),
-                        default="avg_rating",
-                    )
-                )
-                .order_by("-sorted_rating")
-            )
+        elif sort_by == "rating_desc":
+            products = products.annotate(
+                avg_rating=Avg("reviews__rating"),
+                sorted_rating=Case(
+                    When(avg_rating=None, then=Value(-1.0)),
+                    default="avg_rating",
+                ),
+            ).order_by("-sorted_rating")
             selected_option = "評價由高到低"
         else:
             products = products
             selected_option = "預設排序"
 
-        p = Paginator(products, 9)
+        products = Paginator(products, 9)
         page = request.GET.get("page")
-        products = p.get_page(page)
+        products = products.get_page(page)
         return render(
             request,
             "products/search.html",
@@ -189,7 +169,7 @@ def product_detail(request, pk):
     # Getting all reviews
     reviews = ProductReview.objects.filter(product=product).order_by("-date")
     p = Paginator(reviews, 10)
-    page_obj = p.get_page(1)  # 獲取第一頁評論
+    page_obj = p.get_page(1)
 
     # render星星變數
     star_range = range(1, 6)
@@ -226,7 +206,7 @@ def product_detail(request, pk):
     )
 
 
-def ajax_add_review(request, pk):
+def add_review(request, pk):
     product = Product.objects.get(id=pk)
     user = request.user
 
@@ -256,7 +236,7 @@ def ajax_add_review(request, pk):
     )
 
 
-def ajax_edit_review(request, review_id):
+def edit_review(request, review_id):
     if request.method == "POST":
         review = get_object_or_404(ProductReview, id=review_id, user=request.user)
         review_text = request.POST.get("review")
@@ -294,17 +274,17 @@ def ajax_edit_review(request, review_id):
 def load_more_reviews(request, product_id):
     page = request.GET.get("page", 1)
     reviews = ProductReview.objects.filter(product_id=product_id).order_by("-date")
-    paginator = Paginator(reviews, 10)
+    reviews = Paginator(reviews, 10)
 
     try:
-        page_obj = paginator.page(page)
+        reviews = reviews.page(page)
     except PageNotAnInteger:
-        page_obj = paginator.page(1)
+        reviews = reviews.page(1)
     except EmptyPage:
         return JsonResponse({"reviews": [], "has_next": False})
 
     reviews_data = []
-    for review in page_obj:
+    for review in reviews:
         reviews_data.append(
             {
                 "user": review.user.username,
@@ -316,4 +296,4 @@ def load_more_reviews(request, product_id):
             }
         )
 
-    return JsonResponse({"reviews": reviews_data, "has_next": page_obj.has_next()})
+    return JsonResponse({"reviews": reviews_data, "has_next": reviews.has_next()})

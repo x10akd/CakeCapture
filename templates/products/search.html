@@ -14,7 +14,7 @@
 								預設排序
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=ph2l">
+							<a href="?search={{ query }}&sort_by=price_desc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '價格由高到低'"
@@ -22,7 +22,7 @@
 								價格由高到低
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=pl2h">
+							<a href="?search={{ query }}&sort_by=price_asc">
 								<li
 								class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 								@click="selectedOption = '價格由低到高'"
@@ -30,7 +30,7 @@
 								價格由低到高
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=rh2l">
+							<a href="?search={{ query }}&sort_by=rating_desc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '評分由高到低'"
@@ -38,7 +38,7 @@
 								評分由高到低
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=rl2h">
+							<a href="?search={{ query }}&sort_by=rating_asc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1"
 									@click="selectedOption = '評分由低到高'"
