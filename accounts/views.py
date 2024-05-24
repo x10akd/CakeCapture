@@ -11,6 +11,13 @@ from .models import Profile
 from cart.cart import Cart
 import json
 
+# Create your views here.
+from django.contrib.auth import authenticate, login, logout
+from . import models
+from django.contrib.auth.forms import UserCreationForm
+from .forms import RegisterForm, LoginForm
+from django.contrib.auth.models import User
+from messagememos.models import MessageModel
 
 def register(request):
     form = RegisterForm()
@@ -97,3 +104,15 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
         "請確認是否為當初註冊信箱, 並檢查垃圾信箱"
     )
     success_url = reverse_lazy("login")
+def user(request):
+    user = User.objects.get(username=request.user.username)
+    comments = MessageModel.objects.filter(user_id=user.id)
+    print("=========")
+    print(comments)
+    return render(request, 'accounts/user.html',{'comments':comments})
+    
+
+
+
+
+

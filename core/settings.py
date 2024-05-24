@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "chats",
     "order",
     "carts",
+    "messagememos",
 ]
 
 SITE_ID = 5
@@ -102,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Taipei"
 
 USE_I18N = True
 
