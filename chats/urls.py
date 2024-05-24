@@ -5,5 +5,5 @@ app_name = "chats"
 
 urlpatterns = [
     path("", chat_view, name="home"),
-    path("callback", callback, name="callback"),
+    path("line_callback", line_callback, name="line_callback"),
 ]

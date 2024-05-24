@@ -40,7 +40,7 @@ parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 
 @csrf_exempt
-def callback(request):
+def line_callback(request):
 
     if request.method == "POST":
         signature = request.META["HTTP_X_LINE_SIGNATURE"]
