@@ -1,13 +1,13 @@
 from django.urls import path
 from . import views
 
-app_name = "store"
+app_name = "products"
 
 urlpatterns = [
-    path("", views.products_list, name="products_list"),
-    path("category/<str:category>", views.category, name="category"),
+    path("", views.all, name="all"),
+    path("category/<str:cat>", views.category, name="category"),
     path("search/", views.search, name="search"),
-    path("<pk>", views.product_detail, name="product_detail"),
+    path("<pk>", views.detail, name="detail"),
     path("add-review/<int:pk>/", views.add_review, name="add_review"),
     path(
         "edit-review/<int:review_id>/",

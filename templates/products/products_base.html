@@ -5,12 +5,12 @@
   <div class="flex justify-center gap-2">
     <!-- sidebar -->
     <div class="w-1/6 flex flex-col gap-y-2 text-black font-bold text-xl min-w-[120px]">
-      <a href="{% url 'store:products_list' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">所有商品</a>
-      <a href="{% url 'store:category' 'macarons' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Macarons</a>
-      <a href="{% url 'store:category' 'poundcake' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Poundcake</a>
-      <a href="{% url 'store:category' 'freshcreamcake' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Fresh Cream Cake</a>
-      <a href="{% url 'store:category' 'frenchpastry' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">French Pastry</a>
-      <a href="{% url 'store:category' 'chocolate' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Chocolate</a>
+      <a href="{% url 'products:all' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">所有商品</a>
+      <a href="{% url 'products:category' 'macarons' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Macarons</a>
+      <a href="{% url 'products:category' 'poundcake' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Poundcake</a>
+      <a href="{% url 'products:category' 'freshcreamcake' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Fresh Cream Cake</a>
+      <a href="{% url 'products:category' 'frenchpastry' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">French Pastry</a>
+      <a href="{% url 'products:category' 'chocolate' %}" class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">Chocolate</a>
     </div>
     <!-- products area -->
     <div class="w-2/3 px-6 text-black">
@@ -41,7 +41,7 @@
       </div>
 			<!-- search bar  -->
       <div class="pt-6 pr-10 relative text-gray-600">
-        <form method="get" action="{% url 'store:search' %}">
+        <form method="get" action="{% url 'products:search' %}">
 					<input
           class="border-2 bg-white h-10 px-5 pr-16 rounded-lg text-sm ring-2 ring-gray-100 focus:ring-red-300 focus:outline-none peer"
           type="search"
@@ -110,7 +110,7 @@
             </span>
           </button>
         </div>
-      <a href="{% url 'store:product_detail' product.id %}">
+      <a href="{% url 'products:detail' product.id %}">
         <div class="p-6">
           <div class="mb-3 flex items-center justify-between">
             <!-- 產品名稱 -->

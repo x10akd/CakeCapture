@@ -35,38 +35,6 @@
 				<br>
 			</div>
 		</div>
-		<div class="product-star">
-			*****(151)
-		</div>
-		<div class="product-subheading font-medium">
-			<!-- <p>It is really tasty.</p> -->
-		</div>
-		<div class="product-tab-wrapper mt-2" x-data="{}">
-			<div class="tab-title">
-				<ul class="flex justify-start">
-					<div class="bg-red-300 px-8 py-1 mr-2 rounded-2xl">
-						<li class="font-medium">商品介紹</li>
-					</div>
-					<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-						<li class="font-medium">顧客評論</li>
-					</div>
-					<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-						<li class="font-medium">原物料食材</li>
-					</div>
-				</ul>
-			</div>
-			<div class="tab-content py-2 text-lg font-extralight my-10">
-				{{product.description}}
-			</div>
-
-			<div class="product-action-btn flex flex-col my-2">
-				<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-					<button type="submit"><a href="#">收藏商品</a></button>
-				</div>
-				<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-					<button type="button" value="{{ product.id }}" id="add_cart" >放到購物車</button>
-				</div>
-			</div>
 			<div class="product-star flex gap-3 mb-3">
 				<div class="flex items-center">
 					<div>
@@ -120,7 +88,7 @@
 		{% if make_review == True %}
 			<div class="my-4 w-full" id="addReview">
 					<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">發表評論</h4>
-					<form action="{% url 'store:ajax_add_review' product.id %}" method="POST" class="flex gap-6" id="commentForm">
+					<form action="{% url 'products:add_review' product.id %}" method="POST" class="flex gap-6" id="commentForm">
 							{% csrf_token %}
 							<div>
 									{{ review_form.review }}
@@ -181,7 +149,7 @@
 									<!-- 評論編輯區塊 -->
 									<div class="my-4" style="display:none" id="edit-review-form-{{ review.id }}">
 										<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
-										<form action="{% url 'store:ajax_edit_review' review.id %}" method="POST" class="flex gap-6 editCommentForm"  data-review-id="{{ review.id }}">
+										<form action="{% url 'products:edit_review' review.id %}" method="POST" class="flex gap-6 editCommentForm"  data-review-id="{{ review.id }}">
 												{% csrf_token %}
 												<div>
 														<textarea name="review" id="editReviewText" rows="5" cols="80" class="focus:outline-none border-2 border-gray-300 rounded-xl p-5">{{ review.review }}</textarea>
@@ -250,7 +218,7 @@
             </span>
           </button>
         </div>
-				<a href="{% url 'store:product_detail' related_p.id %}">
+				<a href="{% url 'products:detail' related_p.id %}">
 					<div class="p-6">
 						<div class="mb-3 flex items-center justify-between">
 							<!-- 產品名稱 -->
@@ -395,12 +363,12 @@ $('#loadMoreReviewsBtn').on('click', function() {
 	let page = $(this).data('page');
 	let productId = '{{ product.id }}';
 	// 動態渲染的神社url會壞，所以用變數取代
-	let ajaxEditReviewUrl = "{% url 'store:ajax_edit_review' 0 %}".slice(0, -2); // ajax_edit_review/0/ 切掉後面的 0/
+	let ajaxEditReviewUrl = "{% url 'products:edit_review' 0 %}".slice(0, -2); // ajax_edit_review/0/ 切掉後面的 0/
   let csrfToken = '{{ csrf_token }}';
 
 
 	$.ajax({
-			url: '{% url "store:load_more_reviews" product.id %}',
+			url: '{% url "products:load_more_reviews" product.id %}',
 			method: 'GET',
 			data: { page: page },
 			dataType: 'json',
@@ -477,45 +445,50 @@ $(document).ready(function ()
 
 		if (isProductInCart)
 		{
-			// 商品已在購物車中，顯示提示訊息
-			Swal.fire({
-				icon: 'warning',
-				title: '購物車裡已有商品',
-				showConfirmButton: false,
-				timer: 1500 // 提示框顯示時間
-			});
-		} else
-		{
-			// 商品未在購物車中，發送Ajax請求
-			$.ajax({
-				type: 'POST',
-				url: "{% url 'carts:add' %}",
-				data: {
-					product_id: $('#add_cart').val(),
-					product_qty: $('#quantity-input').val(),
-					csrfmiddlewaretoken: '{{ csrf_token }}',
-					action: 'post'
-				},
-				success: function (json)
-				{
-					
-					document.getElementById('cart_quantity').textContent = json.qty;
-					// 使用SweetAlert2顯示成功提示框
-					Swal.fire({
-						icon: 'success',
-						title: '商品已被加入購物車',
-						showConfirmButton: false,
-						timer: 1500 // 提示框顯示時間
-					});
-					// 設置旗標為true，表示商品已在購物車中
-					isProductInCart = true;
-				},
-				error: function (xhr, errmsg, err)
-				{
-					// 錯誤處理，可以根據需要進行擴展
-				}
-			});
-		}
+			e.preventDefault();
+
+			if (isProductInCart)
+			{
+				// 商品已在購物車中，顯示提示訊息
+				Swal.fire({
+					icon: 'warning',
+					title: '購物車裡已有商品',
+					showConfirmButton: false,
+					timer: 1500 // 提示框顯示時間
+				});
+			} else
+			{
+				// 商品未在購物車中，發送Ajax請求
+				$.ajax({
+					type: 'POST',
+					url: "{% url 'cart_add' }",
+					data: {
+						product_id: $('#add_cart').val(),
+						product_qty: $('#quantity-input').val(),
+						csrfmiddlewaretoken: '{{ csrf_token }}',
+						action: 'post'
+					},
+					success: function (json)
+					{
+						console.log(json);
+						document.getElementById('cart_quantity').textContent = json.qty;
+						// 使用SweetAlert2顯示成功提示框
+						Swal.fire({
+							icon: 'success',
+							title: '商品已被加入購物車',
+							showConfirmButton: false,
+							timer: 1500 // 提示框顯示時間
+						});
+						// 設置旗標為true，表示商品已在購物車中
+						isProductInCart = true;
+					},
+					error: function (xhr, errmsg, err)
+					{
+						// 錯誤處理，可以根據需要進行擴展
+					}
+				});
+			}
+		});
 	});
 });
 </script>

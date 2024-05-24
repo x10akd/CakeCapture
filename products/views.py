@@ -3,12 +3,12 @@ from .models import Product, Category, ProductReview
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
-from .form import ProductReviewForm
+from .forms import ProductReviewForm
 from django.db.models import Avg, Case, When, Value
 from django.db.models.functions import Coalesce
 
 
-def products_list(request):
+def all(request):
     selected_option = "預設排序"
     sort_by = request.GET.get("sort_by", "default")
 
@@ -48,7 +48,7 @@ def products_list(request):
 
     return render(
         request,
-        "products/product_list.html",
+        "products/all.html",
         {"products": products, "selected_option": selected_option, "sort_by": sort_by},
     )
 
@@ -156,7 +156,7 @@ def search(request):
         )
 
 
-def product_detail(request, pk):
+def detail(request, pk):
     product = Product.objects.get(id=pk)
     related_products = (
         Product.objects.filter(category=product.category)
@@ -192,7 +192,7 @@ def product_detail(request, pk):
 
     return render(
         request,
-        "products/product_detail.html",
+        "products/detail.html",
         {
             "product": product,
             "related_products": related_products,

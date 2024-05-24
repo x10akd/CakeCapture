@@ -20,12 +20,12 @@
         </button>
         <!-- 下拉選單 -->
         <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-cloak x-show="show">
-          <a href="{% url 'store:products_list' %}" class="block px-4 py-2 hover:bg-red-300">all</a>
-          <a href="{% url 'store:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">macarons</a>
-          <a href="{% url 'store:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
-          <a href="{% url 'store:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">fresh cream cake</a>
-          <a href="{% url 'store:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">french pastry</a>
-          <a href="{% url 'store:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">chocolate</a>
+          <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">all</a>
+          <a href="{% url 'products:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">macarons</a>
+          <a href="{% url 'products:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
+          <a href="{% url 'products:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">fresh cream cake</a>
+          <a href="{% url 'products:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">french pastry</a>
+          <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">chocolate</a>
         </div>
       </div>
       <a href="{% url 'carts:summary' %}" class=" text-white hover:text-red-600 relative">
