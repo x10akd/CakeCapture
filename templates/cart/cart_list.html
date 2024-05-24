@@ -10,7 +10,7 @@
     <!-- section-order -->
     <div class="mt-12 m-2 p-2 text-center">
         <!-- order-tag -->
-        <div class="flex text-xl font-semibold">
+        <!-- <div class="flex text-xl font-semibold">
             <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
                 <h3>購物明細</h3>
             </div>
@@ -23,7 +23,7 @@
             <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>下次再買清單</h3>
             </div>
-        </div>
+        </div> -->
         <span class="block w-full h-1 bg-red-300"></span>
         <!-- order-header -->
         <div class="flex mt-2 p-2 bg-red-200 text-xl font-semibold rounded-xl">
@@ -84,7 +84,7 @@
             </div>
             <div class="felx flex-col m-auto w-1/6 p-2">
                 <div class="m-2 p-2">
-                    <a href="#" class="block rounded-xl p-2 bg-red-300">
+                    <a href="#" class="favorite-btn block rounded-xl p-2  bg-red-300  hover:bg-red-500" data-product-id="{{ product.id }}">
                         下次再買
                     </a>
                 </div>
@@ -261,7 +261,42 @@
             }
         });
     });
-
+    $(document).ready(function ()
+        {
+            $('.favorite-btn').on('click', function ()
+            {
+                let productId = $(this).data('product-id');
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'store:add_to_favorites' %}",
+                    data: {
+                        'product_id': productId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response)
+                    {
+                        if (response.status === 'added')
+                        {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '商品已被加入我的最愛',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else if (response.status === 'exists')
+                        {
+                            Swal.fire({
+                                icon: 'info',
+                                title: '商品已在我的最愛中',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    
 
     // 獲取第一個 checkbox
     var selectAllCheckbox = document.querySelector('#firstcb');

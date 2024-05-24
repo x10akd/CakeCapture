@@ -81,8 +81,8 @@
         <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
           <img src="{{ product.image.url }}" class="w-full h-[288px] object-cover"/>
           <!-- heart -->
-          <button class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
-          type="button" data-ripple-dark="true">
+          <button class="favorite-btn !absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
+          type="button" data-product-id="{{ product.id }}" data-ripple-dark="true">
             <span class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,41 @@
       });
     });
 
-
+  $(document).ready(function ()
+  {
+    $('.favorite-btn').on('click', function ()
+    {
+      let productId = $(this).data('product-id');
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'store:add_to_favorites' %}",
+        data: {
+          'product_id': productId,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (response)
+        {
+          if (response.status === 'added')
+          {
+            Swal.fire({
+              icon: 'success',
+              title: '商品已被加入我的最愛',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          } else if (response.status === 'exists')
+          {
+            Swal.fire({
+              icon: 'info',
+              title: '商品已在我的最愛中',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        }
+      });
+    });
+  });
   
 </script>
 

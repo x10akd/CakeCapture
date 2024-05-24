@@ -58,3 +58,17 @@ class ProductReview(models.Model):
 
     def get_rating(self):
         return self.rating
+
+    # def average_rating(self):
+    #     return self.reviews.aggregate(Avg("rating"))["rating__avg"] or 0
+ 
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'product')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.name}"

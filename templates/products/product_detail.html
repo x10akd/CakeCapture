@@ -62,45 +62,13 @@
 
 			<div class="product-action-btn flex flex-col my-2">
 				<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-					<button type="submit"><a href="#">收藏商品</a></button>
+					<button class="favorite-btn" type="submit" data-product-id="{{ product.id }}"><a href="#">收藏商品</a></button>
 				</div>
 				<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
 					<button type="button" value="{{ product.id }}" id="add_cart" >放到購物車</button>
 				</div>
 			</div>
-			<div class="product-star">
-				*****(151)
-			</div>
-			<div class="product-subheading font-medium">
-				<!-- <p>It is really tasty.</p> -->
-			</div>
-			<div class="product-tab-wrapper mt-2" x-data="{}" >
-				<div class="tab-title">
-					<ul class="flex justify-start">
-						<div class="bg-red-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">商品介紹</li>
-						</div>
-						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">顧客評論</li>
-						</div>
-						<div class="bg-purple-300 px-8 py-1 mr-2 rounded-2xl">
-							<li class="font-medium">原物料食材</li>
-						</div>
-					</ul>
-				</div>
-				<div class="tab-content py-2 text-lg font-extralight my-10">
-					{{product.description}}
-				</div>
-				
-				<div class="product-action-btn flex flex-col my-2">
-					<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit"><a href="#" >收藏商品</a></button>
-					</div>
-					<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit"><a href="#">放到購物車</a></button>
-					</div>
-				</div>
-			</div>
+			
 		</section>
 	</div>
 	<div class="ml-20">
@@ -352,6 +320,44 @@
 			}
 		});
 	});
+
+	$(document).ready(function ()
+		{
+			$('.favorite-btn').on('click', function ()
+			{
+				let productId = $(this).data('product-id');
+				console.log(productId)
+				$.ajax({
+					type: 'POST',
+					url: "{% url 'store:add_to_favorites' %}",
+					data: {
+						'product_id': productId,
+						'csrfmiddlewaretoken': '{{ csrf_token }}'
+					},
+					success: function (response)
+					{
+						if (response.status === 'added')
+						{
+							Swal.fire({
+								icon: 'success',
+								title: '商品已被加入我的最愛',
+								showConfirmButton: false,
+								timer: 1500
+							});
+						} else if (response.status === 'exists')
+						{
+							Swal.fire({
+								icon: 'info',
+								title: '商品已在我的最愛中',
+								showConfirmButton: false,
+								timer: 1500
+							});
+						}
+					}
+				});
+			});
+		});
+	
 </script>
 
 

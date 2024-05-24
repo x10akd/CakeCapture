@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "cart",
     "django_htmx",
     "chats",
+    "store",
     "order",
     "carts",
     "messagememos",
@@ -65,7 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "cart.context_processors.cart",
+                "carts.context_processors.cart"
             ],
         },
     },
