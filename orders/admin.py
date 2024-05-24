@@ -21,10 +21,10 @@ class RelationalProductInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     search_fields = ['order_id', 'name']
-    fields = ('order_id', 'name', 'email', 'phone', 'district', 'zipcode', 'address', 'total', 'status', 'created', 'modified')
+    fields = ('order_id', 'name', 'email', 'phone', 'address', 'total', 'status', 'created', 'modified')
     list_display = ('order_id', 'name', 'email', 'total')
     list_filter = ('status',)
-    readonly_fields = ('order_id', 'name', 'email', 'phone', 'district', 'zipcode', 'address', 'total', 'created', 'modified')
+    readonly_fields = ('order_id', 'name', 'email', 'phone', 'address', 'total', 'created', 'modified')
     inlines = [RelationalProductInline,]
 
 

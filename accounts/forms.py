@@ -93,8 +93,14 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ["username", "email"]
 
-
-class UpdateProfileForm(forms.ModelForm):
+class UpdateProfileFrom(forms.ModelForm):
+    full_name = forms.CharField(
+        max_length=10,
+        label="名字",
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"})
+    )
     phone = forms.CharField(
         max_length=15,
         label="手機號碼",
@@ -139,4 +145,4 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["phone", "birthday", "country", "street_address"]
+        fields = ["full_name","phone", "birthday", "country", "street_address"]

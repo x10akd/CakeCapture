@@ -1,14 +1,31 @@
+from datetime import datetime
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import FormView,TemplateView
+from django.views.generic import FormView,TemplateView,View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse_lazy
+from orders.models import Order
 from .form import OrderForm
 from .models import Product, RelationalProduct
 from cart.cart import Cart  
+from django.contrib.auth.models import User
+from accounts.models import Profile
+from orders import ecpay_payment_sdk
+import importlib.util
+spec = importlib.util.spec_from_file_location(
+    "ecpay_payment_sdk",
+    "orders/ecpay_payment_sdk.py"
+)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+
 
 
 class CheckoutView(FormView):
-    template_name = "orders/checkout.html"  # 需要修改
+    template_name = "cart/cart_payment.html"  # 需要修改
     form_class = OrderForm
-    success_url = 'orders/confirmation.html' #需要修改
+    success_url = reverse_lazy('orders:confirm')  # 需要修改
 
     def get(self, request, *args, **kwargs):
         cart = Cart(request)  # 導入購物車
@@ -23,16 +40,39 @@ class CheckoutView(FormView):
                 "product": product,
                 "count": quantities.get(product_id, 0)
             }
+        user_profile = None
+        initial_data = {}
+        if request.user.is_authenticated:
+            user_profile = Profile.objects.get(user=request.user)
+            initial_data = {
+                'name': user_profile.full_name,
+                'phone': user_profile.phone,
+                'email': user_profile.user.email,
+                'address': user_profile.street_address,
+            }
+
+        form = self.form_class(initial=initial_data)
+
 
         context = self.get_context_data(**kwargs)
         context["product_dict"] = product_dict
         context["total"] = total
+        context["profile"] = user_profile
+        context["form"] = form
         return self.render_to_response(context)
 
     def form_valid(self, form):
         cart = Cart(self.request)
         self.object = form.save(commit=False)
-        self.object.save() 
+        if self.request.user.is_authenticated:
+            self.object.buyer = self.request.user.profile
+        
+        self.object.name = form.cleaned_data['name']
+        self.object.phone = form.cleaned_data['phone']
+        self.object.email = form.cleaned_data['email']
+        self.object.address = form.cleaned_data['address']
+        self.object.save()
+
 
         total = 0
         for product in cart.get_prods():
@@ -43,10 +83,24 @@ class CheckoutView(FormView):
 
         self.object.total = total
         self.object.save()
+        self.request.session['order_id'] = self.object.order_id
+        return JsonResponse({'order_id': self.object.order_id})
+
+    def form_invalid(self, form):
+        return JsonResponse({'errors': form.errors}, status=400)
 
         context = self.get_context_data(form=form)
         context['order_id'] = self.object.order_id
         return render(self.request, self.success_url, context=context)
+    
+
+class ConfirmView(TemplateView):
+    template_name = 'cart/cart_confirm.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order_id'] = self.request.session.get('order_id')
+        return context
 
 
 class ECPayView(TemplateView):
@@ -72,7 +126,7 @@ class ECPayView(TemplateView):
             'ReturnURL': f'{scheme}://{domain}/orders/return/',
             'ChoosePayment': 'ALL',
             # 消費者點選此按鈕後，會將頁面導回到此設定的網址(返回商店按鈕)
-            'ClientBackURL': f'{scheme}://{domain}/products/list/',
+            'ClientBackURL': f'{scheme}://{domain}/',
             'ItemURL': f'{scheme}://{domain}/products/list/',  # 商品銷售網址
             'Remark': '交易備註',
             'ChooseSubPayment': '',
@@ -105,4 +159,67 @@ class ECPayView(TemplateView):
             action_url, final_order_params)
         context = self.get_context_data(**kwargs)
         context['ecpay_form'] = ecpay_form
+        return self.render_to_response(context)
+
+
+class ReturnView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ReturnView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        ecpay_payment_sdk = module.ECPayPaymentSdk(
+            MerchantID='3002607',
+            HashKey='pwFHCqoQZGmho4w6',
+            HashIV='EkRm7iFT261dpevs'
+        )
+        res = request.POST.dict()
+        back_check_mac_value = request.POST.get('CheckMacValue')
+        check_mac_value = ecpay_payment_sdk.generate_check_value(res)
+        if check_mac_value == back_check_mac_value:
+            return HttpResponse('1|OK')
+        return HttpResponse('0|Fail')
+
+
+class OrderResultView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderResultView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        ecpay_payment_sdk = module.ECPayPaymentSdk(
+            MerchantID='3002607',
+            HashKey='pwFHCqoQZGmho4w6',
+            HashIV='EkRm7iFT261dpevs'
+        )
+        res = request.POST.dict()
+        back_check_mac_value = request.POST.get('CheckMacValue')
+        order_id = request.POST.get('MerchantTradeNo')
+        rtnmsg = request.POST.get('RtnMsg')
+        rtncode = request.POST.get('RtnCode')
+        check_mac_value = ecpay_payment_sdk.generate_check_value(res)
+        if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
+            order = Order.objects.get(order_id=order_id)
+            order.status = 'waiting_for_shipment'
+            order.save()
+            return HttpResponseRedirect('/orders/order_success/')
+        return HttpResponseRedirect('/orders/order_fail/')
+
+
+class OrderSuccessView(TemplateView):
+    template_name = "orders/order_success.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+
+class OrderFailView(TemplateView):
+    template_name = "orders/order_fail.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
         return self.render_to_response(context)

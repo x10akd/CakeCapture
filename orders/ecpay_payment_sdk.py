@@ -842,9 +842,9 @@ class DownloadDisbursementBalance(BasePayment):
 主程式
 """
 a = [CreateOrder, OrderSearch,
-     OrderSearchPeriodic, CreditDoAction,
-     DownloadMerchantBalance, SearchSingleTransaction,
-     DownloadDisbursementBalance, ExtendFunction]
+    OrderSearchPeriodic, CreditDoAction,
+    DownloadMerchantBalance, SearchSingleTransaction,
+    DownloadDisbursementBalance, ExtendFunction]
 
 
 class ECPayPaymentSdk(*a):

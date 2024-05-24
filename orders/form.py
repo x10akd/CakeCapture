@@ -8,15 +8,11 @@ class OrderForm(forms.ModelForm):
             'email',
             'name',
             'phone',
-            'district',
-            'zipcode',
             'address',
         )
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'address': forms.TextInput(attrs={'class': 'form-control'}),
-            'zipcode': forms.TextInput(attrs={'class': 'form-control'}),
-            'district': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control ml-7 w-1/2 rounded-xl border border-red-300 p-2', 'id': 'recipient_name', 'maxlength': '50', 'placeholder': '請輸入收件者的姓名'}),
+            'address': forms.TextInput(attrs={'class': 'form-control ml-7 w-1/2 rounded-xl border border-red-300 p-2', 'id': 'recipient_address', 'maxlength': '50', 'placeholder': '請輸入收件地址'}),
+            'email': forms.TextInput(attrs={'class': 'form-control ml-7 w-1/2 rounded-xl border border-red-300 p-2', 'id': 'recipient_email', 'maxlength': '50', 'placeholder': '請輸入收件者的email'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control ml-7 w-1/2 rounded-xl border border-red-300 p-2', 'id': 'recipient_phone', 'maxlength': '10', 'placeholder': '請輸入收件者的聯絡電話'}),
         }

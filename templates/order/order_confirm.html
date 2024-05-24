@@ -179,22 +179,21 @@
         </div>
       </div>
       <div class="p-2 rounded-xl bg-gray-200">
-        <p>選擇超商取貨付款前往門市取貨時, 僅接受現金付款或5000元(含)以下可用信用卡, 適用之信用卡發卡銀行依超商規定(後續如有退款之情事發生, 款項將會退至訂購人之會員帳戶餘額內, 請參考退款方式相關)。</p>
+        <p>{{ request.session.order_id }}選擇超商取貨付款前往門市取貨時, 僅接受現金付款或5000元(含)以下可用信用卡, 適用之信用卡發卡銀行依超商規定(後續如有退款之情事發生, 款項將會退至訂購人之會員帳戶餘額內, 請參考退款方式相關)。</p>
       </div>
     </div>
   </div>
   <!-- section-check-btn -->
-  <div class="flex mt-12 m-2 p-1 justify-end text-xl">
-    <a href="{% url 'order_form' %}" class="w-1/4 p-2 rounded-xl bg-gray-300 text-center">
-      <div>
-        <p>&#10094;&nbsp;&nbsp;上一步</p>
-      </div>
+  <div class="flex justify-end mt-12 m-2 p-2 text-xl">
+    <a href="{% url 'orders:checkout' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
+      &#10094;&nbsp;&nbsp;上一步
     </a>
-    <form action="{% url 'order_process' %}" method="POST">
-    {% csrf_token %}
-
-      <button type="submit" class="w-32 h-12 rounded-xl bg-red-300">送出定單</button>
-    
+      <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10 p-4">
+        {% csrf_token %}
+      <input type="hidden" name="order_id" value="{{ request.session.order_id }}">
+      <button type="submit" class="w-full rounded-xl bg-red-300 text-center">
+        確認, 送出訂單&nbsp;&nbsp;&check;
+      </button>
     </form>
   </div>
 </div>

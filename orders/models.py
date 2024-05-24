@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import Profile
 from store.models import Product,RelationalProduct
 
 class Order(models.Model):
@@ -6,12 +7,11 @@ class Order(models.Model):
     email = models.EmailField(max_length=255)
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
-    district = models.CharField(max_length=50)
-    zipcode = models.CharField(max_length=50)
     address = models.CharField(max_length=255)
     total = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     product = models.ManyToManyField('store.Product', related_name='order_set', through='store.RelationalProduct')
     # 可由產品查詢到所有order, 如 :
     # product = Product.objects.get(id=特定的產品ID)

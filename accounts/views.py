@@ -12,6 +12,7 @@ from products.models import Favorite
 from messagememos.models import MessageModel
 from .forms import *
 from .models import Profile
+from carts.cart import Cart
 import json
 from carts.cart import *
 
@@ -27,10 +28,8 @@ def register(request):
             return redirect("accounts:login")
         else:
             messages.error(request, "註冊失敗, 請確認輸入的訊息!")
-            print(form.errors)
     context = {"form": form}
     return render(request, "accounts/register.html", context)
-
 
 class NewLoginView(LoginView):
     form_class = LoginForm
@@ -62,16 +61,13 @@ def log_out(request):
     return redirect("accounts:login")
 
 
-# get先給予DB內個人資料, POST為修改個人資訊
 @login_required
 def profile(request):
 
     favorites = Favorite.objects.filter(user=request.user)
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(
-            request.POST, request.FILES, instance=request.user.profile
-        )
+        profile_form = UpdateProfileFrom(request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -82,14 +78,9 @@ def profile(request):
             messages.error(request, "更新失敗，請檢查輸入的資料。")
     else:
         user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileFrom(instance=request.user.profile)
 
-        profile_form = UpdateProfileForm(instance=request.user.profile)
-
-    return render(
-        request,
-        "accounts/user.html",
-        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
-    )
+    return render(request,"accounts/user.html",{"user_form": user_form, "profile_form": profile_form, "favorites": favorites},)
 
 
 # 忘記密碼
