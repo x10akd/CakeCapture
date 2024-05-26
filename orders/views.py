@@ -187,6 +187,7 @@ class ReturnView(View):
         return HttpResponse('0|Fail')
 
 
+
 @csrf_exempt
 def order_result(request):
     if request.method == 'POST':
@@ -201,6 +202,7 @@ def order_result(request):
         rtnmsg = request.POST.get('RtnMsg')
         rtncode = request.POST.get('RtnCode')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
+
         if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
             order = Order.objects.get(order_id=order_id)
             order.status = 'waiting_for_shipment'
