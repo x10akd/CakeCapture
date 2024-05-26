@@ -30,12 +30,12 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "accounts",
     "products",
-    "cart",
     "django_htmx",
     "chats",
     "order",
     "carts",
     "messagememos",
+    "storages",
 ]
 
 SITE_ID = 5
@@ -65,7 +65,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "cart.context_processors.cart",
+                "carts.context_processors.cart",
             ],
         },
     },

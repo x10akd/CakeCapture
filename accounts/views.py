@@ -64,7 +64,7 @@ def log_out(request):
 def profile(request):
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileFrom(
+        profile_form = UpdateProfileForm(
             request.POST, request.FILES, instance=request.user.profile
         )
 
@@ -77,7 +77,7 @@ def profile(request):
             messages.error(request, "更新失敗，請檢查輸入的資料。")
     else:
         user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileFrom(instance=request.user.profile)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(
         request,

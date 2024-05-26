@@ -16,7 +16,7 @@
               <a href="#" id="user-message" @click="tab='user-message'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-message', 'text-red-800': tab !== 'user-message' }">
                 訊息
               </a>
-              <a href="#" id="user-favourite" @click="tab='user-favourite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favourite', 'text-red-800': tab !== 'user-favourite' }">
+              <a href="#" id="user-favorite" @click="tab='user-favorite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
                 我的最愛
               </a>
               <a href="#" id="user-orderlist" @click="tab='user-orderlist'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-orderlist', 'text-red-800': tab !== 'user-orderlist' }">
@@ -30,7 +30,7 @@
 
     <div class="user-info p-6" x-show="tab === 'user-info'">
       <h2 class="font-bold text-2xl leading-10 text-black">個人資訊</h2>
-      <form action="{% url 'profile_update' %}" method="post" enctype="multipart/form-data">
+      <form action="{% url 'accounts:profile_update' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- Assuming `user_form` and `profile_form` are the context variables passed from the view -->
         {{ user_form.as_p }}
@@ -38,6 +38,9 @@
         <div class="flex justify-end space-x-4">
           <button type="reset" class="rounded-md bg-red-300 px-8 py-3 text-sm font-medium text-red-800 hover:bg-red-200 hover:text-white">取消</button>
           <button type="submit" class="rounded-md bg-red-300 px-8 py-3 text-sm font-medium text-red-800 hover:bg-red-200 hover:text-white">儲存變更</button>
+        </div>
+      
+      </form>
     </div>
     <div class="user-bouns p-6" x-show="tab === 'user-bouns'">
       <h2 class="font-bold text-2xl leading-10 text-black">商店積點</h2>
@@ -76,18 +79,38 @@
       <h2 class="font-bold text-2xl leading-10 text-black">訊息</h2>
       <div class="">
         <div class="flex justify-evenly items-start bg-white rounded-lg p-4 shadow">
-          <form action="{% url 'messagememos:create' %}" method="post" class="pt-10">
+          <form
+            action="{% url 'messagememos:create' %}"
+            method="post"
+            class="pt-10"
+          >
             {% csrf_token %}
             <div>
               <label>留言：</label><br />
-              <textarea name="mytext" rows="6" cols="40" required class="border bg-red-200"></textarea>
+              <textarea
+                name="mytext"
+                rows="6"
+                cols="40"
+                required
+                class="border bg-red-200"
+              ></textarea>
             </div>
             <div class="mt-6">
-              <button type="reset" class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200">取消</button>
-              <button type="submit" class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200">儲存變更</button>
+              <button
+                type="reset"
+                class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+              >
+                取消
+              </button>
+              <button
+                type="submit"
+                class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+              >
+                儲存變更
+              </button>
             </div>
           </form>
-
+    
           <div class="justify-center mt-4 rounded-lg p-4 flex-col m-4 bg-left">
             {% for comment in comments %}
             <div class="ml-10 shadow w-64 m-2.5 font-mono text-gray-600">
@@ -102,7 +125,7 @@
       </div>
     </div>
 
-    <div class="user-favourite p-6" x-show="tab === 'user-favourite'">
+    <div class="user-favorite p-6" x-show="tab === 'user-favorite'">
       <h2 class="font-bold text-2xl leading-10 text-black">我的最愛</h2>
       <div class="w-full max-w-screen-lg mx-auto">
         <div class="">
@@ -130,7 +153,9 @@
             <td class="text-md px-6 py-3">內容三</td>
             <td class="text-md px-6 py-3">內容四</td>
             <td class="text-md px-6 py-3">
-              <a href="#" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">詳細訂單 </a>
+              <a href="#" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">
+                詳細訂單
+              </a>
             </td>
           </tr>
           <tr>
@@ -139,7 +164,9 @@
             <td class="text-md px-6 py-3">內容三</td>
             <td class="text-md px-6 py-3">內容四</td>
             <td class="text-md px-6 py-3">
-              <a href="#" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">詳細訂單 </a>
+              <a href="#" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">
+                詳細訂單
+              </a>
             </td>
           </tr>
         </table>
@@ -149,5 +176,3 @@
 </div>
 
 {% endblock %}
-
-
