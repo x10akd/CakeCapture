@@ -2,129 +2,64 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- 引入 Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Swiper.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-    <style>
-      .hover\:scale-110:hover {
-        transform: scale(1.1);
-      }
-    </style>
-    <style type="text/tailwindcss">
-      [x-cloak] {
-        display: none !important;
-      }
-    </style>
-    <!-- 引入SweetAlert庫 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  </head>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<!-- Using alpine / htmx / htmx-ws / hyperscript -->
+	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+	<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+	<script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+	<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 
-  <body class="bg-gray-100">
-    <!-- nav -->
-    <nav class="bg-red-300 py-6 fixed w-screen max-w-screen-2xl top-0 rounded-full mx-auto left-0 right-0 px-6 z-20">
-      <div class="container mx-auto flex justify-between items-center">
-        <!-- 品牌標誌 -->
-        <a href="#" class="text-white text-2xl font-bold">CakeCapture</a>
+	<!-- Using Tailwindcss -->
+	<link rel="stylesheet" href="{% static 'styles/output.css' %}">
+	<!-- Using Tailwindcss CDN temporarily -->
+	<script src="https://cdn.tailwindcss.com"></script>
 
-        <!-- 導航連結 -->
-        <div class="flex space-x-4 text-xl">
-          <a href="{% url 'home' %}" class="text-white hover:text-red-600">Home</a>
-          <a href="{% url 'about' %}" class="text-white hover:text-red-600">About</a>
-          {% if user.is_authenticated %}
-          <a href="{% url 'accounts:logout' %}" class="text-white hover:text-red-600">登出</a>
-          {% else %}
-          <a href="{% url 'accounts:register' %}" class="text-white hover:text-red-600">註冊</a>
-          <a href="{% url 'accounts:login' %}" class="text-white hover:text-red-600">登入</a>
-          {% endif %}
-          <a href="#" class="text-white hover:text-red-600">購物車</a>
-          <div class="relative" x-data="{show:false}">
-            <button class="text-white hover:text-red-600 focus:outline-none" @click="show= ! show">Products</button>
-            <!-- 下拉菜单 -->
-            <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36 z-20" x-show="show">
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">all</a>
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">macarons</a>
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">fresh cream cake</a>
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">french pastry</a>
-              <a href="#" class="block px-4 py-2 hover:bg-red-300">chocolate</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-    {% comment %} {% endcomment %} {% block content %} {% endblock %}
-    <footer class="bg-red-300 text-white py-8">
-      <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between">
-        <div class="text-center lg:text-left mb-4 lg:mb-0">
-          <h2 class="text-2xl font-bold">CakeCapture</h2>
-          <p class="text-sm">食品業者登錄字號：A-153674659-00000-3 © 2024 Cakecapture. All Rights Reserved.</p>
-        </div>
-        <div class="text-center lg:text-left mb-4 lg:mb-0">
-          <h3 class="text-lg font-bold mb-2">Quick Links</h3>
-          <ul class="text-lg">
-            <li><a href="#">關於我們</a></li>
-            <li><a href="#">服務項目</a></li>
-            <li><a href="#">客戶案例</a></li>
-            <li><a href="#">聯絡我們</a></li>
-          </ul>
-        </div>
-        <div class="text-center lg:text-left">
-          <h3 class="text-lg font-bold mb-2">Follow Us</h3>
-          <div class="flex justify-center lg:justify-start">
-            <a class="inline-block" href=""><i class="fa-brands fa-facebook text-2xl hover:text-red-600"></i></a>
-            <a class="inline-block ml-4" href=""><i class="fa-brands fa-line text-2xl hover:text-red-600"></i></a>
-          </div>
-        </div>
-      </div>
-    </footer>
+	<!-- Using Alpine.js -->
+	<script src="{% static 'scripts/output.js' %}" type="module"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    {% if messages %} {% for message in messages %}
-    <script>
-      // 切换下拉菜单的显示/隐藏
-      document.addEventListener("DOMContentLoaded", function () {
-        const dropdownBtn = document.querySelector(".relative button");
-        const dropdownMenu = document.querySelector(".relative .hidden");
-        dropdownBtn.addEventListener("click", function () {
-          dropdownMenu.classList.toggle("hidden");
-        });
-      });
-      //sweetalert
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-        html: `
-        <button id="close-toast" class="swal2-close w-0 h-0" style="display: block; background-color: transparent; border: none; position: absolute; top: 0; right: 0;">&#x2715;</button>
-    `,
-        didRender: (toast) => {
-          const closeButton = toast.querySelector("#close-toast");
-          closeButton.addEventListener("click", () => {
-            Swal.close();
-          });
-        },
-      });
-      document.addEventListener("DOMContentLoaded", function () {
-        Swal.fire({
-          icon: "{{ message.tags }}",
-          title: "{{ message }}",
-        });
-      });
-    </script>
-    {% endfor %} {% endif %}
-  </body>
+	<!-- 引入 Swiper.js CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<style>
+		.hover\:scale-110:hover {
+			transform: scale(1.1);
+		}
+		[x-cloak] {
+			display: none !important;
+		}
+	</style>
+	<!-- 引入打包 bulid.js -->
+	<script src="{% static 'scripts/output.js' %}" defer></script>
+
+	<!-- font awesome -->
+	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	{% include 'shared/nav.html' %}
+	{% block content %}
+	{% endblock %}
+	{% include 'shared/footer.html'%}
+
+	{% if messages %}
+	{% for message in messages %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function ()
+		{
+			Swal.fire({
+				icon: '{{ message.tags }}',
+				title: '{{ message }}',
+			})
+		})
+	</script>
+	{% endfor %}
+	{% endif %}
+
+</body>
+
 </html>
