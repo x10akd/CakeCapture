@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import FormView,TemplateView,View
+from django.views.generic import TemplateView,View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -10,8 +10,6 @@ from .form import OrderForm
 from store.models import Product, RelationalProduct
 from carts.cart import Cart
 from django.contrib import messages  
-from django.contrib.auth.models import User
-from accounts.models import Profile
 from orders import ecpay_payment_sdk
 import importlib.util
 spec = importlib.util.spec_from_file_location(
@@ -88,100 +86,6 @@ def order_confirm(request):
 
 
 
-
-# def order_confirm(request):
-#     if request.method == 'POST':
-#         form = OrderForm(request.POST)
-#         if form.is_valid():
-
-#             cart = Cart(request)
-#             cart_products = cart.get_prods()
-#             quantities = cart.get_quants()
-#             totals = cart.cart_total()
-#             my_shipping = request.POST
-#             request.session['my_shipping'] = my_shipping
-
-#             return render(request,'orders/order_confirm.html',{'cart_products':cart_products,'quantities':quantities,'totals':totals})
-            
-#         else:
-#             messages.error(request, '請檢查輸入的資料。')
-#             form = OrderForm()
-#             return redirect('orders:order_form')
-#     else:
-#         # 處理 GET 請求，顯示空表單
-#         form = OrderForm()
-#         return render(request, 'home.html')
-
-
-
-
-# class CheckoutView(FormView):
-#     template_name = "cart/cart_payment.html"  # 需要修改
-#     form_class = OrderForm
-#     success_url = reverse_lazy('orders:confirm')  # 需要修改
-
-#     def get(self, request, *args, **kwargs):
-#         cart = Cart(request)  # 導入購物車
-#         products = cart.get_prods()  # 抓取購物車的產品
-#         quantities = cart.get_quants()  # 抓取購物車的數量(dict)
-#         total = cart.cart_total()  # 計算總價
-#         # 創立字典, 用id 當作鍵, 值是產品跟數量的字典
-#         product_dict = {}
-#         for product in products:
-#             product_id = str(product.id)
-#             product_dict[product_id] = {
-#                 "product": product,
-#                 "count": quantities.get(product_id, 0)
-#             }
-#         user_profile = None
-#         initial_data = {}
-#         if request.user.is_authenticated:
-#             user_profile = Profile.objects.get(user=request.user)
-#             initial_data = {
-#                 'name': user_profile.full_name,
-#                 'phone': user_profile.phone,
-#                 'email': user_profile.user.email,
-#                 'address': user_profile.street_address,
-#             }
-
-#         form = self.form_class(initial=initial_data)
-
-
-#         context = self.get_context_data(**kwargs)
-#         context["product_dict"] = product_dict
-#         context["total"] = total
-#         context["profile"] = user_profile
-#         context["form"] = form
-#         return self.render_to_response(context)
-
-#     def form_valid(self, form):
-#         cart = Cart(self.request)
-#         self.object = form.save(commit=False)
-#         if self.request.user.is_authenticated:
-#             self.object.buyer = self.request.user.profile
-        
-#         self.object.name = form.cleaned_data['name']
-#         self.object.phone = form.cleaned_data['phone']
-#         self.object.email = form.cleaned_data['email']
-#         self.object.address = form.cleaned_data['address']
-#         self.object.save()
-
-
-#         total = 0
-#         for product in cart.get_prods():
-#             quantity = cart.cart.get(str(product.id), 0)
-#             RelationalProduct.objects.create(
-#                 order=self.object, product=product, number=quantity)
-#             total += product.price * quantity
-
-#         self.object.total = total
-#         self.object.save()
-#         self.request.session['order_id'] = self.object.order_id
-#         return JsonResponse({'order_id': self.object.order_id})
-
-#     def form_invalid(self, form):
-#         return JsonResponse({'errors': form.errors}, status=400)
-
 class ConfirmView(TemplateView):
     template_name = 'cart/cart_confirm.html'
 
@@ -215,11 +119,11 @@ class ECPayView(TemplateView):
             'ChoosePayment': 'ALL',
             # 消費者點選此按鈕後，會將頁面導回到此設定的網址(返回商店按鈕)
             'ClientBackURL': f'{scheme}://{domain}/',
-            'ItemURL': f'{scheme}://{domain}/products/list/',  # 商品銷售網址
+            'ItemURL': f'{scheme}://{domain}/products/',  # 商品銷售網址
             'Remark': '交易備註',
             'ChooseSubPayment': '',
             # 消費者付款完成後，綠界會將付款結果參數以POST方式回傳到到該網址
-            'OrderResultURL': f'{scheme}://{domain}/orders/orderresult/',
+            'OrderResultURL': f'{scheme}://{domain}/orders/order_result',
             'NeedExtraPaidInfo': 'Y',
             'DeviceSource': '',
             'IgnorePayment': '',
@@ -270,14 +174,10 @@ class ReturnView(View):
         return HttpResponse('0|Fail')
 
 
-class OrderResultView(View):
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(OrderResultView, self).dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-
+@csrf_exempt
+def order_result(request):
+    if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
             HashKey='pwFHCqoQZGmho4w6',
@@ -289,25 +189,17 @@ class OrderResultView(View):
         rtnmsg = request.POST.get('RtnMsg')
         rtncode = request.POST.get('RtnCode')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
+
         if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
             order = Order.objects.get(order_id=order_id)
             order.status = 'waiting_for_shipment'
             order.save()
-            return HttpResponseRedirect('/orders/order_success/')
-        return HttpResponseRedirect('/orders/order_fail/')
+
+            return render(request,'orders/order_success.html')
+
+        return render(request, 'orders/order_fail.html')
+
+    return HttpResponse("Invalid request method", status=405)
 
 
-class OrderSuccessView(TemplateView):
-    template_name = "orders/order_success.html"
 
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self.render_to_response(context)
-
-
-class OrderFailView(TemplateView):
-    template_name = "orders/order_fail.html"
-
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self.render_to_response(context)

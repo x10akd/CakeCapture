@@ -22,9 +22,7 @@
                 :class="{ 'bg-red-200 text-black': tab === 'user-message', 'text-red-800': tab !== 'user-message' }">
                 訊息
               </a>
-              <a href="#2" id="user-favorite" @click="tab='user-favorite'"
-                class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
+              <a href="#" id="user-favorite" @click="tab='user-favorite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
                 我的最愛
               </a>
               <a href="#" id="user-orderlist" @click="tab='user-orderlist'"
@@ -138,7 +136,6 @@
         </div>
       </div>
     </div>
-
     <div class="user-favorite p-6" x-show="tab === 'user-favorite'">
       <h2 class="font-bold text-2xl leading-10 text-black">我的最愛</h2>
       <div class="w-full max-w-screen-lg mx-auto">
