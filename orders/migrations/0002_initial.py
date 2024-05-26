@@ -46,4 +46,29 @@ class Migration(migrations.Migration):
             name='user',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
+        migrations.AddField(
+            model_name='orderitem',
+            name='order',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.order'),
+        ),
+        migrations.AddField(
+            model_name='orderitem',
+            name='product',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store.product'),
+        ),
+        migrations.AddField(
+            model_name='orderitem',
+            name='user',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='ordermethod',
+            name='order',
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='ordermethod', to='orders.order'),
+        ),
+        migrations.AddField(
+            model_name='ordermethod',
+            name='user',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        ),
     ]
