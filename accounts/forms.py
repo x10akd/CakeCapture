@@ -122,17 +122,8 @@ class UpdateProfileFrom(forms.ModelForm):
             format="%Y-%m-%d",
         ),  # 確保後端接收的格式是 YYYY-MM-DD
     )
-    country = forms.CharField(
-        max_length=10,
-        label="縣市地區",
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            }
-        ),
-    )
-    street_address = forms.CharField(
+    
+    address = forms.CharField(
         max_length=100,
         label="詳細地址",
         required=False,
@@ -145,4 +136,4 @@ class UpdateProfileFrom(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["full_name","phone", "birthday", "country", "street_address"]
+        fields = ["full_name","phone", "birthday", "address"]

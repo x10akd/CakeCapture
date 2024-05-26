@@ -116,7 +116,7 @@
           <p>配送方式</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.delivery_method.value}}</p>
+          <p>{{order_method.delivery_method}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -124,7 +124,7 @@
           <p>付款方式</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.payment_method.value}}</p>
+          <p>{{order_method.payment_method}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -132,7 +132,7 @@
           <p>收件者</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.recipient_name.value}}</p>
+          <p>{{order_method.recipient_name}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -140,7 +140,7 @@
           <p>聯絡電話</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.recipient_cell_phone.value}}</p>
+          <p>{{order_method.recipient_cell_phone}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -148,7 +148,7 @@
           <p>E-mail</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.recipient_email.value}}</p>
+          <p>{{order_method.recipient_email}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -156,7 +156,7 @@
           <p>取貨地點</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.store_address}}</p>
+          <p>{{order_method.store_address}}</p>
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -164,7 +164,7 @@
           <p>發票類型</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_form.invoice_option.value}}</p>
+          <p>{{order_method.invoice_option}}</p>
         </div>
       </div>
       <div class="flex justify-around p-2 border-dashed border-t-2 border-black">
@@ -185,12 +185,11 @@
   </div>
   <!-- section-check-btn -->
   <div class="flex justify-end mt-12 m-2 p-2 text-xl">
-    <a href="{% url 'orders:checkout' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
+    <a href="{% url 'orders:order_form' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
       &#10094;&nbsp;&nbsp;上一步
     </a>
-      <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10 p-4">
-        {% csrf_token %}
-      <input type="hidden" name="order_id" value="{{ request.session.order_id }}">
+      <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10 p-4">{% csrf_token %}
+      <input type="hidden" name="order_id" value="{{ order.order_id }}">
       <button type="submit" class="w-full rounded-xl bg-red-300 text-center">
         確認, 送出訂單&nbsp;&nbsp;&check;
       </button>

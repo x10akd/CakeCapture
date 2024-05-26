@@ -1,6 +1,6 @@
 {% extends 'shared/base.html' %}
 {% block content %}
-<form action="{% url 'order_confirm' %}" method="post">
+<form action="{% url 'orders:order_confirm' %}" method="post">
   {% csrf_token %}
 
   <div class="mt-28 w-screen max-w-screen-2xl mx-auto">
@@ -203,13 +203,11 @@
     <a href="{% url 'carts:summary' %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
       上一步
     </a>
-    <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
-    <button type="submit">下一步</button>
-    </a> 
+    <button type="submit" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
+        下一步
+    </button>
   </div>
   </div>
   
 </form>
-
-
 {% endblock %}

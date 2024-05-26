@@ -1,39 +1,87 @@
 from django.db import models
-from accounts.models import Profile
-from store.models import Product,RelationalProduct
+from django.contrib.auth.models import User
+from store.models import Product
 
+DELIVERY_CHOICES = [
+    ('超商取貨', '超商取貨'),
+    ('宅配到府', '宅配到府'),
+]
+
+PAYMENT_CHOICES = [
+    ('超商取貨付款', '超商取貨付款'),
+    ('信用卡', '信用卡'),
+    ('第三方支付', '第三方支付'),
+    ('ATM 轉帳付款', 'ATM 轉帳付款'),
+]
+
+INVOICE_CHOICES = [
+    ('捐贈發票', '捐贈發票'),
+    ('二聯式電子發票', '二聯式電子發票'),
+    ('三聯式電子發票', '三聯式電子發票'),
+]
 class Order(models.Model):
-    order_id = models.CharField(max_length=20)
-    email = models.EmailField(max_length=255)
-    name = models.CharField(max_length=50)
+    order_id = models.CharField(max_length=20, unique=True, blank=True)
+    email = models.EmailField(max_length=50)
+    name = models.CharField(max_length=10)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     phone = models.CharField(max_length=50)
     address = models.CharField(max_length=255)
     total = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     product = models.ManyToManyField('store.Product', related_name='order_set', through='store.RelationalProduct')
-    # 可由產品查詢到所有order, 如 :
-    # product = Product.objects.get(id=特定的產品ID)
-    # orders_with_product = product.orders.all()
     status = models.CharField(max_length=100, choices=(("unpaid", "Unpaid"), ("payment_fail", "Payment Fail"), ("waiting_for_shipment", "Waiting for shipment"), ("transporting", "Transporting"), ("completed", "Completed"), ("cancelled", "Cancelled")), default="unpaid"
     )
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        # 先確認有無該訂單 id
         if not self.order_id:
-            #將 id 設置為八位數(不足由 0 補上)
             self.order_id = f'ORDER{self.id:08}'
-            super().save(*args, **kwargs)
-            # 先創立物件後在創立特定 訂單id 後再存入
+            super().save(update_fields=['order_id'])
 
-    class Meta:
-        verbose_name = '訂單'
-        verbose_name_plural = '訂單' 
-        # 單筆或多筆接載管理介面中稱之訂單
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     # 先確認有無該訂單 id
+    #     if not self.order_id:
+    #         #將 id 設置為八位數(不足由 0 補上)
+    #         self.order_id = f'ORDER{self.id:08}'
+    #         super().save(*args, **kwargs)
+    # def __str__(self):
+    #     return self.order_id
+
+
+
+class OrderMethod(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='ordermethod')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    delivery_method = models.CharField(max_length=20, choices=DELIVERY_CHOICES)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
+    coupon_used = models.BooleanField(default=False)
+    store_name = models.CharField(max_length=100, blank=True)
+    store_address = models.CharField(max_length=200, blank=True)
+    order_name = models.CharField(max_length=50)
+    order_cell_phone = models.CharField(max_length=10)
+    order_phone = models.CharField(max_length=10, blank=True)
+    order_email = models.EmailField(max_length=50)
+    recipient_name = models.CharField(max_length=50)
+    recipient_cell_phone = models.CharField(max_length=10)
+    recipient_email = models.EmailField(max_length=50)
+    invoice_option = models.CharField(max_length=100, choices=INVOICE_CHOICES)
+    invoice_number = models.CharField(max_length=8,null=True,blank=True)
+    return_agreement = models.BooleanField(default=False)
+
 
     def __str__(self):
-        return self.order_id
+        return self.order_name
 
 
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    quantity = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
+    def __str__(self):
+        return f'OrderItem - {str(self.id)}'

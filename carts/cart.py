@@ -6,11 +6,11 @@ class Cart:
     def __init__(self, request):
         self.session = request.session
         self.request = request
-        # get the current session key if exit
-        cart = self.session.get("session_key")
-        # if the user is new,no session ,create one
-        if "session_key" not in request.session:
-            cart = self.session["session_key"] = {}
+        #get the current session key if exit
+        cart = self.session.get('session_key')
+        #if the user is new,no session ,create one
+        if 'session_key' not in request.session:
+            cart = self.session['session_key'] = {}
 
         # make sure cart is available on all pages
         self.cart = cart
@@ -38,7 +38,7 @@ class Cart:
     def add(self, product, quantity):
         product_id = str(product.id)
         product_qty = str(quantity)
-        # logic
+        #logic
         if product_id in self.cart:
             pass
         else:
@@ -51,9 +51,9 @@ class Cart:
             current_user = Profile.objects.filter(user__id=self.request.user.id)
             # convert
             carty = str(self.cart)
-            carty = carty.replace("'", '"')
-            # save carty to Profile Model
-            current_user.update(old_cart=str(carty))
+            carty = carty.replace("\'","\"")
+            #save carty to Profile Model
+            current_user.update(old_cart = str(carty))
 
     def __len__(self):
         return len(self.cart)
@@ -61,9 +61,9 @@ class Cart:
     def get_prods(self):
         # get ids from cart
         product_ids = self.cart.keys()
-        # use ids to lookup products in db
+        #use ids to lookup products in db
         products = Product.objects.filter(id__in=product_ids)
-        # return those lookup products
+        #return those lookup products
         return products
 
     def get_quants(self):
@@ -78,12 +78,12 @@ class Cart:
         self.session.modified = True
 
         if self.request.user.is_authenticated:
-            # get the current user profile
+            #get the current user profile
             current_user = Profile.objects.filter(user__id=self.request.user.id)
-            # convert
+            #convert
             carty = str(self.cart)
-            carty = carty.replace("'", '"')
-            # save carty to Profile Model
+            carty = carty.replace("\'","\"")
+            #save carty to Profile Model
             current_user.update(old_cart=str(carty))
 
     def cart_total(self):
@@ -96,7 +96,7 @@ class Cart:
             key = int(key)
             for product in products:
                 if product.id == key:
-                    total = total + (product.price * value)
+                    total = total+(product.price * value)
         return total
 
     def remove_product(self, product_id):
@@ -109,5 +109,5 @@ class Cart:
         product_id = str(product)
         product_qty = int(quantity)
         self.cart[product_id] = product_qty
-        self.session.modified=True
+        self.session.modified = True
         return self.cart

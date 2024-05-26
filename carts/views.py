@@ -18,7 +18,7 @@ def summary(request):
     cart_products = cart.get_prods
     quantities = cart.get_quants
     totals = cart.cart_total()
-    return render(request,'cart/cart_list.html',{'cart_products':cart_products,'quantities':quantities,'totals':totals})
+    return render(request,'cart/cart_summary.html',{'cart_products':cart_products,'quantities':quantities,'totals':totals})
 
 def add(request):
     # get the cart
@@ -29,9 +29,9 @@ def add(request):
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
         #lookup product into db
-        product = get_object_or_404(Product,id = product_id)
+        product = get_object_or_404(Product,id=product_id)
         #save to session
-        cart.add(product=product,quantity = product_qty)
+        cart.add(product=product,quantity=product_qty)
         #get cart quantity
         cart_quantity = cart.__len__()
         # return response
@@ -73,7 +73,7 @@ def delete_all(request):
         cart = Cart(request)
 
         for product_id in product_ids:
-            cart.delete(product = product_id)
+            cart.delete(product=product_id)
 
         # 在成功刪除商品後，返回 JSON 響應
         return JsonResponse({"message": "Products deleted successfully."})
