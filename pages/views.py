@@ -14,5 +14,6 @@ def about(request):
 def my_favorite(request):
     return render(request, "my_favorite/my_favorite.html")
 
-
+def common(request):
+    return render(request, "pages/problem.html")
 
