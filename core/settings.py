@@ -129,8 +129,8 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": env("client_id"),
-            "secret": env("secret"),
+            "client_id": env("CLIENT_ID"),
+            "secret": env("SECRET"),
             "key": "",
         },
         "SCOPE": [
