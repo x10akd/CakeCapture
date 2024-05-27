@@ -619,6 +619,21 @@ asgiref = ">=3.6"
 Django = ">=3.2"
 
 [[package]]
+name = "django-seed"
+version = "0.3.1"
+description = "Seed your Django project with fake data"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-seed-0.3.1.tar.gz", hash = "sha256:93e65d2c10449c464b83e9031be02763ec10e786aa064d649c4dd5ad06fa0eea"},
+]
+
+[package.dependencies]
+django = ">=1.11"
+Faker = ">=0.7.7"
+toposort = ">=1.5"
+
+[[package]]
 name = "django-storages"
 version = "1.14.3"
 description = "Support for many storage backends in Django"
@@ -738,6 +753,18 @@ files = [
     {file = "future-1.0.0-py3-none-any.whl", hash = "sha256:929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216"},
     {file = "future-1.0.0.tar.gz", hash = "sha256:bd2968309307861edae1458a4f8a4f3598c03be43b97521076aebf5d94c07b05"},
 ]
+name = "faker"
+version = "25.2.0"
+description = "Faker is a Python package that generates fake data for you."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "Faker-25.2.0-py3-none-any.whl", hash = "sha256:cfe97c4857c4c36ee32ea4aaabef884895992e209bae4cbd26807cf3e05c6918"},
+    {file = "Faker-25.2.0.tar.gz", hash = "sha256:45b84f47ff1ef86e3d1a8d11583ca871ecf6730fad0660edadc02576583a2423"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
 
 [[package]]
 name = "hyperlink"
@@ -1504,6 +1531,17 @@ files = [
 [package.extras]
 dev = ["build", "hatch"]
 doc = ["sphinx"]
+
+[[package]]
+name = "toposort"
+version = "1.10"
+description = "Implements a topological sort algorithm."
+optional = false
+python-versions = "*"
+files = [
+    {file = "toposort-1.10-py3-none-any.whl", hash = "sha256:cbdbc0d0bee4d2695ab2ceec97fe0679e9c10eab4b2a87a9372b929e70563a87"},
+    {file = "toposort-1.10.tar.gz", hash = "sha256:bfbb479c53d0a696ea7402601f4e693c97b0367837c8898bc6471adfca37a6bd"},
+]
 
 [[package]]
 name = "twisted"

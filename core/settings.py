@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "carts",
     "messagememos",
     "storages",
+    "django-seed",
 ]
 
 SITE_ID = 5
