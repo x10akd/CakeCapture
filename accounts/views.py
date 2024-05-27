@@ -21,7 +21,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, "註冊成功!")
-            return redirect("login")
+            return redirect("accounts:login")
         else:
             messages.error(request, "註冊失敗, 請確認輸入的訊息!")
             print(form.errors)
@@ -72,7 +72,7 @@ def profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, "個人資料更新成功")
-            return redirect("user")
+            return redirect("accounts:user")
         else:
             messages.error(request, "更新失敗，請檢查輸入的資料。")
     else:
@@ -98,7 +98,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
         "如果沒有收到該信件, "
         "請確認是否為當初註冊信箱, 並檢查垃圾信箱"
     )
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("accounts:login")
 
 
 def user(request):
