@@ -70,7 +70,7 @@ class Favorite(models.Model):
         return f"{self.user.username} - {self.product.name}"
 
 class RelationalProduct(models.Model):
-    product = models.ForeignKey('store.Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
     order = models.ForeignKey('orders.Order', on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
 

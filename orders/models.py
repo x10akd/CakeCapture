@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from store.models import Product
+from products.models import Product
 
 DELIVERY_CHOICES = [
     ('超商取貨', '超商取貨'),
@@ -29,7 +29,7 @@ class Order(models.Model):
     total = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    product = models.ManyToManyField('store.Product', related_name='order_set', through='store.RelationalProduct')
+    product = models.ManyToManyField('products.Product', related_name='order_set', through='products.RelationalProduct')
     status = models.CharField(max_length=100, choices=(("unpaid", "Unpaid"), ("payment_fail", "Payment Fail"), ("waiting_for_shipment", "Waiting for shipment"), ("transporting", "Transporting"), ("completed", "Completed"), ("cancelled", "Cancelled")), default="unpaid"
     )
     def save(self, *args, **kwargs):

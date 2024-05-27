@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
 from orders.models import Order,OrderMethod
 from .form import OrderForm
-from store.models import Product, RelationalProduct
+from products.models import Product, RelationalProduct
 from carts.cart import Cart
 from django.contrib import messages  
 from orders import ecpay_payment_sdk

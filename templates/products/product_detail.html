@@ -69,7 +69,7 @@
 		{% if make_review == True %}
 			<div class="my-4 w-3/4 addReview">
 					<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">發表評論</h4>
-					<form action="{% url 'store:ajax_add_review' product.id %}" method="POST" class="flex gap-6" id="commentForm">
+					<form action="{% url 'products:ajax_add_review' product.id %}" method="POST" class="flex gap-6" id="commentForm">
 							{% csrf_token %}
 							<div>
 									{{ review_form.review }}
