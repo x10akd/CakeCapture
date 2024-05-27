@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
+from datetime import datetime
 
 DELIVERY_CHOICES = [
     ('超商取貨', '超商取貨'),
@@ -35,21 +36,9 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.order_id:
-            self.order_id = f'ORDER{self.id:08}'
+            today_date = datetime.now().strftime('%Y%m%d')
+            self.order_id = f'{today_date}{self.id:08}'
             super().save(update_fields=['order_id'])
-
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     # 先確認有無該訂單 id
-    #     if not self.order_id:
-    #         #將 id 設置為八位數(不足由 0 補上)
-    #         self.order_id = f'ORDER{self.id:08}'
-    #         super().save(*args, **kwargs)
-    # def __str__(self):
-    #     return self.order_id
-
-
 
 class OrderMethod(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='ordermethod')

@@ -12,7 +12,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", '12a2-61-220-182-115.ngrok-free.app']
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", env("NGROK")]
 
 INSTALLED_APPS = [
     "daphne",
@@ -196,5 +196,5 @@ AWS_DEFAULT_ACL = None
 AWS_S3_VERIFY = True
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-CSRF_TRUSTED_ORIGINS = ['https://12a2-61-220-182-115.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
 

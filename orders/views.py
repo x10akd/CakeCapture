@@ -1,16 +1,17 @@
 from datetime import datetime
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView,View
+from django.views.generic import TemplateView, View
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse_lazy
-from orders.models import Order,OrderMethod
-from .form import OrderForm
+from orders.models import Order, OrderMethod
 from products.models import Product, RelationalProduct
+from .form import OrderForm
 from carts.cart import Cart
-from django.contrib import messages  
 from orders import ecpay_payment_sdk
+import environ
 import importlib.util
 spec = importlib.util.spec_from_file_location(
     "ecpay_payment_sdk",
@@ -19,7 +20,8 @@ spec = importlib.util.spec_from_file_location(
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
-
+env = environ.Env()
+environ.Env.read_env()
 
 
 
@@ -27,31 +29,31 @@ def order_form(request):
     form = OrderForm()
     return render(request, 'orders/order_form.html', {'form': form})
 
+
 def order_confirm(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
-            order.save()  # 先保存 order 获取 id
-            today_date = datetime.now().strftime('%Y%m%d') 
-            order.order_id = f'{today_date}{order.id:08}'
-            order.save(update_fields=['order_id'])
+            order.save()
             order.refresh_from_db()
             order.name = request.POST.get('recipient_name')
             order.phone = request.POST.get('recipient_cell_phone')
             order.email = request.POST.get('recipient_email')
-            # 处理购物车
+            # 處理購物車
             cart = Cart(request)
             totals = cart.cart_total()
             order.total = totals
-            order.save()  # 更新总金额
-            
+            order.save()  # 更新金額
+
             for product_id, quantity in cart.get_quants().items():
-                product = Product.objects.get(id=product_id)  # 取得 Product 實例
-                RelationalProduct.objects.create(order=order, product=product, number=quantity)
-            # 创建 OrderMethod 并关联 Order
-            order_method = OrderMethod.objects.create(order=order,user=request.user if request.user.is_authenticated else None,
+                product = Product.objects.get(id=product_id)
+                RelationalProduct.objects.create(
+                    order=order, product=product, number=quantity)
+
+            order_method = OrderMethod.objects.create(
+                order=order, user=request.user if request.user.is_authenticated else None,
                 delivery_method=request.POST.get('delivery_method'),
                 payment_method=request.POST.get('payment_method'),
                 coupon_used='coupon' in request.POST,
@@ -67,9 +69,8 @@ def order_confirm(request):
                 invoice_option=request.POST.get('invoice_option'),
                 invoice_number=request.POST.get('invoice_number', ''),
                 return_agreement='return_agreement' in request.POST
-            )
+                )
 
-                # 传递 Order 和 OrderMethod 给下个页面
             return render(request, 'orders/order_confirm.html', {
                 'order': order,
                 'order_method': order_method,
@@ -83,7 +84,6 @@ def order_confirm(request):
     else:
         form = OrderForm()
         return render(request, 'home.html')
-
 
 
 class ConfirmView(TemplateView):
@@ -101,7 +101,6 @@ class ECPayView(TemplateView):
     def post(self, request, *args, **kwargs):
         scheme = request.is_secure() and "https" or "http"
         domain = request.META['HTTP_HOST']
-
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
         product_list = "#".join(
@@ -115,15 +114,15 @@ class ECPayView(TemplateView):
             'TradeDesc': order.order_id,
             'ItemName': product_list,
             # ReturnURL為付款結果通知回傳網址，為特店server或主機的URL，用來接收綠界後端回傳的付款結果通知。
-            'ReturnURL': f'{scheme}://{domain}/orders/return/',
+            'ReturnURL': f'{env("domain_orders_return")}',
             'ChoosePayment': 'ALL',
             # 消費者點選此按鈕後，會將頁面導回到此設定的網址(返回商店按鈕)
-            'ClientBackURL': f'{scheme}://{domain}/',
-            'ItemURL': f'{scheme}://{domain}/products/',  # 商品銷售網址
+            'ClientBackURL': f'{env("DOMAIN")}',
+            'ItemURL': f'{env("domain_products")}',  # 商品銷售網址
             'Remark': '交易備註',
             'ChooseSubPayment': '',
             # 消費者付款完成後，綠界會將付款結果參數以POST方式回傳到到該網址
-            'OrderResultURL': f'{scheme}://{domain}/orders/order_result',
+            'OrderResultURL': f'{env("domain_orders_result")}',
             'NeedExtraPaidInfo': 'Y',
             'DeviceSource': '',
             'IgnorePayment': '',
@@ -135,6 +134,10 @@ class ECPayView(TemplateView):
             'CustomField4': '',
             'EncryptType': 1,
         }
+        print(env("domain_orders_return"))
+        print(env("DOMAIN"))
+        print(env("domain_products"))
+        print(env("domain_orders_result"))
         # 建立實體
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
@@ -155,12 +158,13 @@ class ECPayView(TemplateView):
 
 
 class ReturnView(View):
-
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
+        print('123')
         return super(ReturnView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        print('456')
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
             HashKey='pwFHCqoQZGmho4w6',
@@ -170,9 +174,9 @@ class ReturnView(View):
         back_check_mac_value = request.POST.get('CheckMacValue')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
         if check_mac_value == back_check_mac_value:
+            print('check')
             return HttpResponse('1|OK')
         return HttpResponse('0|Fail')
-
 
 
 @csrf_exempt
@@ -187,19 +191,18 @@ def order_result(request):
         back_check_mac_value = request.POST.get('CheckMacValue')
         order_id = request.POST.get('MerchantTradeNo')
         rtnmsg = request.POST.get('RtnMsg')
+        print(rtnmsg)
         rtncode = request.POST.get('RtnCode')
+        print(rtncode)
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
-
+        print(check_mac_value)
+        print(back_check_mac_value)
         if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
             order = Order.objects.get(order_id=order_id)
             order.status = 'waiting_for_shipment'
             order.save()
-
-            return render(request,'orders/order_success.html')
-
+            return render(request, 'orders/order_success.html')
+        # return HttpResponse(f"Error: {str(Exception)}", status=500, content_type="text/plain")
         return render(request, 'orders/order_fail.html')
-
-    return HttpResponse("Invalid request method", status=405)
-
-
-
+    else:
+        return HttpResponse("Invalid request method", status=405)
