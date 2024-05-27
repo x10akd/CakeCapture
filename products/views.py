@@ -29,7 +29,7 @@ def all(request):
             ),
         ).order_by("sorted_rating")
         selected_option = "評價由低到高"
-    elif sort_by == "rating_des":
+    elif sort_by == "rating_desc":
         products = products.annotate(
             avg_rating=Avg("reviews__rating"),
             sorted_rating=Case(
