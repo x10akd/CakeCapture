@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     "products",
     "django_htmx",
     "chats",
-    "store",
     "order",
     "carts",
     "messagememos",
