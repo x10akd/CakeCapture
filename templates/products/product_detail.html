@@ -175,7 +175,7 @@
             </span>
           </button>
         </div>
-				<a href="{% url 'store:product_detail' related_p.id %}">
+				<a href="{% url 'products:detail' related_p.id %}">
 					<div class="p-6">
 						<div class="mb-3 flex items-center justify-between">
 							<!-- 產品名稱 -->
@@ -329,7 +329,7 @@
 				console.log(productId)
 				$.ajax({
 					type: 'POST',
-					url: "{% url 'store:add_to_favorites' %}",
+					url: "{% url 'products:add_to_favorites' %}",
 					data: {
 						'product_id': productId,
 						'csrfmiddlewaretoken': '{{ csrf_token }}'

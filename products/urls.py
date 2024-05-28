@@ -19,4 +19,5 @@ urlpatterns = [
         views.load_more_reviews,
         name="load_more_reviews",
     ),
+    path("add_to_favorites/", views.add_to_favorites, name="add_to_favorites"),
 ]

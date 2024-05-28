@@ -14,12 +14,9 @@ from messagememos.models import MessageModel
 from carts.cart import *
 from carts.cart import Cart
 
-from store.models import Favorite
+from products.models import Favorite
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-
-
-
 
 
 def register(request):
@@ -72,10 +69,11 @@ def log_out(request):
 def profile(request):
 
     favorites = Favorite.objects.filter(user=request.user)
-    if request.method == 'POST':
+    if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileFrom(request.POST, request.FILES, instance=request.user.profile)
-        
+        profile_form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -87,10 +85,13 @@ def profile(request):
     else:
         user_form = UpdateUserForm(instance=request.user)
 
-        profile_form = UpdateProfileFrom(instance=request.user.profile)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'accounts/user.html', {'user_form': user_form, 'profile_form':profile_form ,'favorites': favorites})
-
+    return render(
+        request,
+        "accounts/user.html",
+        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
+    )
 
 
 # 忘記密碼
@@ -108,7 +109,6 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy("accounts:login")
 
 
-
 def user(request):
     user = User.objects.get(username=request.user.username)
     comments = MessageModel.objects.filter(user_id=user.id)
@@ -116,11 +116,12 @@ def user(request):
 
 
 def favorite_delete(request):
-    print("="*100)
-    if request.method == 'POST':
-        product_id = request.POST.get('product_id')
-        favorite = get_object_or_404(Favorite, product_id=product_id, user_id=request.user.id)
-        favorite.delete()      
-        return JsonResponse({'success': True})
-    return JsonResponse({'error': 'Invalid request'}, status=400)
-
+    print("=" * 100)
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        favorite = get_object_or_404(
+            Favorite, product_id=product_id, user_id=request.user.id
+        )
+        favorite.delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid request"}, status=400)

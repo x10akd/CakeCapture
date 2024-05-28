@@ -208,7 +208,7 @@
       let productId = $(this).data('product-id');
       $.ajax({
         type: 'POST',
-        url: "{% url 'store:add_to_favorites' %}",
+        url: "{% url 'products:add_to_favorites' %}",
         data: {
           'product_id': productId,
           'csrfmiddlewaretoken': '{{ csrf_token }}'

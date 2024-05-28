@@ -22,18 +22,16 @@
                 :class="{ 'bg-red-200 text-black': tab === 'user-message', 'text-red-800': tab !== 'user-message' }">
                 訊息
               </a>
-              <a href="#" id="user-favourite" @click="tab='user-favourite'"
+              <a href="#2" id="user-favorite" @click="tab='user-favorite'"
                 class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                :class="{ 'bg-red-200 text-black': tab === 'user-favourite', 'text-red-800': tab !== 'user-favourite' }">
+                :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
                 我的最愛
               </a>
               <a href="#" id="user-orderlist" @click="tab='user-orderlist'"
                 class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                 :class="{ 'bg-red-200 text-black': tab === 'user-orderlist', 'text-red-800': tab !== 'user-orderlist' }">
-
-              
                 訂單詳情
-              </a> {% endcomment %}
+              </a>
             </div>
           </div>
         </div>
@@ -147,8 +145,8 @@
         <div class="">
           <section>
             <div class="container-3xl mx-auto">
-
               <div class="flex flex-wrap gap-6">
+								{% if favorites %}
                 {% for favorite in favorites %}
                 <!-- card -->
                 <div
@@ -163,7 +161,7 @@
                       <i class="fa-regular fa-trash-can" style="transform: scale(1.5);"></i>
                     </button>
                   </div>
-                  <a href="{% url 'store:product_detail' favorite.product.id %}">
+                  <a href="{% url 'products:detail' favorite.product.id %}">
                     <div class="p-6">
                       <div class="mb-3 flex items-center justify-between">
                         <!-- 產品名稱 -->
@@ -178,9 +176,10 @@
                     </div>
                   </a>
                 </div>
-                {% empty %}
+								{% endfor %}
+								{% else %}
                 <p>你還沒有收藏任何商品。</p>
-                {% endfor %}
+								{% endif %}
               </div>
             </div>
           </section>
@@ -234,10 +233,10 @@
     e.preventDefault();
     card = this.closest('.card')
     product_id = $(this).data('index')
-   
+  
     $.ajax({
       type: 'POST',
-      url: "{% url 'favorite_delete' %}",
+      url: "{% url 'accounts:favorite_delete' %}",
       data: {
         product_id: $(this).data('index'),
         csrfmiddlewaretoken: '{{ csrf_token }}',
