@@ -30,13 +30,13 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "accounts",
     "products",
-    "cart",
     "django_htmx",
     "chats",
     "store",
     "order",
     "carts",
     "messagememos",
+    "storages",
 ]
 
 SITE_ID = 5
@@ -66,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+
                 "carts.context_processors.cart"
             ],
         },
@@ -130,8 +131,8 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "APP": {
-            "client_id": env("client_id"),
-            "secret": env("secret"),
+            "client_id": env("CLIENT_ID"),
+            "secret": env("SECRET"),
             "key": "",
         },
         "SCOPE": [

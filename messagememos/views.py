@@ -8,9 +8,9 @@ def create(request):
         if message:
             new_message = MessageModel(message=message, user=request.user)
             new_message.save()
-    return redirect("accounts:user")
+    return redirect("messagememos:message")
 
 
 def message(request):
     comments = MessageModel.objects.all()
-    return render(request, "user.html", {"comments": comments})
+    return render(request, "accounts/user.html", {"comments": comments})

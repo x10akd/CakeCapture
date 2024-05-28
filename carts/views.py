@@ -77,7 +77,7 @@ def delete_all(request):
         product_ids = request.POST.getlist("product_ids[]")
         # 在這裡執行刪除商品的邏輯，例如從購物車中刪除指定的商品
         cart = Cart(request)
-        
+
         for product_id in product_ids:
             print(product_id)
             cart.delete(product=product_id)

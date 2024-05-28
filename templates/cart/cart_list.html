@@ -14,16 +14,21 @@
             <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
                 <h3>購物明細</h3>
             </div>
-            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>免費贈品</h3>
-            </div>
-            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            </div> {% endcomment %}
+            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>點數回饋</h3>
-            </div>
-            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            </div> {% endcomment %}
+            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>下次再買清單</h3>
+
             </div>
-        </div> -->
+        </div> 
+
+            </div> {% endcomment %}
+        </div>
+
         <span class="block w-full h-1 bg-red-300"></span>
         <!-- order-header -->
         <div class="flex mt-2 p-2 bg-red-200 text-xl font-semibold rounded-xl">
@@ -83,11 +88,16 @@
                 <p>庫存剩餘：{{product.quantity}}</p>
             </div>
             <div class="felx flex-col m-auto w-1/6 p-2">
+
                 <div class="m-2 p-2">
                     <a href="#" class="favorite-btn block rounded-xl p-2  bg-red-300  hover:bg-red-500" data-product-id="{{ product.id }}">
+
+                {% comment %} <div class="m-2 p-2">
+                    <a href="#" class="block rounded-xl p-2 bg-red-300">
+
                         下次再買
                     </a>
-                </div>
+                </div> {% endcomment %}
                 <div class="m-2 p-2">
                     <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
                         <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
@@ -98,7 +108,7 @@
         <!-- order-footer -->
         <div class="flex justify-between mt-2 rounded-xl p-2 bg-red-200 text-lg">
             <div class="flex flex-col justify-evenly w-1/4 p-2">
-                <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300">訂單下次再買</a>
+                {% comment %} <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300">訂單下次再買</a> {% endcomment %}
                 <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300 hover:bg-red-500" id="deleteall">訂單刪除</a>
             </div>
             <div class="w-1/2 p-2">
@@ -147,13 +157,13 @@
     </div>
     <!-- section-redirect -->
     <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
-        <a href="#" class="block w-1/5 rounded-xl bg-gray-300 p-4">
+        <a href="{% url "home" %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
             回首頁
         </a>
         <!-- <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
             海外結帳 -->
         </a>
-        <a href="{% url 'order_form' %}" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
+        <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
             國內結帳
         </a>
     </div>
