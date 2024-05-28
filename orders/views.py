@@ -179,6 +179,8 @@ class ReturnView(View):
             HashKey='pwFHCqoQZGmho4w6',
             HashIV='EkRm7iFT261dpevs'
         )
+        print("="*100)
+        print(request.body)
         res = request.POST.dict()
         back_check_mac_value = request.POST.get('CheckMacValue')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
@@ -190,6 +192,7 @@ class ReturnView(View):
 
 @csrf_exempt
 def order_result(request):
+    print("="*100)
     if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
