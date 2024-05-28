@@ -114,15 +114,15 @@ class ECPayView(TemplateView):
             'TradeDesc': order.order_id,
             'ItemName': product_list,
             # ReturnURL為付款結果通知回傳網址，為特店server或主機的URL，用來接收綠界後端回傳的付款結果通知。
-            'ReturnURL': f'{env("domain_orders_return")}',
+            'ReturnURL': env("DOMAIN_ORDERS_RETURN"),
             'ChoosePayment': 'ALL',
             # 消費者點選此按鈕後，會將頁面導回到此設定的網址(返回商店按鈕)
-            'ClientBackURL': f'{env("DOMAIN")}',
-            'ItemURL': f'{env("domain_products")}',  # 商品銷售網址
+            'ClientBackURL': env("DOMAIN"),
+            'ItemURL': env("DOMAIN_PRODUCTS"),  # 商品銷售網址
             'Remark': '交易備註',
             'ChooseSubPayment': '',
             # 消費者付款完成後，綠界會將付款結果參數以POST方式回傳到到該網址
-            'OrderResultURL': f'{env("domain_orders_result")}',
+            'OrderResultURL': env("DOMAIN_ORDERS_RESULT"),
             'NeedExtraPaidInfo': 'Y',
             'DeviceSource': '',
             'IgnorePayment': '',
@@ -134,10 +134,6 @@ class ECPayView(TemplateView):
             'CustomField4': '',
             'EncryptType': 1,
         }
-        print(env("domain_orders_return"))
-        print(env("DOMAIN"))
-        print(env("domain_products"))
-        print(env("domain_orders_result"))
         # 建立實體
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
