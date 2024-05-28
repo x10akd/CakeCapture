@@ -5,31 +5,32 @@
 
     <!-- 導航連結 -->
     <div class="flex space-x-14 text-xl">
-      <a href="{% url 'home' %}" class=" text-white hover:text-red-600">Home</a>
-      <a href="{% url 'about' %}" class=" text-white hover:text-red-600">About</a>
+      <a href="{% url 'home' %}" class=" text-white hover:text-red-600">首頁</a>
+      <a href="{% url 'about' %}" class=" text-white hover:text-red-600">關於我們</a>
       {% if user.is_authenticated %}
-      <a href="{% url 'accounts:logout' %}" class=" text-white hover:text-red-600">Log out</a>
-      <a href="{% url 'accounts:user' %}" class=" text-white hover:text-red-600">User-info</a>
+      <a href="{% url 'accounts:logout' %}" class=" text-white hover:text-red-600">登出</a>
+      <a href="{% url 'accounts:user' %}" class=" text-white hover:text-red-600">使用者資訊</a>
       {% else %}
-      <a href="{% url 'accounts:register' %}" class=" text-white hover:text-red-600">Register</a>
-      <a href="{% url 'accounts:login' %}" class=" text-white hover:text-red-600">Log in </a>
+      <a href="{% url 'accounts:register' %}" class=" text-white hover:text-red-600">註冊</a>
+      <a href="{% url 'accounts:login' %}" class=" text-white hover:text-red-600">登入</a>
       {% endif %}
       <div class="relative" x-data="{show:false}" @click.away="show = false">
         <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
-          Products
+          商品
         </button>
         <!-- 下拉選單 -->
         <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-cloak x-show="show">
-          <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">all</a>
-          <a href="{% url 'products:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">macarons</a>
-          <a href="{% url 'products:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">pound cake</a>
-          <a href="{% url 'products:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">fresh cream cake</a>
-          <a href="{% url 'products:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">french pastry</a>
-          <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">chocolate</a>
+          <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">所有商品</a>
+          <a href="{% url 'products:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">馬卡龍</a>
+          <a href="{% url 'products:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">磅蛋糕</a>
+          <a href="{% url 'products:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">鮮奶油蛋糕</a>
+          <a href="{% url 'products:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">法式糕點</a>
+          <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">
+          巧克力</a>
         </div>
       </div>
       <a href="{% url 'carts:summary' %}" class=" text-white hover:text-red-600 relative">
-        Cart
+        購物車
         <span
           class="absolute top-0 left-11 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
       </a>
