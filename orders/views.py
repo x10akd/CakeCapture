@@ -24,7 +24,6 @@ env = environ.Env()
 environ.Env.read_env()
 
 
-
 def order_form(request):
     form = OrderForm()
     return render(request, 'orders/order_form.html', {'form': form})
@@ -69,7 +68,7 @@ def order_confirm(request):
                 invoice_option=request.POST.get('invoice_option'),
                 invoice_number=request.POST.get('invoice_number', ''),
                 return_agreement='return_agreement' in request.POST
-                )
+            )
 
             return render(request, 'orders/order_confirm.html', {
                 'order': order,
@@ -99,8 +98,6 @@ class ECPayView(TemplateView):
     template_name = "orders/ecpay.html"
 
     def post(self, request, *args, **kwargs):
-        scheme = request.is_secure() and "https" or "http"
-        domain = request.META['HTTP_HOST']
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
         product_list = "#".join(
@@ -156,16 +153,16 @@ class ECPayView(TemplateView):
 class ReturnView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        print('123')
         return super(ReturnView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('456')
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
             HashKey='pwFHCqoQZGmho4w6',
             HashIV='EkRm7iFT261dpevs'
         )
+        print("="*100)
+        print(request.body)
         res = request.POST.dict()
         back_check_mac_value = request.POST.get('CheckMacValue')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
@@ -177,6 +174,7 @@ class ReturnView(View):
 
 @csrf_exempt
 def order_result(request):
+    print("="*100)
     if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
@@ -198,7 +196,6 @@ def order_result(request):
             order.status = 'waiting_for_shipment'
             order.save()
             return render(request, 'orders/order_success.html')
-        # return HttpResponse(f"Error: {str(Exception)}", status=500, content_type="text/plain")
         return render(request, 'orders/order_fail.html')
     else:
         return HttpResponse("Invalid request method", status=405)
