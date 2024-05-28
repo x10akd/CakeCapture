@@ -100,73 +100,105 @@
         </div>
       </div>
     </div>
-  
+    <div x-data="{
+      order_name: '{{ form.order_name.value|default_if_none:"" }}',
+      order_email: '{{ form.order_email.value|default_if_none:"" }}',
+      address: '{{ form.order_address.value|default_if_none:"" }}',
+      cell_phone: '{{ form.order_cell_phone.value|default_if_none:"" }}',
+      recipient_name: '',
+      recipient_cell_phone: '',
+      recipient_address: '',
+      recipient_email: '',
+      useOrderInfo: false,
+      syncInfo() {
+        if (this.useOrderInfo) {
+          this.recipient_name = this.order_name;
+          this.recipient_cell_phone = this.cell_phone;
+          this.recipient_address = this.address;
+          this.recipient_email = this.order_email;
+        } else {
+          this.recipient_name = '';
+          this.recipient_cell_phone = '';
+          this.recipient_address = '';
+          this.recipient_email = '';
+        }
+      }
+    }">
     <!-- section-order-info -->
-    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-      <!-- order-info-tag -->
-      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
-        <h3>訂購人資訊</h3>
-      </div>
-      <span class="block w-full h-1 bg-red-300"></span>
-      <!-- order-info-detail -->
-      <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
-        <div class="flex justify-start">
-          <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
-          {{ form.order_name }}
-        </div>
-        <div class="flex justify-start items-center mt-2">
-          <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-          {{ form.order_cell_phone }}
-          <p class="ml-7 text-base text-gray-500">手機市話可擇一填寫</p>
-        </div>
-        <div class="flex justify-start items-center mt-2">
-          <label for="order_phone" class="w-1/12 p-2 text-left">市話</label>
-          {{ form.order_phone }}
-          <p class="ml-7 text-base text-gray-500">手機市話可擇一填寫</p>
-        </div>
-        <div class="flex justify-start mt-2">
-          <label for="order_mail" class="w-1/12 p-2 text-left">E-mail</label>
-          {{ form.order_email }}
-        </div>
-      </div>
-    </div>
-  
-    <!-- section-recipient-info -->
-    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-      <!-- recipient-info-tag -->
-      <div class="flex justify-between items-center">
+      <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
+        <!-- order-info-tag -->
         <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
-          <h3>收件人資訊</h3>
+          <h3>訂購人資訊</h3>
         </div>
-        <a href="#" class="block">
-          <div class="flex items-center">
-            <p class="mr-2 text-gray-700">寄送說明</p>
-            <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+        <span class="block w-full h-1 bg-red-300"></span>
+        <!-- order-info-detail -->
+        <div class="mt-2 p-3 rounded-xl border-2 border-red-300" >
+          <div class="flex justify-start">
+            <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
+            <input type="text" id="order_name" name="order_name" x-model="order_name" class="border-2 border-gray-300 rounded-md p-2" required>
           </div>
-        </a>
+          <div class="flex justify-start items-center mt-2">
+            <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
+            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2">
+          </div>
+          <div class="flex justify-start items-center mt-2">
+              <label for="order_address" class="w-1/12 p-2 text-left">聯絡地址</label>
+              <input type="text" id="order_address" name="order_address" x-model="address" class="border-2 border-gray-300 rounded-md p-2">
+          </div>
+          <div class="flex justify-start mt-2">
+              <label for="order_email" class="w-1/12 p-2 text-left">E-mail</label>
+              <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" required>
+          </div>
+
+        </div>
       </div>
-      <span class="block w-full h-1 bg-red-300"></span>
-      <!-- recipient-info-detail -->
-      <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
-        <div class="flex justify-start items-center">
-          <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
-          {{ form.recipient_name }}
-          <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
+    
+      <!-- section-recipient-info -->
+      <div class="mt-12 m-2 p-2 text-center text-xl font-semibold " >
+        <!-- recipient-info-tag -->
+        <div class="flex justify-between items-center w-full">
+          <div class="flex items-center space-x-4">
+            <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+              <h3>收件人資訊</h3>
+            </div>
+            <div class="flex items-center">
+              <input type="checkbox" x-model="useOrderInfo" x-on:change="syncInfo()" id="sameAsOrderInfo" class="form-checkbox h-5 w-5 text-red-600">
+              <label for="sameAsOrderInfo" class="text-gray-700 ml-2 cursor-pointer">同訂購人資訊</label>
+            </div>
+          </div>
+          <a href="#" class="block">
+            <div class="flex items-center">
+              <p class="mr-2 text-gray-700">寄送說明</p>
+              <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+            </div>
+          </a>
         </div>
-        <div class="flex justify-start items-center mt-2">
-          <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-          {{ form.recipient_cell_phone }}
-          <p class="ml-7 text-base text-gray-500">輸入格式09XXXXXXXX，將以此資料發送超商未取簡訊提醒</p>
-        </div>
-        <div class="flex justify-start items-center mt-2">
-          <label for="recipient_mail" class="w-1/12 p-2 text-left">E-mail</label>
-          {{ form.recipient_email }}
-          <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
+        <span class="block w-full h-1 bg-red-300"></span>
+        <!-- recipient-info-detail -->
+        <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
+          <div class="flex justify-start items-center">
+            <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
+            <input type="text" id="recipient_name" x-model="recipient_name" class="border-2 border-gray-300 rounded-md p-2" required>
+            <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
+          </div>
+          <div class="flex justify-start items-center mt-2">
+            <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
+            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式09XXXXXXXX" required>
+            <p class="ml-7 text-base text-gray-500">將以此資料發送簡訊提醒</p>
+          </div>
+          <div class="flex justify-start items-center mt-2">
+            <label for="recipient_address" class="w-1/12 p-2 text-left">收件地址</label>
+            <input type="text" id="recipient_address" x-model="recipient_address" class="border-2 border-gray-300 rounded-md p-2">
+            <p class="ml-7 text-base text-gray-500">請填入收件地址</p>
+          </div>
+          <div class="flex justify-start items-center mt-2">
+            <label for="recipient_mail" class="w-1/12 p-2 text-left">E-mail</label>
+            <input type="email" id="recipient_email" x-model="recipient_email" class="border-2 border-gray-300 rounded-md p-2">
+            <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
+          </div>
         </div>
       </div>
     </div>
-  
-    
     <!-- section-invoice -->
     <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
       <!-- invoice-tag -->

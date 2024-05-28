@@ -93,7 +93,7 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ["username", "email"]
 
-class UpdateProfileFrom(forms.ModelForm):
+class UpdateProfileForm(forms.ModelForm):
     full_name = forms.CharField(
         max_length=10,
         label="名字",

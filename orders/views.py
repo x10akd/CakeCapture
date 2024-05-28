@@ -25,9 +25,18 @@ environ.Env.read_env()
 
 
 def order_form(request):
-    form = OrderForm()
-    return render(request, 'orders/order_form.html', {'form': form})
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        initial_data = {
+            'order_name': request.user.profile.full_name,
+            'order_cell_phone': request.user.profile.phone,
+            'order_address': request.user.profile.address,
+            'order_email': request.user.email
+        }
+    else:
+        initial_data = {}
 
+    form = OrderForm(initial=initial_data)
+    return render(request, 'orders/order_form.html', {'form': form})
 
 def order_confirm(request):
     if request.method == 'POST':
@@ -52,6 +61,10 @@ def order_confirm(request):
             order.name = request.POST.get('recipient_name')
             order.phone = request.POST.get('recipient_cell_phone')
             order.email = request.POST.get('recipient_email')
+            order.address = request.POST.get('recipient_address')
+            
+            # 處理購物車
+            cart = Cart(request)
             totals = cart.cart_total()
             order.total = totals
             order.save()  # 更新金額
@@ -72,10 +85,11 @@ def order_confirm(request):
                 store_address=request.POST.get('store_address', ''),
                 order_name=request.POST.get('order_name'),
                 order_cell_phone=request.POST.get('order_cell_phone'),
-                order_phone=request.POST.get('order_phone', ''),
+                order_address=request.POST.get('order_address', ''),
                 order_email=request.POST.get('order_email'),
                 recipient_name=request.POST.get('recipient_name'),
                 recipient_cell_phone=request.POST.get('recipient_cell_phone'),
+                recipient_address=request.POST.get('recipient_address', ''),
                 recipient_email=request.POST.get('recipient_email'),
                 invoice_option=request.POST.get('invoice_option'),
                 invoice_number=request.POST.get('invoice_number', ''),
