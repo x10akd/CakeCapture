@@ -75,8 +75,7 @@
                 {% for key, value in quantities.items%}
                 {% if key == product.id|slugify %}
                 <input type="number" min="1" value="{{ value }}"
-                    class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update"
-                    data-index="{{product.id}}">
+                    max="{{product.quantity}}" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update" data-index="{{product.id}}">
                 {% endif %}
                 {% endfor%}
 

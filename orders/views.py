@@ -83,6 +83,7 @@ def order_confirm(request):
     else:
         form = OrderForm()
         return render(request, 'home.html')
+    
 
 
 class ConfirmView(TemplateView):
