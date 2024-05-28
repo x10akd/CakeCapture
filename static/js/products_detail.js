@@ -100,14 +100,13 @@ $(document).on('submit', '.editCommentForm', function (e) {
 $('#loadMoreReviewsBtn').on('click', function () {
     // 定義模板上要用的資料
     let page = $(this).data('page');
-    let productId = '{{ product.id }}';
-    // 動態渲染的神社url會壞，所以用變數取代
+    let loadMoreReviewsUrl = $(this).data('url');
+    let csrfToken = $(this).data('csrf-token');
     let ajaxEditReviewUrl = "{% url 'products:edit_review' 0 %}".slice(0, -2); // ajax_edit_review/0/ 切掉後面的 0/
-    let csrfToken = '{{ csrf_token }}';
 
 
     $.ajax({
-        url: '{% url "products:load_more_reviews" product.id %}',
+        url: loadMoreReviewsUrl,
         method: 'GET',
         data: { page: page },
         dataType: 'json',
@@ -115,50 +114,50 @@ $('#loadMoreReviewsBtn').on('click', function () {
         success: function (response) {
             response.reviews.forEach(function (review) {
                 let reviewHtml = `
-									<div class="rounded-xl bg-gray-100 p-5 shadow-lg shadow-blue-gray-500/40" id="review-${review.id}">
-											<div class="flex justify-between">
-													<div class="flex gap-4">
-															<p class="text-blue-500">${review.user}</p>
-															<p class="text-sm text-gray-600">${review.date}</p>
-													</div>
-													<div class="flex items-center">
-															${[...Array(5).keys()].map(i => `
-																	<svg class="w-5 h-5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-																			<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364 1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-																	</svg>
-															`).join('')}
-													</div>
-											</div>
-											<p class="my-5 review-text">${review.review}</p>
-											${review.is_user_review ? `
-											<div>
-													<button class="text-blue-500 hover:text-red-400 edit-button" data-review-id="${review.id}" id="edit-review">編輯</button>
-											</div>
-											`	: ''}
-									</div>
-									<div class="my-4" style="display:none" id="edit-review-form-${review.id}">
-										<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
-										<form action="${ajaxEditReviewUrl}${review.id}/" method="POST" class="flex gap-6 editCommentForm"  data-review-id="${review.id}">
-											<input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
-												<div>
-														<textarea name="review" id="editReviewText" rows="5" cols="80" class="focus:outline-none border-2 border-gray-300 rounded-xl p-5">${review.review}</textarea>
-												</div>
-												<div class="flex flex-col justify-between">
-													<select name="rating" id="editReviewRating" class="border-2 border-gray-300 rounded-xl p-2 focus:outline-none">
-															<option value="1" ${review.rating == 1 ? 'selected' : ''}>★☆☆☆☆</option>
-															<option value="2" ${review.rating == 2 ? 'selected' : ''}>★★☆☆☆</option>
-															<option value="3" ${review.rating == 3 ? 'selected' : ''}>★★★☆☆</option>
-															<option value="4" ${review.rating == 4 ? 'selected' : ''}>★★★★☆</option>
-															<option value="5" ${review.rating == 5 ? 'selected' : ''}>★★★★★</option>
-													</select>
-														<input type="hidden" name="review_id" id="editReviewId value="${review.id}">
-														<div>
-																<button type="submit" class="text-xl text-white font-bold p-3 rounded-xl bg-red-400 hover:scale-105">更新留言</button>
-														</div>
-												</div>
-										</form>
-									</div>
-							`;
+                <div class="rounded-xl bg-gray-100 p-5 shadow-lg shadow-blue-gray-500/40" id="review-${review.id}">
+                    <div class="flex justify-between">
+                        <div class="flex gap-4">
+                            <p class="text-blue-500">${review.user}</p>
+                            <p class="text-sm text-gray-600">${review.date}</p>
+                        </div>
+                        <div class="flex items-center">
+                            ${[...Array(5).keys()].map(i => `
+                                <svg class="w-5 h-5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364 1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <p class="my-5 review-text">${review.review}</p>
+                    ${review.is_user_review ? `
+                    <div>
+                        <button class="text-blue-500 hover:text-red-400 edit-button" data-review-id="${review.id}" id="edit-review">編輯</button>
+                    </div>
+                    ` : ''}
+                </div>
+                <div class="my-4" style="display:none" id="edit-review-form-${review.id}">
+                    <h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
+                    <form action="${ajaxEditReviewUrl}${review.id}/" method="POST" class="flex gap-6 editCommentForm" data-review-id="${review.id}">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+                        <div>
+                            <textarea name="review" id="editReviewText" rows="5" cols="80" class="focus:outline-none border-2 border-gray-300 rounded-xl p-5">${review.review}</textarea>
+                        </div>
+                        <div class="flex flex-col justify-between">
+                            <select name="rating" id="editReviewRating" class="border-2 border-gray-300 rounded-xl p-2 focus:outline-none">
+                                <option value="1" ${review.rating == 1 ? 'selected' : ''}>★☆☆☆☆</option>
+                                <option value="2" ${review.rating == 2 ? 'selected' : ''}>★★☆☆☆</option>
+                                <option value="3" ${review.rating == 3 ? 'selected' : ''}>★★★☆☆</option>
+                                <option value="4" ${review.rating == 4 ? 'selected' : ''}>★★★★☆</option>
+                                <option value="5" ${review.rating == 5 ? 'selected' : ''}>★★★★★</option>
+                            </select>
+                            <input type="hidden" name="review_id" id="editReviewId" value="${review.id}">
+                            <div>
+                                <button type="submit" class="text-xl text-white font-bold p-3 rounded-xl bg-red-400 hover:scale-105">更新留言</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                `;
                 $('.comment-list').append(reviewHtml);
             });
 

@@ -176,7 +176,7 @@
                 {% endfor %}
             </div>
 						{% if has_next %}
-							<button class="text-lg font-bold text-blue-500 rounded-full p-2 mt-3 hover:text-red-400" id="loadMoreReviewsBtn" data-page="2">-->載入更多<--</button>
+							<button class="text-lg font-bold text-blue-500 rounded-full p-2 mt-3 hover:text-red-400" id="loadMoreReviewsBtn" data-page="2" data-url="{% url 'products:load_more_reviews' product.id %}" data-csrf-token="{{ csrf_token }}">-->載入更多<--</button>
 						{% endif %}
         </div>
     </div>
