@@ -161,13 +161,10 @@ class ReturnView(View):
             HashKey='pwFHCqoQZGmho4w6',
             HashIV='EkRm7iFT261dpevs'
         )
-        print("="*100)
-        print(request.body)
         res = request.POST.dict()
         back_check_mac_value = request.POST.get('CheckMacValue')
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
         if check_mac_value == back_check_mac_value:
-            print('check')
             return HttpResponse('1|OK')
         return HttpResponse('0|Fail')
 
@@ -185,12 +182,8 @@ def order_result(request):
         back_check_mac_value = request.POST.get('CheckMacValue')
         order_id = request.POST.get('MerchantTradeNo')
         rtnmsg = request.POST.get('RtnMsg')
-        print(rtnmsg)
         rtncode = request.POST.get('RtnCode')
-        print(rtncode)
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
-        print(check_mac_value)
-        print(back_check_mac_value)
         if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
             order = Order.objects.get(order_id=order_id)
             order.status = 'waiting_for_shipment'
