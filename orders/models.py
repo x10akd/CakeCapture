@@ -43,20 +43,22 @@ class Order(models.Model):
 class OrderMethod(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='ordermethod')
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
-    delivery_method = models.CharField(max_length=20, choices=DELIVERY_CHOICES)
-    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
+    delivery_method = models.CharField(
+        max_length=20, choices=DELIVERY_CHOICES, default='宅配到府')
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='信用卡')
     coupon_used = models.BooleanField(default=False)
     store_name = models.CharField(max_length=100, blank=True)
     store_address = models.CharField(max_length=200, blank=True)
     order_name = models.CharField(max_length=50)
     order_cell_phone = models.CharField(max_length=10)
-    order_address = models.CharField(max_length=10, blank=True)
+    order_address = models.CharField(max_length=200, blank=True)
     order_email = models.EmailField(max_length=50)
     recipient_name = models.CharField(max_length=50)
     recipient_cell_phone = models.CharField(max_length=10)
-    recipient_address = models.CharField(max_length=10)
+    recipient_address = models.CharField(max_length=200)
     recipient_email = models.EmailField(max_length=50)
-    invoice_option = models.CharField(max_length=100, choices=INVOICE_CHOICES)
+    invoice_option = models.CharField(
+        max_length=100, choices=INVOICE_CHOICES, default='捐贈發票')
     invoice_number = models.CharField(max_length=8,null=True,blank=True)
     return_agreement = models.BooleanField(default=False)
 

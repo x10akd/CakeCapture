@@ -40,9 +40,10 @@
       <!-- payment-options -->
       <div class="mt-2 text-center text-xl font-semibold">
         {% for field in form.payment_method %}
-        <div class="flex items-center rounded-{{ forloop.first|yesno:" t-," }}{{ forloop.last|yesno:"b," }}xl p-3
-          bg-gray-200">
-          {{ field }}
+        <div class="flex {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %}">
+          <div class="flex items-center w-full p-3 bg-gray-200">
+            {{ field }}
+          </div>
         </div>
         {% endfor %}
       </div>
@@ -136,18 +137,46 @@
           <div class="flex justify-start">
             <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
             <input type="text" id="order_name" name="order_name" x-model="order_name" class="border-2 border-gray-300 rounded-md p-2" required>
+              {% if form.order_name.errors %}
+            <div class="text-red-500">
+                {% for error in form.order_name.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" placeholder="輸入格式 09XXXXXXXX">
+            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" placeholder="輸入格式 09XXXXXXXX" required>
+              {% if form.order_cell_phone.errors %}
+            <div class="text-red-500">
+              {% for error in form.order_cell_phone.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
           </div>
           <div class="flex justify-start items-center mt-2">
               <label for="order_address" class="w-1/12 p-2 text-left">聯絡地址</label>
-              <input type="text" id="order_address" name="order_address" x-model="address" class="border-2 border-gray-300 rounded-md p-2">
+              <input type="text" id="order_address" name="order_address" x-model="address" class="border-2 border-gray-300 rounded-md p-2" required>
+              {% if form.order_address.errors %}
+            <div class="text-red-500">
+                {% for error in form.order_address.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
           </div>
           <div class="flex justify-start mt-2">
               <label for="order_email" class="w-1/12 p-2 text-left">E-mail</label>
               <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
+              {% if form.order_email.errors %}
+            <div class="text-red-500">
+                {% for error in form.order_email.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
           </div>
 
         </div>
@@ -178,22 +207,50 @@
         <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
           <div class="flex justify-start items-center">
             <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
-            <input type="text" id="recipient_name" x-model="recipient_name" class="border-2 border-gray-300 rounded-md p-2" required>
+            <input type="text" id="recipient_name" x-model="recipient_name" name="recipient_name" class="border-2 border-gray-300 rounded-md p-2" required>
+              {% if form.recipient_name.errors %}
+            <div class="text-red-500">
+                {% for error in form.recipient_name.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
             <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式 09XXXXXXXX" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" required>
+            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" name="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式 09XXXXXXXX" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" required>
+              {% if form.recipient_cell_phone.errors %}
+            <div class="text-red-500">
+                {% for error in form.recipient_cell_phone.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
             <p class="ml-7 text-base text-gray-500">將以此資料發送簡訊提醒</p>
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_address" class="w-1/12 p-2 text-left">收件地址</label>
-            <input type="text" id="recipient_address" x-model="recipient_address" class="border-2 border-gray-300 rounded-md p-2">
+            <input type="text" id="recipient_address" x-model="recipient_address" name="recipient_address" class="border-2 border-gray-300 rounded-md p-2" required>
+              {% if form.recipient_address.errors %}
+            <div class="text-red-500">
+                {% for error in form.recipient_address.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
             <p class="ml-7 text-base text-gray-500">請填入收件地址</p>
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_mail" class="w-1/12 p-2 text-left">E-mail</label>
-            <input type="email" id="recipient_email" x-model="recipient_email" class="border-2 border-gray-300 rounded-md p-2">
+            <input type="email" id="recipient_email" x-model="recipient_email" name="recipient_email"  class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
+              {% if form.recipient_email.errors %}
+            <div class="text-red-500">
+                {% for error in form.recipient_email.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+              {% endif %}
             <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
           </div>
         </div>
