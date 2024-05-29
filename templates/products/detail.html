@@ -87,6 +87,56 @@
 			</div>
 		</section>
 	</div>
+	<!-- 加購商品 -->
+	<div class="py-6 flex flex-col items-center">
+		<div class="py-3">
+			<h4 class="text-2xl font-bold">| 加購商品 |</h4>
+		</div>
+		<div class="flex gap-6">
+			{% for upsell_p in upsell_products %}
+			<!-- card -->
+			<div
+				class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
+				<div
+					class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+					<img src="{{ upsell_p.image.url }}" class="w-full h-[288px] object-cover" />
+					
+					
+					
+				</div>
+				<br><br>
+				<div class="mb-3 flex items-center justify-around">
+				數量： <input type="number" id="quantity-input" min="1" max="{{upsell_p.quantity}}" value="1"
+					class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">
+						<span class="text-gray-400 text-l">庫存：{{upsell_p.quantity}}</span>
+				</div>
+				<a href="{% url 'products:detail' upsell_p.id %}">
+					<div class="p-6">
+						<div class="mb-3 flex items-center justify-between">
+							<!-- 產品名稱 -->
+							<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
+								{{ upsell_p.name }}
+							</h5>
+							<p class="block text-base font-bold text-blue-500">$ {{ upsell_p.price }}</p>
+							<!-- 產品評價 -->
+							<p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
+								
+							</p>
+						</div>
+						
+						<div class="flex items-center justify-between">
+							<!-- 產品價格 -->
+							<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+								<button type="submit" id="add_cart" data-product-id="{{ upsell_p.id }}"><a href="#">放到購物車</a></button>
+							</div>
+							
+						</div>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 	<div class="mx-20">
     {% if user.is_authenticated %}
 		{% if make_review == True %}
@@ -265,17 +315,17 @@
 				$(document).on('click', '#add_cart', function (e)
 				{
 					e.preventDefault();
-					if (isProductInCart)
-					{
-						// 商品已在購物車中，顯示提示訊息
-						Swal.fire({
-							icon: 'warning',
-							title: '購物車裡已有商品',
-							showConfirmButton: false,
-							timer: 1500 // 提示框顯示時間
-						});
-					} else
-					{
+					// if (isProductInCart)
+					// {
+					// 	// 商品已在購物車中，顯示提示訊息
+					// 	Swal.fire({
+					// 		icon: 'warning',
+					// 		title: '購物車裡已有商品',
+					// 		showConfirmButton: false,
+					// 		timer: 1500 // 提示框顯示時間
+					// 	});
+					// } else
+					// {
 						// 商品未在購物車中，發送Ajax請求
 						$.ajax({
 							type: 'POST',
@@ -305,7 +355,8 @@
 							}
 						});
 					}
-				});
+				
+				);
 			});
 	</script>
 
