@@ -110,7 +110,7 @@ def order_confirm(request):
             })
         else:
             messages.error(request, '請檢查輸入的資料。')
-            return redirect('orders:order_form')
+            return render(request, 'orders/order_form.html', {'form': form})
     else:
         form = OrderForm()
         return render(request, 'home.html')

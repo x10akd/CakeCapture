@@ -139,7 +139,7 @@
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2">
+            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" placeholder="輸入格式 09XXXXXXXX">
           </div>
           <div class="flex justify-start items-center mt-2">
               <label for="order_address" class="w-1/12 p-2 text-left">聯絡地址</label>
@@ -147,7 +147,7 @@
           </div>
           <div class="flex justify-start mt-2">
               <label for="order_email" class="w-1/12 p-2 text-left">E-mail</label>
-              <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" required>
+              <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
           </div>
 
         </div>
@@ -183,7 +183,7 @@
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式09XXXXXXXX" required>
+            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式 09XXXXXXXX" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" required>
             <p class="ml-7 text-base text-gray-500">將以此資料發送簡訊提醒</p>
           </div>
           <div class="flex justify-start items-center mt-2">
