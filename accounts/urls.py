@@ -31,4 +31,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("user/favorite_delete", views.favorite_delete, name="favorite_delete"),
 ]

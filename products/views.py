@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, Category, ProductReview
+from .models import Product, Category, ProductReview, Favorite
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
 from .forms import ProductReviewForm
 from django.db.models import Avg, Case, When, Value
 from django.db.models.functions import Coalesce
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def all(request):
@@ -297,3 +299,17 @@ def load_more_reviews(request, product_id):
         )
 
     return JsonResponse({"reviews": reviews_data, "has_next": reviews.has_next()})
+
+
+@login_required
+def add_to_favorites(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        product = get_object_or_404(Product, id=product_id)
+        favorite, created = Favorite.objects.get_or_create(
+            user=request.user, product=product
+        )
+        if created:
+            return JsonResponse({"status": "added"})
+        else:
+            return JsonResponse({"status": "exists"})

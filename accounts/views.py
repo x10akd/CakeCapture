@@ -13,6 +13,10 @@ from django.contrib.auth.models import User
 from messagememos.models import MessageModel
 from carts.cart import *
 
+from products.models import Favorite
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+
 
 def register(request):
     form = RegisterForm()
@@ -62,6 +66,8 @@ def log_out(request):
 # get先給予DB內個人資料, POST為修改個人資訊
 @login_required
 def profile(request):
+
+    favorites = Favorite.objects.filter(user=request.user)
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(
@@ -77,12 +83,13 @@ def profile(request):
             messages.error(request, "更新失敗，請檢查輸入的資料。")
     else:
         user_form = UpdateUserForm(instance=request.user)
+
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(
         request,
         "accounts/user.html",
-        {"user_form": user_form, "profile_form": profile_form},
+        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
     )
 
 
@@ -105,3 +112,15 @@ def user(request):
     user = User.objects.get(username=request.user.username)
     comments = MessageModel.objects.filter(user_id=user.id)
     return render(request, "accounts/user.html", {"comments": comments})
+
+
+def favorite_delete(request):
+    
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        favorite = get_object_or_404(
+            Favorite, product_id=product_id, user_id=request.user.id
+        )
+        favorite.delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"error": "Invalid request"}, status=400)
