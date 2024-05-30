@@ -12,7 +12,6 @@ import json
 from django.contrib.auth.models import User
 from messagememos.models import MessageModel
 from carts.cart import *
-from carts.cart import Cart
 
 from products.models import Favorite
 from django.http import JsonResponse
