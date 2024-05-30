@@ -115,7 +115,7 @@ def user(request):
 
 
 def favorite_delete(request):
-    print("=" * 100)
+    
     if request.method == "POST":
         product_id = request.POST.get("product_id")
         favorite = get_object_or_404(
