@@ -1,0 +1,35 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<div class="flex justify-between items-center border-b-2 border-red-300 mb-4">
+	<h1 class="text-2xl font-bold">{{ category.name }} 補貨系統</h1>
+	<a href="{% url 'managements:product_list' %}" class="block my-4 text-lg hover:text-red-400">-->返回商品總覽<--</a>
+</div>
+
+<form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+	{% csrf_token %}
+	<table class="min-w-full bg-white">
+			<thead>
+					<tr>
+							<th class="py-2 px-4 border-b text-center text-xl">商品名稱</th>
+							<th class="py-2 px-4 border-b text-center text-xl">圖片</th>
+							<th class="py-2 px-4 border-b text-center text-xl">編輯庫存</th>
+					</tr>
+			</thead>
+			<tbody>
+					{% for product in products %}
+					<tr>
+							<td class="py-2 px-4 border-b text-center text-xl">{{ product.name }}</td>
+							<td class="py-2 px-4 border-b text-center"><img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-24 h-24 object-cover mx-auto"></td>
+							<td class="py-2 px-4 border-b text-center text-xl">
+									<input type="number" name="quantity_{{ product.id }}" value="{{ product.quantity }}" class="border rounded py-1 px-2">
+							</td>
+					</tr>
+					{% endfor %}
+			</tbody>
+	</table>
+	<div class="text-right">
+		<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">保存變更</button>
+	</div>
+</form>
+{% endblock %}

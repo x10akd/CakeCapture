@@ -1,0 +1,43 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">商品編輯 - {{ product.name }}</h1>
+<form method="post" enctype="multipart/form-data" class="space-y-4">
+	{% csrf_token %}
+	<div class="mb-4">
+		{% if product.image %}
+				<img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-40 h-40 object-cover">
+		{% endif %}
+	</div>
+	<div class="flex gap-3 items-center flex-wrap w-[350px]">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品圖片:</label>
+		{{ form.image }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品名稱:</label>
+		{{ form.name }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品類別:</label>
+		{{ form.category }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品價格:</label>
+		{{ form.price }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品數量:</label>
+		{{ form.quantity }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">商品描述:</label>
+		{{ form.description }}
+	</div>
+	<div class="flex gap-2">
+		<label for="name" class="block text-xl font-semibold text-gray-700">上架:</label>
+		{{ form.status }}
+	</div>
+	<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">保存</button>
+</form>
+<a href="{% url 'managements:product_list' %}" class="block my-4 text-lg hover:text-red-400">-->返回商品總覽<--</a>
+{% endblock %}

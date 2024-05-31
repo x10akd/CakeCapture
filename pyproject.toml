@@ -19,6 +19,7 @@ django-storages = {extras = ["boto3"], version = "^1.14.3"}
 django = "^5.0.6"
 line-bot-sdk = "^3.11.0"
 django-seed = "^0.3.1"
+plotly = "^5.22.0"
 
 
 

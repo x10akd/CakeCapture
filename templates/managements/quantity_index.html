@@ -1,0 +1,11 @@
+{% extends "managements/managements_base.html" %}
+
+{% block managements_content %}
+<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">補貨系統 - 選擇類別</h1>
+{% for category in categories %}
+<div class="mb-4">
+	<a href="{% url 'managements:quantity_alter' category=category %}" class="text-xl text-gray-600 font-semibold hover:text-red-400">
+		{{ category.name }}</a>
+</div>
+{% endfor %}
+{% endblock %}

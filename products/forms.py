@@ -1,5 +1,5 @@
 from django import forms
-from products.models import ProductReview, RATING
+from products.models import ProductReview, Category, Product, RATING
 
 
 class ProductReviewForm(forms.ModelForm):
@@ -25,3 +25,33 @@ class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = ProductReview
         fields = ["review", "rating"]
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ["name"]
+
+
+class ProductForm(forms.ModelForm):
+    description = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "focus:outline-none border-2 border-gray-300 rounded-xl p-5",
+                "cols": 50,
+                "rows": 5,
+            }
+        )
+    )
+
+    class Meta:
+        model = Product
+        fields = [
+            "name",
+            "price",
+            "category",
+            "quantity",
+            "description",
+            "image",
+            "status",
+        ]

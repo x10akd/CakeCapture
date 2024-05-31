@@ -5,6 +5,9 @@
 
     <!-- 導航連結 -->
     <div class="flex space-x-14 text-xl">
+      {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'managements:product_list' %}" class="text-white hover:text-red-600">後台管理</a>
+      {% endif %}
       <a href="{% url 'home' %}" class=" text-white hover:text-red-600">首頁</a>
       <a href="{% url 'about' %}" class=" text-white hover:text-red-600">關於我們</a>
       {% if user.is_authenticated %}

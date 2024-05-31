@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "messagememos",
     "storages",
     "django_seed",
+    "managements",
 ]
 
 SITE_ID = 5

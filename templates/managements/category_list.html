@@ -1,0 +1,12 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">類別總覽</h1>
+{% for category in categories %}
+	<div class="mb-4">
+		<a href="{% url 'managements:edit_category' category.pk %}" class="text-xl text-gray-600 font-semibold hover:text-red-400">
+			{{ category.name }}</a>
+	</div>
+{% endfor %}
+<a href="{% url 'managements:add_category' %}" class="inline-block bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 mb-4 rounded">新增類別</a>
+{% endblock %}
