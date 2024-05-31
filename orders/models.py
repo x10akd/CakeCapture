@@ -57,17 +57,12 @@ class OrderMethod(models.Model):
     recipient_cell_phone = models.CharField(max_length=10)
     recipient_address = models.CharField(max_length=200)
     recipient_email = models.EmailField(max_length=50)
-    invoice_option = models.CharField(
-        max_length=100, choices=INVOICE_CHOICES, default='捐贈發票')
+    invoice_option = models.CharField(max_length=100, choices=INVOICE_CHOICES, default='捐贈發票')
     invoice_number = models.CharField(max_length=8,null=True,blank=True)
     return_agreement = models.BooleanField(default=False)
 
-
     def __str__(self):
         return self.order_name
-
-
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

@@ -64,7 +64,7 @@ def profile(request):
     favorites = Favorite.objects.filter(user=request.user)
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileFrom(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -75,7 +75,7 @@ def profile(request):
             messages.error(request, "更新失敗，請檢查輸入的資料。")
     else:
         user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileFrom(instance=request.user.profile)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request,"accounts/user.html",{"user_form": user_form, "profile_form": profile_form, "favorites": favorites},)
 
