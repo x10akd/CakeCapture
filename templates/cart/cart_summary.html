@@ -3,32 +3,27 @@
 
 <!-- container -->
 <div class="mt-28 w-screen max-w-screen-2xl mx-auto">
-    <!-- section-title -->
+<!-- section-title -->
     <div class="m-2 p-2 text-2xl font-semibold">
         <p>親愛的會員 ID 您好</p>
     </div>
     <!-- section-order -->
     <div class="mt-12 m-2 p-2 text-center">
         <!-- order-tag -->
-        <!-- <div class="flex text-xl font-semibold">
+        <div class="flex text-xl font-semibold">
             <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
                 <h3>購物明細</h3>
             </div>
-            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>免費贈品</h3>
-            </div> {% endcomment %}
-            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            </div>
+            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>點數回饋</h3>
-            </div> {% endcomment %}
-            {% comment %} <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
+            </div>
+            <div class="w-60 rounded-t-xl p-2 bg-white border-2 border-red-300 text-red-400">
                 <h3>下次再買清單</h3>
-
             </div>
         </div> 
-
-            </div> {% endcomment %}
-        </div>
-
         <span class="block w-full h-1 bg-red-300"></span>
         <!-- order-header -->
         <div class="flex mt-2 p-2 bg-red-200 text-xl font-semibold rounded-xl">
@@ -55,60 +50,51 @@
             </div>
         </div>
         <!-- order-list -->
-        {% for product in cart_products %}
-        <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{product.id}}">
-            <div class="w-1/12 felx flex-col m-auto">
-                <input type="checkbox" class="w-7 h-7 m-auto p-2 cb">
-            </div>
-            <div class="flex w-1/3 p-2">
-                <div class="product-img rounded-2xl w-[180px] h-[180px] overflow-hidden">
-                    <img src="{{product.image.url}}" alt="#" class="w-full h-full object-cover">
+        <div class="order-list">
+            {% for product in cart_products %}
+            <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{product.id}}">
+                <div class="w-1/12 felx flex-col m-auto">
+                    <input type="checkbox" class="w-7 h-7 m-auto p-2 cb">
                 </div>
-                <div class="felx flex-col m-auto w-1/2 p-2">
-                    <p>{{product.name}}</p>
+                <div class="flex w-1/3 p-2">
+                    <div class="product-img rounded-2xl w-[180px] h-[180px] overflow-hidden">
+                        <img src="{{product.image.url}}" alt="#" class="w-full h-full object-cover">
+                    </div>
+                    <div class="felx flex-col m-auto w-1/2 p-2">
+                        <p>{{product.name}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="felx flex-col m-auto w-1/6 p-2">
-                <p>{{product.category}}</p>
-            </div>
-            <div class="felx flex-col m-auto w-1/12 p-2">
-                {% for key, value in quantities.items%}
-                {% if key == product.id|slugify %}
-                <input type="number" min="1" value="{{ value }}"
-                    max="{{product.quantity}}" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update" data-index="{{product.id}}">
-                {% endif %}
-                {% endfor%}
-
-            </div>
-            <div class="felx flex-col m-auto w-1/12 p-2">
-                <p>$ {{product.price}}</p>
-            </div>
-            <div class="felx flex-col m-auto w-1/12 p-2">
-                <p>庫存剩餘：{{product.quantity}}</p>
-            </div>
-            <div class="felx flex-col m-auto w-1/6 p-2">
-
-                <div class="m-2 p-2">
-                    <a href="#" class="favorite-btn block rounded-xl p-2  bg-red-300  hover:bg-red-500" data-product-id="{{ product.id }}">
-
-                {% comment %} <div class="m-2 p-2">
-                    <a href="#" class="block rounded-xl p-2 bg-red-300">
-
-                        下次再買
-                    </a>
-                </div> {% endcomment %}
-                <div class="m-2 p-2">
-                    <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
-                        <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
+                <div class="felx flex-col m-auto w-1/6 p-2">
+                    <p>{{product.category}}</p>
+                </div>
+                <div class="felx flex-col m-auto w-1/12 p-2">
+                    {% for key, value in quantities.items%}
+                    {% if key == product.id|slugify %}
+                    <input type="number" min="1" value="{{ value }}"
+                        class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update"
+                        data-index="{{product.id}}">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="felx flex-col m-auto w-1/12 p-2">
+                    <p>$ {{product.price}}</p>
+                </div>
+                <div class="felx flex-col m-auto w-1/12 p-2">
+                    <p>庫存剩餘：{{product.quantity}}</p>
+                </div>
+                <div class="felx flex-col m-auto w-1/6 p-2">
+                    <div class="m-2 p-2">
+                        <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
+                            <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
         <!-- order-footer -->
         <div class="flex justify-between mt-2 rounded-xl p-2 bg-red-200 text-lg">
             <div class="flex flex-col justify-evenly w-1/4 p-2">
-                {% comment %} <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300">訂單下次再買</a> {% endcomment %}
-                <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300 hover:bg-red-500" id="deleteall">訂單刪除</a>
+                <a href="#" class="bolck m-2 rounded-xl p-2 bg-gray-300 hover:bg-red-500" id="deleteall">刪除勾選項目</a>
             </div>
             <div class="w-1/2 p-2">
                 <!-- <div class="text-right p-2">
@@ -150,11 +136,8 @@
     </div>
     <!-- section-redirect -->
     <div class="flex justify-end mt-12 m-2 p-2 text-center text-xl">
-        <a href="{% url 'home' %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
+        <a href="{% url "home" %}" class="block w-1/5 rounded-xl bg-gray-300 p-4">
             回首頁
-        </a>
-        <!-- <a href="#" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
-            海外結帳 -->
         </a>
         <a href="{% url 'orders:order_form' %}" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
             國內結帳
@@ -271,7 +254,7 @@
                 let productId = $(this).data('product-id');
                 $.ajax({
                     type: 'POST',
-                    url: "{% url 'store:add_to_favorites' %}",
+                    url: "{% url 'products:add_to_favorites' %}",
                     data: {
                         'product_id': productId,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'

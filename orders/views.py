@@ -33,6 +33,18 @@ def order_confirm(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
+            cart = Cart(request)
+            product_stock_sufficient = True
+
+            for product_id, quantity in cart.get_quants().items():
+                product = Product.objects.get(id=product_id)
+                if product.quantity < quantity:
+                    messages.error(request, f"{product.name} 庫存不足。")
+                    product_stock_sufficient = False
+
+            if not product_stock_sufficient:
+                return redirect('orders:order_form')
+
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
             order.save()
@@ -40,14 +52,14 @@ def order_confirm(request):
             order.name = request.POST.get('recipient_name')
             order.phone = request.POST.get('recipient_cell_phone')
             order.email = request.POST.get('recipient_email')
-            # 處理購物車
-            cart = Cart(request)
             totals = cart.cart_total()
             order.total = totals
             order.save()  # 更新金額
 
             for product_id, quantity in cart.get_quants().items():
                 product = Product.objects.get(id=product_id)
+                product.quantity -= quantity
+                product.save()
                 RelationalProduct.objects.create(
                     order=order, product=product, number=quantity)
 
@@ -69,6 +81,11 @@ def order_confirm(request):
                 invoice_number=request.POST.get('invoice_number', ''),
                 return_agreement='return_agreement' in request.POST
             )
+
+            # 清空購物車 需再確認
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
 
             return render(request, 'orders/order_confirm.html', {
                 'order': order,
@@ -172,7 +189,6 @@ class ReturnView(View):
 
 @csrf_exempt
 def order_result(request):
-    print("="*100)
     if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
