@@ -7,7 +7,8 @@ from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
-from products.models import Favorite
+from products.models import Favorite, RelationalProduct
+from orders.models import Order
 from messagememos.models import MessageModel
 from carts.cart import *
 from .models import Profile
@@ -62,6 +63,8 @@ def log_out(request):
 def profile(request):
 
     favorites = Favorite.objects.filter(user=request.user)
+    orders = Order.objects.filter(buyer=request.user)
+    relational_product = RelationalProduct.objects.filter(order__in=orders)
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -77,7 +80,7 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request,"accounts/user.html",{"user_form": user_form, "profile_form": profile_form, "favorites": favorites},)
+    return render(request, "accounts/user.html", {"user_form": user_form, "profile_form": profile_form, "favorites": favorites, "orders": orders, "relational_product": relational_product})
 
 
 # 忘記密碼

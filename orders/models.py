@@ -70,5 +70,7 @@ class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     quantity = models.IntegerField(default=1)
     price = models.IntegerField(default=0)
+    item_total = models.IntegerField(default=0)
+
     def __str__(self):
         return f'OrderItem - {str(self.id)}'

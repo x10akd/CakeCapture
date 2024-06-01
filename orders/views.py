@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, View
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from orders.models import Order, OrderMethod
+from orders.models import Order, OrderMethod, OrderItem
 from products.models import Product, RelationalProduct
 from .form import OrderForm
 from carts.cart import Cart
@@ -58,11 +58,10 @@ def order_confirm(request):
             order.buyer = request.user if request.user.is_authenticated else None
             order.save()
             order.refresh_from_db()
-            order.name = request.POST.get('recipient_name')
-            order.phone = request.POST.get('recipient_cell_phone')
-            order.email = request.POST.get('recipient_email')
-            order.address = request.POST.get('recipient_address')
-            
+            order.name = form.cleaned_data['recipient_name']
+            order.phone = form.cleaned_data['recipient_cell_phone']
+            order.email = form.cleaned_data['recipient_email']
+            order.address = form.cleaned_data['recipient_address']
             # 處理購物車
             cart = Cart(request)
             totals = cart.cart_total()
@@ -70,14 +69,25 @@ def order_confirm(request):
             order.save()  # 更新金額
 
             for product_id, quantity in cart.get_quants().items():
-                product = Product.objects.get(id=product_id)
-                product.quantity -= quantity
-                product.save()
-                RelationalProduct.objects.create(
-                    order=order, product=product, number=quantity)
+                try:
+                    product = Product.objects.get(id=product_id)
+                    RelationalProduct.objects.create(order=order, product=product, number=quantity)
+                    price = product.price
+                    item_total = price * quantity
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        user=request.user,
+                        quantity=quantity,
+                        price=price,
+                        item_total=item_total
+                    )
+                except Product.DoesNotExist:
+                    continue
 
             order_method = OrderMethod.objects.create(
-                order=order, user=request.user if request.user.is_authenticated else None,
+                order=order,
+                user=request.user if request.user.is_authenticated else None,
                 delivery_method=request.POST.get('delivery_method'),
                 payment_method=request.POST.get('payment_method'),
                 coupon_used='coupon' in request.POST,
@@ -206,7 +216,6 @@ class ReturnView(View):
 
 @csrf_exempt
 def order_result(request):
-    print("="*100)
     if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
             MerchantID='3002607',
