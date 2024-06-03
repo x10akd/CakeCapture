@@ -10,40 +10,62 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('orders', '0001_initial'),
-        ('products', '0001_initial'),
+        ("orders", "0001_initial"),
+        ("products", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='product',
-            field=models.ManyToManyField(related_name='order_set', through='products.RelationalProduct', to='products.product'),
+            model_name="order",
+            name="product",
+            field=models.ManyToManyField(
+                related_name="order_set",
+                through="products.RelationalProduct",
+                to="products.product",
+            ),
         ),
         migrations.AddField(
-            model_name='orderitem',
-            name='order',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders.order'),
+            model_name="orderitem",
+            name="order",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="orders.order"
+            ),
         ),
         migrations.AddField(
-            model_name='orderitem',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product'),
+            model_name="orderitem",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="products.product"
+            ),
         ),
         migrations.AddField(
-            model_name='orderitem',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="orderitem",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='ordermethod',
-            name='order',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='ordermethod', to='orders.order'),
+            model_name="ordermethod",
+            name="order",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ordermethod",
+                to="orders.order",
+            ),
         ),
         migrations.AddField(
-            model_name='ordermethod',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="ordermethod",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
