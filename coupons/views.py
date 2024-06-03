@@ -1,18 +1,23 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Coupon
+import json
 
 
-def input(request):
-    return render(request, "coupons/input.html")
-
-
-def coupon_apply(request):
-    if request.method == "GET":
-        code = request.GET.get("code", "")
+@csrf_exempt
+def check(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        coupon_code = data.get("coupon_code")
         try:
-            coupon = Coupon.objects.get(code=code)
-            return JsonResponse({"discount": coupon.discount})
+            coupon = Coupon.objects.get(code=coupon_code)
+            response = {
+                "valid": True,
+                "discount_amount": coupon.discount,
+            }
         except Coupon.DoesNotExist:
-            return JsonResponse({"error": "找不到該折扣代碼"})
-    return JsonResponse({"error": "無效的請求"})
+            response = {
+                "valid": False,
+            }
+        return JsonResponse(response)
