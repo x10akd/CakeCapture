@@ -68,11 +68,17 @@
       </div>
       <span class="block w-full h-1 bg-red-300"></span>
       <!-- coupon-check -->
-      <div class="mt-2 rounded-xl bg-gray-200 p-3 flex items-center">
-        {{ form.coupon_used }}
-        <label for="coupon-check" class="ml-3">E-Coupon 電子折價券 / 單品折價券<span class="text-base text-gray-500"> (
-            若要使用折價券，請先打勾即可輸入 )</span>
-        </label>
+      <div class="mt-2 rounded-xl bg-gray-200 p-3 flex flex-col items-start">
+				<div>
+					{{ form.coupon_used }}
+					<label for="coupon-check" class="ml-3">E-Coupon 電子折價券 / 單品折價券<span class="text-base text-gray-500"> (
+							若要使用折價券，請先打勾即可輸入 )</span>
+					</label>
+				</div>
+				<div id="coupon_input" class="ml-3 mt-2 hidden">
+					<input type="text" id="coupon_code" placeholder="請輸入折價券代碼">
+					<button class="w-34 ml-3 rounded-xl p-3 bg-red-300">使用折價券</button>
+				</div>
       </div>
     </div>
   
@@ -299,4 +305,21 @@
   </div>
   
 </form>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('id_coupon_used');
+    const couponInput = document.getElementById('coupon_input');
+
+    checkbox.addEventListener('change', function () {
+      if (checkbox.checked) {
+        couponInput.classList.remove('hidden');
+        couponInput.classList.add('block');
+      } else {
+        couponInput.classList.remove('block');
+        couponInput.classList.add('hidden');
+      }
+    });
+  });
+</script>
 {% endblock %}
