@@ -1,7 +1,7 @@
 <nav class="bg-red-300 py-6 fixed w-screen max-w-screen-2xl top-0 rounded-full mx-auto left-0 right-0 px-6 z-20">
   <div class="container mx-auto flex justify-between items-center">
     <!-- 品牌標誌 -->
-    <a href="{% url "home" %}" class="text-white text-2xl font-bold">CakeCapture</a>
+    <a href="{% url "home" %}" class="text-white text-2xl font-bold">Cake Capture</a>
 
     <!-- 導航連結 -->
     <div class="flex space-x-14 text-xl">
@@ -21,6 +21,7 @@
         <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
           商品
         </button>
+				
         <!-- 下拉選單 -->
         <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36  z-20" x-cloak x-show="show">
           <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">所有商品</a>
@@ -37,8 +38,6 @@
         <span
           class="absolute top-0 left-11 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
       </a>
-
-
     </div>
   </div>
 </nav>

@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>{% block title %}{% endblock title %}</title>
 	<!-- Using alpine / htmx / htmx-ws / hyperscript -->
 	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 	<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
@@ -23,8 +23,20 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+	<!-- 引入打包 bulid.js -->
+	<script src="{% static 'scripts/output.js' %}" defer></script>
+
+	<!-- font awesome -->
+	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
+
+	<!-- font awesome -->
+	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
+	
+	{% block javascript %} {% endblock javascript %}
+
 	<!-- 引入 Swiper.js CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	
 	<style>
 		.hover\:scale-110:hover {
 			transform: scale(1.1);
@@ -33,20 +45,16 @@
 			display: none !important;
 		}
 	</style>
-	<!-- 引入打包 bulid.js -->
-	<script src="{% static 'scripts/output.js' %}" defer></script>
-
-	<!-- font awesome -->
-	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
-	{% block other_js %} {% endblock %}
 </head>
 
 <body class="min-h-screen flex flex-col">
 	{% include 'shared/nav.html' %}
-	<main class="flex-grow p-4">
+
+	<main class="flex-grow">
 	{% block content %}
 	{% endblock %}
 	</main>
+
 	{% include 'shared/footer.html'%}
 
 	{% if messages %}
@@ -62,7 +70,6 @@
 	</script>
 	{% endfor %}
 	{% endif %}
-
 </body>
 
 </html>

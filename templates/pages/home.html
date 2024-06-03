@@ -1,22 +1,28 @@
-{% extends 'shared/base.html' %} {% load static %} {% block content%}
+{% extends 'shared/base.html' %} 
+
+{% load static %}
+
+{% block title %}Cake Capture - Home{% endblock title %}
+
+{% block content %}
 <!-- 圖片輪播 -->
 <div class="swiper-container w-full h-screen overflow-hidden">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <img
-                src="{%static 'index_img/box-01.jpeg'%}"
+                src="{% static 'index_img/box-01.jpeg' %}"
                 alt="Image 1"
                 class="w-full h-full object-cover"/>
         </div>
         <div class="swiper-slide">
             <img
-                src="{%static 'index_img/box-02.jpeg'%}"
+                src="{% static 'index_img/box-02.jpeg' %}"
                 alt="Image 2"
                 class="w-full h-full object-cover"/>
         </div>
         <div class="swiper-slide">
             <img
-                src="{%static 'index_img/box-03.jpeg'%}"
+                src="{% static 'index_img/box-03.jpeg' %}"
                 alt="Image 3"
                 class="w-full h-full object-cover"
             />
@@ -107,6 +113,7 @@
         </h1>
     </a>
 </div>
+
 <!-- 引入 Swiper.js -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script
@@ -128,4 +135,4 @@
         },
     });
 </script>
-{% endblock%}
+{% endblock %}
