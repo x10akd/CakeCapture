@@ -188,9 +188,10 @@
     <a href="{% url 'orders:order_form' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
       &#10094;&nbsp;&nbsp;上一步
     </a>
-      <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10 p-4">{% csrf_token %}
+    <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10">
+      {% csrf_token %}
       <input type="hidden" name="order_id" value="{{ order.order_id }}">
-      <button type="submit" class="w-full rounded-xl bg-red-300 text-center">
+      <button type="submit" class="w-full p-4 rounded-xl bg-red-300 text-center">
         確認, 送出訂單&nbsp;&nbsp;&check;
       </button>
     </form>

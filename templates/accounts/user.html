@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="m-auto w-screen max-w-screen-2xl" style="margin-top: 85px">
   <div x-data="{ tab: 'user-info' }">
@@ -320,8 +321,7 @@
   </div>
 </div>
 <script>
-  $(document).on('click', '.delete-favorite-btn', function (e)
-  {
+  $(document).on('click', '.delete-favorite-btn', function (e){
     e.preventDefault();
     card = this.closest('.card')
     product_id = $(this).data('index')
@@ -334,14 +334,10 @@
         csrfmiddlewaretoken: '{{ csrf_token }}',
         action: 'post'
       },
-
-
-      success: function (json)
-      {
+      success: function (json){
         card.remove()       
       },
-      error: function (xhr, errmsg, err)
-      {
+      error: function (xhr, errmsg, err){
       }
     })
   })
