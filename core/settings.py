@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     "managements",
 ]
 
-SITE_ID = 5
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -115,6 +113,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -175,7 +175,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 #         "file": {
 #             "level": "DEBUG",
 #             "class": "logging.FileHandler",
-#             "filename": "logs/development.log",  # Choose a file name and path
+#             "filename": "logs/development.log",
 #         },
 #     },
 #     "loggers": {
@@ -187,8 +187,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 #     },
 # }
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-
+# AWS image-storage related
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "cakecapture"
@@ -199,7 +198,9 @@ AWS_DEFAULT_ACL = None
 AWS_S3_VERIFY = True
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
+# Payment-related
 CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
 
+# LINE-chatbot related
 LINE_CHANNEL_ACCESS_TOKEN = env("LINE_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = env("LINE_CHANNEL_SECRET")
