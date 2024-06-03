@@ -6,11 +6,13 @@ import datetime
 
 
 class RegisterForm(UserCreationForm):
+    html_class = "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+
     username = forms.CharField(
         label="帳號",
         widget=forms.TextInput(
             attrs={
-                "class": "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                "class": html_class,
                 "pattern": r"^[a-zA-Z0-9]+$",
                 "title": "請輸入英文與數字字元",
             }
@@ -18,27 +20,15 @@ class RegisterForm(UserCreationForm):
     )
     email = forms.EmailField(
         label="電子郵件",
-        widget=forms.EmailInput(
-            attrs={
-                "class": "form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            }
-        ),
+        widget=forms.EmailInput(attrs={"class": html_class}),
     )
     password1 = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(
-            attrs={
-                "class": "form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            }
-        ),
+        widget=forms.PasswordInput(attrs={"class": html_class}),
     )
     password2 = forms.CharField(
         label="密碼確認",
-        widget=forms.PasswordInput(
-            attrs={
-                "class": "form-control  mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            }
-        ),
+        widget=forms.PasswordInput(attrs={"class": html_class}),
     )
 
     class Meta:
@@ -47,23 +37,17 @@ class RegisterForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
+    html_class = "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+
     username = forms.CharField(
         required=True,
         label="帳號",
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            }
-        ),
+        widget=forms.TextInput(attrs={"class": html_class}),
     )
     password = forms.CharField(
         required=True,
         label="密碼",
-        widget=forms.PasswordInput(
-            attrs={
-                "class": "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            }
-        ),
+        widget=forms.PasswordInput(attrs={"class": html_class}),
     )
     remember_me = forms.BooleanField(required=False)
 
@@ -73,12 +57,14 @@ class LoginForm(AuthenticationForm):
 
 
 class UpdateUserForm(forms.ModelForm):
+    html_class = "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+
     username = forms.CharField(
         required=True,
         label="帳號",
         widget=forms.TextInput(
             attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "class": html_class,
                 "pattern": r"^[a-zA-Z0-9]+$",
                 "title": "請輸入英文與數字字元",
             }
@@ -87,11 +73,7 @@ class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(
         required=True,
         label="電子郵件",
-        widget=forms.EmailInput(
-            attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            }
-        ),
+        widget=forms.EmailInput(attrs={"class": html_class}),
     )
 
     class Meta:
@@ -100,13 +82,15 @@ class UpdateUserForm(forms.ModelForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
+    html_class = "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+
     full_name = forms.CharField(
         max_length=10,
         label="名字",
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "class": html_class,
                 "pattern": r"^[a-zA-Z\s\u4e00-\u9fa5]+$",
                 "title": "請不要使用特殊字符和符號。",
             }
@@ -118,7 +102,7 @@ class UpdateProfileForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "class": html_class,
                 "pattern": r"^09\d{8}$",
                 "title": "請輸入09開頭的十碼數字",
             }
@@ -130,7 +114,7 @@ class UpdateProfileForm(forms.ModelForm):
         widget=forms.DateInput(
             attrs={
                 "type": "date",
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "class": html_class,
             },
             format="%Y-%m-%d",
         ),
@@ -142,7 +126,7 @@ class UpdateProfileForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "class": html_class,
                 "pattern": r"^[a-zA-Z0-9\s,.\u4e00-\u9fa5-]+$",
                 "title": "請不要使用特殊字符和符號。",
             }
