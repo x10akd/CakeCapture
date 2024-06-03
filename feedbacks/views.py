@@ -8,7 +8,7 @@ def create(request):
         if message:
             new_message = MessageModel(message=message, user=request.user)
             new_message.save()
-    return redirect("messagememos:message")
+    return redirect("feedbacks:message")
 
 
 def message(request):
