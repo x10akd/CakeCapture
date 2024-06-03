@@ -5,15 +5,14 @@ from .models import Profile
 import datetime
 
 
-
 class RegisterForm(UserCreationForm):
     username = forms.CharField(
         label="帳號",
         widget=forms.TextInput(
             attrs={
                 "class": "form-control mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
-                "pattern": "^[a-zA-Z0-9]+$",
-                "title": "請輸入英文與數字字元"
+                "pattern": r"^[a-zA-Z0-9]+$",
+                "title": "請輸入英文與數字字元",
             }
         ),
     )
@@ -80,8 +79,8 @@ class UpdateUserForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                "pattern": "^[a-zA-Z0-9]+$",
-                "title": "請輸入英文與數字字元"
+                "pattern": r"^[a-zA-Z0-9]+$",
+                "title": "請輸入英文與數字字元",
             }
         ),
     )
@@ -99,15 +98,19 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ["username", "email"]
 
+
 class UpdateProfileForm(forms.ModelForm):
     full_name = forms.CharField(
         max_length=10,
         label="名字",
         required=False,
-        widget=forms.TextInput(attrs={
-            "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-            "pattern": "^[a-zA-Z\s\u4e00-\u9fa5]+$",
-            "title": "請不要使用特殊字符和符號。"})
+        widget=forms.TextInput(
+            attrs={
+                "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                "pattern": r"^[a-zA-Z\s\u4e00-\u9fa5]+$",
+                "title": "請不要使用特殊字符和符號。",
+            }
+        ),
     )
     phone = forms.CharField(
         max_length=15,
@@ -116,9 +119,8 @@ class UpdateProfileForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                "pattern": "^09\d{8}$",
-                "title": "請輸入09開頭的十碼數字"
-
+                "pattern": r"^09\d{8}$",
+                "title": "請輸入09開頭的十碼數字",
             }
         ),
     )
@@ -127,13 +129,13 @@ class UpdateProfileForm(forms.ModelForm):
         required=False,
         widget=forms.DateInput(
             attrs={
-                "type": "date",  # 設置為 date 類型
+                "type": "date",
                 "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
             },
             format="%Y-%m-%d",
-        ),  # 確保後端接收的格式是 YYYY-MM-DD
+        ),
     )
-    
+
     address = forms.CharField(
         max_length=100,
         label="詳細地址",
@@ -141,8 +143,8 @@ class UpdateProfileForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "class": "block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                "pattern":  "^[a-zA-Z0-9\s,.\u4e00-\u9fa5-]+$",
-                "title": "請不要使用特殊字符和符號。"
+                "pattern": r"^[a-zA-Z0-9\s,.\u4e00-\u9fa5-]+$",
+                "title": "請不要使用特殊字符和符號。",
             }
         ),
     )
@@ -150,8 +152,8 @@ class UpdateProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UpdateProfileForm, self).__init__(*args, **kwargs)
         today = datetime.date.today()
-        self.fields['birthday'].widget.attrs['max'] = today.isoformat()
+        self.fields["birthday"].widget.attrs["max"] = today.isoformat()
 
     class Meta:
         model = Profile
-        fields = ["full_name","phone", "birthday", "address"]
+        fields = ["full_name", "phone", "birthday", "address"]
