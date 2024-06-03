@@ -41,10 +41,12 @@
 	{% block other_js %} {% endblock %}
 </head>
 
-<body>
+<body class="min-h-screen flex flex-col">
 	{% include 'shared/nav.html' %}
+	<main class="flex-grow p-4">
 	{% block content %}
 	{% endblock %}
+	</main>
 	{% include 'shared/footer.html'%}
 
 	{% if messages %}
