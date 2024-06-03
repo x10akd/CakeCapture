@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import logout
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordResetView,
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -22,16 +27,17 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "註冊成功!")
+            messages.success(request, "註冊成功！")
             return redirect("accounts:login")
         else:
-            messages.error(request, "註冊失敗, 請確認輸入的訊息!")
+            messages.error(request, "註冊失敗，請確認輸入的訊息！")
     context = {"form": form}
     return render(request, "accounts/register.html", context)
 
 
 class NewLoginView(LoginView):
     form_class = LoginForm
+    template_name = "accounts/login.html"
 
     def form_valid(self, form):
         response = super(NewLoginView, self).form_valid(form)
@@ -54,9 +60,9 @@ class NewLoginView(LoginView):
         return super(NewLoginView, self).form_invalid(form)
 
 
-def log_out(request):
+def logout(request):
     messages.success(request, "登出成功!")
-    logout(request)
+    auth_logout(request)
     return redirect("accounts:login")
 
 
@@ -92,17 +98,24 @@ def profile(request):
 
 # 忘記密碼
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    # SuccessMessageMixin 用在class view上, 可自定義成功訊息, 並將網址轉向
     template_name = "accounts/password_reset.html"
-    email_template_name = "accounts/password_reset_email.html"  # 信件內容
-    subject_template_name = "accounts/password_reset_subject.txt"  # 信件主旨
+    email_template_name = "accounts/password_reset_email.html"
+    subject_template_name = "accounts/password_reset_subject.txt"
     success_message = (
-        "我們已經寄出密碼重置信, "
-        "你會在最初所填入註冊的信箱收到;"
-        "如果沒有收到該信件, "
-        "請確認是否為當初註冊信箱, 並檢查垃圾信箱"
+        "我們已經寄出密碼重置信"
+        "您將會在當初填入註冊的信箱收到"
+        "如果您沒有收到該信件"
+        "請先檢查垃圾信箱並確認該信箱是否為當初註冊信箱"
     )
     success_url = reverse_lazy("accounts:login")
+
+
+class NewPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "accounts/password_reset_complete.html"
+
+
+class NewPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "accounts/password_reset_confirm.html"
 
 
 def user(request):
