@@ -8,6 +8,7 @@ from datetime import timedelta
 
 @receiver(post_save, sender=User)
 def create_coupon_for_new_user(sender, instance, created, **kwargs):
+
     if created:
         coupon = Coupon.objects.create(
             code="5XCAMP",
@@ -17,9 +18,9 @@ def create_coupon_for_new_user(sender, instance, created, **kwargs):
             expired_at=timezone.now() + timedelta(days=30),
         )
 
-    UserCoupon.objects.create(
-        user=instance,
-        coupon=coupon,
-        order=None,
-        usage_count=0,
-    )
+        UserCoupon.objects.create(
+            user=instance,
+            coupon=coupon,
+            order=None,
+            usage_count=0,
+        )
