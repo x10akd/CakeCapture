@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from products.models import Favorite, RelationalProduct
 from orders.models import Order
-from feedbacks.models import MessageModel
+from feedbacks.models import *
 from carts.cart import *
 from .models import Profile
 from .forms import *
@@ -107,8 +107,8 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 
 def user(request):
     user = User.objects.get(username=request.user.username)
-    comments = MessageModel.objects.filter(user_id=user.id)
-    return render(request, "accounts/user.html", {"comments": comments})
+    feedbacks = Feedback.objects.filter(user_id=user.id)
+    return render(request, "accounts/user.html", {"feedbacks": feedbacks})
 
 
 def favorite_delete(request):

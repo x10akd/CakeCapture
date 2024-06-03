@@ -16,7 +16,7 @@
               <a href="#" id="user-bouns" @click="tab='user-bouns'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-bouns', 'text-red-800': tab !== 'user-bouns' }">
                 商店積點
               </a>
-              <a href="#" id="user-message" @click="tab='user-message'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-message', 'text-red-800': tab !== 'user-message' }">
+              <a href="#" id="user-feedback" @click="tab='user-feedback'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-feedback', 'text-red-800': tab !== 'user-feedback' }">
                 訊息
               </a>
               <a href="#" id="user-favorite" @click="tab='user-favorite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="user-message p-6" x-show="tab === 'user-message'">
+    <div class="user-feedback p-6" x-show="tab === 'user-feedback'">
       <h2 class="font-bold text-2xl leading-10 text-black">訊息</h2>
       <div class="">
         <div class="flex justify-evenly items-start bg-white rounded-lg p-4 shadow">
@@ -95,7 +95,7 @@
             <div>
               <label>留言：</label><br />
               <textarea
-                name="mytext"
+                name="user-feedback"
                 rows="6"
                 cols="40"
                 required
@@ -119,11 +119,11 @@
           </form>
     
           <div class="justify-center mt-4 rounded-lg p-4 flex-col m-4 bg-left">
-            {% for comment in comments %}
+            {% for feedback in feedbacks %}
             <div class="ml-10 shadow w-64 m-2.5 font-mono text-gray-600">
-              <p>帳號:{{comment.user}}</p>
-              <p>內容:{{comment.message}}</p>
-              <p>{{comment.add_time}}</p>
+              <p>帳號:{{feedback.user}}</p>
+              <p>內容:{{feedback.message}}</p>
+              <p>{{feedback.add_time}}</p>
               <br />
             </div>
             {% endfor %}

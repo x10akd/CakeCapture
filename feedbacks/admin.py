@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import MessageModel
-admin.site.register(MessageModel)
+from .models import *
 
-# Register your models here.
+admin.site.register(Feedback)
