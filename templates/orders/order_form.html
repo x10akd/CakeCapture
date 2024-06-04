@@ -71,7 +71,7 @@
       <div class="mt-2 rounded-xl bg-gray-200 p-3 flex flex-col items-start">
 				<div>
 					{{ form.coupon_used }}
-					<label for="coupon-check" class="ml-3">E-Coupon 電子折價券 / 單品折價券<span class="text-base text-gray-500"> (
+					<label for="id_coupon_used" class="ml-3">E-Coupon 電子折價券 / 單品折價券<span class="text-base text-gray-500"> (
 							若要使用折價券，請先打勾即可輸入 )</span>
 					</label>
 				</div>
@@ -250,7 +250,7 @@
             <p class="ml-7 text-base text-gray-500">請填入收件地址</p>
           </div>
           <div class="flex justify-start items-center mt-2">
-            <label for="recipient_mail" class="w-1/12 p-2 text-left">E-mail</label>
+            <label for="recipient_email" class="w-1/12 p-2 text-left">E-mail</label>
             <input type="email" id="recipient_email" x-model="recipient_email" name="recipient_email"  class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
               {% if form.recipient_email.errors %}
             <div class="text-red-500">
