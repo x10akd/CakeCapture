@@ -147,47 +147,35 @@
 </div>
 
 <script>
-
-    $(document).ready(function ()
-    {
-        // 監聽 input 元素的值變化
-        $('.update').on('change', function ()
-        {
-            // 獲取商品 ID
-            let productId = $(this).data('index');
-            // 獲取數量
-            let quantity = $(this).val();
-            // 向後端發送 AJAX POST 請求
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'carts:update' %}",   // 替換為您的後端 URL
-                data: {
-                    product_id: productId,
-                    product_qty: quantity,
-                    csrfmiddlewaretoken: '{{ csrf_token }}',  // 如果在 Django 模板中使用，請使用模板標記獲取 CSRF token
-                    action: 'post'
-                },
-                success: function (json)
-                {
-                    location.reload()
-                    // 成功處理響應的操作，如果有的話
-                },
-                error: function (xhr, errmsg, err)
-                {
-                    // 處理錯誤的操作，如果有的話
-                }
-            });
+$(document).ready(function () {
+    // 監聽 input 元素的值變化
+    $('.update').on('change', function () {
+        // 獲取商品 ID
+        let productId = $(this).data('index');
+        // 獲取數量
+        let quantity = $(this).val();
+        // 向後端發送 AJAX POST 請求
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'carts:update' %}", // 替換為您的後端 URL
+            data: {
+                product_id: productId,
+                product_qty: quantity,
+                csrfmiddlewaretoken: '{{ csrf_token }}', // 如果在 Django 模板中使用，請使用模板標記獲取 CSRF token
+                action: 'post'
+            },
+            success: function (json) {
+                location.reload();
+                // 成功處理響應的操作，如果有的話
+            },
+            error: function (xhr, errmsg, err) {
+                // 處理錯誤的操作，如果有的話
+            }
         });
     });
 
-
-
-
-
-    $(document).on('click', '#delete-btn', function (e)
-    {
+    $(document).on('click', '#delete-btn', function (e) {
         e.preventDefault();
-
         $.ajax({
             type: 'POST',
             url: "{% url 'carts:delete' %}",
@@ -196,38 +184,28 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
-
-            success: function (json)
-            {
-                location.reload()
+            success: function (json) {
+                location.reload();
             },
-            error: function (xhr, errmsg, err)
-            {
+            error: function (xhr, errmsg, err) {
+                // 處理錯誤的操作，如果有的話
             }
-        })
-    })
+        });
+    });
 
-
-
-    $(document).on('click', '#deleteall', function (e)
-    {
+    $(document).on('click', '#deleteall', function (e) {
         e.preventDefault();
-
         // 創建一個空列表，用於存儲要刪除的商品 ID
         var productsToDelete = [];
-
         // 遍歷所有的商品項目，如果 checkbox 被選中，則將商品 ID 添加到列表中
-        const products = document.querySelectorAll(".cake")
-
-        products.forEach((e) =>
-        {
-            let checkbox = e.querySelector("input")
-            if (checkbox.checked)
-            {
-                productsToDelete.push(e.dataset.productId)
+        const products = document.querySelectorAll(".cake");
+        products.forEach((e) => {
+            let checkbox = e.querySelector("input");
+            if (checkbox.checked) {
+                productsToDelete.push(e.dataset.productId);
             }
-        })
-        console.log(productsToDelete)
+        });
+        console.log(productsToDelete);
         // 向後端發送 AJAX 請求，刪除所有要刪除的商品
         $.ajax({
             type: 'POST',
@@ -237,162 +215,56 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'delete-all'
             },
-            success: function (json)
-            {
-
-             location.reload(); // 刷新頁面或者執行其他操作
+            success: function (json) {
+                location.reload(); // 刷新頁面或者執行其他操作
             },
-            error: function (xhr, errmsg, err)
-            {
+            error: function (xhr, errmsg, err) {
                 // 處理錯誤
             }
         });
     });
-    $(document).ready(function ()
-        {
-            $('.favorite-btn').on('click', function ()
-            {
-                let productId = $(this).data('product-id');
-                $.ajax({
-                    type: 'POST',
-                    url: "{% url 'products:add_to_favorites' %}",
-                    data: {
-                        'product_id': productId,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function (response)
-                    {
-                        if (response.status === 'added')
-                        {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '商品已被加入我的最愛',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        } else if (response.status === 'exists')
-                        {
-                            Swal.fire({
-                                icon: 'info',
-                                title: '商品已在我的最愛中',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        }
-                    }
-                });
-            });
+
+    $('.favorite-btn').on('click', function () {
+        let productId = $(this).data('product-id');
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'products:add_to_favorites' %}",
+            data: {
+                'product_id': productId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (response) {
+                if (response.status === 'added') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '商品已被加入我的最愛',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (response.status === 'exists') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '商品已在我的最愛中',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
         });
-    
+    });
 
     // 獲取第一個 checkbox
     var selectAllCheckbox = document.querySelector('#firstcb');
     // 獲取所有的商品 checkbox
     var productCheckboxes = document.querySelectorAll('.cb');
     // 為第一個 checkbox 添加事件監聽器
-    selectAllCheckbox.addEventListener('change', function ()
-    {
+    selectAllCheckbox.addEventListener('change', function () {
         // 當第一個 checkbox 的狀態改變時，設置所有商品 checkbox 的狀態與之相同
-        for (var i = 0; i < productCheckboxes.length; i++)
-        {
+        for (var i = 0; i < productCheckboxes.length; i++) {
             productCheckboxes[i].checked = this.checked;
         }
-      });
     });
-  });
-
-  $(document).on('click', '#delete-btn', function (e){
-    e.preventDefault();
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'carts:delete' %}",
-      data: {
-        product_id: $(this).data('index'),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-      },
-      success: function (json){
-        location.reload()
-      },
-      error: function (xhr, errmsg, err){
-      }
-    })
-  })
-
-
-
-  $(document).on('click', '#deleteall', function (e){
-    e.preventDefault();
-    // 創建一個空列表，用於存儲要刪除的商品 ID
-    let productsToDelete = [];
-    // 遍歷所有的商品項目，如果 checkbox 被選中，則將商品 ID 添加到列表中
-    const products = document.querySelectorAll(".cake")
-        
-    products.forEach((e) => {
-      let checkbox = e.querySelector("input")
-      if (checkbox.checked) {
-        productsToDelete.push(e.dataset.productId)
-      }
-    })
-    // 向後端發送 AJAX 請求，刪除所有要刪除的商品
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'carts:delete_all' %}",
-      data: {
-        product_ids: productsToDelete, // 將要刪除的商品 ID 作為列表傳遞給後端
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'delete-all'
-      },
-      success: function (json){
-        location.reload(); // 刷新頁面或者執行其他操作
-      },
-      error: function (xhr, errmsg, err){ // 處理錯誤
-      }
-    });
-  });
-
-  $(document).ready(function (){
-    $('.favorite-btn').on('click', function (){
-      let productId = $(this).data('product-id');
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'products:add_to_favorites' %}",
-        data: {
-          'product_id': productId,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function (response){
-          if (response.status === 'added'){
-            Swal.fire({
-              icon: 'success',
-              title: '商品已被加入我的最愛',
-              showConfirmButton: false,
-              timer: 1500
-            });
-          } else if (response.status === 'exists'){
-            Swal.fire({
-              icon: 'info',
-              title: '商品已在我的最愛中',
-              showConfirmButton: false,
-              timer: 1500
-            });
-          }
-        }
-      });
-    });
-  });
-
-  // 獲取第一個 checkbox
-  let selectAllCheckbox = document.querySelector('#firstcb');
-  // 獲取所有的商品 checkbox
-  let productCheckboxes = document.querySelectorAll('.cb');
-  // 為第一個 checkbox 添加事件監聽器
-  selectAllCheckbox.addEventListener('change', function (){
-        // 當第一個 checkbox 的狀態改變時，設置所有商品 checkbox 的狀態與之相同
-    for (var i = 0; i < productCheckboxes.length; i++){
-      productCheckboxes[i].checked = this.checked;
-    }
-  });
+});
 </script>
 
 

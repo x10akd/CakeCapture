@@ -332,57 +332,52 @@
     {% endfor %}
 		</div>
   </div>
-	<script>
-		$(document).ready(function ()
-			{
-				var isProductInCart = false; // 旗標變量，用於追蹤商品是否已加入購物車
+<script>
+$(document).ready(function () {
+    var isProductInCart = false; // 旗標變量，用於追蹤商品是否已加入購物車
 
-				$(document).on('click', '#add_cart', function (e)
-				{
-					e.preventDefault();
-					// if (isProductInCart)
-					// {
-					// 	// 商品已在購物車中，顯示提示訊息
-					// 	Swal.fire({
-					// 		icon: 'warning',
-					// 		title: '購物車裡已有商品',
-					// 		showConfirmButton: false,
-					// 		timer: 1500 // 提示框顯示時間
-					// 	});
-					// } else
-					// {
-						// 商品未在購物車中，發送Ajax請求
-						$.ajax({
-							type: 'POST',
-							url: "{% url 'carts:add' %}",
-							data: {
-								product_id: $(this).data('product-id'),
-								product_qty: $('#quantity-input').val(),
-								csrfmiddlewaretoken: '{{ csrf_token }}',
-								action: 'post'
-							},
-							success: function (json)
-							{
-								document.getElementById('cart_quantity').textContent = json.qty;
-								// 使用SweetAlert2顯示成功提示框
-								Swal.fire({
-									icon: 'success',
-									title: '商品已被加入購物車',
-									showConfirmButton: false,
-									timer: 1500 // 提示框顯示時間
-								});
-								// 設置旗標為true，表示商品已在購物車中
-								isProductInCart = true;
-							},
-							error: function (xhr, errmsg, err)
-							{
-								// 錯誤處理，可以根據需要進行擴展
-							}
-						});
-					}
-				
-				);
-			});
-	</script>
+    $(document).on('click', '#add_cart', function (e) {
+        e.preventDefault();
+        // 檢查商品是否已在購物車中
+        if (isProductInCart) {
+            // 商品已在購物車中，顯示提示訊息
+            Swal.fire({
+                icon: 'warning',
+                title: '購物車裡已有商品',
+                showConfirmButton: false,
+                timer: 1500 // 提示框顯示時間
+            });
+        } else {
+            // 商品未在購物車中，發送Ajax請求
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'carts:add' %}",
+                data: {
+                    product_id: $(this).data('product-id'),
+                    product_qty: $('#quantity-input').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    document.getElementById('cart_quantity').textContent = json.qty;
+                    // 使用SweetAlert2顯示成功提示框
+                    Swal.fire({
+                        icon: 'success',
+                        title: '商品已被加入購物車',
+                        showConfirmButton: false,
+                        timer: 1500 // 提示框顯示時間
+                    });
+                    // 設置旗標為true，表示商品已在購物車中
+                    isProductInCart = true;
+                },
+                error: function (xhr, errmsg, err) {
+                    // 錯誤處理，可以根據需要進行擴展
+                }
+            });
+        }
+    });
+});
+
+</script>
 
 {% endblock %}
