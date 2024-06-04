@@ -1,31 +1,18 @@
-{% extends 'shared/base.html' %} 
-
+{% extends 'shared/base.html' %}
 {% load static %}
-
-{% block title %}Cake Capture - Home{% endblock title %}
 
 {% block content %}
 <!-- 圖片輪播 -->
-<div class="swiper-container w-full h-screen overflow-hidden">
+<div class="swiper-container w-full h-screen overflow-hidden text-center sm:flex-col">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <img
-                src="{% static 'index_img/cake capture_cover.jpg' %}"
-                alt="Image 1"
-                class="w-full h-full object-cover"/>
+            <img src="{% static 'index_img/box-01.jpeg' %}" alt="Image 1" class="w-full h-full absolute inset-y-0 left-0 w-1/2"/>
         </div>
         <div class="swiper-slide">
-            <img
-                src="{% static 'index_img/box-02.jpeg' %}"
-                alt="Image 2"
-                class="w-full h-full object-cover"/>
+            <img src="{% static 'index_img/box-02.jpeg' %}" alt="Image 2" class="w-full h-full object-cover"/>
         </div>
         <div class="swiper-slide">
-            <img
-                src="{% static 'index_img/box-03.jpeg' %}"
-                alt="Image 3"
-                class="w-full h-full object-cover"
-            />
+            <img src="{% static 'index_img/box-03.jpeg' %}" alt="Image 3" class="w-full h-full absolute inset-y-0 right-0 w-1/2"/>
         </div>
         <!-- 添加更多圖片 -->
     </div>
@@ -41,40 +28,31 @@
   <div class="swiper-pagination"></div>
 </div>
 
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('static/index_img/macarons.jpeg'); background-size: cover; background-position: center;">
-  <a href="{% url 'products:category' category='macarons' %}">
-    <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
-      Macarons
-    </h1>
-  </a>
+<!-- 背景圖片部分 -->
+<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">
+    <a href="{% url 'products:category' category='macarons' %}">
+        <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-4xl text-red-500 transition-transform duration-300 hover:scale-110">Macarons</h1>
+    </a>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('static/index_img/poundcake4.jpeg'); background-size: cover; background-position: center;">
-  <a href="{% url 'products:category' category='poundcake' %}">
-    <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
-      Poundcakes
-    </h1>
-  </a>
+<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/poundcake4.jpeg' %}'); background-size: cover; background-position: center;">
+    <a href="{% url 'products:category' category='poundcake' %}">
+        <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-4xl text-red-500 transition-transform duration-300 hover:scale-110">Poundcakes</h1>
+    </a>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('static/index_img/creamcake.jpeg'); background-size: cover; background-position: center;">
-  <a href="{% url 'products:category' category='freshcreamcake' %}">
-    <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
-      Fresh cream cake
-    </h1>
-  </a>
+<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/creamcake.jpeg' %}'); background-size: cover; background-position: center;">
+    <a href="{% url 'products:category' category='freshcreamcake' %}">
+        <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-4xl text-red-500 transition-transform duration-300 hover:scale-110">Fresh cream cake</h1>
+    </a>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('static/index_img/pastry.jpeg'); background-size: cover; background-position: center;">
-  <a href="{% url 'products:category' category='frenchpastry' %}">
-    <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
-      French pastry
-    </h1>
-  </a>
+<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/pastry.jpeg' %}'); background-size: cover; background-position: center;">
+    <a href="{% url 'products:category' category='frenchpastry' %}">
+        <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-4xl text-red-500 transition-transform duration-300 hover:scale-110">French pastry</h1>
+    </a>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('static/index_img/chocolate.jpeg'); background-size: cover; background-position: center;">
-  <a href="{% url 'products:category' category='chocolate' %}">
-    <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110">
-      Chocolate
-    </h1>
-  </a>
+<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/chocolate.jpeg' %}'); background-size: cover; background-position: center;">
+    <a href="{% url 'products:category' category='chocolate' %}">
+        <h1 class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-4xl text-red-500 transition-transform duration-300 hover:scale-110">Chocolate</h1>
+    </a>
 </div>
 
 <!-- 引入 Swiper.js -->
