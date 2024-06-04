@@ -168,7 +168,7 @@ def detail(request, pk):
         .exclude(id=pk)
         .order_by("?")[0:4]  # 想讓顯示商品隨機
     )
-    upsell_category = get_object_or_404(Category, name="upsell")
+    upsell_category = get_object_or_404(Category, name="其他")
     upsell_products = Product.objects.filter(category=upsell_category)
     review_form = ProductReviewForm()
 
@@ -201,7 +201,7 @@ def detail(request, pk):
         "products/detail.html",
         {
             "product": product,
-            "upsell_products":upsell_products,
+            "upsell_products": upsell_products,
             "related_products": related_products,
             "reviews": reviews,
             "has_next": reviews.has_next(),  # 是否有下一頁
