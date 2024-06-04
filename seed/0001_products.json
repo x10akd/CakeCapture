@@ -45,7 +45,7 @@
     "model": "products.product",
     "pk": 1,
     "fields": {
-        "name": "馬卡龍＿葡萄",
+        "name": "葡萄馬卡龍",
         "price": "90",
         "category": 1,
         "quantity": 50,
@@ -58,7 +58,7 @@
     "model": "products.product",
     "pk": 2,
     "fields": {
-        "name": "馬卡龍＿檸檬",
+        "name": "檸檬馬卡龍",
         "price": "85",
         "category": 1,
         "quantity": 60,
@@ -71,7 +71,7 @@
     "model": "products.product",
     "pk": 3,
     "fields": {
-        "name": "馬卡龍＿芒果",
+        "name": "芒果馬卡龍",
         "price": "80",
         "category": 1,
         "quantity": 80,
@@ -84,7 +84,7 @@
     "model": "products.product",
     "pk": 4,
     "fields": {
-        "name": "馬卡龍＿抹茶",
+        "name": "抹茶馬卡龍",
         "price": "100",
         "category": 1,
         "quantity": 50,
@@ -97,7 +97,7 @@
     "model": "products.product",
     "pk": 5,
     "fields": {
-        "name": "馬卡龍＿Oreo",
+        "name": "OREO 馬卡龍",
         "price": "85",
         "category": 1,
         "quantity": 30,
@@ -110,7 +110,7 @@
     "model": "products.product",
     "pk": 6,
     "fields": {
-        "name": "馬卡龍＿覆盆子",
+        "name": "覆盆子馬卡龍",
         "price": "100",
         "category": 1,
         "quantity": 30,
@@ -123,7 +123,7 @@
     "model": "products.product",
     "pk": 7,
     "fields": {
-        "name": "馬卡龍＿草莓",
+        "name": "草莓馬卡龍",
         "price": "110",
         "category": 1,
         "quantity": 20,
@@ -136,7 +136,7 @@
     "model": "products.product",
     "pk": 8,
     "fields": {
-        "name": "馬卡龍＿紫羅蘭",
+        "name": "紫羅蘭馬卡龍",
         "price": "95",
         "category": 1,
         "quantity": 40,
@@ -149,7 +149,7 @@
     "model": "products.product",
     "pk": 9,
     "fields": {
-        "name": "馬卡龍＿巧克力",
+        "name": "巧克力馬卡龍",
         "price": "80",
         "category": 1,
         "quantity": 50,
@@ -272,7 +272,7 @@
         "quantity": 10,
         "description": "滿滿的開心果櫻桃磅蛋糕，結合了香濃的開心果與甜美的櫻桃，每一口都充滿了濃郁的果香和綿密的口感，如一場充滿歡樂的節日派對，為您帶來愉悅和驚喜的味覺饗宴。",
         "image": "uploads/product/poundcake-pistacho.jpeg",
-        "status": true
+        "status": false
     }
 },
 {
@@ -363,7 +363,7 @@
         "quantity": 3,
         "description": "充滿趣味的可可淋醬鮮奶油蛋糕，就像是一場巧克力的嘉年華，濃郁的可可淋醬與柔滑的奶油相融，每一口都是一場甜蜜的冒險，彷彿在巧克力的仙境中徜徉，為您帶來愉悅和驚喜。",
         "image": "uploads/product/creamcake-chocolate.jpeg",
-        "status": true
+        "status": false
     }
 },
 {
@@ -415,7 +415,7 @@
         "quantity": 4,
         "description": "別具風味的新鮮芋頭鮮奶油蛋糕，彷彿是一場獨特的驚喜派對，香甜的芋頭與滑順的奶油交織，每一口都是一場芋頭探險，彷彿在神秘的芋頭世界中冒險，為您的味蕾帶來無盡的驚喜和樂趣。",
         "image": "uploads/product/creamcake-taro.jpeg",
-        "status": true
+        "status": false
     }
 },
 {
@@ -435,7 +435,7 @@
     "model": "products.product",
     "pk": 31,
     "fields": {
-        "name": "法式＿香草千層",
+        "name": "香草千層",
         "price": "230",
         "category": 4,
         "quantity": 10,
@@ -448,7 +448,7 @@
     "model": "products.product",
     "pk": 32,
     "fields": {
-        "name": "法式＿聖多諾黑",
+        "name": "聖多諾黑",
         "price": "280",
         "category": 4,
         "quantity": 12,
@@ -461,7 +461,7 @@
     "model": "products.product",
     "pk": 33,
     "fields": {
-        "name": "法式＿蘋果小派",
+        "name": "蘋果小派",
         "price": "190",
         "category": 4,
         "quantity": 10,
@@ -474,7 +474,7 @@
     "model": "products.product",
     "pk": 34,
     "fields": {
-        "name": "法式＿可麗露",
+        "name": "可麗露",
         "price": "85",
         "category": 4,
         "quantity": 30,
@@ -487,20 +487,20 @@
     "model": "products.product",
     "pk": 35,
     "fields": {
-        "name": "法式＿可可慕斯",
+        "name": "可可慕斯",
         "price": "220",
         "category": 4,
         "quantity": 10,
         "description": "可可慕斯，就像是一場巧克力的盛宴，絲滑的口感與濃郁的巧克力味道交織在一起，每一口都是一場甜蜜的巧克力體驗，彷彿在巧克力工廠中探險，為您帶來無盡的味覺享受和甜蜜回憶。",
         "image": "uploads/product/pastry-chocolate.webp",
-        "status": true
+        "status": false
     }
 },
 {
     "model": "products.product",
     "pk": 36,
     "fields": {
-        "name": "法式＿栗子泡芙",
+        "name": "栗子泡芙",
         "price": "170",
         "category": 4,
         "quantity": 10,
@@ -513,20 +513,20 @@
     "model": "products.product",
     "pk": 37,
     "fields": {
-        "name": "法式＿無花果塔",
+        "name": "無花果塔",
         "price": "220",
         "category": 4,
         "quantity": 12,
         "description": "無花果塔，彷彿是一座秘密花園的入口，酥脆的餅皮中包裹著香甜的無花果，每一口都是一場花園的探險，彷彿置身於童話般的世界中，為您帶來無盡的驚喜和美好體驗。",
         "image": "uploads/product/pastry-fig.jpeg",
-        "status": true
+        "status": false
     }
 },
 {
     "model": "products.product",
     "pk": 38,
     "fields": {
-        "name": "法式＿榛果巧克力塔",
+        "name": "榛果巧克力塔",
         "price": "210",
         "category": 4,
         "quantity": 12,
@@ -539,7 +539,7 @@
     "model": "products.product",
     "pk": 39,
     "fields": {
-        "name": "法式＿玫瑰荔枝",
+        "name": "玫瑰荔枝",
         "price": "320",
         "category": 4,
         "quantity": 5,
@@ -552,7 +552,7 @@
     "model": "products.product",
     "pk": 40,
     "fields": {
-        "name": "法式＿檸檬塔",
+        "name": "檸檬塔",
         "price": "180",
         "category": 4,
         "quantity": 12,
@@ -565,7 +565,7 @@
     "model": "products.product",
     "pk": 41,
     "fields": {
-        "name": "法式＿蒙布朗",
+        "name": "蒙布朗",
         "price": "220",
         "category": 4,
         "quantity": 4,
@@ -578,7 +578,7 @@
     "model": "products.product",
     "pk": 42,
     "fields": {
-        "name": "法式＿開心果小塔",
+        "name": "開心果小塔",
         "price": "230",
         "category": 4,
         "quantity": 5,
@@ -591,7 +591,7 @@
     "model": "products.product",
     "pk": 43,
     "fields": {
-        "name": "bonbon-六入禮盒",
+        "name": "六入禮盒",
         "price": "590",
         "category": 5,
         "quantity": 10,
@@ -604,7 +604,7 @@
     "model": "products.product",
     "pk": 44,
     "fields": {
-        "name": "bonbon-經典九入禮盒",
+        "name": "經典九入禮盒",
         "price": "1080",
         "category": 5,
         "quantity": 3,
@@ -617,20 +617,20 @@
     "model": "products.product",
     "pk": 45,
     "fields": {
-        "name": "bonbon-榛果巧克力",
+        "name": "榛果巧克力",
         "price": "90",
         "category": 5,
         "quantity": 5,
         "description": "榛果巧克力，就像是一場美味的探險！每一口都融合了濃郁的巧克力和香濃的榛果，彷彿在口中探索著一片巧克力森林。讓您的味蕾感受到無盡的滿足和歡樂，就像是探險家發現了珍貴的寶藏一般！",
         "image": "uploads/product/bonbon-hazelnut.jpeg",
-        "status": true
+        "status": false
     }
 },
 {
     "model": "products.product",
     "pk": 46,
     "fields": {
-        "name": "bonbon-玫瑰巧克力",
+        "name": "玫瑰巧克力",
         "price": "95",
         "category": 5,
         "quantity": 10,
@@ -643,12 +643,51 @@
     "model": "products.product",
     "pk": 47,
     "fields": {
-        "name": "bonbon-松露巧克力",
+        "name": "松露巧克力",
         "price": "90",
         "category": 5,
         "quantity": 30,
         "description": "松露巧克力，是巧克力世界的黑珍珠！每一顆都蘊含著濃郁的巧克力香氣和柔滑的口感，彷彿在口中溶化成一股幸福的潮流。讓您的味蕾享受到奢華的滋味，就像是探索一片美味的巧克力森林般令人陶醉！",
         "image": "uploads/product/bonbon-truffle.jpeg",
+        "status": true
+    }
+},
+{
+    "model": "products.product",
+    "pk": 48,
+    "fields": {
+        "name": "蠟燭",
+        "price": "10",
+        "category": 7,
+        "quantity": 500,
+        "description": "療癒香氛，溫暖燭光，營造愜意氛圍。\r\n天然材質，精緻手工，點亮美好生活。\r\n各式造型，任君挑選，送禮自用皆宜。\r\n限時優惠，加購折扣，數量有限，售完為止。",
+        "image": "uploads/product/Screenshot_2024-06-04_at_8.36.46_PM.png",
+        "status": true
+    }
+},
+{
+    "model": "products.product",
+    "pk": 49,
+    "fields": {
+        "name": "紙袋",
+        "price": "10",
+        "category": 7,
+        "quantity": 500,
+        "description": "環保耐用，時尚百搭，輕鬆展現您的品味。\r\n可重複使用，減少浪費，愛護地球從我做起。\r\n多種尺寸，滿足您的不同需求，購物收納兩用。\r\n簡約設計，質感升級，送禮自用皆宜。",
+        "image": "uploads/product/Screenshot_2024-06-04_at_8.43.24_PM.png",
+        "status": true
+    }
+},
+{
+    "model": "products.product",
+    "pk": 50,
+    "fields": {
+        "name": "甜點叉",
+        "price": "5",
+        "category": 7,
+        "quantity": 1000,
+        "description": "精緻優雅，質感升級，享受美味蛋糕時光。\r\n細膩工藝，經久耐用，為您的餐桌增添格調。\r\n多種款式，任君挑選，滿足不同需求。\r\n送禮自用皆宜，彰顯品味與質感。",
+        "image": "uploads/product/Screenshot_2024-06-04_at_8.45.57_PM.png",
         "status": true
     }
 }
