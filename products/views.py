@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category, ProductReview, Favorite
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 from django.http import JsonResponse
 from .forms import ProductReviewForm
 from django.db.models import Avg, Case, When, Value
-from django.db.models.functions import Coalesce
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -13,7 +12,6 @@ from django.http import JsonResponse
 def all(request):
     selected_option = "預設排序"
     sort_by = request.GET.get("sort_by", "default")
-
     products = Product.objects.all()
 
     if sort_by == "price_asc":
@@ -44,20 +42,25 @@ def all(request):
         products = products
         selected_option = "預設排序"
 
-    products = Paginator(products, 9)
+    products = Paginator(products, 12)
     page = request.GET.get("page")
     products = products.get_page(page)
 
     return render(
         request,
         "products/all.html",
-        {"products": products, "selected_option": selected_option, "sort_by": sort_by},
+        {
+            "products": products,
+            "selected_option": selected_option,
+            "sort_by": sort_by,
+        },
     )
 
 
 def category(request, category):
     selected_option = "預設排序"
     sort_by = request.GET.get("sort_by", "default")
+
     try:
         category = Category.objects.get(name=category)
         products = Product.objects.filter(category=category)
@@ -90,7 +93,7 @@ def category(request, category):
             products = products
             selected_option = "預設排序"
 
-        products = Paginator(products, 9)
+        products = Paginator(products, 12)
         page = request.GET.get("page")
         products = products.get_page(page)
         return render(
@@ -143,7 +146,7 @@ def search(request):
             products = products
             selected_option = "預設排序"
 
-        products = Paginator(products, 9)
+        products = Paginator(products, 12)
         page = request.GET.get("page")
         products = products.get_page(page)
         return render(
@@ -171,8 +174,8 @@ def detail(request, pk):
 
     # Getting all reviews
     reviews = ProductReview.objects.filter(product=product).order_by("-date")
-    p = Paginator(reviews, 10)
-    page_obj = p.get_page(1)
+    reviews = Paginator(reviews, 10)
+    reviews = reviews.get_page(1)
 
     # render星星變數
     star_range = range(1, 6)
@@ -200,8 +203,8 @@ def detail(request, pk):
             "product": product,
             "upsell_products":upsell_products,
             "related_products": related_products,
-            "reviews": page_obj,
-            "has_next": page_obj.has_next(),  # 是否有下一頁
+            "reviews": reviews,
+            "has_next": reviews.has_next(),  # 是否有下一頁
             "review_form": review_form,
             "star_range": star_range,
             "average_rating": average_rating,

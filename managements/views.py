@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 
@@ -48,7 +47,9 @@ def edit_product(request, pk):
     else:
         form = ProductForm(instance=product)
     return render(
-        request, "managements/edit_product.html", {"product": product, "form": form}
+        request,
+        "managements/edit_product.html",
+        {"product": product, "form": form},
     )
 
 
@@ -87,16 +88,16 @@ def edit_category(request, pk):
     else:
         form = ProductForm(instance=category)
     return render(
-        request, "managements/edit_category.html", {"category": category, "form": form}
+        request,
+        "managements/edit_category.html",
+        {"category": category, "form": form},
     )
 
 
 def quantity_index(request):
-    categories = Category.objects.all()
     return render(
         request,
         "managements/quantity_index.html",
-        {"categories": categories},
     )
 
 

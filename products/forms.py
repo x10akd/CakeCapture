@@ -7,7 +7,7 @@ class ProductReviewForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
                 "placeholder": "留下您的評論",
-                "class": "focus:outline-none border-2 border-gray-300 rounded-xl p-5",
+                "class": "focus:outline-none border-2 border-gray-300 rounded-xl p-5 w-full",
                 "cols": 80,
                 "rows": 5,
             }

@@ -33,10 +33,12 @@
 				<span class="text-gray-400 text-3xl">${{product.price}}</span>
 				<br>
 				<br>
-				數量： <input type="number" id="quantity-input" min="1" max="{{product.quantity}}" value="1" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">      
-				<span class="text-gray-400 text-l">庫存：{{product.quantity}}</span>
-				<br>
-				<br>
+				{% if product.status is True %}
+					數量： <input type="number" id="quantity-input" min="1" max="{{product.quantity}}" value="1" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">      
+					<span class="text-gray-400 text-l">庫存：{{product.quantity}}</span>
+					<br>
+					<br>
+				{% endif %}
 			</div>
 		</div>
 			<div class="product-star flex gap-3 mb-3">
@@ -69,14 +71,19 @@
 				<div class="tab-content py-2 text-lg font-extralight my-10">
 					{{product.description}}
 				</div>
-				
 				<div class="product-action-btn flex flex-col my-2">
-					<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit"><a href="#" >收藏商品</a></button>
-					</div>
-					<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-						<button type="submit" id="add_cart" data-product-id="{{ product.id }}"><a href="#">放到購物車</a></button>
-					</div>
+					{% if product.status is True %}
+						<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+							<button type="submit"><a href="#" >收藏商品</a></button>
+						</div>
+						<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+							<button type="submit"><a href="#">放到購物車</a></button>
+						</div>
+					{% else %}
+						<div class="text-center px-8 py-2 rounded-2xl mt-3">
+							<p class="text-xl font-bold text-red-500">很抱歉，本商品目前暫時下架，無法購買</p>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</section>
@@ -136,18 +143,42 @@
 		{% if make_review == True %}
 			<div class="my-4 w-full" id="addReview">
 					<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">發表評論</h4>
-					<form action="{% url 'products:add_review' product.id %}" method="POST" class="flex gap-6" id="commentForm">
+					<div class="flex flex-wrap gap-8">
+						<form action="{% url 'products:add_review' product.id %}" method="POST" id="commentForm">
 							{% csrf_token %}
-							<div>
+							<div class="flex gap-6">
+								<div>
 									{{ review_form.review }}
-							</div>
-							<div class="flex flex-col justify-between">
+								</div>
+								<div class="flex flex-col justify-between">
 									{{ review_form.rating }}
 									<div>
 											<button type="submit" class="text-xl text-white font-bold p-3 rounded-xl bg-red-400 hover:scale-105">留言</button>
 									</div>
+								</div>
 							</div>
-					</form>
+							
+						</form>
+						<div x-data="{ showTerms: false }" class="px-4 w-2/5">
+							<h3 @click="showTerms = !showTerms" class="text-lg font-bold cursor-pointer">
+									發表評論即代表您同意我們的 <br><span class="text-blue-700">《CakeCapture顧客評價條款》</span>
+							</h3>
+							<ol x-show="showTerms" class="list-decimal text-lg mt-2">
+									<li>只要您提交內容給CakeCapture，即代表您聲明並保證您是該內容的唯一作者，也是著作財產權的所有者;</li>
+									<li>您提交的內容完全正確，且不會對任何人或實體造成傷害;</li>
+									<li>您提交的內容不得包含:</li>
+									<ul class="list-disc pl-4">
+											<li>就您所知有不實、不正確或誤導之虞的內容；</li>
+											<li>侵犯任何第三方著作權、專利、商標、營業秘密或其他專有權利、公開權或隱私權的內容；</li>
+											<li>違反任何法律、法令、條例或規章的內容；</li>
+											<li>針對或可合理認為是對任何個人、合作夥伴或企業之誹謗、中傷、憎惡、種族或宗教偏見或攻擊、非法恐嚇或非法騷擾的內容；</li>
+											<li>包括引用其他網站、地址、電子郵件地址、聯絡資訊或電話號碼之任何資訊的內容</li>
+											<li>包含任何電腦病毒、蠕蟲或其他具有潛在破壞性之電腦程式或檔案的內容。</li>
+									</ul>
+									<li>CakeCapture 於自行斟酌後，有權更改、縮短或刪除 CakeCapture 網站上 CakeCapture 認為違反評價條款的任何內容，並免於因為您違反上述聲明與保證，或因為您違反任何法律或第三方權利所造成之任何已知與未知類型及性質的索賠、要求與損害賠償，包括合理律師費用。</li>
+							</ol>
+						</div>
+					</div>
 			</div>
     {% endif %}
 		{% endif %}
