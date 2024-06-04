@@ -6,7 +6,7 @@
 			
 					{% block products_sort %}
 						<ul>
-							<a href="?search={{ query }}&sort_by=default">
+							<a href="?search={{ query }}&price_range={{ price_range }}&sort_by=default">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '預設排序'"
@@ -14,7 +14,7 @@
 								預設排序
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=price_desc">
+							<a href="?search={{ query }}&price_range={{ price_range }}&sort_by=price_desc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '價格由高到低'"
@@ -22,7 +22,7 @@
 								價格由高到低
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=price_asc">
+							<a href="?search={{ query }}&price_range={{ price_range }}&sort_by=price_asc">
 								<li
 								class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 								@click="selectedOption = '價格由低到高'"
@@ -30,7 +30,7 @@
 								價格由低到高
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=rating_desc">
+							<a href="?search={{ query }}&price_range={{ price_range }}&sort_by=rating_desc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1 mb-2"
 									@click="selectedOption = '評分由高到低'"
@@ -38,7 +38,7 @@
 								評分由高到低
 								</li>
 							</a>
-							<a href="?search={{ query }}&sort_by=rating_asc">
+							<a href="?search={{ query }}&price_range={{ price_range }}&sort_by=rating_asc">
 								<li
 									class="rounded-lg hover:bg-red-200 block pd-1"
 									@click="selectedOption = '評分由低到高'"
@@ -48,19 +48,45 @@
 							</a>
 						</ul>
 					{% endblock %}
+
+					{% block price_range %}
+						<ul>
+							<a href="?search={{ query }}&price_range=all&sort_by={{ sort_by }}">
+								<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedPrice = '所有價格'">
+								所有價格
+								</li>
+							</a>
+							<a href="?search={{ query }}&price_range=0-500&sort_by={{ sort_by }}">
+								<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedPrice = '$0~500'">
+									$0~500
+								</li>
+							</a>
+							<a href="?search={{ query }}&price_range=500-1000&sort_by={{ sort_by }}">
+								<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedOption = '$500~1,000'">
+									$500~1,000
+								</li>
+							</a>
+							<a href="?search={{ query }}&price_range=1000-1500&sort_by={{ sort_by }}">
+								<li class="rounded-lg hover:bg-red-200 block pd-1 mb-2" @click="selectedOption = '$1,000~1,500'">
+									$1,000~1,500
+								</li>
+							</a>
+						</ul>
+        	{% endblock %}
+
 				
 {% block products_paginator %}					
 	<div class="flex justify-end gap-3 py-12 pr-11">
 		{% if products.has_previous %}
-		<a href="?search={{ query }}&sort_by={{ sort_by }}&page=1" class="text-gray-600 hover:text-red-400">&laquo 第一頁</a>
-		<a href="?search={{ query }}&sort_by={{ sort_by }}&page={{ products.previous_page_number }}" class="text-gray-600 hover:text-red-400">上一頁</a>
+			<a href="?search={{ query }}&price_range={{ price_range }}&sort_by={{ sort_by }}&page=1" class="text-gray-600 hover:text-red-400">&laquo 第一頁</a>
+			<a href="?search={{ query }}&price_range={{ price_range }}&sort_by={{ sort_by }}&page={{ products.previous_page_number }}" class="text-gray-600 hover:text-red-400">上一頁</a>
 		{% endif %}
 
 		<p class="font-bold">Page {{ products.number }} of {{ products.paginator.num_pages }}</p>
 
 		{% if products.has_next %}
-		<a href="?search={{ query }}&sort_by={{ sort_by }}&page={{ products.next_page_number }}" class="text-gray-600 hover:text-red-400">下一頁</a>
-		<a href="?search={{ query }}&sort_by={{ sort_by }}&page={{ products.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
+			<a href="?search={{ query }}&price_range={{ price_range }}&sort_by={{ sort_by }}&page={{ products.next_page_number }}" class="text-gray-600 hover:text-red-400">下一頁</a>
+			<a href="?search={{ query }}&price_range={{ price_range }}&sort_by={{ sort_by }}&page={{ products.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
 		{% endif %}
 	</div>
 {% endblock %}

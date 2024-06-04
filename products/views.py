@@ -11,8 +11,23 @@ from django.http import JsonResponse
 
 def all(request):
     selected_option = "預設排序"
+    selected_price = "所有價格"
     sort_by = request.GET.get("sort_by", "default")
+    price_range = request.GET.get("price_range", "all")
     products = Product.objects.all()
+
+    if price_range == "0-500":
+        products = products.filter(price__gte=0, price__lte=500)
+        selected_price = "$0~500"
+    elif price_range == "500-1000":
+        products = products.filter(price__gte=500, price__lte=1000)
+        selected_price = "$500~1,000"
+    elif price_range == "1000-1500":
+        products = products.filter(price__gte=1000, price__lte=1500)
+        selected_price = "$1,000~1,500"
+    else:
+        products = products
+        selected_price = "所有價格"
 
     if sort_by == "price_asc":
         products = products.order_by("price")
@@ -53,17 +68,34 @@ def all(request):
             "products": products,
             "selected_option": selected_option,
             "sort_by": sort_by,
+            "price_range": price_range,
+            "selected_price": selected_price,
         },
     )
 
 
 def category(request, category):
     selected_option = "預設排序"
+    selected_price = "所有價格"
     sort_by = request.GET.get("sort_by", "default")
+    price_range = request.GET.get("price_range", "all")
 
     try:
         category = Category.objects.get(name=category)
         products = Product.objects.filter(category=category)
+
+        if price_range == "0-500":
+            products = products.filter(price__gte=0, price__lte=500)
+            selected_price = "$0~500"
+        elif price_range == "500-1000":
+            products = products.filter(price__gte=500, price__lte=1000)
+            selected_price = "$500~1,000"
+        elif price_range == "1000-1500":
+            products = products.filter(price__gte=1000, price__lte=1500)
+            selected_price = "$1,000~1,500"
+        else:
+            products = products
+            selected_price = "所有價格"
 
         if sort_by == "price_asc":
             products = products.order_by("price")
@@ -104,19 +136,37 @@ def category(request, category):
                 "category": category,
                 "selected_option": selected_option,
                 "sort_by": sort_by,
+                "price_range": price_range,
+                "selected_price": selected_price,
             },
         )
     except Category.DoesNotExist:
         messages.error(request, ("That Category Doesn't Exist!"))
-        return redirect("home")
+        return redirect("products:all")
 
 
 def search(request):
     selected_option = "預設排序"
+    selected_price = "所有價格"
     query = request.GET.get("search")
     sort_by = request.GET.get("sort_by", "default")
+    price_range = request.GET.get("price_range", "all")
+
     if query:
         products = Product.objects.filter(name__icontains=query)
+
+        if price_range == "0-500":
+            products = products.filter(price__gte=0, price__lte=500)
+            selected_price = "$0~500"
+        elif price_range == "500-1000":
+            products = products.filter(price__gte=500, price__lte=1000)
+            selected_price = "$500~1,000"
+        elif price_range == "1000-1500":
+            products = products.filter(price__gte=1000, price__lte=1500)
+            selected_price = "$1,000~1,500"
+        else:
+            products = products
+            selected_price = "所有價格"
 
         if sort_by == "price_asc":
             products = products.order_by("price")
@@ -157,6 +207,8 @@ def search(request):
                 "query": query,
                 "selected_option": selected_option,
                 "sort_by": sort_by,
+                "price_range": price_range,
+                "selected_price": selected_price,
             },
         )
 
