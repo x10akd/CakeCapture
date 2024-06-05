@@ -65,7 +65,9 @@ def order_confirm(request):
             # 處理購物車
             cart = Cart(request)
             totals = cart.cart_total()
-            order.total = totals
+            shipping_fee = 70
+            totals_with_shipping = totals + shipping_fee
+            order.total = totals_with_shipping
             order.save()  # 更新金額
 
             for product_id, quantity in cart.get_quants().items():
@@ -116,7 +118,9 @@ def order_confirm(request):
                 'order_method': order_method,
                 'cart_products': cart.get_prods(),
                 'quantities': cart.get_quants(),
-                'totals': totals
+                'totals': totals,
+                'shipping_fee': shipping_fee,
+                'totals_with_shipping': totals_with_shipping,
             })
         else:
             messages.error(request, '請檢查輸入的資料。')

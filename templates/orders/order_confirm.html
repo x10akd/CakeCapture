@@ -29,7 +29,7 @@
     </div>
     <!-- detail-product -->
     {% for product in cart_products %}
-    <div class="flex justify-around mt-1 rounded-t-xl border-red-200 border-2 p-2 text-2xl">
+    <div class="flex justify-around mt-1 rounded-xl border-red-200 border-2 p-2 text-2xl">
       <div class="w-2/5 p-2 text-left border-r-2 border-transparent">
         <p>{{ product.name }}</p>
       </div>
@@ -49,9 +49,22 @@
       </div>
     </div>
     {% endfor %}
-    
+
+		<!-- coupon input -->
+		<div class="flex justify-end border-2 border-red-200 mt-2 p-2 text-xl">
+      <div class="w-1/2 p-2 text-right">
+        <p>優惠代碼</p>
+      </div>
+      <div class="flex w-1/3 p-2">
+        <div>
+					<input type="text" placeholder="請輸入優惠代碼">
+					<button type="submit" class="text-white bg-red-300 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">送出</button>
+        </div>
+      </div>
+    </div>
+
     <!-- section-postage -->
-    <div class="flex justify-end border-2 border-red-200 p-2 text-xl">
+    <div class="flex justify-end border-2 border-red-200 mt-2 p-2 text-xl">
       <div class="w-1/2 p-2 text-right">
         <p>處理費 / 郵資</p>
       </div>
@@ -60,13 +73,14 @@
           <p>NT$&nbsp;</p>
         </div>
         <div class="w-1/2 text-right text-xl font-semibold text-red-500">
-          <p>&nbsp;+&nbsp;N&nbsp;</p>
+          <p>{{ shipping_fee }}</p>
         </div>
         <div class="w-1/4 text-right">
           <p>元</p>
         </div>
       </div>
     </div>
+
     <!-- section-order-total -->
     <div class="flex justify-end bg-red-200 p-2 text-xl">
       <div class="w-1/2 p-2 text-right">
@@ -94,7 +108,7 @@
           <p>NT$&nbsp;</p>
         </div>
         <div class="w-1/2 text-right text-2xl font-semibold text-white">
-          <p>&nbsp;N&nbsp;</p>
+          <p>{{ totals_with_shipping }} </p>
         </div>
         <div class="w-1/4 text-right">
           <p>元</p>
@@ -172,7 +186,7 @@
           <input type="checkbox" class="block m-auto w-7 h-7 p-2">
         </div>
         <div class="flex w-1/2 p-2 text-center text-xl">
-          <p">我同意並了解以下『超商取貨付款權益須知』</p>
+          <p>我同意並了解以下『超商取貨付款權益須知』</p>
         </div>
         <div class="w-1/3 p-2 text-center text-xl text-red-500">
           <p>請詳閱並勾選同意後再繼續結帳</p>
