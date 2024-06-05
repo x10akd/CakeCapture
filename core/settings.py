@@ -155,8 +155,6 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-ACCOUNT_ADAPTER = "core.accounts.adapters.MyAccountAdapter"
-
 
 # 定義 SESSION 跟 cookie 的存活時間, 單位為秒
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
