@@ -7,9 +7,27 @@
 {% block content %}
 <!-- 圖片輪播 -->
 <div class="swiper-container w-full h-screen overflow-hidden">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <img src="{% static 'index_img/box-01.jpeg' %}" alt="Image 1" class="w-full h-full object-cover"/>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img
+                src="{% static 'index_img/cake capture_cover.jpg' %}"
+                alt="Image 1"
+                class="w-full h-full object-cover"/>
+        </div>
+        <div class="swiper-slide">
+            <img
+                src="{% static 'index_img/box-02.jpeg' %}"
+                alt="Image 2"
+                class="w-full h-full object-cover"/>
+        </div>
+        <div class="swiper-slide">
+            <img
+                src="{% static 'index_img/box-03.jpeg' %}"
+                alt="Image 3"
+                class="w-full h-full object-cover"
+            />
+        </div>
+        <!-- 添加更多圖片 -->
     </div>
     <div class="swiper-slide">
       <img src="{% static 'index_img/box-02.jpeg' %}" alt="Image 2" class="w-full h-full object-cover"/>
