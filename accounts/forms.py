@@ -61,19 +61,22 @@ class UpdateUserForm(forms.ModelForm):
 
     username = forms.CharField(
         required=True,
-        label="帳號",
+        label="帳號 (此欄位不可變更)",
         widget=forms.TextInput(
             attrs={
                 "class": html_class,
                 "pattern": r"^[a-zA-Z0-9]+$",
                 "title": "請輸入英文與數字字元",
+                "readonly": "readonly"
             }
         ),
     )
     email = forms.EmailField(
         required=True,
         label="電子郵件",
-        widget=forms.EmailInput(attrs={"class": html_class}),
+        widget=forms.EmailInput(
+            attrs={"class": html_class, "placeholder": "請輸入有效的電子信箱, 忘記密碼會寄至該信箱"}),
+        
     )
 
     class Meta:
@@ -93,6 +96,7 @@ class UpdateProfileForm(forms.ModelForm):
                 "class": html_class,
                 "pattern": r"^[a-zA-Z\s\u4e00-\u9fa5]+$",
                 "title": "請不要使用特殊字符和符號。",
+                "placeholder": "請輸入 姓名"
             }
         ),
     )
@@ -105,6 +109,7 @@ class UpdateProfileForm(forms.ModelForm):
                 "class": html_class,
                 "pattern": r"^09\d{8}$",
                 "title": "請輸入09開頭的十碼數字",
+                "placeholder": "請輸入 手機號碼"
             }
         ),
     )
@@ -129,6 +134,7 @@ class UpdateProfileForm(forms.ModelForm):
                 "class": html_class,
                 "pattern": r"^[a-zA-Z0-9\s,.\u4e00-\u9fa5-]+$",
                 "title": "請不要使用特殊字符和符號。",
+                "placeholder": "請輸入 縣市 區 街道名"
             }
         ),
     )

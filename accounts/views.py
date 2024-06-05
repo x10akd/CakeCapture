@@ -104,9 +104,8 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     subject_template_name = "accounts/password_reset_subject.txt"
     success_message = (
         "我們已經寄出密碼重置信"
-        "您將會在當初填入註冊的信箱收到"
         "如果您沒有收到該信件"
-        "請先檢查垃圾信箱並確認該信箱是否為當初註冊信箱"
+        "請先檢查垃圾信箱並確認該信箱是否為有效信箱"
     )
     success_url = reverse_lazy("accounts:login")
 

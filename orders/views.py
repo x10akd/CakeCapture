@@ -127,15 +127,6 @@ def order_confirm(request):
     
 
 
-class ConfirmView(TemplateView):
-    template_name = 'cart/cart_confirm.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['order_id'] = self.request.session.get('order_id')
-        return context
-
-
 class ECPayView(TemplateView):
     template_name = "orders/ecpay.html"
 
@@ -175,9 +166,9 @@ class ECPayView(TemplateView):
         }
         # 建立實體
         ecpay_payment_sdk = module.ECPayPaymentSdk(
-            MerchantID='3002607',
-            HashKey='pwFHCqoQZGmho4w6',
-            HashIV='EkRm7iFT261dpevs'
+            MerchantID=env("MerchantID"),
+            HashKey=env("HashKey"),
+            HashIV=env("HashIV")
         )
         # 產生綠界訂單所需參數
         final_order_params = ecpay_payment_sdk.create_order(order_params)
@@ -199,9 +190,9 @@ class ReturnView(View):
 
     def post(self, request, *args, **kwargs):
         ecpay_payment_sdk = module.ECPayPaymentSdk(
-            MerchantID='3002607',
-            HashKey='pwFHCqoQZGmho4w6',
-            HashIV='EkRm7iFT261dpevs'
+            MerchantID=env("MerchantID"),
+            HashKey=env("HashKey"),
+            HashIV=env("HashIV")
         )
         print("="*100)
         print(request.body)
@@ -212,15 +203,13 @@ class ReturnView(View):
             return HttpResponse('1|OK')
         return HttpResponse('0|Fail')
 
-
-
 @csrf_exempt
 def order_result(request):
     if request.method == 'POST':
         ecpay_payment_sdk = module.ECPayPaymentSdk(
-            MerchantID='3002607',
-            HashKey='pwFHCqoQZGmho4w6',
-            HashIV='EkRm7iFT261dpevs'
+            MerchantID=env("MerchantID"),
+            HashKey=env("HashKey"),
+            HashIV=env("HashIV")
         )
         res = request.POST.dict()
         back_check_mac_value = request.POST.get('CheckMacValue')
