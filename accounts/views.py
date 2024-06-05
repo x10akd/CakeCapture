@@ -92,7 +92,8 @@ def profile(request):
     return render(
         request,
         "accounts/user.html",
-        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
+        {"user_form": user_form, "profile_form": profile_form,
+            "favorites": favorites, "orders": orders},
     )
 
 

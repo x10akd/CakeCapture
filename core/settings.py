@@ -12,7 +12,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", env("NGROK")]
 
 INSTALLED_APPS = [
     "daphne",
@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",
+    "django.contrib.humanize", 
+    "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     "managements",
     "coupons",
 ]
+
+SITE_ID = 5
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
