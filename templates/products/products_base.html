@@ -208,8 +208,16 @@
             },
             success: function (json)
             {
-              
-              document.getElementById('cart_quantity').textContent = json.qty;
+              var cartQuantitySpan = document.getElementById('cart_quantity');
+              cartQuantitySpan.textContent = json.qty;
+              if (json.qty > 0)
+              {
+                cartQuantitySpan.style.display = 'flex';
+              } else
+              {
+                cartQuantitySpan.style.display = 'none';
+              }
+              // document.getElementById('cart_quantity').textContent = json.qty;
               // 使用SweetAlert2顯示成功提示框
               Swal.fire({
                 icon: 'success',

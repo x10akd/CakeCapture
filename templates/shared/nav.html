@@ -37,10 +37,8 @@
         </div>
         <a href="{% url 'carts:summary' %}" class="block px-4 py-2 hover:bg-red-300 relative">
           購物車
-          {% if cart|length > 0 %}
-          <span class="absolute top-0 left-20 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center"
-            id="cart_quantity">{{ cart|length }}</span>
-          {% endif %}
+          <!-- <span class="absolute top-0 left-20 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center"
+            id="cart_quantity">{{ cart|length }}</span> -->
         </a>
       </div>
     </div>
@@ -74,11 +72,30 @@
       </div>
       <a href="{% url 'carts:summary' %}" class="text-white hover:text-red-600 relative">
         購物車
-        {% if cart|length > 0 %}
         <span class="absolute top-0 left-20 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center"
           id="cart_quantity">{{ cart|length }}</span>
-        {% endif %}
       </a>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function ()
+    {
+      // 获取购物车数量的元素
+      var cartQuantitySpan = document.querySelector('#cart_quantity');
+      
+
+      // 获取购物车数量
+      var cartQuantity = parseInt(cartQuantitySpan.textContent, 10);
+      
+      // 检查购物车数量是否为0，如果是，则隐藏该元素
+      if (cartQuantity === 0)
+      {
+        cartQuantitySpan.style.display = 'none';
+      }else{
+        cartQuantitySpan.style.display = 'flex';
+      }
+  })
+
+</script>
