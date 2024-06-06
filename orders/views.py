@@ -229,17 +229,12 @@ def order_result(request):
         rtnmsg = request.POST.get("RtnMsg")
         rtncode = request.POST.get("RtnCode")
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
-
-        if (
-            check_mac_value == back_check_mac_value
-            and rtnmsg == "Succeeded"
-            and rtncode == "1"
-        ):
+        if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
             order = Order.objects.get(order_id=order_id)
             order.status = "waiting_for_shipment"
             order.save()
-            return render(request, "orders/order_success.html")
-        return render(request, "orders/order_fail.html")
+            return render(request, 'orders/order_success.html',{"order":order})
+        return render(request, 'orders/order_fail.html', {"order": order})
     else:
         return HttpResponse("Invalid request method", status=405)
 

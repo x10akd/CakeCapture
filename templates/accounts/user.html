@@ -1,17 +1,17 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
-<div class="m-auto w-screen max-w-screen-xl shadow-lg" style="margin-top: 85px">
-  <div x-data="{ tab: 'user-info' }">
-    <nav class="bg-red-300 rounded-tl-xl rounded-tr-xl">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8 shadow">
-        <div class="flex h-16 items-center justify-between">
-          <div class="flex items-center">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <a href="#" @click.prevent="tab ='user-info'"
-                :class="{ 'bg-red-200 text-black rounded-md px-3 py-2 text-sm font-medium': tab === 'user-info', 'text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium': tab !== 'user-info' }">
-                個人資訊
-              </a>
+  <div class="m-auto w-screen max-w-screen-xl shadow-lg mt-20">
+    <div x-data="{ tab: 'user-info' }">
+      <nav class="bg-red-300 rounded-tl-xl rounded-tr-xl">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 shadow">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <a href="#" @click.prevent="tab ='user-info'"
+                  :class="{ 'bg-red-200 text-black rounded-md px-3 py-2 text-sm font-medium': tab === 'user-info', 'text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium': tab !== 'user-info' }">
+                  個人資訊
+                </a>
 
               <a href="#" id="user-coupon" @click="tab='user-coupon'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-coupon', 'text-red-800': tab !== 'user-coupon' }">
                 優惠券
@@ -37,29 +37,28 @@
 		{% include "accounts/user_favorite.html" %}
 		{% include "accounts/user_orderlist.html" %}
   </div>
-</div>
-<script>
-  $(document).on('click', '.delete-favorite-btn', function (e){
-    e.preventDefault();
-    card = this.closest('.card')
-    product_id = $(this).data('index')
-  
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'accounts:favorite-delete' %}",
-      data: {
-        product_id: $(this).data('index'),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-      },
-      success: function (json){
-        card.remove()       
-      },
-      error: function (xhr, errmsg, err){
-      }
+  <script>
+    $(document).on('click', '.delete-favorite-btn', function (e){
+      e.preventDefault();
+      card = this.closest('.card')
+      product_id = $(this).data('index')
+    
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'accounts:favorite-delete' %}",
+        data: {
+          product_id: $(this).data('index'),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+        success: function (json){
+          card.remove()       
+        },
+          error: function (xhr, errmsg, err){
+        }
+      })
     })
-  })
 
-</script>
+  </script>
 
 {% endblock %}
