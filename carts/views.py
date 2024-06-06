@@ -1,17 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .cart import Cart
 from products.models import Product
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-
-
-def confirm(request):
-    return render(request, "cart/cart_confirm.html")
-
-
-def payment(request):
-    return render(request, "cart/cart_payment.html")
-
+from orders.models import Order
 
 def summary(request):
     cart = Cart(request)
@@ -78,3 +70,14 @@ def delete_all(request):
 
         # 在成功刪除商品後，返回 JSON 響應
         return JsonResponse({"message": "Products deleted successfully."})
+
+
+def rebuyonfail(request, order_id):
+    cart = Cart(request)
+    order = Order.objects.get(order_id=order_id)
+    
+    for item in order.orderitem_set.all():
+        cart.add(item.product, item.quantity,)
+
+    return redirect('carts:summary')  
+

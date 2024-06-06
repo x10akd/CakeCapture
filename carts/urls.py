@@ -10,6 +10,5 @@ urlpatterns = [
     path("delete/",views.delete,name='delete'),
     path("deleteAll/",views.delete_all,name='delete_all'),
     path("update/",views.update,name='update'),
-    path("confirm", views.confirm, name="confirm"),
-    path("payment", views.payment, name="payment"),
+    path("rebuyonfail/<int:order_id>/", views.rebuyonfail, name="rebuyonfail"),
 ]

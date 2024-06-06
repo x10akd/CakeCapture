@@ -205,8 +205,6 @@ class ReturnView(View):
             HashKey=env("ECPAY_HASH_KEY"),
             HashIV=env("ECPAY_HASH_IV"),
         )
-        print("=" * 100)
-        print(request.body)
         res = request.POST.dict()
         back_check_mac_value = request.POST.get("CheckMacValue")
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
@@ -234,7 +232,7 @@ def order_result(request):
             order.status = "waiting_for_shipment"
             order.save()
             return render(request, 'orders/order_success.html',{"order":order})
-        return render(request, 'orders/order_fail.html',{"rtncode":rtncode})
+        return render(request, 'orders/order_fail.html', {"rtncode": rtncode, "order_id": order_id})
     else:
         return HttpResponse("Invalid request method", status=405)
 
