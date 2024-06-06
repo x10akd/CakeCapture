@@ -37,7 +37,7 @@ class UserCoupon(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
-    used_at = models.DateTimeField(auto_now=True)
+    used_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     expired_at = models.DateTimeField(blank=True)
     usage_count = models.IntegerField(default=0, blank=False)
