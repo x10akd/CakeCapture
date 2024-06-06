@@ -29,8 +29,9 @@ def create_coupon_for_new_user(sender, instance, created, **kwargs):
             },
         )
 
+        profile = Profile.objects.get(user=instance)
         UserCoupon.objects.create(
-            user=instance,
+            profile=profile,
             coupon=coupon,
             order=None,
             usage_count=0,
