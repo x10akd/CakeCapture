@@ -29,13 +29,14 @@
         <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
           <h3>選擇付款方式</h3>
         </div>
-        <a href="#" class="block">
+        <div class="block" onclick="togglePaymentNotice1()">
           <div class="flex items-center">
             <p class="mr-2 text-gray-700">付款說明</p>
-            <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+            <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white cursor-pointer">？</p>
           </div>
-        </a>
+        </div>
       </div>
+
       <span class="block w-full h-1 bg-red-300"></span>
       <!-- payment-options -->
       <div class="mt-2 text-center text-xl font-semibold">
@@ -48,7 +49,7 @@
         {% endfor %}
       </div>
       <!-- payment-notice -->
-      <div class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6">
+      <div id="payment-notice" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
         <p class="ml-4 text-justify">
           <span>・</span>
           信用卡僅限持卡人本人使用，本公司得就本件交易資料向發卡銀行、收單行、及持卡人照會是否屬實，核對無誤後付款才算完成。
@@ -154,12 +155,12 @@
               <label for="sameAsOrderInfo" class="text-gray-700 ml-2 cursor-pointer">同訂購人資訊</label>
             </div>
           </div>
-          <a href="#" class="block">
+          <div class="block" onclick="togglePaymentNotice2()">
             <div class="flex items-center">
               <p class="mr-2 text-gray-700">寄送說明</p>
-              <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white">？</p>
+              <p class="w-7 h-7 rounded-3xl bg-red-300 text-lg text-white cursor-pointer">？</p>
             </div>
-          </a>
+          </div>
         </div>
         <span class="block w-full h-1 bg-red-300"></span>
         <!-- recipient-info-detail -->
@@ -213,6 +214,17 @@
             <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
           </div>
         </div>
+        <!-- payment-notice -->
+        <div id="recipient-information" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
+          <p class="ml-4 text-justify">
+            <span>・</span>
+            為確保品質，線上訂購並完成下單付款後才會進行製作。
+          </p>
+          <p class="ml-4 text-justify">
+            <span>・</span>
+            寄送方式：常溫宅配／低溫宅配
+          </p>
+        </div>
       </div>
     </div>
     <!-- section-invoice -->
@@ -232,18 +244,17 @@
         {% endfor %}
       </div>
     </div>
-
     
     <!-- section-return-agreement -->
     <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
       <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
-        <h3>退貨須知</h3>
+        <h3>購買須知</h3>
       </div>
       <span class="block w-full h-1 bg-red-300"></span>
       <div class="mt-2 rounded-xl bg-gray-200 p-3">
         <div class="flex items-center">
           {{ form.return_agreement }}
-          <label for="id_return_agreement" class="ml-3">我已閱讀並了解退貨須知</label>
+          <label for="id_return_agreement" class="ml-3">我已閱讀並了解購買須知，商品售出後不提供退換服務，請在購買前仔細確認產品資訊。</label>
         </div>
       </div>
     </div>
@@ -301,4 +312,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 </script>
+    function togglePaymentNotice1() {
+        let paymentNotice = document.getElementById('payment-notice');
+        if (paymentNotice.style.display === 'none') {
+            paymentNotice.style.display = 'block';
+        } else {
+            paymentNotice.style.display = 'none';
+        }
+    }
+
+    function togglePaymentNotice2() {
+        let noticeElement = document.getElementById('recipient-information');
+        if (noticeElement.style.display === 'none') {
+            noticeElement.style.display = 'block';
+        } else {
+            noticeElement.style.display = 'none';
+        }
+    }
+</script>
+
 {% endblock %}
