@@ -234,7 +234,7 @@ def order_result(request):
             order.status = "waiting_for_shipment"
             order.save()
             return render(request, 'orders/order_success.html',{"order":order})
-        return render(request, 'orders/order_fail.html', {"order": order})
+        return render(request, 'orders/order_fail.html',{"rtncode":rtncode})
     else:
         return HttpResponse("Invalid request method", status=405)
 

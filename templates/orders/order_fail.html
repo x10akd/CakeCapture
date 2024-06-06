@@ -1,20 +1,20 @@
 {% extends "shared/base.html" %}
 {% load static %}
-
-
 {% block content %}
-<!-- Page Wrapper -->
-<section class="page-wrapper success-msg">
-  <div class="container mt-28">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="block text-center">
-          <i class="tf-ion-android-checkmark-circle"></i>
-          <h2 class="text-center">付款失敗，請重新下單</h2>
-          <a href="{% url 'home' %}" class="btn btn-main mt-20">Continue Shopping</a>
-        </div>
+
+<section class="page-wrapper fail-msg">
+  <div class="container mt-28 mx-auto">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="block text-center">
+        <h2 class="text-center text-4xl font-bold mb-6">付款失敗，請重新下單</h2>
+        {% if rtncode == '10100058' %}
+          <p> 您好, 支付系統因預期外的原因發生錯誤, 請使用另一張信用卡重新下單, 若持續失敗請由'使用者資訊'的'訊息'與我們聯繫處理
+          </p>
+        {% else %}
+          <p>您好, 支付系統因預期外的原因發生錯誤, 請由'使用者資訊'的'訊息'與我們聯繫處理</p>
+        {% endif %}
       </div>
     </div>
   </div>
-</section><!-- /.page-warpper -->
+</section>
 {% endblock content %}
