@@ -1,17 +1,17 @@
 <script>
-  function apply() {
-      let code = document.getElementById('coupon-code').value;
-      fetch(`/coupons/apply/?code=${code}`)
-          .then(response => response.json())
-          .then(data => {
-              let result = document.getElementById('result');
-              if (data.discount) {
-                  result.innerHTML = `折扣: ${data.discount}`;
-              } else {
-                  result.innerHTML = data.error;
-              }
-          });
-  }
+function apply() {
+  let code = document.getElementById('coupon-code').value;
+  fetch(`/coupons/apply/?code=${code}`)
+    .then(response => response.json())
+    .then(data => {
+      let result = document.getElementById('result');
+      if (data.discount) {
+        result.innerHTML = `折扣: ${data.discount}`;
+      } else {
+        result.innerHTML = data.error;
+      }
+    });
+}
 </script>
 
 <div class="my-40 mx-auto w-120 bg-pink-200 p-5">

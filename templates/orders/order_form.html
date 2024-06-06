@@ -309,44 +309,44 @@
 </form>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.getElementById('id_coupon_used');
-    const couponInput = document.getElementById('coupon_input');
-    const useCouponButton = document.getElementById('use_coupon_button');
-    const couponCodeInput = document.getElementById('coupon_code');
+document.addEventListener('DOMContentLoaded', function () {
+  const checkbox = document.getElementById('id_coupon_used');
+  const couponInput = document.getElementById('coupon_input');
+  const useCouponButton = document.getElementById('use_coupon_button');
+  const couponCodeInput = document.getElementById('coupon_code');
 
-		checkbox.addEventListener('change', function () {
-			if (checkbox.checked) {
-					couponInput.classList.remove('hidden');
-					couponInput.classList.add('flex');
+	checkbox.addEventListener('change', function () {
+		if (checkbox.checked) {
+			couponInput.classList.remove('hidden');
+			couponInput.classList.add('flex');
+		} else {
+			couponInput.classList.remove('flex');
+			couponInput.classList.add('hidden');
+		}
+	});
+
+	useCouponButton.addEventListener('click', function(event) {
+		event.preventDefault();
+		const couponCode = couponCodeInput.value;
+
+		fetch("{% url 'coupons:check' %}", {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': '{{ csrf_token }}'
+			},
+			body: JSON.stringify({ coupon_code: couponCode })
+		})
+		.then(response => response.json())
+		.then(data => {
+			const messageElement = document.getElementById('coupon_message');
+			if (data.valid) {
+				messageElement.innerHTML = `優惠金額：${data.discount_amount}`;
 			} else {
-					couponInput.classList.remove('flex');
-					couponInput.classList.add('hidden');
+				messageElement.innerHTML = "找不到折扣代碼";
 			}
-		});
-
-		useCouponButton.addEventListener('click', function(event) {
-			event.preventDefault();
-			const couponCode = couponCodeInput.value;
-
-			fetch("{% url 'coupons:check' %}", {
-					method: 'POST',
-					headers: {
-							'Content-Type': 'application/json',
-							'X-CSRFToken': '{{ csrf_token }}'
-					},
-					body: JSON.stringify({ coupon_code: couponCode })
-			})
-			.then(response => response.json())
-			.then(data => {
-					const messageElement = document.getElementById('coupon_message');
-					if (data.valid) {
-							messageElement.innerHTML = `優惠金額：${data.discount_amount}`;
-					} else {
-							messageElement.innerHTML = "找不到折扣代碼";
-					}
-			})
-			.catch(error => console.error('Error:', error));
+		})
+		.catch(error => console.error('Error:', error));
 		});
 	});
 </script>

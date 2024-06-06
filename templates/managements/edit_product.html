@@ -6,7 +6,7 @@
 	{% csrf_token %}
 	<div class="mb-4">
 		{% if product.image %}
-				<img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-40 h-40 object-cover">
+		<img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-40 h-40 object-cover">
 		{% endif %}
 	</div>
 	<div>
