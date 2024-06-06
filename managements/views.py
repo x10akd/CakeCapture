@@ -191,3 +191,10 @@ def edit_coupon(request, pk):
         "managements/edit_coupon.html",
         {"coupon": coupon, "form": form},
     )
+
+
+class CouponCreateView(SuperuserRequiredMixin, CreateView):
+    model = Coupon
+    form_class = CouponForm
+    template_name = "managements/add_coupon.html"
+    success_url = reverse_lazy("managements:coupon_list")

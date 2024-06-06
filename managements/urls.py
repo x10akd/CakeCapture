@@ -15,4 +15,5 @@ urlpatterns = [
     path("quantity_alter/<str:category>/", views.quantity_alter, name="quantity_alter"),
     path("coupon_list", views.coupon_list, name="coupon_list"),
     path("edit_coupon/<int:pk>/", views.edit_coupon, name="edit_coupon"),
+    path("add_coupon/", views.CouponCreateView.as_view(), name="add_coupon"),
 ]

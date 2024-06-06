@@ -31,6 +31,7 @@
 					<button @click="open = !open" class="w-full text-left">優惠券管理</button>
 					<ul x-show="open" @click.away="open = false" x-cloak class="pl-4">
 						<li class="text-gray-500 hover:text-red-400"><a href="{% url 'managements:coupon_list' %}">優惠券總覽</a></li>
+						<li class="text-gray-500 hover:text-red-400"><a href="{% url 'managements:add_coupon' %}">新增優惠券</a></li>
 					</ul>
 				</li>
 			</ul>
