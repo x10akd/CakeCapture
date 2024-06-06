@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product, Category
 from products.forms import CategoryForm, ProductForm
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -197,4 +197,9 @@ class CouponCreateView(SuperuserRequiredMixin, CreateView):
     model = Coupon
     form_class = CouponForm
     template_name = "managements/add_coupon.html"
+    success_url = reverse_lazy("managements:coupon_list")
+
+
+class CouponDeleteView(SuperuserRequiredMixin, DeleteView):
+    model = Coupon
     success_url = reverse_lazy("managements:coupon_list")
