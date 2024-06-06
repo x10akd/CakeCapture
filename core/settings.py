@@ -23,8 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize", 
-    "django.contrib.sites",
+    "django.contrib.humanize",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -41,8 +40,6 @@ INSTALLED_APPS = [
     "managements",
     "coupons",
 ]
-
-SITE_ID = 5
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
