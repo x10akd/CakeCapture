@@ -2,9 +2,10 @@ import Swal from "sweetalert2";
 import Alpine from "alpinejs";
 
 import { togglePaymentNotice1, togglePaymentNotice2 } from "./order_notice.js";
+import { Toast } from "./alert.js"
 
 
-
+window.Toast = Toast;
 window.Alpine = Alpine;
 window.Swal = Swal;
 window.togglePaymentNotice1 = togglePaymentNotice1

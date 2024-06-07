@@ -20,3 +20,5 @@ const Toast = Swal.mixin({
     });
   },
 });
+
+export { Toast }
