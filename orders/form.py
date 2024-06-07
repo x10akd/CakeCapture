@@ -26,7 +26,7 @@ class OrderForm(forms.ModelForm):
             'delivery_method': forms.RadioSelect,
             'payment_method': forms.RadioSelect,
             'coupon_used': forms.CheckboxInput,
-            'return_agreement': forms.CheckboxInput,
+            'return_agreement': forms.CheckboxInput(attrs={"required": "required"}),
             'invoice_option': forms.RadioSelect, 
         }
 
