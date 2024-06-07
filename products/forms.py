@@ -26,6 +26,17 @@ class ProductReviewForm(forms.ModelForm):
         model = ProductReview
         fields = ["review", "rating"]
 
+    def __init__(self, *args, **kwargs):
+        super(ProductReviewForm, self).__init__(*args, **kwargs)
+        # 將初始的rating值設置為5
+        self.initial["rating"] = 5
+
+    def clean_review(self):
+        review = self.cleaned_data["review"]
+        if review.strip() == "":
+            raise forms.ValidationError("評論內容不能為空白")
+        return review
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:

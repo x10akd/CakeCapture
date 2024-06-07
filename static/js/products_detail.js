@@ -2,6 +2,12 @@
 $("#commentForm").submit(function (e) {
     e.preventDefault();
 
+    let review = $("textarea[name='review']").val().trim();
+    if (!review) {
+        alert("評論內容不能為空白");
+        return;
+    }
+
     // 建立要顯示的日期格式
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     let date = new Date();
@@ -67,6 +73,13 @@ $(document).on('click', '#edit-review', function () {
 // 處理表單資料
 $(document).on('submit', '.editCommentForm', function (e) {
     e.preventDefault();
+
+    let review = $("textarea[name='review']").val().trim();
+    if (!review) {
+        alert("評論內容不能為空白");
+        return;
+    }
+
     let reviewId = $(this).data('review-id');
 
     $.ajax({

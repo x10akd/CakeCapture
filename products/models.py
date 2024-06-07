@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from django.core.exceptions import ValidationError
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -57,6 +59,15 @@ class ProductReview(models.Model):
 
     def get_rating(self):
         return self.rating
+
+    def clean(self):
+        super().clean()
+        if not self.review.strip():
+            raise ValidationError("評論內容不能為空白")
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
 
 class Favorite(models.Model):
