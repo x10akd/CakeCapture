@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from products.models import Product
 from datetime import datetime
+from transitions import Machine
+
 
 DELIVERY_CHOICES = [
     ("pick_up", "自取"),
@@ -41,6 +43,29 @@ class Order(models.Model):
         default="unpaid",
     )
 
+    STATES = [
+        'unpaid',
+        'payment_fail',
+        'waiting_for_shipment',
+        'transporting',
+        'completed',
+        'cancelled'
+    ]
+    def __init__(self, *args, **kwargs):
+        super(Order, self).__init__(*args, **kwargs)
+        self.machine = Machine(model=self, states=Order.STATES, initial='unpaid')
+        self.machine.add_transition(
+            'pay', 'unpaid', 'waiting_for_shipment', after='update_status')
+        self.machine.add_transition(
+            'fail', 'unpaid', 'payment_fail', after='update_status')
+        self.machine.add_transition(
+            'cancel', 'unpaid', 'payment_fail', after='update_status')
+
+    def update_status(self):
+        self.status = self.state
+        self.save()
+
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.order_id:

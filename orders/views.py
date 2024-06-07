@@ -186,9 +186,7 @@ class ECPayView(TemplateView):
             "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5"  # 測試環境
         )
         # action_url = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5' # 正式環境
-        ecpay_form = ecpay_payment_sdk.gen_html_post_form(
-            action_url, final_order_params
-        )
+        ecpay_form = ecpay_payment_sdk.gen_html_post_form(action_url, final_order_params)
         context = self.get_context_data(**kwargs)
         context["ecpay_form"] = ecpay_form
         return self.render_to_response(context)
@@ -227,20 +225,14 @@ def order_result(request):
         rtnmsg = request.POST.get("RtnMsg")
         rtncode = request.POST.get("RtnCode")
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
-        if (
-            check_mac_value == back_check_mac_value
-            and rtnmsg == "Succeeded"
-            and rtncode == "1"
-        ):
-            order = Order.objects.get(order_id=order_id)
-            order.status = "waiting_for_shipment"
-            order.save()
-            return render(request, "orders/order_success.html", {"order": order})
-        return render(
-            request,
-            "orders/order_fail.html",
-            {"rtncode": rtncode, "order_id": order_id},
-        )
+        order = Order.objects.get(order_id=order_id)
+
+        if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
+            order.pay()
+            return render(request, 'orders/order_success.html')
+
+        order.fail()
+        return render(request, 'orders/order_fail.html')
     else:
         return HttpResponse("Invalid request method", status=405)
 

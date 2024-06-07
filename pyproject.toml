@@ -21,6 +21,7 @@ line-bot-sdk = "^3.11.0"
 django-seed = "^0.3.1"
 plotly = "^5.22.0"
 line-pay = "^0.2.0"
+transitions = "^0.9.1"
 
 
 
