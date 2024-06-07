@@ -229,6 +229,14 @@
         確認, 送出訂單&nbsp;&nbsp;&check;
       </button>
     </form>
+		<form action="{% url 'orders:create_payment' %}" method="post" class="w-1/4 ml-10">
+      {% csrf_token %}
+      <input type="hidden" name="order_id" value="{{ order.order_id }}">
+      <input type="hidden" name="amount" value="{{ totals }}">
+      <button type="submit" class="w-full p-4 rounded-xl bg-red-300 text-center">
+        LINE PAY 了
+      </button>
+    </form>
   </div>
 </div>
 {% endblock %}
