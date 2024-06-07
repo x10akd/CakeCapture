@@ -12,11 +12,11 @@
     <form method="POST" class="space-y-4">
       {% csrf_token %}
       <div>
-        <label for="username" class="block text-sm font-medium text-gray-700">帳號</label>
+        <label for="username" class="block text-md font-medium text-gray-700">帳號</label>
           {{form.username}}
       </div>
       <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">密碼</label>
+        <label for="password" class="block text-md font-medium text-gray-700">密碼</label>
         {{form.password}}
       </div>
       <div>
