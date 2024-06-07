@@ -3,7 +3,7 @@ import requests, os, json, environ, uuid, hmac, hashlib, base64
 env = environ.Env()
 environ.Env.read_env()
 
-LINE_PAY_API_URL = "https://api-pay.line.me/v3/payments/request"
+LINE_PAY_API_URL = "https://sandbox-api-pay.line.me/v3/payments/request"
 LINE_PAY_CHANNEL_ID = env("LINE_PAY_CHANNEL_ID")
 LINE_PAY_CHANNEL_SECRET = env("LINE_PAY_CHANNEL_SECRET")
 CALLBACK_URL = "http://127.0.0.1:8000/orders"
@@ -65,9 +65,10 @@ def request_line_pay(amount, order_id):
     response = requests.post(
         LINE_PAY_API_URL, headers=headers, data=json.dumps(payload)
     )
+    print("=" * 10)
+    print(LINE_PAY_API_URL)
+    print("=" * 10)
+    print(response.json())
+    print("=" * 10)
 
     return response.json()
-
-
-result = request_line_pay(100, "order123")
-print(result)
