@@ -44,19 +44,13 @@
     </div>
 
     <!-- 導航連結 -->
-    <div
-      class="hidden lg:flex lg:space-x-14 text-xl lg:flex-row lg:items-center lg:space-x-14 w-full lg:w-auto mt-4 lg:mt-0">
-      <a href="{% url 'home' %}" class="text-white hover:text-red-600">首頁</a>
-      <a href="{% url 'about' %}" class="text-white hover:text-red-600">關於我們</a>
-      {% if user.is_authenticated %}
-      <a href="{% url 'accounts:logout' %}" class="text-white hover:text-red-600">登出</a>
-      <a href="{% url 'accounts:user' %}" class="text-white hover:text-red-600">會員資訊</a>
-      {% else %}
-      <a href="{% url 'accounts:register' %}" class="text-white hover:text-red-600">註冊</a>
-      <a href="{% url 'accounts:login' %}" class="text-white hover:text-red-600">登入</a>
+    <div class="hidden lg:flex lg:space-x-14 text-xl lg:flex-row lg:items-center lg:space-x-14 w-full lg:w-auto mt-4 lg:mt-0">
+      {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'managements:product_list' %}" class="text-white hover:text-red-600">後台管理</a>
       {% endif %}
-      <div class="relative" x-data="{ show: false }" @click.away="show = false">
-        <button class="text-white hover:text-red-600 focus:outline-none" @click="show = !show">
+        <a href="{% url 'about' %}" class=" text-white hover:text-red-600">關於我們</a>
+      <div class="relative" x-data="{show:false}" @click.away="show = false">
+        <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
           商品
         </button>
 				
@@ -70,11 +64,18 @@
           <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">巧克力</a>
         </div>
       </div>
-      <a href="{% url 'carts:summary' %}" class="text-white hover:text-red-600 relative">
-        購物車
-        <span class="absolute top-0 left-20 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center"
-          id="cart_quantity">{{ cart|length }}</span>
-      </a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'accounts:user' %}" class=" text-white hover:text-red-600">使用者資訊</a>
+        <a href="{% url 'carts:summary' %}" class=" text-white hover:text-red-600 relative" title="查看購物車">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span
+            class="absolute top-0 left-6 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
+        </a>
+        <a href="{% url 'accounts:logout' %}" class=" text-white hover:text-red-600">登出</a>
+      {% else %}
+        <a href="{% url 'accounts:register' %}" class=" text-white hover:text-red-600">註冊</a>
+        <a href="{% url 'accounts:login' %}" class=" text-white hover:text-red-600">登入</a>
+      {% endif %}
     </div>
   </div>
 </nav>

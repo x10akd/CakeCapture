@@ -1,15 +1,35 @@
 {% extends "managements/managements_base.html" %} 
 
+{% load static %}
+{% block css %}
+	<link rel="stylesheet" href="{% static 'styles/loading.css' %}">
+{% endblock css %}
+{% block javascript %}
+	<script src="{% static 'js/loading.js' %}"></script>
+{% endblock javascript %}
+
 {% block managements_content %}
-<div>
-	<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">商品及時庫存</h1>
-	{% for category, graph in category_graphs.items %}
-		<div>
-			{{ graph|safe }}
+	<div>
+		<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">商品及時庫存</h1>
+		<div class="loader" id="floatingCirclesG">
+			<div class="f_circleG" id="frotateG_01"></div>
+			<div class="f_circleG" id="frotateG_02"></div>
+			<div class="f_circleG" id="frotateG_03"></div>
+			<div class="f_circleG" id="frotateG_04"></div>
+			<div class="f_circleG" id="frotateG_05"></div>
+			<div class="f_circleG" id="frotateG_06"></div>
+			<div class="f_circleG" id="frotateG_07"></div>
+			<div class="f_circleG" id="frotateG_08"></div>
 		</div>
-		<div class="text-right my-4">
-			<a href="{% url 'managements:quantity_alter' category=category %}" class="text-xl mt-4 bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">{{ category }}補貨系統</a>
+		<div class="content" style="display:none">
+			{% for category, graph in category_graphs.items %}
+			<div class="chart-container">
+				{{ graph|safe }}
+			</div>
+			<div class="text-right my-4">
+				<a href="{% url 'managements:quantity_alter' category=category %}" class="text-xl mt-4 bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded">{{ category }}補貨系統</a>
+			</div>
+			{% endfor %}
 		</div>
-	{% endfor %}
-</div>
+	</div>
 {% endblock %}

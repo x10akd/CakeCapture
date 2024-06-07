@@ -61,6 +61,16 @@ def all(request):
     page = request.GET.get("page")
     products = products.get_page(page)
 
+    if request.user.is_authenticated:
+        favorite_product_ids = Favorite.objects.filter(user=request.user).values_list(
+            "product_id", flat=True
+        )
+    else:
+        favorite_product_ids = []
+    # 為有被加入最愛的product添加一個屬性
+    for product in products:
+        product.is_favorited = product.id in favorite_product_ids
+
     return render(
         request,
         "products/all.html",
@@ -220,6 +230,7 @@ def detail(request, pk):
         .exclude(id=pk)
         .order_by("?")[0:4]  # 想讓顯示商品隨機
     )
+
     upsell_category = get_object_or_404(Category, name="其他")
     upsell_products = Product.objects.filter(category=upsell_category)
     review_form = ProductReviewForm()
@@ -358,8 +369,10 @@ def load_more_reviews(request, product_id):
     return JsonResponse({"reviews": reviews_data, "has_next": reviews.has_next()})
 
 
-@login_required
 def add_to_favorites(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "not_authenticated"})
+
     if request.method == "POST":
         product_id = request.POST.get("product_id")
         product = get_object_or_404(Product, id=product_id)

@@ -4,7 +4,7 @@ import plotly.offline as html_plot
 from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product, Category
 from products.forms import CategoryForm, ProductForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -57,6 +57,13 @@ def edit_product(request, pk):
     )
 
 
+@user_passes_test(superuser_required)
+def delete_product(request, pk):
+    product = get_object_or_404(Product, id=pk)
+    product.delete()
+    return redirect(reverse("managements:product_list"))
+
+
 class ProductCreateView(SuperuserRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
@@ -79,6 +86,13 @@ class CategoryCreateView(SuperuserRequiredMixin, CreateView):
     form_class = CategoryForm
     template_name = "managements/add_category.html"
     success_url = reverse_lazy("managements:category_list")
+
+
+@user_passes_test(superuser_required)
+def delete_category(request, pk):
+    category = get_object_or_404(Category, id=pk)
+    category.delete()
+    return redirect(reverse("managements:category_list"))
 
 
 @user_passes_test(superuser_required)
@@ -111,9 +125,9 @@ def quantity_charts(request):
     category_graphs = {}
 
     for category in categories:
-        products_in_category = Product.objects.filter(category=category)
-        product_names = [product.name for product in products_in_category]
-        product_quantities = [product.quantity for product in products_in_category]
+        products = category.items.all()
+        product_names = [product.name for product in products]
+        product_quantities = [product.quantity for product in products]
 
         # 根據商品數量動態調整圖表高度
         height = max(400, 70 * len(product_names))
@@ -140,14 +154,14 @@ def quantity_charts(request):
     return render(
         request,
         "managements/quantity_charts.html",
-        {"category_graphs": category_graphs, "categories": categories},
+        {"category_graphs": category_graphs},
     )
 
 
 @user_passes_test(superuser_required)
 def quantity_alter(request, category):
     category = get_object_or_404(Category, name=category)
-    products = Product.objects.filter(category=category).order_by("id")
+    products = category.items.all()
 
     if request.method == "POST":
         for product in products:
