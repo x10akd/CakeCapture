@@ -17,7 +17,7 @@
 				<td class="text-md px-6 py-3">{{ order.order_id }}</td>
 				<td class="text-md px-6 py-3">{{ order.created }}</td>
 				<td class="text-md px-6 py-3">$ {{ order.total|intcomma }}</td>
-				<td class="text-md px-6 py-3">{{ order.status }}</td>
+				<td class="text-md px-6 py-3">{{ order.get_status_display }}</td>
 				<td class="text-md px-6 py-3">
 					<button @click="open = !open" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">
 						訂單細節

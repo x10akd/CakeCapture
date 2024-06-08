@@ -3,6 +3,10 @@ from django.db import models
 from products.models import Product
 from datetime import datetime
 from transitions import Machine
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 
 DELIVERY_CHOICES = [
@@ -25,46 +29,23 @@ class Order(models.Model):
     total = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    product = models.ManyToManyField(
-        "products.Product",
-        related_name="order_set",
-        through="products.RelationalProduct",
+    product = models.ManyToManyField("products.Product", related_name="order_set", through="products.RelationalProduct")
+    status = models.CharField(max_length=100, choices=(("unpaid", "Unpaid"), ("payment_fail", "Payment Fail"), ("waiting_for_shipment", "Waiting for shipment"), ("transporting", "Transporting"), ("completed", "Completed"), ("cancelled", "Cancelled"), ("waiting_for_check", "Waiting for check")), default="waiting_for_check"
     )
-    status = models.CharField(
-        max_length=100,
-        choices=(
-            ("unpaid", "Unpaid"),
-            ("payment_fail", "Payment Fail"),
-            ("waiting_for_shipment", "Waiting for shipment"),
-            ("transporting", "Transporting"),
-            ("completed", "Completed"),
-            ("cancelled", "Cancelled"),
-        ),
-        default="unpaid",
-    )
-
-    STATES = [
-        'unpaid',
-        'payment_fail',
-        'waiting_for_shipment',
-        'transporting',
-        'completed',
-        'cancelled'
-    ]
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
-        self.machine = Machine(model=self, states=Order.STATES, initial='unpaid')
-        self.machine.add_transition(
-            'pay', 'unpaid', 'waiting_for_shipment', after='update_status')
-        self.machine.add_transition(
-            'fail', 'unpaid', 'payment_fail', after='update_status')
-        self.machine.add_transition(
-            'cancel', 'unpaid', 'payment_fail', after='update_status')
+        states = ['waiting_for_check', 'unpaid', 'payment_fail', 'waiting_for_shipment', 'transporting', 'completed', 'cancelled']
+        transitions = [
+            {'trigger': 'confirm', 'source': 'waiting_for_check', 'dest': 'unpaid', 'after': 'update_status'},
+            {'trigger': 'pay', 'source': 'unpaid', 'dest': 'waiting_for_shipment', 'after': 'update_status'},
+            {'trigger': 'fail', 'source': 'unpaid', 'dest': 'payment_fail', 'after': 'update_status'},
+        ]
+
+        self.machine = Machine(model=self, states=states, transitions=transitions, initial="waiting_for_check")
 
     def update_status(self):
         self.status = self.state
         self.save()
-
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -112,3 +93,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItem - {str(self.id)}"
+
+
+# @receiver(post_save, sender=Order)
+# def schedule_order_payment_check(sender, instance, created, **kwargs):
+#     if created and instance.status == 'unpaid':
+#         from .tasks import check_order_payment_status
+#         check_order_payment_status.apply_async((instance.id,), countdown=600)
+
+
+

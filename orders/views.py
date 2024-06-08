@@ -110,19 +110,15 @@ def order_confirm(request):
                 return_agreement="return_agreement" in request.POST,
             )
 
-            return render(
-                request,
-                "orders/order_confirm.html",
-                {
-                    "order": order,
-                    "order_method": order_method,
-                    "cart_products": cart.get_prods(),
-                    "quantities": cart.get_quants(),
-                    "totals": totals,
-                    "shipping_fee": shipping_fee,
-                    "totals_with_shipping": totals_with_shipping,
-                },
-            )
+            return render(request, 'orders/order_confirm.html', {
+                'order': order,
+                'order_method': order_method,
+                'cart_products': cart.get_prods(),
+                'quantities': cart.get_quants(),
+                'totals': totals,
+                'shipping_fee': shipping_fee,
+                'totals_with_shipping': totals_with_shipping,
+            })
         else:
             messages.error(request, "請檢查輸入的資料。")
             return render(request, "orders/order_form.html", {"form": form})
@@ -142,7 +138,19 @@ class ECPayView(TemplateView):
         
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
-        product_list = "#".join([product.name for product in order.product.all()])
+
+        order.confirm()
+        
+        for key in list(request.session.keys()):
+            if key == "session_key":
+                del request.session[key]
+
+
+        from .tasks import check_order_payment_status  # 延遲導入以避免循環導入問題
+        check_order_payment_status.apply_async((order.id,), countdown=1200)
+
+        product_list = "#".join(
+            [product.name for product in order.product.all()])
         order_params = {
             "MerchantTradeNo": order.order_id,
             "StoreID": "",
