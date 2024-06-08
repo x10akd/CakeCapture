@@ -138,6 +138,16 @@ def category(request, category):
         products = Paginator(products, 12)
         page = request.GET.get("page")
         products = products.get_page(page)
+
+        if request.user.is_authenticated:
+            favorite_product_ids = Favorite.objects.filter(
+                user=request.user
+            ).values_list("product_id", flat=True)
+        else:
+            favorite_product_ids = []
+        for product in products:
+            product.is_favorited = product.id in favorite_product_ids
+
         return render(
             request,
             "products/category.html",
@@ -209,6 +219,16 @@ def search(request):
         products = Paginator(products, 12)
         page = request.GET.get("page")
         products = products.get_page(page)
+
+        if request.user.is_authenticated:
+            favorite_product_ids = Favorite.objects.filter(
+                user=request.user
+            ).values_list("product_id", flat=True)
+        else:
+            favorite_product_ids = []
+        for product in products:
+            product.is_favorited = product.id in favorite_product_ids
+
         return render(
             request,
             "products/search.html",
@@ -258,6 +278,15 @@ def detail(request, pk):
 
         if user_review_count > 0:
             make_review = False
+
+        favorite_product_ids = Favorite.objects.filter(user=request.user).values_list(
+            "product_id", flat=True
+        )
+    else:
+        favorite_product_ids = []
+
+    for related_product in related_products:
+        related_product.is_favorited = related_product.id in favorite_product_ids
 
     return render(
         request,

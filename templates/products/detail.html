@@ -72,73 +72,74 @@
 				<div class="tab-content py-2 text-lg font-extralight my-10">
 					{{product.description}}
 				</div>
+				
 				<div class="product-action-btn flex flex-col my-2">
 					{% if product.status is True %}
 						<div class="product-collect text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-							<button type="submit"><a href="#" >收藏商品</a></button>
+							<button class="favorite-btn" type="submit" data-product-id="{{ product.id }}"><a href="#">收藏商品</a></button>
 						</div>
 						<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-							<button type="submit"><a href="#">放到購物車</a></button>
+							<button type="button" data-product-id="{{ product.id }}" class="add_cart">放到購物車</button>
 						</div>
 					{% else %}
-						<div class="text-center px-8 py-2 rounded-2xl mt-3">
-							<p class="text-xl font-bold text-red-500">很抱歉，本商品目前暫時下架，無法購買</p>
-						</div>
+							<div class="text-center px-8 py-2 rounded-2xl mt-3">
+								<p class="text-xl font-bold text-red-500">很抱歉，本商品目前暫時下架，無法購買</p>
+							</div>
 					{% endif %}
 				</div>
 			</div>
 		</section>
 	</div>
-	<!-- 加購商品 -->
-	<div class="py-6 flex flex-col items-center">
-		<div class="py-3">
-			<h4 class="text-2xl font-bold">| 加購商品 |</h4>
-		</div>
-		<div class="flex gap-6">
-			{% for upsell_p in upsell_products %}
-			<!-- card -->
-			<div
-				class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
+		<!-- 加購商品 -->
+		<div class="py-6 flex flex-col items-center">
+			<div class="py-3">
+				<h4 class="text-2xl font-bold">| 加購商品 |</h4>
+			</div>
+			<div class="flex gap-6">
+				{% for upsell_p in upsell_products %}
+				<!-- card -->
 				<div
-					class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
-					<img src="{{ upsell_p.image.url }}" class="w-full h-[288px] object-cover" />
-					
-					
-					
-				</div>
-				<br><br>
-				<div class="mb-3 flex items-center justify-around">
-				數量： <input type="number" id="quantity-input" min="1" max="{{upsell_p.quantity}}" value="1"
-					class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">
-						<span class="text-gray-400 text-l">庫存：{{upsell_p.quantity}}</span>
-				</div>
-				<a href="{% url 'products:detail' upsell_p.id %}">
-					<div class="p-6">
-						<div class="mb-3 flex items-center justify-between">
-							<!-- 產品名稱 -->
-							<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
-								{{ upsell_p.name }}
-							</h5>
-							<p class="block text-base font-bold text-blue-500">$ {{ upsell_p.price }}</p>
-							<!-- 產品評價 -->
-							<p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
-								
-							</p>
-						</div>
+					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
+					<div
+						class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+						<img src="{{ upsell_p.image.url }}" class="w-full h-[288px] object-cover" />
 						
-						<div class="flex items-center justify-between">
-							<!-- 產品價格 -->
-							<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
-								<button type="submit" id="add_cart" data-product-id="{{ upsell_p.id }}"><a href="#">放到購物車</a></button>
+						
+						
+					</div>
+					<br><br>
+					<div class="mb-3 flex items-center justify-around">
+					數量： <input type="number" id="quantity-input" min="1" max="{{upsell_p.quantity}}" value="1"
+						class="w-24 px-2 py-1 border border-black rounded-lg appearance-none">
+							<span class="text-gray-400 text-l">庫存：{{upsell_p.quantity}}</span>
+					</div>
+					<a href="{% url 'products:detail' upsell_p.id %}">
+						<div class="p-6">
+							<div class="mb-3 flex items-center justify-between">
+								<!-- 產品名稱 -->
+								<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
+									{{ upsell_p.name }}
+								</h5>
+								<p class="block text-base font-bold text-blue-500">$ {{ upsell_p.price }}</p>
+								<!-- 產品評價 -->
+								<p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
+									
+								</p>
 							</div>
 							
+							<div class="flex items-center justify-between">
+								<!-- 產品價格 -->
+								<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
+									<button type="submit" class="add_cart" data-product-id="{{ upsell_p.id }}"><a href="#">放到購物車</a></button>
+								</div>
+								
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
 		</div>
-	</div>
 	<div class="mx-20">
     {% if user.is_authenticated %}
 		{% if make_review == True %}
@@ -263,110 +264,194 @@
 			<h4 class="text-2xl font-bold">| 同類型商品 |</h4>
 		</div>
 		<div class="flex flex-wrap justify-center gap-6">
-			{% for related_p in related_products %}
-			<div
-				class="relative flex w-full min-w-[10rem] max-w-[15rem] sm:min-w-[15rem] sm:max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
-				<div
-					class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
-					<img src="{{ related_p.image.url }}" class="w-full h-[288px] object-cover" />
-					<button
-						class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
-						type="button" data-ripple-dark="true">
-						<span class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-								class="h-6 w-6">
-								<path
-									d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-							</svg>
-						</span>
-					</button>
-					<button
-						class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/90 active:bg-blue-500/30"
-						type="button" data-ripple-dark="true">
-						<span class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-								stroke="currentColor" class="file: mt-4 h-6 w-6 text-sky-600">
-								<path stroke-linecap="round" stroke-linejoin="round"
-									d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-							</svg>
-						</span>
-					</button>
-				</div>
-				<a href="{% url 'products:detail' related_p.id %}">
-					<div class="p-6">
-						<div class="mb-3 flex items-center justify-between">
-							<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
-								{{ related_p.name }}
-							</h5>
-							<p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
-									class="-mt-0.5 h-5 w-5 text-yellow-500">
-									<path fill-rule="evenodd"
-										d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-										clip-rule="evenodd" />
-								</svg>
-								{% if related_p.average_rating is not None %}
-								{{ related_p.average_rating|floatformat:1 }}
-								{% else %}
-								---
-								{% endif %}
-							</p>
-						</div>
-						<div class="flex items-center justify-between">
-							<p class="block text-base font-bold text-blue-500">$ {{ related_p.price }}</p>
-						</div>
-					</div>
-				</a>
-			</div>
-			{% endfor %}
+			{% for product in related_products %}
+			<!-- card -->
+			<div class="relative flex w-full min-w-[10rem] max-w-[15rem] sm:min-w-[15rem] sm:max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
+        <a href="{% url 'products:detail' product.id %}">
+          <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+            <img src="{{ product.image.url }}" class="w-full h-[288px] object-cover"/>
+            <!-- heart -->
+            {% if product.is_favorited %}
+              <button class="favorite-btn !absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
+                type="button" data-product-id="{{ product.id }}">
+                <span class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-6 w-6">
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/>
+                  </svg>
+                </span>
+              </button>
+            {% else %}
+              <button class="favorite-btn !absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
+                      type="button" data-product-id="{{ product.id }}">
+    
+                <span class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="h-6 w-6">
+                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/>
+                  </svg>
+                </span>
+              </button>
+            {% endif %}
+
+            {% if product.status is True %}
+              <!-- cart -->
+              <button class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/90 active:bg-blue-500/30 add_cart" type="button"value="{{product.id}}" data-product-id="{{product.id}}">
+                <span class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="file: mt-4 h-6 w-6 text-sky-600"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
+                  </svg>
+                </span>
+              </button>
+            {% endif %}
+          </div>
+          <div class="p-6">
+            <div class="mb-3 flex items-center justify-between">
+              <!-- 產品名稱 -->
+              <h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
+              {{ product.name }}
+              </h5>
+              <!-- 產品評價 -->
+              <p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  class="-mt-0.5 h-5 w-5 text-yellow-500"
+                >
+                  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/>
+                </svg>
+                {% if product.average_rating is not None %}
+                  {{ product.average_rating|floatformat:1 }}
+                {% else %}
+                  ---
+                {% endif %}
+              </p>
+            </div>
+            <div class="flex items-center justify-between">
+              <!-- 產品價格 -->
+              {% if product.status is True %}
+                <p class="block text-base font-bold text-blue-500">$ {{ product.price }}</p>
+              {% else %}
+                <p class="font-bold text-red-500">本商品目前無法購買</p>
+              {% endif %}
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
 		</div>
   </div>
 <script>
-$(document).ready(function () {
-    var isProductInCart = false; // 旗標變量，用於追蹤商品是否已加入購物車
+	$(document).ready(function () {
+		$('.favorite-btn').on('click', function (event) {
+			event.preventDefault();
+			let productId = $(this).data('product-id');
+			let $button = $(this);
+	
+			$.ajax({
+				type: 'POST',
+				url: "{% url 'products:add_to_favorites' %}",
+				data: {
+					'product_id': productId,
+					'csrfmiddlewaretoken': '{{ csrf_token }}'
+				},
+				success: function (response) {
+					if (response.status === 'added') {
+						Swal.fire({
+							icon: 'success',
+							title: '商品已被加入我的最愛',
+							showConfirmButton: false,
+							timer: 1500
+						});
+						$button.find('svg').attr('fill', 'currentColor').attr('stroke', 'none');
+					} else if (response.status === 'exists') {
+						Swal.fire({
+							icon: 'info',
+							title: '商品已在我的最愛中',
+							showConfirmButton: false,
+							timer: 1500
+						});
+					} else if (response.status === 'not_authenticated') {
+						Swal.fire({
+							icon: 'warning',
+							title: '本功能僅限會員使用',
+							showConfirmButton: false,
+							timer: 1500
+						});
+					}
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({
+						icon: 'error',
+						title: '發生錯誤，請稍後再試',
+						showConfirmButton: false,
+						timer: 1500
+					});
+				}
+			});
+		});
+	});
 
-    $(document).on('click', '#add_cart', function (e) {
-        e.preventDefault();
-        // 檢查商品是否已在購物車中
-        if (isProductInCart) {
-            // 商品已在購物車中，顯示提示訊息
-            Swal.fire({
-                icon: 'warning',
-                title: '購物車裡已有商品',
-                showConfirmButton: false,
-                timer: 1500 // 提示框顯示時間
-            });
-        } else {
-            // 商品未在購物車中，發送Ajax請求
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'carts:add' %}",
-                data: {
-                    product_id: $(this).data('product-id'),
-                    product_qty: $('#quantity-input').val(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    action: 'post'
-                },
-                success: function (json) {
-                    document.getElementById('cart_quantity').textContent = json.qty;
-                    // 使用SweetAlert2顯示成功提示框
-                    Swal.fire({
-                        icon: 'success',
-                        title: '商品已被加入購物車',
-                        showConfirmButton: false,
-                        timer: 1500 // 提示框顯示時間
-                    });
-                    // 設置旗標為true，表示商品已在購物車中
-                    isProductInCart = true;
-                },
-                error: function (xhr, errmsg, err) {
-                    // 錯誤處理，可以根據需要進行擴展
-                }
-            });
-        }
-    });
-});
+		$(document).ready(function ()
+		{
+			let productsInCart = {}; // 用於追蹤每個商品是否已加入購物車
+	
+			$(document).on('click', '.add_cart', function (e)
+			{
+				e.preventDefault();
+				let product_id = $(this).data('product-id');
+	
+				if (productsInCart[product_id])
+				{
+					// 商品已在購物車中，顯示提示訊息
+					Swal.fire({
+						icon: 'warning',
+						title: '購物車裡已有商品',
+						showConfirmButton: false,
+						timer: 1500 
+					});
+				} else
+				{
+					// 商品未在購物車中，發送Ajax請求
+					$.ajax({
+						type: 'POST',
+						url: "{% url 'carts:add' %}",
+						data: {
+							product_id: product_id,
+							product_qty: 1,
+							csrfmiddlewaretoken: '{{ csrf_token }}',
+							action: 'post'
+						},
+						success: function (json)
+						{
+							
+							document.getElementById('cart_quantity').textContent = json.qty;
+							// 使用SweetAlert2顯示成功提示框
+							Swal.fire({
+								icon: 'success',
+								title: '商品已被加入購物車',
+								showConfirmButton: false,
+								timer: 1500 // 提示框顯示時間
+							});
+							// 更新商品狀態為已在購物車中
+							productsInCart[product_id] = true;
+						},
+						error: function (xhr, errmsg, err)
+						{
+							// 錯誤處理，可以根據需要進行擴展
+						}
+					});
+				}
+			});
+		});
+	
 
 </script>
-
 {% endblock %}
