@@ -39,7 +39,7 @@ class UserCoupon(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
     used_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    expired_at = models.DateTimeField(blank=True)
+    expired_at = models.DateTimeField(blank=True, null=True)
     usage_count = models.IntegerField(default=0, blank=False)
 
     def clean(self):
