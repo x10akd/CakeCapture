@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import plotly.graph_objs as create_plot
 import plotly.offline as html_plot
 from django.shortcuts import render, get_object_or_404, redirect
@@ -6,10 +7,12 @@ from products.forms import CategoryForm, ProductForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 from coupons.models import *
 from coupons.forms import *
+from accounts.forms import *
 
 
 # 定義superuser decorator
@@ -203,3 +206,32 @@ class CouponCreateView(SuperuserRequiredMixin, CreateView):
 class CouponDeleteView(SuperuserRequiredMixin, DeleteView):
     model = Coupon
     success_url = reverse_lazy("managements:coupon_list")
+
+
+@user_passes_test(superuser_required)
+def activate_coupon(request, pk):
+    try:
+        coupon = Coupon.objects.get(id=pk)
+        profiles = Profile.objects.all().order_by("id")
+        for profile in profiles:
+            UserCoupon.objects.create(profile=profile, coupon=coupon)
+        messages.success(request, f"優惠券 {coupon.code} 已成功發放")
+    except Coupon.DoesNotExist:
+        messages.error(request, "優惠券不存在")
+    return redirect("managements:coupon_list")
+
+
+def edit_product(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect("managements:product_list")
+    else:
+        form = ProductForm(instance=product)
+    return render(
+        request,
+        "managements/edit_product.html",
+        {"product": product, "form": form},
+    )

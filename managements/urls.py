@@ -21,4 +21,5 @@ urlpatterns = [
         views.CouponDeleteView.as_view(),
         name="delete_coupon",
     ),
+    path("activate_coupon/<int:pk>/", views.activate_coupon, name="activate_coupon"),
 ]
