@@ -82,14 +82,10 @@
 <script>
   document.addEventListener('DOMContentLoaded', function ()
     {
-      // 获取购物车数量的元素
-      var cartQuantitySpan = document.querySelector('#cart_quantity');
       
-
-      // 获取购物车数量
+      var cartQuantitySpan = document.querySelector('#cart_quantity');
       var cartQuantity = parseInt(cartQuantitySpan.textContent, 10);
       
-      // 检查购物车数量是否为0，如果是，则隐藏该元素
       if (cartQuantity === 0)
       {
         cartQuantitySpan.style.display = 'none';
