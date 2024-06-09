@@ -31,7 +31,7 @@ def order_form(request):
 
     for product_id, quantity in cart.get_quants().items():
         product = Product.objects.get(id=product_id)
-        if product.quantity < quantity:
+        if product.quantity < quantity or quantity == 0:
             messages.error(request, f"{product.name} 的庫存不足。")
             product_stock_sufficient = False
 
@@ -61,7 +61,7 @@ def order_confirm(request):
             product_stock_sufficient = True
             for product_id, quantity in cart.get_quants().items():
                 product = Product.objects.get(id=product_id)
-                if product.quantity < quantity:
+                if product.quantity < quantity or quantity == 0:
                     messages.error(request, "這段期間內已售出,故庫存不足。")
                     product_stock_sufficient = False
             if not product_stock_sufficient:

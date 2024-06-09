@@ -37,6 +37,7 @@ class Order(models.Model):
         states = ['waiting_for_check', 'unpaid', 'payment_fail', 'waiting_for_shipment', 'transporting', 'completed', 'cancelled']
         transitions = [
             {'trigger': 'confirm', 'source': 'waiting_for_check', 'dest': 'unpaid', 'after': 'update_status'},
+            {'trigger': 'fail', 'source': 'waiting_for_check', 'dest': 'payment_fail', 'after': 'update_status'},
             {'trigger': 'pay', 'source': 'unpaid', 'dest': 'waiting_for_shipment', 'after': 'update_status'},
             {'trigger': 'fail', 'source': 'unpaid', 'dest': 'payment_fail', 'after': 'update_status'},
         ]
@@ -93,13 +94,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItem - {str(self.id)}"
-
-
-# @receiver(post_save, sender=Order)
-# def schedule_order_payment_check(sender, instance, created, **kwargs):
-#     if created and instance.status == 'unpaid':
-#         from .tasks import check_order_payment_status
-#         check_order_payment_status.apply_async((instance.id,), countdown=600)
-
-
 
