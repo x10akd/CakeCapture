@@ -56,6 +56,17 @@ def order_confirm(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
+            cart = Cart(request)
+            # 此處怕邏輯漏洞, 再次檢查庫存以防萬一
+            product_stock_sufficient = True
+            for product_id, quantity in cart.get_quants().items():
+                product = Product.objects.get(id=product_id)
+                if product.quantity < quantity:
+                    messages.error(request, "這段期間內已售出,故庫存不足。")
+                    product_stock_sufficient = False
+            if not product_stock_sufficient:
+                return redirect('orders:order_form')
+
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
             order.save()
@@ -65,7 +76,6 @@ def order_confirm(request):
             order.email = form.cleaned_data["recipient_email"]
             order.address = form.cleaned_data["recipient_address"]
             # 處理購物車
-            cart = Cart(request)
             totals = cart.cart_total()
             shipping_fee = 70
             totals_with_shipping = totals + shipping_fee
@@ -90,7 +100,6 @@ def order_confirm(request):
                     )
                 except Product.DoesNotExist:
                     continue
-
             order_method = OrderMethod.objects.create(
                 order=order,
                 user=request.user if request.user.is_authenticated else None,
