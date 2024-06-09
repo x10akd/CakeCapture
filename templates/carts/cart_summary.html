@@ -63,22 +63,22 @@
         <div class="flex flex-col justify-center items-center m-auto w-full sm:w-1/12 p-2">
           {% for key, value in quantities.items%}
           {% if key == product.id|slugify %}
-          <input type="number" min="1" value="{{ value }}"
-            class="w-16 sm:w-24 px-2 py-1 border border-black rounded-lg appearance-none update"
-            data-index="{{product.id}}">
-          {% endif %}
-          {% endfor %}
-        </div>
-        <div class="flex flex-col m-auto w-full sm:w-1/12 p-2">
-          <p>$ {{product.price}}</p>
-        </div>
-        <div class="flex flex-col m-auto w-full sm:w-1/12 p-2">
-          <p>庫存剩餘：{{product.quantity}}</p>
-        </div>
-        <div class="flex flex-col m-auto w-full sm:w-1/6 p-2">
-          <div class="m-2 p-2">
-            <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
-              <button type="button" data-index="{{product.id}}" id="delete-btn">刪除</button></a>
+          <input type="number" min="1" value="{{ value }}" class="w-24 px-2 py-1 border border-black rounded-lg appearance-none update" data-index="{{product.id}}" data-max-quantity="{{ product.quantity }}">
+            {% endif %}
+            {% endfor %}
+          </div>
+          <div class="flex flex-col m-auto w-1/12 p-2">
+            <p>$ {{product.price}}</p>
+          </div>
+          <div class="flex flex-col m-auto w-1/12 p-2">
+            <p>庫存剩餘：{{product.quantity}}</p>
+          </div>
+          <div class="flex flex-col m-auto w-1/6 p-2">
+            <div class="m-2 p-2">
+              <a href="#" class="block rounded-xl p-2 bg-red-300 hover:bg-red-500">
+                <button type="'button" data-index="{{product.id}}" id="delete-btn">刪除</button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

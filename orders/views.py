@@ -26,7 +26,19 @@ environ.Env.read_env()
 
 
 def order_form(request):
-    if request.user.is_authenticated and hasattr(request.user, "profile"):
+    cart = Cart(request)
+    product_stock_sufficient = True
+
+    for product_id, quantity in cart.get_quants().items():
+        product = Product.objects.get(id=product_id)
+        if product.quantity < quantity:
+            messages.error(request, f"{product.name} 的庫存不足。")
+            product_stock_sufficient = False
+
+    if not product_stock_sufficient:
+        return redirect('carts:summary')
+    
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
         initial_data = {
             "order_name": request.user.profile.full_name,
             "order_cell_phone": request.user.profile.phone,
@@ -44,18 +56,6 @@ def order_confirm(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
-            cart = Cart(request)
-            product_stock_sufficient = True
-
-            for product_id, quantity in cart.get_quants().items():
-                product = Product.objects.get(id=product_id)
-                if product.quantity < quantity:
-                    messages.error(request, f"{product.name} 庫存不足。")
-                    product_stock_sufficient = False
-
-            if not product_stock_sufficient:
-                return redirect("orders:order_form")
-
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
             order.save()
