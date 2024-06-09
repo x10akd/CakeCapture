@@ -18,18 +18,18 @@ def add(request):
         return JsonResponse({"status": "not_authenticated"})
     # get the cart
     cart = Cart(request)
-    #test for POST
     if request.POST.get('action') == 'post':
-        #get stuff
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
         #lookup product into db
         product = get_object_or_404(Product,id=product_id)
         #save to session
+        if product.quantity < product_qty:
+            return JsonResponse({"error": "沒有庫存了，無法放到購物車內"}, status=400)
         cart.add(product=product,quantity=product_qty)
-        #get cart quantity
+            #get cart quantity
         cart_quantity = cart.__len__()
-        # return response
+            # return response
         response = JsonResponse({"qty": cart_quantity})
         return response
 
