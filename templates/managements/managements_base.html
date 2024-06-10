@@ -33,9 +33,12 @@
 				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100" x-data="{ open: false }">
 					<button @click="open = !open" class="w-full text-left">數據分析</button>
 					<ul x-show="open" @click.away="open = false" x-cloak class="pl-4">
-						<li class="text-gray-500 hover:text-red-400">商品收藏數總覽</li>
-						<li class="text-gray-500 hover:text-red-400">本月商品銷售數量</li>
-						<li class="text-gray-500 hover:text-red-400">本月商品銷售金額</li>
+						<li class="text-gray-500 hover:text-red-400">
+							<a href="{% url 'managements:favorite_charts' %}">商品收藏數總覽</a></li>
+						<li class="text-gray-500 hover:text-red-400">
+							<a href="{% url 'managements:month_sell_quantity_charts' %}">本月商品銷售數量</a></li>
+						<li class="text-gray-500 hover:text-red-400">
+							<a href="{% url 'managements:month_sell_amount_charts' %}">本月商品銷售金額</a></li>
 					</ul>
 				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100" x-data="{ open: false }">
 					<button @click="open = !open" class="w-full text-left">優惠券管理</button>
