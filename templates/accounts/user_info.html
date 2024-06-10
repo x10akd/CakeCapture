@@ -1,0 +1,33 @@
+<div class="user-info p-6" x-show="tab === 'user-info'">
+	<h2 class="font-bold text-2xl leading-10 text-black">個人資訊</h2>
+	<form action="{% url 'accounts:profile_update' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<!-- Assuming `user_form` and `profile_form` are the context variables passed from the view -->
+		<div class="flex flex-wrap -mx-8">
+		<!-- Dynamic form rendering for user_form fields -->
+		{% for field in user_form %}
+		<div class="{% if field.name == 'email' %} w-full {% else %} w-full sm:w-1/2{% endif %} px-8 py-2">
+				<label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+				<div class="mt-1">
+						{{ field }}
+				</div>
+		</div>
+		{% endfor %}
+		<!-- Repeat for profile_form if necessary -->
+		{% for field in profile_form %}
+		<div class="{% if field.name == 'address' %} w-full {% else %} w-full sm:w-1/2{% endif %} px-8 py-2">
+				<label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+				<div class="mt-1">
+						{{ field }}
+				</div>
+		</div>
+		{% endfor %}
+</div>
+		<div class="flex justify-end space-x-4 mt-4">
+			<button type="reset"
+				class="rounded-md bg-red-300 px-8 py-3 text-sm font-medium text-red-800 hover:bg-red-200 hover:text-white">取消</button>
+			<button type="submit"
+				class="rounded-md bg-red-300 px-8 py-3 text-sm font-medium text-red-800 hover:bg-red-200 hover:text-white">儲存變更</button>
+		</div>
+	</form>
+</div>

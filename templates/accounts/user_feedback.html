@@ -1,0 +1,49 @@
+<div class="user-feedback p-6" x-show="tab === 'user-feedback'">
+	<h2 class="font-bold text-2xl leading-10 text-black">訊息</h2>
+	<div class="">
+		<div class="flex justify-evenly items-start bg-white rounded-lg p-4 shadow">
+			<form
+				action="{% url 'feedbacks:create' %}"
+				method="post"
+				class="pt-10"
+			>
+				{% csrf_token %}
+				<div>
+					<label>留言：</label><br />
+					<textarea
+						name="user-feedback"
+						rows="6"
+						cols="40"
+						required
+						class="border bg-red-200"
+					></textarea>
+				</div>
+				<div class="mt-6">
+					<button
+						type="reset"
+						class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+					>
+						取消
+					</button>
+					<button
+						type="submit"
+						class="inline-block rounded-md border border-transparent bg-red-300 px-8 py-3 text-center text-sm font-medium text-red-800 hover:text-white hover:bg-red-200"
+					>
+						儲存變更
+					</button>
+				</div>
+			</form>
+
+			<div class="justify-center mt-4 rounded-lg p-4 flex-col m-4 bg-left">
+				{% for feedback in feedbacks %}
+				<div class="ml-10 shadow w-64 m-2.5 font-mono text-gray-600">
+					<p>帳號:{{feedback.user}}</p>
+					<p>內容:{{feedback.message}}</p>
+					<p>{{feedback.add_time}}</p>
+					<br />
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+	<div class="mb-4">
+		<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">新增優惠券</h1>
+			<form method="post" class="space-y-4">
+					{% csrf_token %}
+					<div class="flex gap-2">
+						<label class="block text-xl font-semibold text-gray-700">優惠券代碼：</label>
+						{{ form.code }}
+					</div>
+					<div class="flex gap-2">
+						<label class="block text-xl font-semibold text-gray-700">折扣金額：</label>
+						{{ form.discount }}
+					</div>
+					<div class="flex gap-2">
+						<label class="block text-xl font-semibold text-gray-700">低消限制：</label>
+						{{ form.min_order }}
+					</div>
+					<div class="flex gap-2">
+						<label class="block text-xl font-semibold text-gray-700">折扣次數：</label>
+						{{ form.usage_limit }}
+					</div>
+					<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">新增商品</button>
+			</form>
+	</div>
+{% endblock %}

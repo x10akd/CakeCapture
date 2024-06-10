@@ -1,0 +1,30 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">優惠券編輯 - {{ coupon.code }}</h1>
+<form method="post" class="space-y-4">
+	{% csrf_token %}
+	<div class="flex gap-2">
+		<label class="block text-xl font-semibold text-gray-700">優惠券代碼</label>
+		{{ form.code }}
+	</div>
+	<div class="flex gap-2">
+		<label class="block text-xl font-semibold text-gray-700">折抵金額</label>
+		{{ form.discount }}
+	</div>
+	<div class="flex gap-2">
+		<label class="block text-xl font-semibold text-gray-700">低消限制</label>
+		{{ form.min_order }}
+	</div>
+	<div class="flex gap-2">
+		<label class="block text-xl font-semibold text-gray-700">折扣次數</label>
+		{{ form.usage_limit }}
+	</div>
+	<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">保存</button>
+</form>
+<form action="{% url "managements:delete_coupon" coupon.pk %}" method="post">
+	{% csrf_token %}
+	<button type="submit" class="mt-4 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">刪除</button>
+</form>
+<a href="{% url 'managements:coupon_list' %}" class="block my-4 text-lg hover:text-red-400">返回優惠券總覽</a>
+{% endblock %}

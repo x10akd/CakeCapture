@@ -4,11 +4,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product, Category
 from products.forms import CategoryForm, ProductForm
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
+from coupons.models import *
+from coupons.forms import *
 
 
 # 定義superuser decorator
@@ -158,3 +159,47 @@ def quantity_alter(request, category):
         "managements/quantity_alter.html",
         {"category": category, "products": products},
     )
+
+
+@user_passes_test(superuser_required)
+def coupon_list(request):
+    query = request.GET.get("search", "")
+    if query:
+        coupons = Coupon.objects.filter(name__icontains=query).order_by("-id")
+    else:
+        coupons = Coupon.objects.all().order_by("-id")
+
+    return render(
+        request,
+        "managements/coupon_list.html",
+        {"coupons": coupons, "query": query},
+    )
+
+
+@user_passes_test(superuser_required)
+def edit_coupon(request, pk):
+    coupon = get_object_or_404(Coupon, pk=pk)
+    if request.method == "POST":
+        form = CouponForm(request.POST, request.FILES, instance=coupon)
+        if form.is_valid():
+            form.save()
+            return redirect("managements:coupon_list")
+    else:
+        form = CouponForm(instance=coupon)
+    return render(
+        request,
+        "managements/edit_coupon.html",
+        {"coupon": coupon, "form": form},
+    )
+
+
+class CouponCreateView(SuperuserRequiredMixin, CreateView):
+    model = Coupon
+    form_class = CouponForm
+    template_name = "managements/add_coupon.html"
+    success_url = reverse_lazy("managements:coupon_list")
+
+
+class CouponDeleteView(SuperuserRequiredMixin, DeleteView):
+    model = Coupon
+    success_url = reverse_lazy("managements:coupon_list")

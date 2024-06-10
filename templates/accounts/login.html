@@ -1,11 +1,12 @@
 {% extends 'shared/base.html' %}
 {% load socialaccount %}
+{% load static %}
 
 {% block content %}
 <div class="bg-gray-100 flex justify-center items-center h-screen">
   <div class="max-w-md w-full bg-white p-8 shadow-md rounded-md">
     {% if user.is_authenticated %}
-    <h2 class="text-2xl font-bold text-red-600">請先登出再執行登入</h2>
+      <h2 class="text-2xl font-bold text-red-600">請先登出再執行登入</h2>
     {% else %}
     <h2 class="text-2xl font-bold mb-6">登入</h2>
     <form method="POST" class="space-y-4">
@@ -19,15 +20,19 @@
         {{form.password}}
       </div>
       <div>
-        <label for="remember_me" class="block text-sm font-medium text-gray-700">保持登入30天？</label>
+        <label for="remember_me" class="block text-sm font-medium text-gray-700">保持登入30天</label>
         {{form.remember_me}}
       </div>
       <div class="flex items-center justify-between">
         <div class="text-sm">
-          <a href="{% url 'accounts:password-reset' %}" class="font-medium text-blue-600 hover:text-blue-500">忘記密碼？</a>
-          <div class="my-6 mx-auto">
-            <button class="flex justify-center rounded-3xl border-2 bg-white p-1 text-black hover:bg-gray-200 sm:p-2">
-              <img src="https://freesvg.org/img/1534129544.png" class="mr-2 w-6 object-fill" /><a href="{% provider_login_url 'google' %}?next=/">Log in with Google</a>
+          <a href="{% url 'accounts:password-reset' %}" class="font-medium text-blue-600 hover:text-blue-500">忘記密碼</a>
+          <div class="my-6 flex justify-between">
+            <button class="flex justify-center rounded-3xl border-2 bg-white p-2 text-black hover:bg-gray-200 sm:p-2">
+              <img src="https://freesvg.org/img/1534129544.png" class="mr-2 w-6 object-fill" /><a href="{% provider_login_url 'google' %}?next=/">Google 登入</a>
+              </img>
+            </button>
+						<button class="flex justify-center rounded-3xl border-2 bg-white p-2 ml-4 text-black hover:bg-gray-200 sm:p-2">
+              <img src="{% static "images/LINE_logo.png" %}" class="mr-2 w-6 object-fill" /><a href="{% provider_login_url 'line' %}?next=/">LINE 登入</a>
               </img>
             </button>
           </div>

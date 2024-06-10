@@ -12,7 +12,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
+
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0772-123-192-216-136.ngrok-free.app"]
+
 
 INSTALLED_APPS = [
     "daphne",
@@ -28,6 +30,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.line",
     "accounts",
     "products",
     "django_htmx",
@@ -144,8 +147,16 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {
             "access_type": "online",
         },
-    }
+    },
+    "line": {
+        "APP": {
+            "client_id": env("LINE_LOGIN_CHANNEL_ID"),
+            "secret": env("LINE_LOGIN_CHANNEL_SECRET"),
+        },
+        "SCOPE": ["profile", "openid", "email"],
+    },
 }
+
 
 # 定義 SESSION 跟 cookie 的存活時間, 單位為秒
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
@@ -205,3 +216,9 @@ CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
 # LINE-chatbot related
 LINE_CHANNEL_ACCESS_TOKEN = env("LINE_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = env("LINE_CHANNEL_SECRET")
+
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SAMESITE = "None"

@@ -16,7 +16,7 @@ from products.models import Favorite, RelationalProduct
 from orders.models import Order
 from feedbacks.models import *
 from carts.cart import *
-from .models import Profile
+from .models import *
 from .forms import *
 import json
 
@@ -70,8 +70,10 @@ def logout(request):
 def profile(request):
 
     favorites = Favorite.objects.filter(user=request.user)
+    user_coupons = UserCoupon.objects.filter(profile=request.user.pk)
     orders = Order.objects.filter(buyer=request.user)
     relational_product = RelationalProduct.objects.filter(order__in=orders)
+
     if request.method == "POST":
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(
@@ -89,11 +91,15 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(
-        request,
-        "accounts/user.html",
-        {"user_form": user_form, "profile_form": profile_form, "favorites": favorites},
-    )
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form,
+        "favorites": favorites,
+        "orders": orders,
+        "user_coupons": user_coupons,
+    }
+
+    return render(request, "accounts/user.html", context=context)
 
 
 # 忘記密碼
@@ -103,9 +109,8 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     subject_template_name = "accounts/password_reset_subject.txt"
     success_message = (
         "我們已經寄出密碼重置信"
-        "您將會在當初填入註冊的信箱收到"
         "如果您沒有收到該信件"
-        "請先檢查垃圾信箱並確認該信箱是否為當初註冊信箱"
+        "請先檢查垃圾信箱並確認該信箱是否為有效信箱"
     )
     success_url = reverse_lazy("accounts:login")
 
