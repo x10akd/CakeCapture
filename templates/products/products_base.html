@@ -184,6 +184,18 @@
 	{% block products_paginator %} {% endblock %}
 </section>
 <script>
+  const Toast = Swal.mixin({
+      toast: true,
+      position: "center",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) =>
+      {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
 $(document).ready(function ()
   {
     let productsInCart = {}; // 用於追蹤每個商品是否已加入購物車
@@ -196,7 +208,7 @@ $(document).ready(function ()
       if (productsInCart[product_id])
       {
         // 商品已在購物車中，顯示提示訊息
-        Swal.fire({
+        Toast.fire({
           icon: 'warning',
           title: '購物車裡已有商品',
           showConfirmButton: false,
@@ -219,7 +231,7 @@ $(document).ready(function ()
             
             document.getElementById('cart_quantity').textContent = json.qty;
             // 使用SweetAlert2顯示成功提示框
-            Swal.fire({
+            Toast.fire({
               icon: 'success',
               title: '商品已被加入購物車',
               showConfirmButton: false,
@@ -252,7 +264,7 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status === 'added') {
-          Swal.fire({
+          Toast.fire({
             icon: 'success',
             title: '商品已被加入我的最愛',
             showConfirmButton: false,
@@ -260,14 +272,14 @@ $(document).ready(function () {
           });
           $button.find('svg').attr('fill', 'currentColor').attr('stroke', 'none');
         } else if (response.status === 'exists') {
-          Swal.fire({
+          Toast.fire({
             icon: 'info',
             title: '商品已在我的最愛中',
             showConfirmButton: false,
             timer: 1500
           });
         } else if (response.status === 'not_authenticated') {
-          Swal.fire({
+          Toast.fire({
             icon: 'warning',
             title: '本功能僅限會員使用',
             showConfirmButton: false,
@@ -276,7 +288,7 @@ $(document).ready(function () {
         }
       },
       error: function (xhr, status, error) {
-        Swal.fire({
+        Toast.fire({
           icon: 'error',
           title: '發生錯誤，請稍後再試',
           showConfirmButton: false,

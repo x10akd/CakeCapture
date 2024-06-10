@@ -23,6 +23,7 @@
 
 	<!-- 引入打包 bulid.js -->
 	<script src="{% static 'scripts/output.js' %}" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- font awesome -->
 	<script src="https://kit.fontawesome.com/505f24e6d0.js" crossorigin="anonymous"></script>
@@ -56,13 +57,34 @@
 	{% if messages %}
 	{% for message in messages %}
 	<script>
-		document.addEventListener('DOMContentLoaded', function ()
-		{
-			Swal.fire({
-				icon: '{{ message.tags }}',
-				title: '{{ message }}',
-			})
-		})
+		
+
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "center",
+				showConfirmButton: false,
+				timer: 1500,
+				timerProgressBar: true,
+				didOpen: (toast) =>
+				{
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+
+			// Example to trigger Toast
+			Toast.fire({
+				icon: 'success',
+				title: 'This is a success toast'
+			});
+			document.addEventListener('DOMContentLoaded', function ()
+				{
+					// Example to trigger Swal popup immediately when DOM content is loaded
+					Toast.fire({
+						icon: '{{ message.tags }}',
+						title: '{{ message }}',
+					});
+				});
 	</script>
 	{% endfor %}
 	{% endif %}
