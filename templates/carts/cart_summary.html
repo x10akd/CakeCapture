@@ -155,11 +155,11 @@
       // 向後端發送 AJAX POST 請求
       $.ajax({
         type: 'POST',
-        url: "{% url 'carts:update' %}",   // 替換為您的後端 URL
+        url: "{% url 'carts:update' %}",   
         data: {
           product_id: productId,
           product_qty: quantity,
-          csrfmiddlewaretoken: '{{ csrf_token }}',  // 如果在 Django 模板中使用，請使用模板標記獲取 CSRF token
+          csrfmiddlewaretoken: '{{ csrf_token }}',  
           action: 'post'
         },
         success:function (json)
