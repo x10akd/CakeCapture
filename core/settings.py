@@ -12,11 +12,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    env("NGROK"),
-]
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", env("NGROK")]
+
 
 INSTALLED_APPS = [
     "daphne",
