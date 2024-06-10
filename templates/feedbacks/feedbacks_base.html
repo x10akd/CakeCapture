@@ -1,0 +1,18 @@
+{% extends "shared/base.html" %} 
+
+{% block content %}
+<section class="pt-[100px] px-[20px] h-full bg-gray-100">
+  <div class="flex justify-center gap-2">
+    <!-- sidebar -->
+    <div class="w-1/6 flex flex-col gap-y-2 text-black font-bold text-xl min-w-[120px]">
+			<ul class="flex flex-col gap-y-2">
+        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:list' %}">留言總覽</a></li>
+        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:create' %}">新增留言</a></li>
+      </ul>
+    </div>
+    <div class="w-2/3 px-6 text-black">
+			{% block feedbacks_content %} {% endblock %}
+		</div>
+  </div>
+</section>
+{% endblock %}

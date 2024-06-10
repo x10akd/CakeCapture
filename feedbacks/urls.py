@@ -7,4 +7,5 @@ app_name = "feedbacks"
 urlpatterns = [
     path("create/", views.create, name="create"),
     path("list/", views.list, name="list"),
+    path("reply/<int:pk>/", views.reply, name="reply"),
 ]

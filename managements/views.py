@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import plotly.graph_objs as create_plot
 import plotly.offline as html_plot
 from django.shortcuts import render, get_object_or_404, redirect
-from products.models import Product, Category
+from products.models import Product, Category, Favorite
 from products.forms import CategoryForm, ProductForm
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView, DeleteView
@@ -13,6 +13,13 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from coupons.models import *
 from coupons.forms import *
 from accounts.forms import *
+from django.db.models import Count, Sum, F
+from feedbacks.models import Feedback, FeedbackReply
+from feedbacks.forms import FeedbackReplyForm
+from orders.models import Order
+from django.core.paginator import Paginator
+from datetime import datetime
+import calendar
 
 
 # 定義superuser decorator
@@ -178,6 +185,24 @@ def quantity_alter(request, category):
     )
 
 
+def order_list(request):
+    query = request.GET.get("search", "")
+    if query:
+        orders = Order.objects.filter(order_id__icontains=query).order_by("-id")
+    else:
+        orders = Order.objects.all().order_by("-id")
+
+    orders = Paginator(orders, 20)
+    page = request.GET.get("page")
+    orders = orders.get_page(page)
+
+    return render(
+        request,
+        "managements/order_list.html",
+        {"orders": orders, "query": query},
+    )
+
+
 @user_passes_test(superuser_required)
 def coupon_list(request):
     query = request.GET.get("search", "")
@@ -235,17 +260,163 @@ def activate_coupon(request, pk):
     return redirect("managements:coupon_list")
 
 
-def edit_product(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect("managements:product_list")
-    else:
-        form = ProductForm(instance=product)
+def feedback_list(request):
+    feedbacks = Feedback.objects.all().order_by("-id")
+
     return render(
         request,
-        "managements/edit_product.html",
-        {"product": product, "form": form},
+        "managements/feedback_list.html",
+        {"feedbacks": feedbacks},
+    )
+
+
+@user_passes_test(superuser_required)
+def feedback_reply(request, pk):
+    feedback = get_object_or_404(Feedback, id=pk)
+    try:
+        reply = feedback.reply
+        form = FeedbackReplyForm(instance=reply)
+    except FeedbackReply.DoesNotExist:
+        reply = None
+        form = FeedbackReplyForm()
+
+    if request.method == "POST":
+        if reply:
+            form = FeedbackReplyForm(request.POST, instance=reply)
+        else:
+            form = FeedbackReplyForm(request.POST)
+            if form.is_valid():
+                new_reply = form.save(commit=False)
+                new_reply.feedback = feedback
+                new_reply.save()
+                return redirect("managements:feedback_list")
+
+    return render(
+        request, "managements/feedback_reply.html", {"form": form, "feedback": feedback}
+    )
+
+
+@user_passes_test(superuser_required)
+def favorite_charts(request):
+
+    favorite_counts = (
+        Favorite.objects.values("product__name")
+        .annotate(count=Count("product"))
+        .order_by("count")
+    )
+
+    product_names = [item["product__name"] for item in favorite_counts]
+    counts = [item["count"] for item in favorite_counts]
+
+    height = max(500, 70 * len(product_names))
+
+    bar = create_plot.Bar(
+        x=counts,
+        y=product_names,
+        orientation="h",
+    )
+
+    layout = create_plot.Layout(
+        title={"text": "收藏商品排行", "font": {"size": 24}},
+        xaxis=dict(title="被收藏數量"),
+        yaxis=dict(title="商品名稱", tickfont=dict(size=20)),
+        height=height,
+    )
+
+    fig = create_plot.Figure(data=[bar], layout=layout)
+
+    graph_html = html_plot.plot(fig, output_type="div")
+
+    return render(
+        request, "managements/favorite_charts.html", {"graph_html": graph_html}
+    )
+
+
+# 定義月份計算區間
+now = datetime.now()
+first_day_of_month = now.replace(day=1)
+last_day_of_month = now.replace(day=calendar.monthrange(now.year, now.month)[1])
+
+
+@user_passes_test(superuser_required)
+def month_sell_quantity_charts(request):
+
+    completed_orders = (
+        Order.objects.filter(
+            status="completed", created__range=(first_day_of_month, last_day_of_month)
+        )
+        .values("product__name")
+        .annotate(total_quantity=Sum("relationalproduct__number"))
+        .order_by("total_quantity")
+    )
+
+    product_names = [entry["product__name"] for entry in completed_orders]
+    product_quantities = [entry["total_quantity"] for entry in completed_orders]
+
+    height = max(500, 70 * len(product_names))
+
+    bar = create_plot.Bar(
+        x=product_quantities,
+        y=product_names,
+        orientation="h",
+    )
+
+    layout = create_plot.Layout(
+        title={"text": "本月商品銷售數量排行", "font": {"size": 24}},
+        xaxis=dict(title="銷售數量"),
+        yaxis=dict(title="商品名稱", tickfont=dict(size=20)),
+        height=height,
+    )
+
+    fig = create_plot.Figure(data=[bar], layout=layout)
+
+    graph_html = html_plot.plot(fig, output_type="div")
+
+    return render(
+        request,
+        "managements/month_sell_quantity_charts.html",
+        {"graph_html": graph_html},
+    )
+
+
+@user_passes_test(superuser_required)
+def month_sell_amount_charts(request):
+    completed_orders = (
+        Order.objects.filter(
+            status="completed", created__range=(first_day_of_month, last_day_of_month)
+        )
+        .values("product__name", "product__price")
+        .annotate(
+            total_quantity=Sum("relationalproduct__number"),
+            total_amount=Sum(F("relationalproduct__number") * F("product__price")),
+        )
+        .order_by("total_amount")
+    )
+
+    product_names = [entry["product__name"] for entry in completed_orders]
+    product_amounts = [entry["total_amount"] for entry in completed_orders]
+
+    height = max(500, 70 * len(product_names))
+
+    bar = create_plot.Bar(
+        x=product_amounts,
+        y=product_names,
+        orientation="h",
+    )
+
+    layout = create_plot.Layout(
+        title={"text": "本月商品銷售額排行", "font": {"size": 24}},
+        xaxis=dict(title="銷售金額"),
+        yaxis=dict(title="商品名稱", tickfont=dict(size=20)),
+        height=height,
+    )
+
+    fig = create_plot.Figure(data=[bar], layout=layout)
+
+    graph_html = html_plot.plot(fig, output_type="div")
+
+    return render(
+        request,
+        "managements/month_sell_amount_charts.html",
+        {"graph_html": graph_html},
     )

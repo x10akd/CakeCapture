@@ -1,0 +1,20 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<div class="border-b-2 border-red-300 mb-2 flex justify-between">
+	<h1 class="text-2xl font-bold">顧客留言回覆</h1>
+</div>
+<div>
+	<h2 class="text-xl font-bold text-red-500 mb-2">留言內容:</h2>
+	<p class="mb-4 text-lg bg-white rounded-xl p-2 inline-block">{{ feedback.message }}</p>
+</div>
+    <form method="post">
+				<h2 class="text-xl font-bold text-red-500 mb-2">回覆:</h2>
+        {% csrf_token %}
+        {{ form.reply_message }}
+        <div>
+					<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">回覆</button>
+				</div>
+    </form>
+
+{% endblock %}

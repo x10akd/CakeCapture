@@ -1,0 +1,16 @@
+{% extends "feedbacks/feedbacks_base.html" %} 
+
+{% block feedbacks_content %}
+<div class="mb-4">
+	<h1 class="text-2xl font-bold border-b-2 border-red-300">查看回覆</h1>
+</div>
+<div>
+	<h2 class="text-xl font-bold text-red-500 mb-2">留言內容:</h2>
+	<h2 class="text-xl font-bold text-red-500 mb-2">回覆內容:<span class="ml-2 text-sm font-normal text-black">{{ feedback.add_time }}</span></h2>
+	<p class="mb-4 text-lg bg-white rounded-xl p-2 inline-block">{{ feedback.message }}</p>
+</div>
+<div>
+	<h2 class="text-xl font-bold text-red-500 mb-2">回覆內容:<span class="ml-2 text-sm font-normal text-black">{{ feedback.reply.reply_time }}</span></h2>
+	<p class="mb-4 text-lg bg-white rounded-xl p-2 inline-block">{{ feedback.reply.reply_message }}</p>
+</div>
+{% endblock %}

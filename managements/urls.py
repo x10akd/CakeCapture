@@ -24,4 +24,18 @@ urlpatterns = [
         name="delete_coupon",
     ),
     path("activate_coupon/<int:pk>/", views.activate_coupon, name="activate_coupon"),
+    path("order_list/", views.order_list, name="order_list"),
+    path("feedback_list/", views.feedback_list, name="feedback_list"),
+    path("feedback_reply/<int:pk>/", views.feedback_reply, name="feedback_reply"),
+    path("favorite_charts/", views.favorite_charts, name="favorite_charts"),
+    path(
+        "month_sell_quantity_charts/",
+        views.month_sell_quantity_charts,
+        name="month_sell_quantity_charts",
+    ),
+    path(
+        "month_sell_amount_charts/",
+        views.month_sell_amount_charts,
+        name="month_sell_amount_charts",
+    ),
 ]

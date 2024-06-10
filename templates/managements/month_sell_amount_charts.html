@@ -1,0 +1,30 @@
+{% extends "managements/managements_base.html" %} 
+
+{% load static %}
+{% block css %}
+	<link rel="stylesheet" href="{% static 'styles/loading.css' %}">
+{% endblock css %}
+{% block javascript %}
+	<script src="{% static 'js/loading.js' %}"></script>
+{% endblock javascript %}
+
+{% block managements_content %}
+	<div class="pb-4">
+		<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">本月商品銷售金額</h1>
+		<div class="loader" id="floatingCirclesG">
+			<div class="f_circleG" id="frotateG_01"></div>
+			<div class="f_circleG" id="frotateG_02"></div>
+			<div class="f_circleG" id="frotateG_03"></div>
+			<div class="f_circleG" id="frotateG_04"></div>
+			<div class="f_circleG" id="frotateG_05"></div>
+			<div class="f_circleG" id="frotateG_06"></div>
+			<div class="f_circleG" id="frotateG_07"></div>
+			<div class="f_circleG" id="frotateG_08"></div>
+		</div>
+		<div class="content" style="display:none">
+			<div class="chart-container">
+					{{ graph_html|safe }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

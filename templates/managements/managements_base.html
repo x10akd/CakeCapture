@@ -16,16 +16,26 @@
 						<li class="text-gray-500 hover:text-red-400"><a href="{% url 'managements:quantity_index' %}">補貨系統</a></li>
 					</ul>
 				</li>
-				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">訂單狀況</li>
-				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100">顧客留言</li>
+				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'managements:order_list' %}">訂單狀況</a>
+					{% if new_order_count %}
+						<span class="w-6 h-6 px-2 bg-red-500 text-white rounded-full">{{ new_order_count }}</span>
+						</li>
+					{% else %}
+						</li>
+					{% endif %}
+					<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'managements:feedback_list' %}">顧客留言</a>
+					{% if no_reply_count %}
+						<span class="w-6 h-6 px-2 bg-red-500 text-white rounded-full">{{ no_reply_count }}</span>
+						</li>
+					{% else %}
+						</li>
+					{% endif %}
 				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100" x-data="{ open: false }">
 					<button @click="open = !open" class="w-full text-left">數據分析</button>
 					<ul x-show="open" @click.away="open = false" x-cloak class="pl-4">
 						<li class="text-gray-500 hover:text-red-400">商品收藏數總覽</li>
 						<li class="text-gray-500 hover:text-red-400">本月商品銷售數量</li>
 						<li class="text-gray-500 hover:text-red-400">本月商品銷售金額</li>
-						<li class="text-gray-500 hover:text-red-400">本月商品銷售額圓餅圖</li>
-						<li class="text-gray-500 hover:text-red-400">各月份商品銷售金額折線圖</li>
 					</ul>
 				<li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100" x-data="{ open: false }">
 					<button @click="open = !open" class="w-full text-left">優惠券管理</button>

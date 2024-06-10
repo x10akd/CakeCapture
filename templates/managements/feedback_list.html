@@ -1,0 +1,29 @@
+{% extends "managements/managements_base.html" %} 
+
+{% block managements_content %}
+<div class="border-b-2 border-red-300 mb-4 flex justify-between">
+	<h1 class="text-2xl font-bold">顧客留言總覽</h1>
+</div>
+
+<table class="min-w-full bg-white mb-4">
+	<thead>
+			<tr>
+					<th class="py-2 px-4 border-b text-center text-xl">顧客帳號</th>
+					<th class="py-2 px-4 border-b text-center text-xl">留言標題</th>
+					<th class="py-2 px-4 border-b text-center text-xl">留言時間</th>
+					<th class="py-2 px-4 border-b text-center text-xl">回覆時間</th>
+			</tr>
+	</thead>
+	<tbody>
+			{% for feedback in feedbacks %}
+			<tr>
+				<td class="py-2 px-4 border-b text-center text-xl hover:text-red-400"><a href="{% url 'managements:feedback_reply' feedback.pk %}">{{ feedback.user.username }}</a></td>
+				<td class="py-2 px-4 border-b text-center text-xl hover:text-red-400"><a href="{% url 'managements:feedback_reply' feedback.pk %}">
+					{{ feedback.title }}</a></td>
+				<td class="py-2 px-4 border-b text-center text-xl">{{ feedback.add_time|date:"Y-m-d H:i" }}</td>
+				<td class="py-2 px-4 border-b text-center text-xl">{{ feedback.reply.reply_time|date:"Y-m-d H:i" }}</td>
+			</tr>
+			{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

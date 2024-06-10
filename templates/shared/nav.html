@@ -66,7 +66,10 @@
       </div>
       {% if user.is_authenticated %}
         <a href="{% url 'accounts:user' %}" class=" text-white hover:text-red-600">使用者資訊</a>
-        <a href="{% url 'carts:summary' %}" class="text-white hover:text-red-600 relative flex items-center" title="查看購物車">
+        <a href="{% url 'feedbacks:list' %}" class=" text-white hover:text-red-600" title="留言給我們">
+          <i class="fa-regular fa-envelope scale-110"></i>
+        </a>
+        <a href="{% url 'carts:summary' %}" class=" text-white hover:text-red-600 relative" title="查看購物車">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="ml-2 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
         </a>

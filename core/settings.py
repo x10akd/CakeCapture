@@ -12,9 +12,11 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
-
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0772-123-192-216-136.ngrok-free.app"]
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    env("NGROK"),
+]
 
 INSTALLED_APPS = [
     "daphne",
@@ -71,6 +73,8 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "carts.context_processors.cart",
                 "products.context_processors.categories",
+                "managements.context_processors.no_reply_count",
+                "managements.context_processors.new_order_count",
             ],
         },
     },

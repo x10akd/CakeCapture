@@ -7,7 +7,7 @@
 		<a href="{% url 'managements:product_list' %}">返回商品總覽</a>
 	</div>
 </div>
-<form method="post" enctype="multipart/form-data" class="space-y-4 mb-2">
+<form method="post" class="space-y-4 mb-2">
 	{% csrf_token %}
 	<div class="flex gap-2">
 		<label class="block text-xl font-semibold text-gray-700">類別名稱:</label>
