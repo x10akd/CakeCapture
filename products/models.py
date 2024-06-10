@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.core.exceptions import ValidationError
+from .custom_fields import CompressedImageField
 
 
 class Category(models.Model):
@@ -22,7 +23,7 @@ class Product(models.Model):
     )
     quantity = models.IntegerField(default=0)
     description = models.CharField(max_length=100, default="", blank=True, null=True)
-    image = models.ImageField(upload_to="uploads/product/")
+    image = CompressedImageField(upload_to="uploads/product/", quality=85)
     status = models.BooleanField(default=True)
 
     def __str__(self):
