@@ -413,58 +413,77 @@
 	});
 
 		$(document).ready(function ()
-		{
-			let productsInCart = {}; // 用於追蹤每個商品是否已加入購物車
-	
-			$(document).on('click', '.add_cart', function (e)
 			{
-				e.preventDefault();
-				let product_id = $(this).data('product-id');
-	
-				if (productsInCart[product_id])
+				let productsInCart = {}; 
+
+				$(document).on('click', '.add_cart', function (e)
 				{
-					// 商品已在購物車中，顯示提示訊息
-					Toast.fire({
-						icon: 'warning',
-						title: '購物車裡已有商品',
-						showConfirmButton: false,
-						timer: 1500 
-					});
-				} else
-				{
-					// 商品未在購物車中，發送Ajax請求
-					$.ajax({
-						type: 'POST',
-						url: "{% url 'carts:add' %}",
-						data: {
-							product_id: product_id,
-							product_qty: 1,
-							csrfmiddlewaretoken: '{{ csrf_token }}',
-							action: 'post'
-						},
-						success: function (json)
-						{
-							
-							document.getElementById('cart_quantity').textContent = json.qty;
-							// 使用SweetAlert2顯示成功提示框
-							Toast.fire({
-								icon: 'success',
-								title: '商品已被加入購物車',
-								showConfirmButton: false,
-								timer: 1500 // 提示框顯示時間
-							});
-							// 更新商品狀態為已在購物車中
-							productsInCart[product_id] = true;
-						},
-						error: function (xhr, errmsg, err)
-						{
-							// 錯誤處理，可以根據需要進行擴展
-						}
-					});
-				}
+					e.preventDefault();
+					let product_id = $(this).data('product-id');
+
+					if (productsInCart[product_id])
+					{
+					
+						Toast.fire({
+							icon: 'warning',
+							title: '购物车里已有商品',
+							showConfirmButton: false,
+							timer: 1500
+						});
+					} else
+					{
+						
+						$.ajax({
+							type: 'POST',
+							url: "{% url 'carts:add' %}",
+							data: {
+								product_id: product_id,
+								product_qty: 1,
+								csrfmiddlewaretoken: '{{ csrf_token }}',
+								action: 'post'
+							},
+							success: function (json)
+							{
+								if (json.status === 'not_authenticated')
+								{
+									Toast.fire({
+										icon: 'warning',
+										title: '本功能僅限會員使用',
+										showConfirmButton: false,
+										timer: 1500
+									});
+								} else
+								{
+									var cartQuantitySpan = document.getElementById('cart_quantity');
+									cartQuantitySpan.textContent = json.qty;
+									if (json.qty > 0)
+									{
+										cartQuantitySpan.style.display = 'flex';
+									} else
+									{
+										cartQuantitySpan.style.display = 'none';
+									}
+
+									
+									Toast.fire({
+										icon: 'success',
+										title: '商品已被加入购物车',
+										showConfirmButton: false,
+										timer: 1500 
+									});
+									
+									productsInCart[product_id] = true;
+								}
+							},
+							error: function (xhr, errmsg, err)
+							{
+								
+							}
+						});
+					}
+				});
 			});
-		});
-	
+
 
 </script>
 {% endblock %}

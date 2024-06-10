@@ -28,11 +28,11 @@
           <!-- 下拉選單 -->
           <div class="absolute right-44 bg-white text-grey rounded-lg mt-1 py-1 w-36 z-20" x-cloak  x-show="show" x-transition>
             <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">所有商品</a>
-            <a href="{% url 'products:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">馬卡龍</a>
-            <a href="{% url 'products:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">磅蛋糕</a>
-            <a href="{% url 'products:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">鮮奶油蛋糕</a>
-            <a href="{% url 'products:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">法式糕點</a>
-            <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">巧克力</a>
+            <a href="{% url 'products:category' '馬卡龍' %}" class="block px-4 py-2 hover:bg-red-300">馬卡龍</a>
+            <a href="{% url 'products:category' '磅蛋糕' %}" class="block px-4 py-2 hover:bg-red-300">磅蛋糕</a>
+            <a href="{% url 'products:category' '鮮奶油蛋糕' %}" class="block px-4 py-2 hover:bg-red-300">鮮奶油蛋糕</a>
+            <a href="{% url 'products:category' '法式糕點' %}" class="block px-4 py-2 hover:bg-red-300">法式糕點</a>
+            <a href="{% url 'products:category' '巧克力' %}" class="block px-4 py-2 hover:bg-red-300">巧克力</a>
           </div>
         </div>
         <a href="{% url 'carts:summary' %}" class="block px-4 py-2 hover:bg-red-300 relative">
@@ -57,11 +57,11 @@
         <!-- 下拉選單 -->
         <div class="absolute bg-white text-grey rounded-lg mt-1 py-1 w-36 z-20" x-cloak x-show="show" x-transition>
           <a href="{% url 'products:all' %}" class="block px-4 py-2 hover:bg-red-300">所有商品</a>
-          <a href="{% url 'products:category' 'macarons' %}" class="block px-4 py-2 hover:bg-red-300">馬卡龍</a>
-          <a href="{% url 'products:category' 'poundcake' %}" class="block px-4 py-2 hover:bg-red-300">磅蛋糕</a>
-          <a href="{% url 'products:category' 'freshcreamcake' %}" class="block px-4 py-2 hover:bg-red-300">鮮奶油蛋糕</a>
-          <a href="{% url 'products:category' 'frenchpastry' %}" class="block px-4 py-2 hover:bg-red-300">法式糕點</a>
-          <a href="{% url 'products:category' 'chocolate' %}" class="block px-4 py-2 hover:bg-red-300">巧克力</a>
+          <a href="{% url 'products:category' '馬卡龍' %}" class="block px-4 py-2 hover:bg-red-300">馬卡龍</a>
+          <a href="{% url 'products:category' '磅蛋糕' %}" class="block px-4 py-2 hover:bg-red-300">磅蛋糕</a>
+          <a href="{% url 'products:category' '鮮奶油蛋糕' %}" class="block px-4 py-2 hover:bg-red-300">鮮奶油蛋糕</a>
+          <a href="{% url 'products:category' '法式糕點' %}" class="block px-4 py-2 hover:bg-red-300">法式糕點</a>
+          <a href="{% url 'products:category' '巧克力' %}" class="block px-4 py-2 hover:bg-red-300">巧克力</a>
         </div>
       </div>
       {% if user.is_authenticated %}

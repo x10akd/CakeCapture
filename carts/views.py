@@ -14,6 +14,8 @@ def summary(request):
     return render(request, 'carts/cart_summary.html', {'cart_products': cart_products, 'quantities': quantities, 'totals': totals, 'user': user})
 
 def add(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "not_authenticated"})
     # get the cart
     cart = Cart(request)
     #test for POST
@@ -39,8 +41,9 @@ def delete(request):
         product_id = int(request.POST.get("product_id"))
         # call delete fn
         cart.delete(product=product_id)
-
-        response = JsonResponse({"product": product_id})
+        total_price = cart.cart_total()
+        cart_quantity = cart.__len__()
+        response = JsonResponse({"product": product_id,"total_price": total_price,"cart_quantity": cart_quantity})
         return response
 
 
@@ -52,9 +55,10 @@ def update(request):
         # get stuff
         product_id = int(request.POST.get("product_id"))
         product_qty = int(request.POST.get("product_qty"))
+        total_price = cart.cart_total()
 
         cart.update(product = product_id,quantity = product_qty)
-        response = JsonResponse({'qty':product_qty})
+        response = JsonResponse({'qty':product_qty,'total_price': total_price})
         return response
 
 @require_POST
