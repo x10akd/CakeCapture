@@ -8,6 +8,5 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 
 admin.site.register(Category)
-git
 admin.site.register(ProductReview)
 admin.site.register(Favorite)
