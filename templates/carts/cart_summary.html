@@ -1,12 +1,12 @@
 {% extends 'shared/base.html' %}
 {% block content %}
 
-<!-- container -->
 <div class="mt-28 w-screen max-w-screen-2xl mx-auto px-4">
   <!-- section-title -->
   <div class="m-2 p-2 text-2xl font-semibold text-center sm:text-left">
-    <p>親愛的會員 {{ user.username }} 您好</p>
+    <p>親愛的 {{ user.profile.full_name }} 您好</p>
   </div>
+	{% if cart_products %}
   <!-- section-order -->
   <div class="mt-12 m-2 p-2 text-center">
     <!-- order-tag -->
@@ -102,6 +102,11 @@
       </div>
     </div>
   </div>
+	{% else %}
+	<div class="text-red-600 font-bold text-center">
+		您的購物車尚未放入任何商品
+	</div>
+	{% endif %}
   <!-- section-notice -->
   <div class="mt-12 m-2 p-2 text-center">
     <!-- notice-tag -->
@@ -124,12 +129,14 @@
   <!-- section-redirect -->
   <div
     class="flex flex-col sm:flex-row justify-end mt-12 m-2 p-2 text-center text-xl space-y-2 sm:space-y-0 sm:space-x-4">
-    <a href="{% url 'home' %}" class="block w-full sm:w-1/5 rounded-xl bg-gray-300 p-4">
-      回首頁
+    <a href="{% url 'products:all' %}" class="block w-full sm:w-1/5 rounded-xl bg-gray-300 p-4">
+      繼續購物
     </a>
-    <a href="{% url 'orders:order_form' %}" class="block w-full sm:w-1/5 rounded-xl bg-red-300 p-4">
+		{% if cart_products %}
+		<a href="{% url 'orders:order_form' %}" class="block w-full sm:w-1/5 rounded-xl bg-red-300 p-4">
       國內結帳
     </a>
+		{% endif %}
   </div>
 </div>
 
