@@ -107,8 +107,6 @@ def order_confirm(request):
                 recipient_cell_phone=request.POST.get("recipient_cell_phone"),
                 recipient_address=request.POST.get("recipient_address", ""),
                 recipient_email=request.POST.get("recipient_email"),
-                invoice_option=request.POST.get("invoice_option"),
-                invoice_number=request.POST.get("invoice_number", ""),
                 return_agreement="return_agreement" in request.POST,
             )
 

@@ -14,13 +14,6 @@ PAYMENT_CHOICES = [
     ("atm", "ATM 轉帳付款"),
 ]
 
-INVOICE_CHOICES = [
-    ("donate_invoice", "捐贈發票"),
-    ("two_invoice", "二聯式電子發票"),
-    ("three_invoice", "三聯式電子發票"),
-]
-
-
 class Order(models.Model):
     order_id = models.CharField(max_length=20, unique=True, blank=True)
     email = models.EmailField(max_length=50)
@@ -79,10 +72,6 @@ class OrderMethod(models.Model):
     recipient_cell_phone = models.CharField(max_length=10)
     recipient_address = models.CharField(max_length=200)
     recipient_email = models.EmailField(max_length=50)
-    invoice_option = models.CharField(
-        max_length=100, choices=INVOICE_CHOICES, default="donate_invoice"
-    )
-    invoice_number = models.CharField(max_length=8, null=True, blank=True)
     return_agreement = models.BooleanField(default=False)
 
     def __str__(self):

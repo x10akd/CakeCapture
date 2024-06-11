@@ -217,33 +217,15 @@
         <!-- payment-notice -->
         <div id="recipient-information" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
           <p class="ml-4 text-justify">
-            <span>・</span>
-            為確保品質，線上訂購並完成下單付款後才會進行製作。
+            ・為確保品質，線上訂購並完成下單付款後才會進行製作。
           </p>
           <p class="ml-4 text-justify">
-            <span>・</span>
-            寄送方式：常溫宅配／低溫宅配
+            ・寄送方式：常溫宅配／低溫宅配
           </p>
         </div>
       </div>
     </div>
     <!-- section-invoice -->
-    <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-      <!-- invoice-tag -->
-      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
-        <h3>發票資訊</h3>
-      </div>
-      <span class="block w-full h-1 bg-red-300"></span>
-      <!-- invoice-options -->
-      <div class="mt-2">
-        {% for field in form.invoice_option %}
-        <div
-          class="flex items-center {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %} p-3 bg-gray-200">
-          {{ field }}
-        </div>
-        {% endfor %}
-      </div>
-    </div>
     
     <!-- section-return-agreement -->
     <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
@@ -253,7 +235,7 @@
       <span class="block w-full h-1 bg-red-300"></span>
       <div class="mt-2 rounded-xl bg-gray-200 p-3">
         <div class="flex items-center">
-          {{ form.return_agreement }}
+          <input type="checkbox" id="id_return_agreement" name="return_agreement" required>
           <label for="id_return_agreement" class="ml-3">我已閱讀並了解購買須知，商品售出後不提供退換服務，請在購買前仔細確認產品資訊。</label>
         </div>
       </div>

@@ -63,8 +63,6 @@ class OrderForm(forms.ModelForm):
             "recipient_cell_phone",
             "recipient_address",
             "recipient_email",
-            "invoice_option",
-            "invoice_number",
             "return_agreement",
         ]
         widgets = {
@@ -72,5 +70,4 @@ class OrderForm(forms.ModelForm):
             "payment_method": forms.RadioSelect,
             "coupon_used": forms.CheckboxInput,
             "return_agreement": forms.CheckboxInput,
-            "invoice_option": forms.RadioSelect,
         }
