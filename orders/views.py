@@ -49,8 +49,31 @@ def order_form(request):
     else:
         initial_data = {}
 
-    form = OrderForm(initial=initial_data)
-    return render(request, "orders/order_form.html", {"form": form})
+    if request.method == "POST":
+        form = OrderForm(request.POST, initial=initial_data)
+        if form.is_valid():
+            order = form.save(commit=False)
+            coupon_code = form.cleaned_data.get("coupon_code")
+            if coupon_code:
+                try:
+                    user_coupon = UserCoupon.objects.get(
+                        coupon__code=coupon_code, profile__user=request.user
+                    )
+                    order.coupon = user_coupon.coupon
+                    order.discount_amount = user_coupon.coupon.discount
+                except UserCoupon.DoesNotExist:
+                    form.add_error("coupon_code", "Invalid coupon code")
+
+            order.buyer = request.user
+            order.save()
+            return redirect("orders:order_confirm", order_id=order.id)
+    else:
+        form = OrderForm(initial=initial_data)
+
+    user_coupons = UserCoupon.objects.filter(profile__user=request.user)
+    return render(
+        request, "orders/order_form.html", {"form": form, "user_coupons": user_coupons}
+    )
 
 
 def order_confirm(request):

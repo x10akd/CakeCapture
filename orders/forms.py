@@ -47,6 +47,8 @@ class OrderForm(forms.ModelForm):
         )
     )
 
+    coupon_code = forms.CharField(max_length=20, required=False, label="優惠券代碼")
+
     class Meta:
         model = OrderMethod
         fields = [

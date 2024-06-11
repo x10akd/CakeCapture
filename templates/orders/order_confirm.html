@@ -50,23 +50,6 @@
     </div>
     {% endfor %}
 
-		<!-- coupon input -->
-		<div class="flex justify-end border-2 border-red-200 mt-2 p-2 text-xl">
-      <div class="w-1/2 p-2 text-right">
-        <label for="coupon-select">優惠券</label>
-      </div>
-      <div class="flex w-1/3 p-2">
-        <div>
-					<select id="coupon-select" name="coupon_code">
-						<option value="">請選擇優惠代碼</option>
-						{% for user_coupon in user_coupons %}
-						<option value="{{ user_coupon.coupon.code }}">{{ user_coupon.coupon.code }} - 折價 {{ user_coupon.coupon.discount }} 元（低消：{{ user_coupon.coupon.min_order }}）</option>
-						{% endfor %}
-					</select>
-        </div>
-      </div>
-    </div>
-
     <!-- section-postage -->
     <div class="flex justify-end border-2 border-red-200 mt-2 p-2 text-xl">
       <div class="w-1/2 p-2 text-right">
