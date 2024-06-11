@@ -40,14 +40,14 @@
       <span class="block w-full h-1 bg-red-300"></span>
       <!-- payment-options -->
       <div class="mt-2 text-center text-xl font-semibold">
-        {% for field in form.payment_method %}
-        <div class="flex {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %}">
-          <div class="flex items-center w-full p-3 bg-gray-200">
-            {{ field }}
-          </div>
-        </div>
-        {% endfor %}
-      </div>
+				{% for field in form.payment_method %}
+					<div class="flex {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %}">
+						<div class="flex items-center w-full p-3 bg-gray-200">
+							{{ field }}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
       <!-- payment-notice -->
       <div id="payment-notice" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
         <p class="ml-4 text-justify">
@@ -58,6 +58,23 @@
           <span>・</span>
           選擇超商取貨付款前往門市取貨時，僅接受現金付款或5000元(含)以下可用信用卡，適用之信用卡發卡銀行依超商規定(後續如有退款之情事發生，款項將會退至訂購人之會員帳戶餘額內，請參考退款方式相關)。
         </p>
+      </div>
+    </div>
+
+		<div class="m-2 p-2 text-center text-xl font-semibold">
+      <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
+        <h3>選擇優惠券</h3>
+      </div>
+      <span class="block w-full h-1 bg-red-300"></span>
+      <div class="mt-2">
+				<div class="flex items-center rounded-t-xl p-3 bg-gray-200">
+					<select id="coupon-select" name="coupon_code">
+						<option value="">請選擇優惠代碼</option>
+						{% for user_coupon in user_coupons %}
+						<option value="{{ user_coupon.coupon.code }}">{{ user_coupon.coupon.code }} - 折價 {{ user_coupon.coupon.discount }} 元（低消：{{ user_coupon.coupon.min_order }}）</option>
+						{% endfor %}
+					</select>
+        </div>
       </div>
     </div>
 
