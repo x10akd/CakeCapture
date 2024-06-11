@@ -1,712 +1,694 @@
 [
-{
-    "model": "products.category",
-    "pk": 1,
-    "fields": {
-        "name": "馬卡龍"
+    {
+        "model": "products.category",
+        "pk": 1,
+        "fields": {
+            "name": "馬卡龍"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 2,
+        "fields": {
+            "name": "磅蛋糕"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 3,
+        "fields": {
+            "name": "鮮奶油蛋糕"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 4,
+        "fields": {
+            "name": "法式甜點"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 5,
+        "fields": {
+            "name": "巧克力"
+        }
+    },
+    {
+        "model": "products.category",
+        "pk": 7,
+        "fields": {
+            "name": "其他"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "name": "葡萄馬卡龍",
+            "price": "90",
+            "category": 1,
+            "quantity": 50,
+            "description": "優雅的葡萄馬卡龍，是一種結合了葡萄的甜美和馬卡龍的獨特口感的美味點心。每一口都充滿了果香和綿密的蛋白霜，讓您沉浸在愉悅的美食體驗中。",
+            "image": "uploads/product/macaron-grape.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "name": "檸檬馬卡龍",
+            "price": "85",
+            "category": 1,
+            "quantity": 60,
+            "description": "清新的檸檬馬卡龍，融合了檸檬的酸甜和馬卡龍的細膩口感，每一口都充滿了愉悅的果味和絲滑的質感，帶來一場口感與視覺的雙重享受。",
+            "image": "uploads/product/檸檬馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "name": "芒果馬卡龍",
+            "price": "80",
+            "category": 1,
+            "quantity": 80,
+            "description": "鮮美的芒果馬卡龍，結合了芒果的香甜和馬卡龍的獨特口感，每一口都充滿了果香和柔軟的質感，帶來一場口感與視覺的雙重享受。",
+            "image": "uploads/product/芒果馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "name": "抹茶馬卡龍",
+            "price": "100",
+            "category": 1,
+            "quantity": 50,
+            "description": "純正的抹茶馬卡龍，結合了抹茶的濃郁香氣和馬卡龍的獨特口感，每一口都充滿了濃郁的茶香和綿密的質感，帶來一場濃情綿綿的味覺享受。",
+            "image": "uploads/product/抹茶馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "name": "咖啡馬卡龍",
+            "price": "85",
+            "category": 1,
+            "quantity": 30,
+            "description": "美味的咖啡馬卡龍，融合了咖啡的香和馬卡龍的綿滑口感，每一口都充滿了餅乾的香甜和馬卡龍的獨特風味，帶來一場甜蜜的味覺享受。",
+            "image": "uploads/product/咖啡馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "name": "覆盆子馬卡龍",
+            "price": "100",
+            "category": 1,
+            "quantity": 30,
+            "description": "風味獨特的覆盆子馬卡龍，融合了覆盆子的酸甜和馬卡龍的柔軟口感，每一口都充滿了果香和綿密的質感，為您帶來一場口感與視覺的絕妙饗宴。",
+            "image": "uploads/product/覆盆子馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "name": "草莓馬卡龍",
+            "price": "110",
+            "category": 1,
+            "quantity": 20,
+            "description": "醉人的草莓馬卡龍，結合了草莓的酸甜和馬卡龍的柔軟口感，每一口都充滿了果香和綿密的質感，為您帶來一場口感與視覺的絕妙饗宴。",
+            "image": "uploads/product/草莓馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "name": "紫羅蘭馬卡龍",
+            "price": "95",
+            "category": 1,
+            "quantity": 40,
+            "description": "優雅的紫羅蘭馬卡龍，散發出淡淡的花香和馬卡龍的獨特口感，每一口都充滿了花香和柔軟的質感，為您帶來一場口感與視覺的奢華享受。",
+            "image": "uploads/product/紫羅蘭馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "name": "巧克力馬卡龍",
+            "price": "80",
+            "category": 1,
+            "quantity": 50,
+            "description": "誘人的巧克力馬卡龍，融合了濃郁的巧克力味道和馬卡龍的柔軟口感，每一口都充滿了濃郁的巧克力風味和綿密的質感，為您帶來一場口感與視覺的極致享受。",
+            "image": "uploads/product/巧克力馬卡龍.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "name": "馬卡龍禮盒",
+            "price": "999",
+            "category": 1,
+            "quantity": 10,
+            "description": "精美的馬卡龍禮盒，結合了多種口味的馬卡龍，如草莓、覆盆子、檸檬等，每一款都充滿了獨特的風味和精心製作的外觀，是送禮或自我品嚐的絕佳選擇，為您帶來美味的享受與驚喜。",
+            "image": "uploads/product/馬卡龍禮盒_e7phFQf.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "name": "杏仁磅蛋糕",
+            "price": "450",
+            "category": 2,
+            "quantity": 10,
+            "description": "精緻的杏仁磅蛋糕，結合了杏仁的香濃味道和綿密的蛋糕質地，每一口都充滿了杏仁的香氣和柔軟的口感，是下午茶或特殊場合的絕佳選擇，為您帶來愉悅的味覺享受。",
+            "image": "uploads/product/杏仁磅蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "name": "香蕉磅蛋糕",
+            "price": "390",
+            "category": 2,
+            "quantity": 10,
+            "description": "香蕉磅蛋糕，綿密的蛋糕體中融合了新鮮香蕉的香甜，每一口都充滿了濃濃的果香和綿滑的口感，是美味的下午茶伴侶或輕盈的甜點選擇，為您帶來滿滿的幸福與滿足。",
+            "image": "uploads/product/香蕉磅蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 13,
+        "fields": {
+            "name": "酒漬蔓越莓磅蛋糕",
+            "price": "430",
+            "category": 2,
+            "quantity": 20,
+            "description": "香濃的酒漬蔓越莓磅蛋糕，結合了酒漬蔓越莓的酸甜和濃郁的蛋糕口感，每一口都充滿了濃郁的果香和綿密的質感，是品嚐甜點或下午茶的絕佳選擇，為您帶來美味的味覺享受。",
+            "image": "uploads/product/蔓越莓磅蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 14,
+        "fields": {
+            "name": "巧克力磅蛋糕",
+            "price": "480",
+            "category": 2,
+            "quantity": 10,
+            "description": "誘人的巧克力磅蛋糕，結合了濃郁的巧克力風味和綿密的蛋糕口感，每一口都充滿了濃郁的巧克力香氣和綿滑的質地，是享受美味甜點或慶祝特殊時刻的完美選擇，帶給您滿足的味覺享受。",
+            "image": "uploads/product/巧克力棒蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 15,
+        "fields": {
+            "name": "伯爵茶磅蛋糕",
+            "price": "420",
+            "category": 2,
+            "quantity": 30,
+            "description": "精緻的伯爵茶磅蛋糕，結合了伯爵茶的香氣和綿密的蛋糕口感，每一口都充滿了淡雅的茶香和柔滑的質感，是下午茶或特別場合的絕佳選擇，為您帶來悠閒優雅的味覺享受。",
+            "image": "uploads/product/伯爵茶磅蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 16,
+        "fields": {
+            "name": "老奶奶檸檬磅蛋糕",
+            "price": "490",
+            "category": 2,
+            "quantity": 30,
+            "description": "清新的檸檬磅蛋糕，融合了檸檬的酸甜和綿密的蛋糕口感，每一口都充滿了檸檬的清新香氣和柔軟的質感，是享受下午茶或輕盈甜點的絕佳選擇，為您帶來愉悅的味覺享受。",
+            "image": "uploads/product/檸檬棒蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 17,
+        "fields": {
+            "name": "香橙磅蛋糕",
+            "price": "450",
+            "category": 2,
+            "quantity": 20,
+            "description": "風味獨特的香橙磅蛋糕，將新鮮的香橙和綿密的蛋糕完美結合，每一口都充滿了陽光明媚的香橙風味和綿密的口感，如一場悠閒的午後陽光，為您帶來清新愉悅的味覺享受。",
+            "image": "uploads/product/香橙磅蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 18,
+        "fields": {
+            "name": "開心果櫻桃磅蛋糕",
+            "price": "530",
+            "category": 2,
+            "quantity": 10,
+            "description": "滿滿的開心果櫻桃磅蛋糕，結合了香濃的開心果與甜美的櫻桃，每一口都充滿了濃郁的果香和綿密的口感，如一場充滿歡樂的節日派對，為您帶來愉悅和驚喜的味覺饗宴。",
+            "image": "uploads/product/開心果棒蛋糕.jpeg",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 19,
+        "fields": {
+            "name": "草莓磅蛋糕",
+            "price": "480",
+            "category": 2,
+            "quantity": 10,
+            "description": "迷人的草莓磅蛋糕，彷彿是春天的一抹亮色，每一口都像是野草莓的甜蜜尋找，柔軟的蛋糕伴隨著草莓的酸甜，讓您彷彿置身於一片草莓園中，享受著天然的美味和歡樂。",
+            "image": "uploads/product/草莓棒蛋糕.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 20,
+        "fields": {
+            "name": "香草鮮奶油蛋糕",
+            "price": "980",
+            "category": 3,
+            "quantity": 3,
+            "description": "優雅的香草鮮奶油蛋糕，如同一位溫文爾雅的紳士，輕柔的香草風味與絲滑的奶油交織，每一口都是一場輕盈的芳香之旅，彷彿在奶油的海洋中漂浮，為您帶來純淨和愉悅的味覺享受。",
+            "image": "uploads/product/季節水果戚風_cFxILz9.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 21,
+        "fields": {
+            "name": "草莓鮮奶油蛋糕",
+            "price": "1099",
+            "category": 3,
+            "quantity": 3,
+            "description": "震撼的草莓鮮奶油蛋糕，就像一場激情派對，草莓的甜美與奶油的絲滑完美結合，每一口都像是在舞池中跳舞，營造出一場愉悅的味覺盛宴，為您帶來美好和歡笑。",
+            "image": "uploads/product/IMG_8062.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 22,
+        "fields": {
+            "name": "荔枝玫瑰鮮奶油蛋糕",
+            "price": "1299",
+            "category": 3,
+            "quantity": 4,
+            "description": "搶眼的荔枝玫瑰鮮奶油蛋糕，彷彿是一場異國的奇遇，荔枝的清新與玫瑰的優雅交織，每一口都像是在熱帶花園中漫步，為您帶來愉悅的味覺冒險，讓您沉浸在熱情和美好中。",
+            "image": "uploads/product/玫瑰荔枝鮮奶油.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 23,
+        "fields": {
+            "name": "藍莓鮮奶油蛋糕",
+            "price": "1099",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿驚喜的藍莓鮮奶油蛋糕，彷彿是一場神秘的探險，藍莓的酸甜與奶油的濃郁完美融合，每一口都像是在藍莓森林中尋寶，為您帶來無盡的驚喜和歡樂，讓味蕾與冒險同行。",
+            "image": "uploads/product/截圖_2024-06-08_下午7.50.07.png",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 24,
+        "fields": {
+            "name": "栗子鮮奶油蛋糕",
+            "price": "998",
+            "category": 3,
+            "quantity": 3,
+            "description": "迷人的栗子鮮奶油蛋糕，彷彿是一場秋天的狂歡，栗子的香甜與奶油的滑順完美結合，每一口都是一場栗子派對，讓您感受秋天的濃厚氛圍，為您的味蕾帶來一場豐盛的節日盛宴。",
+            "image": "uploads/product/栗子鮮奶油蛋糕600X400.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 25,
+        "fields": {
+            "name": "可可鮮奶油蛋糕",
+            "price": "1198",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿趣味的可可鮮奶油蛋糕，就像是一場巧克力的嘉年華，濃郁的可可與柔滑的奶油相融，每一口都是一場甜蜜的冒險，彷彿在巧克力的仙境中徜徉，為您帶來愉悅和驚喜。",
+            "image": "uploads/product/巧克力鮮奶油蛋糕_q407omF.jpeg",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 26,
+        "fields": {
+            "name": "秋翠葡萄鮮奶油蛋糕",
+            "price": "990",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿秋日風情的秋翠葡萄鮮奶油蛋糕，就像是一場葡萄園的歡樂派對，清新的葡萄與滑順的奶油交織，每一口都是一場風情萬種的味覺盛宴，彷彿在葡萄園中漫步，享受著大自然的美好。",
+            "image": "uploads/product/葡萄鮮奶油.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 27,
+        "fields": {
+            "name": "檸檬鮮奶油蛋糕",
+            "price": "890",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿活力的檸檬鮮奶油蛋糕，就像是一杯清新的檸檬汁，檸檬的酸甜與奶油的滑順完美融合，每一口都是一場檸檬舞曲，帶您跳動味蕾的節奏，彷彿置身於陽光明媚的檸檬園中，享受輕盈的愉悅。",
+            "image": "uploads/product/creamcake-lemon.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 28,
+        "fields": {
+            "name": "新鮮芒果鮮奶油蛋糕",
+            "price": "1290",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿新鮮風味的芒果鮮奶油蛋糕，就像是一場熱帶島嶼的冒險，新鮮的芒果與滑順的奶油相融，每一口都是一場芒果探險，彷彿在芒果樹下尋找寶藏，為您帶來愉悅和驚喜的味覺饗宴。",
+            "image": "uploads/product/芒果鮮奶油.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 29,
+        "fields": {
+            "name": "芋頭鮮奶油蛋糕",
+            "price": "998",
+            "category": 3,
+            "quantity": 4,
+            "description": "別具風味的新鮮芋頭鮮奶油蛋糕，彷彿是一場獨特的驚喜派對，香甜的芋頭與滑順的奶油交織，每一口都是一場芋頭探險，彷彿在神秘的芋頭世界中冒險，為您的味蕾帶來無盡的驚喜和樂趣。",
+            "image": "uploads/product/芋頭鮮奶油.jpeg",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 30,
+        "fields": {
+            "name": "抹茶鮮奶油蛋糕",
+            "price": "1080",
+            "category": 3,
+            "quantity": 3,
+            "description": "充滿日式風情的抹茶鮮奶油蛋糕，像是一場抹茶盛宴，濃郁的抹茶與滑順的奶油交織，每一口都是一場抹茶之旅，彷彿在茶道中感受和品味，為您帶來獨特的日式風味和愉悅的味覺饗宴。",
+            "image": "uploads/product/抹茶鮮奶油.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 31,
+        "fields": {
+            "name": "香草千層",
+            "price": "230",
+            "category": 4,
+            "quantity": 10,
+            "description": "法式香草千層，如同一場法國甜點的盛宴，輕盈的千層酥皮與香濃的香草奶油交融，每一口都是一場優雅的法式饗宴，彷彿置身於巴黎街頭的咖啡館，享受著法式浪漫與美味。",
+            "image": "uploads/product/千層.jpg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 32,
+        "fields": {
+            "name": "聖多諾黑",
+            "price": "280",
+            "category": 4,
+            "quantity": 12,
+            "description": "充滿神秘風情的聖多諾黑，彷彿是一場黑暗魔法的盛宴，深邃的黑色外皮中藏著濃郁的巧克力內餡，每一口都是一場黑色魔法的魅惑，彷彿在黑暗的夜晚尋找光明，為您帶來無盡的驚喜和奇幻體驗。",
+            "image": "uploads/product/saint.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 33,
+        "fields": {
+            "name": "蘋果小派",
+            "price": "190",
+            "category": 4,
+            "quantity": 10,
+            "description": "法式蘋果派，就像是一場法國甜點的盛宴，金黃酥皮包裹著香甜蘋果，每一口都是一場法式的美食冒險，彷彿在巴黎的街頭小餐館中品味法國風情，為您帶來愉悅的味覺享受和美好回憶。",
+            "image": "uploads/product/applepie.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 34,
+        "fields": {
+            "name": "可麗露",
+            "price": "85",
+            "category": 4,
+            "quantity": 30,
+            "description": "獨特創意的可麗露，彷彿是一場魔法的烹飪實驗，鬆軟的內餡與酥脆的外殼完美結合，每一口都是一場口味的探險，彷彿在魔法廚房中品嚐令人驚艷的美味，為您帶來無盡的驚喜和美食體驗。",
+            "image": "uploads/product/canele.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 35,
+        "fields": {
+            "name": "可可慕斯",
+            "price": "220",
+            "category": 4,
+            "quantity": 10,
+            "description": "可可慕斯，就像是一場巧克力的盛宴，絲滑的口感與濃郁的巧克力味道交織在一起，每一口都是一場甜蜜的巧克力體驗，彷彿在巧克力工廠中探險，為您帶來無盡的味覺享受和甜蜜回憶。",
+            "image": "uploads/product/choco_mousse.png",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 36,
+        "fields": {
+            "name": "栗子泡芙",
+            "price": "170",
+            "category": 4,
+            "quantity": 10,
+            "description": "栗子泡芙，就像是一群樂觀開朗的小精靈，外酥內軟的泡芙皮中藏著香甜的栗子餡料，每一口都是一場味蕾的派對，彷彿在秋天的森林中尋找栗子的甜美，為您帶來無盡的驚喜和美好回憶。",
+            "image": "uploads/product/chestnut.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 37,
+        "fields": {
+            "name": "無花果塔",
+            "price": "220",
+            "category": 4,
+            "quantity": 12,
+            "description": "無花果塔，彷彿是一座秘密花園的入口，酥脆的餅皮中包裹著香甜的無花果，每一口都是一場花園的探險，彷彿置身於童話般的世界中，為您帶來無盡的驚喜和美好體驗。",
+            "image": "uploads/product/fig_tart.jpeg",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 38,
+        "fields": {
+            "name": "榛果巧克力塔",
+            "price": "210",
+            "category": 4,
+            "quantity": 12,
+            "description": "榛果巧克力塔，就像是一座榛果的小城堡，酥脆的餅皮裡藏著香濃的巧克力慕斯，每一口都是一場榛果的盛宴，彷彿在森林中品味美味，為您帶來無盡的驚喜和美好回憶。",
+            "image": "uploads/product/choc_tart.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 39,
+        "fields": {
+            "name": "玫瑰荔枝",
+            "price": "320",
+            "category": 4,
+            "quantity": 5,
+            "description": "玫瑰荔枝馬卡龍，像是一場花與果的婚禮，香甜的荔枝與芬芳的玫瑰在口中綻放，每一口都是一場花果盛宴，彷彿在花園中漫步，為您帶來無盡的驚喜和美好體驗。",
+            "image": "uploads/product/ispahan.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 40,
+        "fields": {
+            "name": "檸檬塔",
+            "price": "180",
+            "category": 4,
+            "quantity": 12,
+            "description": "法式檸檬塔，就像是一場夏日的音樂會，清新的檸檬酸甜與酥脆的塔皮交織出美妙的旋律，每一口都是一場口感的狂歡，彷彿在陽光明媚的街頭散步，為您帶來無盡的驚喜和美好回憶。",
+            "image": "uploads/product/lemon_tart.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 41,
+        "fields": {
+            "name": "蒙布朗",
+            "price": "220",
+            "category": 4,
+            "quantity": 4,
+            "description": "蒙布朗，就像是一位悠閒的藝術家，香醇的栗子與松軟的蛋糕結合，每一口都是一場輕盈的舞蹈，彷彿在蛋糕的世界中遨遊，為您帶來無盡的享受和美好時光。",
+            "image": "uploads/product/mont_blanc.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 42,
+        "fields": {
+            "name": "開心果小塔",
+            "price": "230",
+            "category": 4,
+            "quantity": 5,
+            "description": "開心果塔，彷彿是一個充滿歡笑的小世界，酥脆的塔皮中藏著香濃的開心果，每一口都是一場快樂的派對，彷彿置身於幸福的天堂，為您帶來無盡的笑容和美好回憶。",
+            "image": "uploads/product/pistachio.png",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 43,
+        "fields": {
+            "name": "六入禮盒",
+            "price": "590",
+            "category": 5,
+            "quantity": 10,
+            "description": "巧克力六入禮盒，就像是一個小小的寶藏箱，充滿了各種美味的驚喜！從濃郁的黑巧克力到滑順的白巧克力，再到繽紛的彩虹巧克力，每一塊都是一個美味的故事，讓您的味蕾享受一場奇妙的冒險旅程。",
+            "image": "uploads/product/choco6.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 44,
+        "fields": {
+            "name": "經典九入禮盒",
+            "price": "1080",
+            "category": 5,
+            "quantity": 3,
+            "description": "巧克力九入禮盒，就像是一個美味的寶藏盒，裡面有九種不同的巧克力驚喜等待著您！從酸甜的水果巧克力到香濃的堅果巧克力，再到繽紛的彩虹巧克力，每一顆都是一場甜蜜的冒險，絕對能讓您的味蕾大開眼界，享受無盡的巧",
+            "image": "uploads/product/choco9.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 45,
+        "fields": {
+            "name": "榛果巧克力",
+            "price": "90",
+            "category": 5,
+            "quantity": 5,
+            "description": "榛果巧克力，就像是一場美味的探險！每一口都融合了濃郁的巧克力和香濃的榛果，彷彿在口中探索著一片巧克力森林。讓您的味蕾感受到無盡的滿足和歡樂，就像是探險家發現了珍貴的寶藏一般！",
+            "image": "uploads/product/choco4.jpeg",
+            "status": false
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 46,
+        "fields": {
+            "name": "玫瑰巧克力",
+            "price": "95",
+            "category": 5,
+            "quantity": 10,
+            "description": "玫瑰巧克力，是一場充滿浪漫和驚喜的口味之旅！每一口都散發著玫瑰花的淡淡香氣，讓您彷彿置身於花園般的甜蜜夢境中。讓您的味蕾在芬芳中盡情舞動，就像是與心愛的人共度一場浪漫之夜般美好！",
+            "image": "uploads/product/choco2.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 47,
+        "fields": {
+            "name": "松露巧克力",
+            "price": "90",
+            "category": 5,
+            "quantity": 30,
+            "description": "松露巧克力，是巧克力世界的黑珍珠！每一顆都蘊含著濃郁的巧克力香氣和柔滑的口感，彷彿在口中溶化成一股幸福的潮流。讓您的味蕾享受到奢華的滋味，就像是探索一片美味的巧克力森林般令人陶醉！",
+            "image": "uploads/product/choco1.jpeg",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 48,
+        "fields": {
+            "name": "蠟燭",
+            "price": "10",
+            "category": 7,
+            "quantity": 500,
+            "description": "療癒香氛，溫暖燭光，營造愜意氛圍。天然材質，精緻手工，點亮美好生活。各式造型，任君挑選，送禮自用皆宜。限時優惠，加購折扣，數量有限，售完為止。",
+            "image": "uploads/product/蠟燭.png",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 49,
+        "fields": {
+            "name": "紙袋",
+            "price": "10",
+            "category": 7,
+            "quantity": 500,
+            "description": "環保耐用，時尚百搭，輕鬆展現您的品味。可重複使用，減少浪費，愛護地球從我做起。多種尺寸，滿足您的不同需求，購物收納兩用。簡約設計，質感升級，送禮自用皆宜。",
+            "image": "uploads/product/紙袋.png",
+            "status": true
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 50,
+        "fields": {
+            "name": "甜點叉",
+            "price": "5",
+            "category": 7,
+            "quantity": 1000,
+            "description": "精緻優雅，質感升級，享受美味蛋糕時光。細膩工藝，經久耐用，為您的餐桌增添格調。多種款式，任君挑選，滿足不同需求。送禮自用皆宜，彰顯品味與質感。",
+            "image": "uploads/product/甜點盤叉.png",
+            "status": true
+        }
     }
-},
-{
-    "model": "products.category",
-    "pk": 2,
-    "fields": {
-        "name": "磅蛋糕"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 3,
-    "fields": {
-        "name": "鮮奶油蛋糕"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 4,
-    "fields": {
-        "name": "法式甜點"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 5,
-    "fields": {
-        "name": "巧克力"
-    }
-},
-{
-    "model": "products.category",
-    "pk": 7,
-    "fields": {
-        "name": "其他"
-    }
-},
-{
-    "model": "products.product",
-    "pk": 1,
-    "fields": {
-        "name": "葡萄馬卡龍",
-        "price": "90",
-        "category": 1,
-        "quantity": 50,
-        "description": "優雅的葡萄馬卡龍，是一種結合了葡萄的甜美和馬卡龍的獨特口感的美味點心。每一口都充滿了果香和綿密的蛋白霜，讓您沉浸在愉悅的美食體驗中。",
-        "image": "uploads/product/macaron-grape.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 2,
-    "fields": {
-        "name": "檸檬馬卡龍",
-        "price": "85",
-        "category": 1,
-        "quantity": 60,
-        "description": "清新的檸檬馬卡龍，融合了檸檬的酸甜和馬卡龍的細膩口感，每一口都充滿了愉悅的果味和絲滑的質感，帶來一場口感與視覺的雙重享受。",
-        "image": "uploads/product/檸檬馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 3,
-    "fields": {
-        "name": "芒果馬卡龍",
-        "price": "80",
-        "category": 1,
-        "quantity": 80,
-        "description": "鮮美的芒果馬卡龍，結合了芒果的香甜和馬卡龍的獨特口感，每一口都充滿了果香和柔軟的質感，帶來一場口感與視覺的雙重享受。",
-        "image": "uploads/product/芒果馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 4,
-    "fields": {
-        "name": "抹茶馬卡龍",
-        "price": "100",
-        "category": 1,
-        "quantity": 50,
-        "description": "純正的抹茶馬卡龍，結合了抹茶的濃郁香氣和馬卡龍的獨特口感，每一口都充滿了濃郁的茶香和綿密的質感，帶來一場濃情綿綿的味覺享受。",
-        "image": "uploads/product/抹茶馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 5,
-    "fields": {
-        "name": "咖啡馬卡龍",
-        "price": "85",
-        "category": 1,
-        "quantity": 30,
-        "description": "美味的咖啡馬卡龍，融合了咖啡的香和馬卡龍的綿滑口感，每一口都充滿了餅乾的香甜和馬卡龍的獨特風味，帶來一場甜蜜的味覺享受。",
-        "image": "uploads/product/咖啡馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 6,
-    "fields": {
-        "name": "覆盆子馬卡龍",
-        "price": "100",
-        "category": 1,
-        "quantity": 30,
-        "description": "風味獨特的覆盆子馬卡龍，融合了覆盆子的酸甜和馬卡龍的柔軟口感，每一口都充滿了果香和綿密的質感，為您帶來一場口感與視覺的絕妙饗宴。",
-        "image": "uploads/product/覆盆子馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 7,
-    "fields": {
-        "name": "草莓馬卡龍",
-        "price": "110",
-        "category": 1,
-        "quantity": 20,
-        "description": "醉人的草莓馬卡龍，結合了草莓的酸甜和馬卡龍的柔軟口感，每一口都充滿了果香和綿密的質感，為您帶來一場口感與視覺的絕妙饗宴。",
-        "image": "uploads/product/草莓馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 8,
-    "fields": {
-        "name": "紫羅蘭馬卡龍",
-        "price": "95",
-        "category": 1,
-        "quantity": 40,
-        "description": "優雅的紫羅蘭馬卡龍，散發出淡淡的花香和馬卡龍的獨特口感，每一口都充滿了花香和柔軟的質感，為您帶來一場口感與視覺的奢華享受。",
-        "image": "uploads/product/紫羅蘭馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 9,
-    "fields": {
-        "name": "巧克力馬卡龍",
-        "price": "80",
-        "category": 1,
-        "quantity": 50,
-        "description": "誘人的巧克力馬卡龍，融合了濃郁的巧克力味道和馬卡龍的柔軟口感，每一口都充滿了濃郁的巧克力風味和綿密的質感，為您帶來一場口感與視覺的極致享受。",
-        "image": "uploads/product/巧克力馬卡龍.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 10,
-    "fields": {
-        "name": "馬卡龍禮盒",
-        "price": "999",
-        "category": 1,
-        "quantity": 10,
-        "description": "精美的馬卡龍禮盒，結合了多種口味的馬卡龍，如草莓、覆盆子、檸檬等，每一款都充滿了獨特的風味和精心製作的外觀，是送禮或自我品嚐的絕佳選擇，為您帶來美味的享受與驚喜。",
-        "image": "uploads/product/馬卡龍禮盒_e7phFQf.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 11,
-    "fields": {
-        "name": "杏仁磅蛋糕",
-        "price": "450",
-        "category": 2,
-        "quantity": 10,
-        "description": "精緻的杏仁磅蛋糕，結合了杏仁的香濃味道和綿密的蛋糕質地，每一口都充滿了杏仁的香氣和柔軟的口感，是下午茶或特殊場合的絕佳選擇，為您帶來愉悅的味覺享受。",
-        "image": "uploads/product/杏仁磅蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 12,
-    "fields": {
-        "name": "香蕉磅蛋糕",
-        "price": "390",
-        "category": 2,
-        "quantity": 10,
-        "description": "香蕉磅蛋糕，綿密的蛋糕體中融合了新鮮香蕉的香甜，每一口都充滿了濃濃的果香和綿滑的口感，是美味的下午茶伴侶或輕盈的甜點選擇，為您帶來滿滿的幸福與滿足。",
-        "image": "uploads/product/香蕉磅蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 13,
-    "fields": {
-        "name": "酒漬蔓越莓磅蛋糕",
-        "price": "430",
-        "category": 2,
-        "quantity": 20,
-        "description": "香濃的酒漬蔓越莓磅蛋糕，結合了酒漬蔓越莓的酸甜和濃郁的蛋糕口感，每一口都充滿了濃郁的果香和綿密的質感，是品嚐甜點或下午茶的絕佳選擇，為您帶來美味的味覺享受。",
-        "image": "uploads/product/蔓越莓磅蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 14,
-    "fields": {
-        "name": "巧克力磅蛋糕",
-        "price": "480",
-        "category": 2,
-        "quantity": 10,
-        "description": "誘人的巧克力磅蛋糕，結合了濃郁的巧克力風味和綿密的蛋糕口感，每一口都充滿了濃郁的巧克力香氣和綿滑的質地，是享受美味甜點或慶祝特殊時刻的完美選擇，帶給您滿足的味覺享受。",
-        "image": "uploads/product/巧克力棒蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 15,
-    "fields": {
-        "name": "伯爵茶磅蛋糕",
-        "price": "420",
-        "category": 2,
-        "quantity": 30,
-        "description": "精緻的伯爵茶磅蛋糕，結合了伯爵茶的香氣和綿密的蛋糕口感，每一口都充滿了淡雅的茶香和柔滑的質感，是下午茶或特別場合的絕佳選擇，為您帶來悠閒優雅的味覺享受。",
-        "image": "uploads/product/伯爵茶磅蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 16,
-    "fields": {
-        "name": "老奶奶檸檬磅蛋糕",
-        "price": "490",
-        "category": 2,
-        "quantity": 30,
-        "description": "清新的檸檬磅蛋糕，融合了檸檬的酸甜和綿密的蛋糕口感，每一口都充滿了檸檬的清新香氣和柔軟的質感，是享受下午茶或輕盈甜點的絕佳選擇，為您帶來愉悅的味覺享受。",
-        "image": "uploads/product/檸檬棒蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 17,
-    "fields": {
-        "name": "香橙磅蛋糕",
-        "price": "450",
-        "category": 2,
-        "quantity": 20,
-        "description": "風味獨特的香橙磅蛋糕，將新鮮的香橙和綿密的蛋糕完美結合，每一口都充滿了陽光明媚的香橙風味和綿密的口感，如一場悠閒的午後陽光，為您帶來清新愉悅的味覺享受。",
-        "image": "uploads/product/香橙磅蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 18,
-    "fields": {
-        "name": "開心果櫻桃磅蛋糕",
-        "price": "530",
-        "category": 2,
-        "quantity": 10,
-        "description": "滿滿的開心果櫻桃磅蛋糕，結合了香濃的開心果與甜美的櫻桃，每一口都充滿了濃郁的果香和綿密的口感，如一場充滿歡樂的節日派對，為您帶來愉悅和驚喜的味覺饗宴。",
-        "image": "uploads/product/開心果棒蛋糕.jpeg",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 19,
-    "fields": {
-        "name": "草莓磅蛋糕",
-        "price": "480",
-        "category": 2,
-        "quantity": 10,
-        "description": "迷人的草莓磅蛋糕，彷彿是春天的一抹亮色，每一口都像是野草莓的甜蜜尋找，柔軟的蛋糕伴隨著草莓的酸甜，讓您彷彿置身於一片草莓園中，享受著天然的美味和歡樂。",
-        "image": "uploads/product/草莓棒蛋糕.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 20,
-    "fields": {
-        "name": "香草鮮奶油蛋糕",
-        "price": "980",
-        "category": 3,
-        "quantity": 3,
-        "description": "優雅的香草鮮奶油蛋糕，如同一位溫文爾雅的紳士，輕柔的香草風味與絲滑的奶油交織，每一口都是一場輕盈的芳香之旅，彷彿在奶油的海洋中漂浮，為您帶來純淨和愉悅的味覺享受。",
-        "image": "uploads/product/季節水果戚風_cFxILz9.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 21,
-    "fields": {
-        "name": "草莓鮮奶油蛋糕",
-        "price": "1099",
-        "category": 3,
-        "quantity": 3,
-        "description": "震撼的草莓鮮奶油蛋糕，就像一場激情派對，草莓的甜美與奶油的絲滑完美結合，每一口都像是在舞池中跳舞，營造出一場愉悅的味覺盛宴，為您帶來美好和歡笑。",
-        "image": "uploads/product/IMG_8062.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 22,
-    "fields": {
-        "name": "荔枝玫瑰鮮奶油蛋糕",
-        "price": "1299",
-        "category": 3,
-        "quantity": 4,
-        "description": "搶眼的荔枝玫瑰鮮奶油蛋糕，彷彿是一場異國的奇遇，荔枝的清新與玫瑰的優雅交織，每一口都像是在熱帶花園中漫步，為您帶來愉悅的味覺冒險，讓您沉浸在熱情和美好中。",
-        "image": "uploads/product/玫瑰荔枝鮮奶油.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 23,
-    "fields": {
-        "name": "藍莓鮮奶油蛋糕",
-        "price": "1099",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿驚喜的藍莓鮮奶油蛋糕，彷彿是一場神秘的探險，藍莓的酸甜與奶油的濃郁完美融合，每一口都像是在藍莓森林中尋寶，為您帶來無盡的驚喜和歡樂，讓味蕾與冒險同行。",
-        "image": "uploads/product/截圖_2024-06-08_下午7.50.07.png",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 24,
-    "fields": {
-        "name": "栗子鮮奶油蛋糕",
-        "price": "998",
-        "category": 3,
-        "quantity": 3,
-        "description": "迷人的栗子鮮奶油蛋糕，彷彿是一場秋天的狂歡，栗子的香甜與奶油的滑順完美結合，每一口都是一場栗子派對，讓您感受秋天的濃厚氛圍，為您的味蕾帶來一場豐盛的節日盛宴。",
-        "image": "uploads/product/栗子鮮奶油蛋糕600X400.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 25,
-    "fields": {
-        "name": "可可鮮奶油蛋糕",
-        "price": "1198",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿趣味的可可鮮奶油蛋糕，就像是一場巧克力的嘉年華，濃郁的可可與柔滑的奶油相融，每一口都是一場甜蜜的冒險，彷彿在巧克力的仙境中徜徉，為您帶來愉悅和驚喜。",
-        "image": "uploads/product/巧克力鮮奶油蛋糕_q407omF.jpeg",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 26,
-    "fields": {
-        "name": "秋翠葡萄鮮奶油蛋糕",
-        "price": "990",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿秋日風情的秋翠葡萄鮮奶油蛋糕，就像是一場葡萄園的歡樂派對，清新的葡萄與滑順的奶油交織，每一口都是一場風情萬種的味覺盛宴，彷彿在葡萄園中漫步，享受著大自然的美好。",
-        "image": "uploads/product/葡萄鮮奶油.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 27,
-    "fields": {
-        "name": "檸檬鮮奶油蛋糕",
-        "price": "890",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿活力的檸檬鮮奶油蛋糕，就像是一杯清新的檸檬汁，檸檬的酸甜與奶油的滑順完美融合，每一口都是一場檸檬舞曲，帶您跳動味蕾的節奏，彷彿置身於陽光明媚的檸檬園中，享受輕盈的愉悅。",
-        "image": "uploads/product/creamcake-lemon.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 28,
-    "fields": {
-        "name": "新鮮芒果鮮奶油蛋糕",
-        "price": "1290",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿新鮮風味的芒果鮮奶油蛋糕，就像是一場熱帶島嶼的冒險，新鮮的芒果與滑順的奶油相融，每一口都是一場芒果探險，彷彿在芒果樹下尋找寶藏，為您帶來愉悅和驚喜的味覺饗宴。",
-        "image": "uploads/product/芒果鮮奶油.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 29,
-    "fields": {
-        "name": "芋頭鮮奶油蛋糕",
-        "price": "998",
-        "category": 3,
-        "quantity": 4,
-        "description": "別具風味的新鮮芋頭鮮奶油蛋糕，彷彿是一場獨特的驚喜派對，香甜的芋頭與滑順的奶油交織，每一口都是一場芋頭探險，彷彿在神秘的芋頭世界中冒險，為您的味蕾帶來無盡的驚喜和樂趣。",
-        "image": "uploads/product/芋頭鮮奶油.jpeg",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 30,
-    "fields": {
-        "name": "抹茶鮮奶油蛋糕",
-        "price": "1080",
-        "category": 3,
-        "quantity": 3,
-        "description": "充滿日式風情的抹茶鮮奶油蛋糕，像是一場抹茶盛宴，濃郁的抹茶與滑順的奶油交織，每一口都是一場抹茶之旅，彷彿在茶道中感受和品味，為您帶來獨特的日式風味和愉悅的味覺饗宴。",
-        "image": "uploads/product/抹茶鮮奶油.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 31,
-    "fields": {
-        "name": "香草千層",
-        "price": "230",
-        "category": 4,
-        "quantity": 10,
-        "description": "法式香草千層，如同一場法國甜點的盛宴，輕盈的千層酥皮與香濃的香草奶油交融，每一口都是一場優雅的法式饗宴，彷彿置身於巴黎街頭的咖啡館，享受著法式浪漫與美味。",
-        "image": "uploads/product/千層.jpg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 32,
-    "fields": {
-        "name": "聖多諾黑",
-        "price": "280",
-        "category": 4,
-        "quantity": 12,
-        "description": "充滿神秘風情的聖多諾黑，彷彿是一場黑暗魔法的盛宴，深邃的黑色外皮中藏著濃郁的巧克力內餡，每一口都是一場黑色魔法的魅惑，彷彿在黑暗的夜晚尋找光明，為您帶來無盡的驚喜和奇幻體驗。",
-        "image": "uploads/product/saint.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 33,
-    "fields": {
-        "name": "蘋果小派",
-        "price": "190",
-        "category": 4,
-        "quantity": 10,
-        "description": "法式蘋果派，就像是一場法國甜點的盛宴，金黃酥皮包裹著香甜蘋果，每一口都是一場法式的美食冒險，彷彿在巴黎的街頭小餐館中品味法國風情，為您帶來愉悅的味覺享受和美好回憶。",
-        "image": "uploads/product/applepie.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 34,
-    "fields": {
-        "name": "可麗露",
-        "price": "85",
-        "category": 4,
-        "quantity": 30,
-        "description": "獨特創意的可麗露，彷彿是一場魔法的烹飪實驗，鬆軟的內餡與酥脆的外殼完美結合，每一口都是一場口味的探險，彷彿在魔法廚房中品嚐令人驚艷的美味，為您帶來無盡的驚喜和美食體驗。",
-        "image": "uploads/product/canele.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 35,
-    "fields": {
-        "name": "可可慕斯",
-        "price": "220",
-        "category": 4,
-        "quantity": 10,
-        "description": "可可慕斯，就像是一場巧克力的盛宴，絲滑的口感與濃郁的巧克力味道交織在一起，每一口都是一場甜蜜的巧克力體驗，彷彿在巧克力工廠中探險，為您帶來無盡的味覺享受和甜蜜回憶。",
-        "image": "uploads/product/choco_mousse.png",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 36,
-    "fields": {
-        "name": "栗子泡芙",
-        "price": "170",
-        "category": 4,
-        "quantity": 10,
-        "description": "栗子泡芙，就像是一群樂觀開朗的小精靈，外酥內軟的泡芙皮中藏著香甜的栗子餡料，每一口都是一場味蕾的派對，彷彿在秋天的森林中尋找栗子的甜美，為您帶來無盡的驚喜和美好回憶。",
-        "image": "uploads/product/chestnut.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 37,
-    "fields": {
-        "name": "無花果塔",
-        "price": "220",
-        "category": 4,
-        "quantity": 12,
-        "description": "無花果塔，彷彿是一座秘密花園的入口，酥脆的餅皮中包裹著香甜的無花果，每一口都是一場花園的探險，彷彿置身於童話般的世界中，為您帶來無盡的驚喜和美好體驗。",
-        "image": "uploads/product/fig_tart.jpeg",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 38,
-    "fields": {
-        "name": "榛果巧克力塔",
-        "price": "210",
-        "category": 4,
-        "quantity": 12,
-        "description": "榛果巧克力塔，就像是一座榛果的小城堡，酥脆的餅皮裡藏著香濃的巧克力慕斯，每一口都是一場榛果的盛宴，彷彿在森林中品味美味，為您帶來無盡的驚喜和美好回憶。",
-        "image": "uploads/product/choc_tart.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 39,
-    "fields": {
-        "name": "玫瑰荔枝",
-        "price": "320",
-        "category": 4,
-        "quantity": 5,
-        "description": "玫瑰荔枝馬卡龍，像是一場花與果的婚禮，香甜的荔枝與芬芳的玫瑰在口中綻放，每一口都是一場花果盛宴，彷彿在花園中漫步，為您帶來無盡的驚喜和美好體驗。",
-        "image": "uploads/product/ispahan.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 40,
-    "fields": {
-        "name": "檸檬塔",
-        "price": "180",
-        "category": 4,
-        "quantity": 12,
-        "description": "法式檸檬塔，就像是一場夏日的音樂會，清新的檸檬酸甜與酥脆的塔皮交織出美妙的旋律，每一口都是一場口感的狂歡，彷彿在陽光明媚的街頭散步，為您帶來無盡的驚喜和美好回憶。",
-        "image": "uploads/product/lemon_tart.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 41,
-    "fields": {
-        "name": "蒙布朗",
-        "price": "220",
-        "category": 4,
-        "quantity": 4,
-        "description": "蒙布朗，就像是一位悠閒的藝術家，香醇的栗子與松軟的蛋糕結合，每一口都是一場輕盈的舞蹈，彷彿在蛋糕的世界中遨遊，為您帶來無盡的享受和美好時光。",
-        "image": "uploads/product/mont_blanc.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 42,
-    "fields": {
-        "name": "開心果小塔",
-        "price": "230",
-        "category": 4,
-        "quantity": 5,
-        "description": "開心果塔，彷彿是一個充滿歡笑的小世界，酥脆的塔皮中藏著香濃的開心果，每一口都是一場快樂的派對，彷彿置身於幸福的天堂，為您帶來無盡的笑容和美好回憶。",
-        "image": "uploads/product/pistachio.png",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 43,
-    "fields": {
-        "name": "六入禮盒",
-        "price": "590",
-        "category": 5,
-        "quantity": 10,
-        "description": "巧克力六入禮盒，就像是一個小小的寶藏箱，充滿了各種美味的驚喜！從濃郁的黑巧克力到滑順的白巧克力，再到繽紛的彩虹巧克力，每一塊都是一個美味的故事，讓您的味蕾享受一場奇妙的冒險旅程。",
-        "image": "uploads/product/choco6.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 44,
-    "fields": {
-        "name": "經典九入禮盒",
-        "price": "1080",
-        "category": 5,
-        "quantity": 3,
-        "description": "巧克力九入禮盒，就像是一個美味的寶藏盒，裡面有九種不同的巧克力驚喜等待著您！從酸甜的水果巧克力到香濃的堅果巧克力，再到繽紛的彩虹巧克力，每一顆都是一場甜蜜的冒險，絕對能讓您的味蕾大開眼界，享受無盡的巧",
-        "image": "uploads/product/choco9.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 45,
-    "fields": {
-        "name": "榛果巧克力",
-        "price": "90",
-        "category": 5,
-        "quantity": 5,
-        "description": "榛果巧克力，就像是一場美味的探險！每一口都融合了濃郁的巧克力和香濃的榛果，彷彿在口中探索著一片巧克力森林。讓您的味蕾感受到無盡的滿足和歡樂，就像是探險家發現了珍貴的寶藏一般！",
-        "image": "uploads/product/choco4.jpeg",
-        "status": false
-    }
-},
-{
-    "model": "products.product",
-    "pk": 46,
-    "fields": {
-        "name": "玫瑰巧克力",
-        "price": "95",
-        "category": 5,
-        "quantity": 10,
-        "description": "玫瑰巧克力，是一場充滿浪漫和驚喜的口味之旅！每一口都散發著玫瑰花的淡淡香氣，讓您彷彿置身於花園般的甜蜜夢境中。讓您的味蕾在芬芳中盡情舞動，就像是與心愛的人共度一場浪漫之夜般美好！",
-        "image": "uploads/product/choco2.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 47,
-    "fields": {
-        "name": "松露巧克力",
-        "price": "90",
-        "category": 5,
-        "quantity": 30,
-        "description": "松露巧克力，是巧克力世界的黑珍珠！每一顆都蘊含著濃郁的巧克力香氣和柔滑的口感，彷彿在口中溶化成一股幸福的潮流。讓您的味蕾享受到奢華的滋味，就像是探索一片美味的巧克力森林般令人陶醉！",
-        "image": "uploads/product/choco1.jpeg",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 48,
-    "fields": {
-        "name": "蠟燭",
-        "price": "10",
-        "category": 7,
-        "quantity": 500,
-        "description": "療癒香氛，溫暖燭光，營造愜意氛圍。天然材質，精緻手工，點亮美好生活。各式造型，任君挑選，送禮自用皆宜。限時優惠，加購折扣，數量有限，售完為止。",
-        "image": "uploads/product/蠟燭.png",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 49,
-    "fields": {
-        "name": "紙袋",
-        "price": "10",
-        "category": 7,
-        "quantity": 500,
-        "description": "環保耐用，時尚百搭，輕鬆展現您的品味。可重複使用，減少浪費，愛護地球從我做起。多種尺寸，滿足您的不同需求，購物收納兩用。簡約設計，質感升級，送禮自用皆宜。",
-        "image": "uploads/product/紙袋.png",
-        "status": true
-    }
-},
-{
-    "model": "products.product",
-    "pk": 50,
-    "fields": {
-        "name": "甜點叉",
-        "price": "5",
-        "category": 7,
-        "quantity": 1000,
-        "description": "精緻優雅，質感升級，享受美味蛋糕時光。細膩工藝，經久耐用，為您的餐桌增添格調。多種款式，任君挑選，滿足不同需求。送禮自用皆宜，彰顯品味與質感。",
-        "image": "uploads/product/甜點盤叉.png",
-        "status": true
-    }
-},
-{
-    "model": "products.relationalproduct",
-    "pk": 1,
-    "fields": {
-        "product": 2,
-        "order": 1,
-        "number": 1
-    }
-},
-{
-    "model": "products.relationalproduct",
-    "pk": 2,
-    "fields": {
-        "product": 7,
-        "order": 1,
-        "number": 1
-    }
-}
 ]
