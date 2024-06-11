@@ -5,20 +5,33 @@
 <!-- 圖片輪播 -->
 <div class="carousel-container w-full h-screen overflow-hidden relative">       
   <div class="carousel-slide w-full h-full">                           
-    <img src="{% static 'index_img/box-01.jpeg' %}" alt="Image 1" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
+    <img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
   </div>
   <div class="carousel-slide w-full h-full">
-    <img src="{% static 'index_img/box-02.jpeg' %}" alt="Image 2" class="carousel-image w-full h-full object-cover"/>
+    <img src="{% static 'index_img/home2.jpg' %}" alt="Image 2" class="carousel-image w-full h-full object-cover"/>
   </div>
   <div class="carousel-slide w-full h-full">
-    <img src="{% static 'index_img/box-03.jpeg' %}" alt="Image 3" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
+    <img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
   </div>
-  <!-- 添加更多圖片 -->
-
   <!-- 添加導航按鈕 --> 
   <button class="carousel-button prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 text-7xl">‹</button>
   <button class="carousel-button next absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 text-7xl">›</button>
 </div>
+
+{% comment %} <div class="swiper-container w-full h-screen overflow-hidden text-center sm:flex-col">
+	<div class="swiper-wrapper">
+			<div class="swiper-slide">
+					<img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="w-full h-full absolute inset-y-0 left-0 w-1/2"/>
+			</div>
+			<div class="swiper-slide">
+					<img src="{% static 'index_img/home2.jpg' %}" alt="Image 2" class="w-full h-full object-cover"/>
+			</div>
+			<div class="swiper-slide">
+					<img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="w-full h-full absolute inset-y-0 right-0 w-1/2"/>
+			</div>
+			<!-- 添加更多圖片 -->
+	</div>
+</div> {% endcomment %}
 
 <!-- 背景圖片部分 -->
 <div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">

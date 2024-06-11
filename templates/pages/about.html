@@ -1,4 +1,5 @@
 {% extends "shared/base.html" %}
+{% load static %}
 {% block content %}
 <!-- add scripts for google maps -->
 <script async
@@ -38,6 +39,41 @@
           </gmp-map>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="container mx-auto py-12">
+  <h1 class="text-4xl font-bold text-center mb-10 pb-16">開發團隊</h1>
+  <div class="flex flex-wrap justify-center gap-20">
+    <div class="text-center">
+      <img src="{% static 'index_img/image01.png' %}" alt="吳軒逸" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-xl">
+      <h2 class="text-2xl font-bold pb-4">吳軒逸</h2>
+      <p class="text-gray-600 pb-4">商品列表排序<br>篩選功能<br>商品評價、留言<br>後台架構</p>
+      <a href="https://github.com/hiw40143113" class="text-xl"><i class="fab fa-github"></i>  hiw40143113</a>
+    </div>
+    <div class="text-center">
+      <img src="{% static 'index_img/image02.png' %}" alt="藍宥涵" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-xl">
+      <h2 class="text-2xl font-bold pb-4">藍宥涵</h2>
+      <p class="text-gray-600 pb-4">購物車、訂單<br>會員系統<br>響應式網頁設計<br>AWS S3</p>
+      <a href="https://github.com/bb84729" class="text-xl"><i class="fab fa-github"></i>  bb84729</a>
+    </div>
+    <div class="text-center">
+      <img src="{% static 'index_img/image03.png' %}" alt="王建權" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-xl">
+      <h2 class="text-2xl font-bold pb-4">王建權</h2>
+      <p class="text-gray-600 pb-4">架構資料庫<br>商品詳情頁<br>折價券、紅利回饋<br>客服系統</p>
+      <a href="https://github.com/chienchuanw" class="text-xl"><i class="fab fa-github"></i>  chienchuanw</a>
+    </div>
+    <div class="text-center">
+      <img src="{% static 'index_img/image04.png' %}" alt="高裕景" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-xl">
+      <h2 class="text-2xl font-bold pb-4">高裕景</h2>
+      <p class="text-gray-600 pb-4">網頁切版<br>響應式網頁設計<br>網頁語系調整<br>客服系統</p>
+      <a href="https://github.com/eugeniekaow" class="text-xl"><i class="fab fa-github"></i>  eugeniekaow</a>
+    </div>
+    <div class="text-center">
+      <img src="{% static 'index_img/image05.png' %}" alt="郭倢廷" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-xl">
+      <h2 class="text-2xl font-bold pb-4">郭倛廷</h2>
+      <p class="text-gray-600 pb-4">金流串接<br>庫存管理<br>會員系統<br>訂單模型</p>
+      <a href="https://github.com/x10akd" class="text-xl"><i class="fab fa-github"></i>  x10akd</a>
     </div>
   </div>
 </div>
