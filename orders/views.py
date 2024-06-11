@@ -78,7 +78,13 @@ def order_confirm(request):
             order.address = form.cleaned_data["recipient_address"]
             # 處理購物車
             totals = cart.cart_total()
-            shipping_fee = 70
+
+            delivery_method = request.POST.get("delivery_method")
+            if delivery_method == "pick_up":
+                shipping_fee = 0
+            else:
+                shipping_fee = 70
+
             totals_with_shipping = totals + shipping_fee
             order.total = totals_with_shipping
             order.save()  # 更新金額
