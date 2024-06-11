@@ -19,6 +19,7 @@ PAYMENT_CHOICES = [
     ("line_pay", "LINE PAY"),
 ]
 
+
 class Order(models.Model):
     order_id = models.CharField(max_length=20, unique=True, blank=True)
     email = models.EmailField(max_length=50)
@@ -67,9 +68,10 @@ class OrderMethod(models.Model):
     payment_method = models.CharField(
         max_length=20, choices=PAYMENT_CHOICES, default="credit_card"
     )
-    coupon_used = models.BooleanField(default=False)
     store_name = models.CharField(max_length=100, blank=True)
-    store_address = models.CharField(max_length=200, blank=True)
+    store_address = models.CharField(
+        max_length=200, blank=True, default="10046 台北市中正區衡陽路 7 號 5 樓"
+    )
     order_name = models.CharField(max_length=50)
     order_cell_phone = models.CharField(max_length=10)
     order_address = models.CharField(max_length=200, blank=True)

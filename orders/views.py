@@ -106,9 +106,10 @@ def order_confirm(request):
                 user=request.user if request.user.is_authenticated else None,
                 delivery_method=request.POST.get("delivery_method"),
                 payment_method=request.POST.get("payment_method"),
-                coupon_used="coupon" in request.POST,
                 store_name=request.POST.get("store_name", ""),
-                store_address=request.POST.get("store_address", ""),
+                store_address=request.POST.get(
+                    "store_address", "10046 台北市中正區衡陽路 7 號 5 樓"
+                ),
                 order_name=request.POST.get("order_name"),
                 order_cell_phone=request.POST.get("order_cell_phone"),
                 order_address=request.POST.get("order_address", ""),
@@ -146,7 +147,7 @@ def order_confirm(request):
             return render(request, "orders/order_form.html", {"form": form})
     else:
         form = OrderForm()
-        return render(request, "home.html")
+        return render(request, "pages/home.html")
 
 
 class ECPayView(TemplateView):

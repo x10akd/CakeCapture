@@ -154,7 +154,11 @@
           <p>配送方式</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_method.delivery_method}}</p>
+					{% if order_method.delivery_method == "pick_up" %}
+					<p>自取</p>
+					{% else %}
+					<p>宅配</p>
+					{% endif %}
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -162,7 +166,11 @@
           <p>付款方式</p>
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
-          <p>{{order_method.payment_method}}</p>
+					{% if order_method.payment_method == "credit_card" %}
+					<p>信用卡</p>
+					{% else %}
+					<p>LINE Pay</p>
+					{% endif %}
         </div>
       </div>
       <div class="flex justify-evenly p-2">
@@ -208,24 +216,24 @@
     <a href="{% url 'orders:order_form' %}" class="w-1/4 p-4 rounded-xl bg-gray-300 text-center">
       &#10094;&nbsp;&nbsp;上一步
     </a>
-    {% if order_method.payment_method == 'ECPay' %}
-      <form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10">
-        {% csrf_token %}
-        <input type="hidden" name="order_id" value="{{ order.order_id }}">
-        <button type="submit" class="w-full p-4 rounded-xl bg-red-300 text-center">
-          確認, 送出訂單  &check;
-        </button>
-      </form>
-    {% else %}
-  		<form action="{% url 'orders:create_payment' %}" method="post" class="w-1/4 ml-10">
-        {% csrf_token %}
-        <input type="hidden" name="order_id" value="{{ order.order_id }}">
-        <input type="hidden" name="amount" value="{{ totals }}">
-        <button type="submit" class="w-full p-4 rounded-xl bg-red-300 text-center">
-          確認, LINE PAY 了
-        </button>
-      </form>
-    {% endif %}
+		{% if order_method.payment_method == "line_pay" %}
+		<form action="{% url 'orders:create_payment' %}" method="post" class="w-1/4 ml-10">
+      {% csrf_token %}
+      <input type="hidden" name="order_id" value="{{ order.order_id }}">
+      <input type="hidden" name="amount" value="{{ totals }}">
+      <button type="submit" class="w-full p-4 rounded-xl bg-green-300 text-center">
+        確認, 送出訂單&nbsp;&nbsp;&check;
+      </button>
+		</form>
+		{% else %}
+		<form action="{% url 'orders:ecpay' %}" method="post" class="w-1/4 ml-10">
+			{% csrf_token %}
+			<input type="hidden" name="order_id" value="{{ order.order_id }}">
+			<button type="submit" class="w-full p-4 rounded-xl bg-red-300 text-center">
+				確認, 送出訂單&nbsp;&nbsp;&check;
+			</button>
+		</form>
+		{% endif %}
   </div>
 </div>
 {% endblock %}

@@ -52,7 +52,6 @@ class OrderForm(forms.ModelForm):
         fields = [
             "delivery_method",
             "payment_method",
-            "coupon_used",
             "store_name",
             "store_address",
             "order_name",
@@ -68,6 +67,5 @@ class OrderForm(forms.ModelForm):
         widgets = {
             "delivery_method": forms.RadioSelect,
             "payment_method": forms.RadioSelect,
-            "coupon_used": forms.CheckboxInput,
             "return_agreement": forms.CheckboxInput,
         }
