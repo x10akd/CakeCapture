@@ -14,6 +14,7 @@ from orders import ecpay_payment_sdk
 from .line_pay import *
 import environ
 import importlib.util
+from accounts.models import *
 
 spec = importlib.util.spec_from_file_location(
     "ecpay_payment_sdk", "orders/ecpay_payment_sdk.py"
@@ -36,9 +37,9 @@ def order_form(request):
             product_stock_sufficient = False
 
     if not product_stock_sufficient:
-        return redirect('carts:summary')
-    
-    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        return redirect("carts:summary")
+
+    if request.user.is_authenticated and hasattr(request.user, "profile"):
         initial_data = {
             "order_name": request.user.profile.full_name,
             "order_cell_phone": request.user.profile.phone,
@@ -65,7 +66,7 @@ def order_confirm(request):
                     messages.error(request, "這段期間內已售出,故庫存不足。")
                     product_stock_sufficient = False
             if not product_stock_sufficient:
-                return redirect('orders:order_form')
+                return redirect("orders:order_form")
 
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
@@ -119,15 +120,27 @@ def order_confirm(request):
                 return_agreement="return_agreement" in request.POST,
             )
 
-            return render(request, 'orders/order_confirm.html', {
-                'order': order,
-                'order_method': order_method,
-                'cart_products': cart.get_prods(),
-                'quantities': cart.get_quants(),
-                'totals': totals,
-                'shipping_fee': shipping_fee,
-                'totals_with_shipping': totals_with_shipping,
-            })
+            user_coupons = UserCoupon.objects.all()
+
+            # 清空購物車 需再確認
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
+
+            return render(
+                request,
+                "orders/order_confirm.html",
+                {
+                    "order": order,
+                    "order_method": order_method,
+                    "cart_products": cart.get_prods(),
+                    "quantities": cart.get_quants(),
+                    "totals": totals,
+                    "shipping_fee": shipping_fee,
+                    "totals_with_shipping": totals_with_shipping,
+                    "user_coupons": user_coupons,
+                },
+            )
         else:
             messages.error(request, "請檢查輸入的資料。")
             return render(request, "orders/order_form.html", {"form": form})
@@ -140,26 +153,25 @@ class ECPayView(TemplateView):
     template_name = "orders/ecpay.html"
 
     def post(self, request, *args, **kwargs):
-        
+
         for key in list(request.session.keys()):
             if key == "session_key":
                 del request.session[key]
-        
+
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
 
         order.confirm()
-        
+
         for key in list(request.session.keys()):
             if key == "session_key":
                 del request.session[key]
 
-
         from .tasks import check_order_payment_status  # 延遲導入以避免循環導入問題
+
         check_order_payment_status.apply_async((order.id,), countdown=1200)
 
-        product_list = "#".join(
-            [product.name for product in order.product.all()])
+        product_list = "#".join([product.name for product in order.product.all()])
         order_params = {
             "MerchantTradeNo": order.order_id,
             "StoreID": "",
@@ -203,7 +215,9 @@ class ECPayView(TemplateView):
             "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5"  # 測試環境
         )
         # action_url = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5' # 正式環境
-        ecpay_form = ecpay_payment_sdk.gen_html_post_form(action_url, final_order_params)
+        ecpay_form = ecpay_payment_sdk.gen_html_post_form(
+            action_url, final_order_params
+        )
         context = self.get_context_data(**kwargs)
         context["ecpay_form"] = ecpay_form
         return self.render_to_response(context)
@@ -244,12 +258,16 @@ def order_result(request):
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
         order = Order.objects.get(order_id=order_id)
 
-        if check_mac_value == back_check_mac_value and rtnmsg == 'Succeeded' and rtncode == '1':
+        if (
+            check_mac_value == back_check_mac_value
+            and rtnmsg == "Succeeded"
+            and rtncode == "1"
+        ):
             order.pay()
-            return render(request, 'orders/order_success.html')
+            return render(request, "orders/order_success.html")
 
         order.fail()
-        return render(request, 'orders/order_fail.html')
+        return render(request, "orders/order_fail.html")
     else:
         return HttpResponse("Invalid request method", status=405)
 
