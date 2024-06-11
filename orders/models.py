@@ -9,9 +9,8 @@ DELIVERY_CHOICES = [
 ]
 
 PAYMENT_CHOICES = [
-    ("credit_card", "信用卡"),
+    ("ECPay", "綠界支付"),
     ("line_pay", "LINE PAY"),
-    ("atm", "ATM 轉帳付款"),
 ]
 
 class Order(models.Model):

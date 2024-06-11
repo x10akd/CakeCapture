@@ -15,20 +15,23 @@ class RegisterForm(UserCreationForm):
                 "class": html_class,
                 "pattern": r"^[a-zA-Z0-9]+$",
                 "title": "請輸入英文與數字字元",
+                "placeholder": "請輸入英文與數字字元",
             }
         ),
     )
     email = forms.EmailField(
         label="電子郵件",
-        widget=forms.EmailInput(attrs={"class": html_class}),
+        widget=forms.EmailInput(
+            attrs={"class": html_class, "placeholder": "請輸入有效的電子信箱", }),
     )
     password1 = forms.CharField(
         label="密碼",
-        widget=forms.PasswordInput(attrs={"class": html_class}),
+        widget=forms.PasswordInput(
+            attrs={"class": html_class, "placeholder": "請輸入至少8碼的英數混合", }),
     )
     password2 = forms.CharField(
         label="密碼確認",
-        widget=forms.PasswordInput(attrs={"class": html_class}),
+        widget=forms.PasswordInput(attrs={"class": html_class, "placeholder": "請再次輸入與上方相同的密碼", }),
     )
 
     class Meta:
