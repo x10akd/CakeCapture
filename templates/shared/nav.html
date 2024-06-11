@@ -11,7 +11,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
-      <div x-show="open"  class="absolute right-0 bg-white text-grey rounded-lg mt-1 py-1 w-48 z-20">
+      <div x-show="open" x-cloak class="absolute right-0 bg-white text-grey rounded-lg mt-1 py-1 w-48 z-20">
         <a href="{% url 'home' %}" class="block px-4 py-2 hover:bg-red-300">首頁</a>
         <a href="{% url 'about' %}" class="block px-4 py-2 hover:bg-red-300">關於我們</a>
         {% if user.is_authenticated %}
