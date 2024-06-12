@@ -10,10 +10,10 @@
 			</tr>
 			{% for user_coupon in user_coupons %}
 			<tr>
-				<td class="text-md px-6 py-3">{{ user_coupon.coupon.code }}</td>
-				<td class="text-md px-6 py-3">{{ user_coupon.coupon.discount }}</td>
-				<td class="text-md px-6 py-3">{{ user_coupon.usage_count }} / {{ user_coupon.coupon.usage_limit }}</td>
-				<td class="text-md px-6 py-3">{{ user_coupon.expired_at }}</td>
+				<td class="text-md px-6 py-3 text-center">{{ user_coupon.coupon.code }}</td>
+				<td class="text-md px-6 py-3 text-center">{{ user_coupon.coupon.discount }}</td>
+				<td class="text-md px-6 py-3 text-center">{{ user_coupon.usage_count }} / {{ user_coupon.coupon.usage_limit }}</td>
+				<td class="text-md px-6 py-3 text-center">{{ user_coupon.expired_at }}</td>
 			</tr>
 			{% endfor %}
 		</table>

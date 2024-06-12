@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 import plotly.graph_objs as create_plot
 import plotly.offline as html_plot
 from django.shortcuts import render, get_object_or_404, redirect
@@ -13,13 +12,15 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from coupons.models import *
 from coupons.forms import *
 from accounts.forms import *
-from django.db.models import Count, Sum, F
+from django.db.models import Count, Sum, F, Prefetch, Case, When, Value, IntegerField
 from feedbacks.models import Feedback, FeedbackReply
 from feedbacks.forms import FeedbackReplyForm
 from orders.models import Order
 from django.core.paginator import Paginator
-from datetime import datetime
 import calendar
+from concurrent.futures import ThreadPoolExecutor
+from django.utils import timezone
+from datetime import datetime
 
 
 # 定義superuser decorator
@@ -128,23 +129,23 @@ def quantity_index(request):
 
 @user_passes_test(superuser_required)
 def quantity_charts(request):
-    categories = Category.objects.all()
+    categories = Category.objects.prefetch_related(
+        Prefetch("items", queryset=Product.objects.only("name", "quantity"))
+    )
     category_graphs = {}
 
-    for category in categories:
+    def generate_chart(category):
         products = category.items.all()
         product_names = [product.name for product in products]
         product_quantities = [product.quantity for product in products]
 
-        # 根據商品數量動態調整圖表高度
         height = max(400, 70 * len(product_names))
 
-        # 創建水平長條圖
         bar = create_plot.Bar(
             x=product_quantities,
             y=product_names,
             name=category.name,
-            orientation="h",  # 設置為水平長條圖
+            orientation="h",
         )
         layout = create_plot.Layout(
             title={"text": f"{category.name} 庫存數量", "font": {"size": 24}},
@@ -154,9 +155,13 @@ def quantity_charts(request):
         )
         fig = create_plot.Figure(data=[bar], layout=layout)
 
-        # 將圖表轉換為HTML
         div = html_plot.plot(fig, auto_open=False, output_type="div")
-        category_graphs[category.name] = div
+        return (category.name, div)
+
+    with ThreadPoolExecutor() as executor:
+        results = list(executor.map(generate_chart, categories))
+
+    category_graphs = dict(results)
 
     return render(
         request,
@@ -188,9 +193,17 @@ def quantity_alter(request, category):
 def order_list(request):
     query = request.GET.get("search", "")
     if query:
-        orders = Order.objects.filter(order_id__icontains=query).order_by("-id")
+        orders = Order.objects.filter(order_id__icontains=query)
     else:
-        orders = Order.objects.all().order_by("-id")
+        orders = Order.objects.all()
+
+    orders = orders.annotate(
+        priority=Case(
+            When(status="waiting_for_shipment", then=Value(1)),
+            default=Value(2),
+            output_field=IntegerField(),
+        )
+    ).order_by("priority", "-id")
 
     orders = Paginator(orders, 20)
     page = request.GET.get("page")
@@ -285,11 +298,13 @@ def feedback_reply(request, pk):
             form = FeedbackReplyForm(request.POST, instance=reply)
         else:
             form = FeedbackReplyForm(request.POST)
-            if form.is_valid():
-                new_reply = form.save(commit=False)
-                new_reply.feedback = feedback
-                new_reply.save()
-                return redirect("managements:feedback_list")
+
+        if form.is_valid():
+            new_reply = form.save(commit=False)
+            new_reply.feedback = feedback
+            new_reply.reply_time = timezone.now()
+            new_reply.save()
+            return redirect("managements:feedback_list")
 
     return render(
         request, "managements/feedback_reply.html", {"form": form, "feedback": feedback}

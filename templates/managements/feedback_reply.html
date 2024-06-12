@@ -1,20 +1,39 @@
-{% extends "managements/managements_base.html" %} 
+{% extends "managements/managements_base.html" %}
 
 {% block managements_content %}
 <div class="border-b-2 border-red-300 mb-2 flex justify-between">
-	<h1 class="text-2xl font-bold">顧客留言回覆</h1>
+    <h1 class="text-2xl font-bold">顧客留言回覆</h1>
 </div>
 <div>
-	<h2 class="text-xl font-bold text-red-500 mb-2">留言內容:</h2>
-	<p class="mb-4 text-lg bg-white rounded-xl p-2 inline-block">{{ feedback.message }}</p>
+    <h2 class="text-xl font-bold text-red-500 mb-2">留言內容:</h2>
+    <p class="mb-4 text-lg bg-white rounded-xl p-2 inline-block">{{ feedback.message }}</p>
 </div>
-    <form method="post">
-				<h2 class="text-xl font-bold text-red-500 mb-2">回覆:</h2>
-        {% csrf_token %}
-        {{ form.reply_message }}
-        <div>
-					<button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">回覆</button>
-				</div>
-    </form>
+<form method="post" class="mb-4">
+    <h2 class="text-xl font-bold text-red-500 mb-2">回覆:</h2>
+    {% csrf_token %}
+    <div class="mb-4">
+        <label for="preset-replies" class="block text-sm font-bold mb-2">選擇預設回覆:</label>
+        <select id="preset-replies" class="bg-gray-200 rounded px-2 py-1">
+            <option value="">-- 選擇預設回覆 --</option>
+            <option value="感謝您的回饋，我們會儘快處理。">感謝您的回饋，我們會儘快處理。</option>
+            <option value="抱歉給您帶來不便，我們會立即解決。">抱歉給您帶來不便，我們會立即解決。</option>
+            <option value="您的意見非常寶貴，我們會認真考慮。">您的意見非常寶貴，我們會認真考慮。</option>
+        </select>
+    </div>
+    {{ form.reply_message }}
+    <div>
+        <button type="submit" class="mt-4 bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">回覆</button>
+    </div>
+</form>
+
+<script>
+document.getElementById('preset-replies').addEventListener('change', function() {
+    var selectedReply = this.value;
+    var replyMessageField = document.getElementById('{{ form.reply_message.id_for_label }}');
+    if (selectedReply) {
+        replyMessageField.value = selectedReply;
+    }
+});
+</script>
 
 {% endblock %}

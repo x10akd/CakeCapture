@@ -6,9 +6,12 @@
     <!-- sidebar -->
     <div class="w-1/6 flex flex-col gap-y-2 text-black font-bold text-xl min-w-[120px]">
 			<ul class="flex flex-col gap-y-2">
-        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:list' %}">留言總覽</a></li>
-        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:create' %}">新增留言</a></li>
+        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:list' %}">訊息總覽</a></li>
+        <li class="border-b-2 border-red-300 hover:scale-105 hover:border-red-400 transition ease-in duration-100"><a href="{% url 'feedbacks:create' %}">新增訊息</a></li>
       </ul>
+      <div class="text-lg text-gray-400 mt-6">
+        <p>這裡是簡單的站內連繫客服管道，請簡述您遇到的問題，若為訂單問題請您附上訂單編號，我們會盡速回覆您。</p>
+      </div>
     </div>
     <div class="w-2/3 px-6 text-black">
 			{% block feedbacks_content %} {% endblock %}

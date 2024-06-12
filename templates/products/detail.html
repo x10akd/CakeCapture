@@ -11,10 +11,10 @@
 
 
 	<div class="discount-btn w-14 h-14 sm:w-20 sm:h-20 bg-red-100 bottom-4 right-4 absolute rounded-full flex items-center justify-center">
-		<a href="{% url 'chats:home' %}" class="text-white font-semibold">Chat</a>
+		{% comment %} <a href="{% url 'chats:home' %}" class="text-white font-semibold">Chat</a> {% endcomment %}
 	</div>
 	<div class="help-btn w-11 h-11 bg-red-100 bottom-4 left-4 absolute rounded-full flex items-center justify-center ">
-		<span class="text-white font-semibold">Top</span>
+		{% comment %} <span class="text-white font-semibold">Top</span> {% endcomment %}
 	</div>
 	<!-- 左邊圖片區 -->
 	<section class="product-photo flex justify-center p-4 sm:p-10">
@@ -265,8 +265,8 @@
 		<div class="py-3">
 			<h4 class="text-2xl font-bold">| 同類型商品 |</h4>
 		</div>
-		<div class="flex flex-wrap justify-center gap-6">
-			{% for product in related_products %}
+		<div class="flex flex-wrap md:flex-nowrap justify-center gap-6">
+		{% for product in related_products %}
 			<!-- card -->
 			<div class="relative flex w-full min-w-[10rem] max-w-[15rem] sm:min-w-[15rem] sm:max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
         <a href="{% url 'products:detail' product.id %}">

@@ -2,4 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "ChenYuluoyan-Thin";
+    src: url("/static/fonts/ChenYuluoyan-Thin.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
 
+  .font-chenyuluoyan {
+    font-family: "ChenYuluoyan-Thin", sans-serif;
+  }
+}

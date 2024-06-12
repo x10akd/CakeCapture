@@ -21,9 +21,9 @@
               {% comment %} <a href="#" id="user-feedback" @click="tab='user-feedback'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-feedback', 'text-red-800': tab !== 'user-feedback' }">
                 訊息
               </a> {% endcomment %}
-              <a href="#" id="user-favorite" @click="tab='user-favorite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
+              {% comment %} <a href="#" id="user-favorite" @click="tab='user-favorite'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-favorite', 'text-red-800': tab !== 'user-favorite' }">
                 我的最愛
-              </a>
+              </a> {% endcomment %}
               <a href="#" id="user-orderlist" @click="tab='user-orderlist'" class="text-red-800 hover:bg-red-200 hover:text-white rounded-md px-3 py-2 text-sm font-medium" :class="{ 'bg-red-200 text-black': tab === 'user-orderlist', 'text-red-800': tab !== 'user-orderlist' }">
                 訂單詳情
               </a>
@@ -34,7 +34,6 @@
     </nav>
 		{% include "accounts/user_info.html" %}
 		{% include "accounts/user_coupon.html" %}
-		{% include "accounts/user_favorite.html" %}
 		{% include "accounts/user_orderlist.html" %}
 
   </div>

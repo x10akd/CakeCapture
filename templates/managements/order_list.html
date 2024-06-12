@@ -19,7 +19,7 @@
 	</tr>
 	<!-- 渲染訂單start -->
 	{% for order in orders %}
-		<tr x-data="{ open:false }">
+		<tr x-data="{ open:false }" x-cloak>
 			<td class="text-md px-6 py-3 text-center">{{ order.order_id }}</td>
 			<td class="text-md px-6 py-3 text-center">{{ order.created }}</td>
 			<td class="text-md px-6 py-3 text-center">$ {{ order.total|intcomma }}</td>
@@ -63,30 +63,30 @@
 
 										<div class="order-list">
 											{% for item in order.orderitem_set.all %}
-											<div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{ item.product.id }}">
-												<div class="flex w-5/12 p-2">
-													<div class="product-img rounded-2xl w-[180px] h-[180px] overflow-hidden">
-														<img src="{{ item.product.image.url }}" alt="#" class="w-full h-full object-cover">
+												<div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{ item.product.id }}">
+													<div class="flex w-5/12 p-2">
+														<div class="product-img rounded-2xl w-[180px] h-[180px] overflow-hidden">
+															<img src="{{ item.product.image.url }}" alt="#" class="w-full h-full object-cover">
+														</div>
+														<div class="flex flex-col m-auto w-1/2 p-2">
+															<p>{{ item.product.name }}</p>
+														</div>
 													</div>
-													<div class="flex flex-col m-auto w-1/2 p-2">
-														<p>{{ item.product.name }}</p>
+													<div class="flex flex-col m-auto w-2/12 p-2">
+														<p>{{ item.product.category.name }}</p>
+													</div>
+													<div class="flex flex-col m-auto w-1/12 p-2">
+														<p>${{ item.price }}</p>
+													</div>
+													<div class="flex flex-col m-auto w-1/12 p-2">
+														<p>{{ item.quantity }}</p>
+													</div>
+													<div class="flex flex-col m-auto w-1/12 p-2">
+														<p>$ {{ item.item_total|intcomma }}</p>
+													</div>
+													<div class="flex flex-col m-auto w-2/12 p-2 items-center justify-center">
 													</div>
 												</div>
-												<div class="flex flex-col m-auto w-2/12 p-2">
-													<p>{{ item.product.category.name }}</p>
-												</div>
-												<div class="flex flex-col m-auto w-1/12 p-2">
-													<p>${{ item.price }}</p>
-												</div>
-												<div class="flex flex-col m-auto w-1/12 p-2">
-													<p>{{ item.quantity }}</p>
-												</div>
-												<div class="flex flex-col m-auto w-1/12 p-2">
-													<p>$ {{ item.item_total|intcomma }}</p>
-												</div>
-												<div class="flex flex-col m-auto w-2/12 p-2 items-center justify-center">
-												</div>
-											</div>
 											{% endfor %}
 										</div>
 										<!-- detail list -->
@@ -140,7 +140,7 @@
 
 	<p class="font-bold">Page {{ orders.number }} of {{ orders.paginator.num_pages }}</p>
 
-	{% if products.has_next %}
+	{% if orders.has_next %}
 		<a href="?search={{ query }}&page={{ orders.next_page_number }}" class="text-gray-600 hover:text-red-400">下一頁</a>
 		<a href="?search={{ query }}&page={{ orders.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
 	{% endif %}

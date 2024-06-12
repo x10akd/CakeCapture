@@ -1,0 +1,77 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+<section class="pt-[100px] px-[20px] h-full bg-gray-100">
+	<div class="container-3xl mx-20 mb-4">
+		<h1 class="text-2xl font-bold border-b-2 border-red-300 mb-4">我的收藏商品</h1>
+		<div class="flex flex-wrap gap-6 mx-auto">
+			{% if favorites %}
+			{% for favorite in favorites %}
+			<!-- card -->
+			<div
+				class="card relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
+				<div
+					class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+					<img src="{{ favorite.product.image.url }}" class="w-full h-[288px] object-cover" />
+					<!-- delete -->
+					<button
+						class="delete-favorite-btn !absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
+						type="button" data-index="{{favorite.product.id}}" data-ripple-dark="true">
+						<i class="fa-regular fa-trash-can" style="transform: scale(1.5);"></i>
+					</button>
+				</div>
+				<a href="{% url 'products:detail' favorite.product.id %}">
+					<div class="p-6">
+						<div class="mb-3 flex items-center justify-between">
+							<!-- 產品名稱 -->
+							<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
+								{{ favorite.product.name }}
+							</h5>
+						</div>
+						<div class="flex items-center justify-between">
+							<!-- 產品價格 -->
+							<p class="block text-base font-bold text-blue-500">$ {{ favorite.product.price }}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+			{% else %}
+			<div class="flex flex-col gap-4">
+				<p class="text-lg">你還沒有收藏任何商品。</p>
+				<div class="inline-block mb-2 bg-red-400/80 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-xl text-center">
+					<a href="{% url 'products:all' %}">逛逛我們的商店吧</a>
+					<i class="fa-solid fa-right-long"></i>
+				</div>
+			</div>
+				
+			{% endif %}
+		</div>
+	</div>
+</section>
+
+
+<script>
+	$(document).on('click', '.delete-favorite-btn', function (e){
+		e.preventDefault();
+		card = this.closest('.card')
+		product_id = $(this).data('index')
+	
+		$.ajax({
+			type: 'POST',
+			url: "{% url 'accounts:favorite-delete' %}",
+			data: {
+				product_id: $(this).data('index'),
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+				action: 'post'
+			},
+			success: function (json){
+				card.remove()       
+			},
+				error: function (xhr, errmsg, err){
+			}
+		})
+	})
+
+</script>
+{% endblock %}

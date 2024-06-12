@@ -69,7 +69,6 @@ def logout(request):
 @login_required
 def profile(request):
 
-    favorites = Favorite.objects.filter(user=request.user)
     user_coupons = UserCoupon.objects.filter(profile=request.user.pk)
     orders = Order.objects.filter(buyer=request.user)
     relational_product = RelationalProduct.objects.filter(order__in=orders)
@@ -94,7 +93,6 @@ def profile(request):
     context = {
         "user_form": user_form,
         "profile_form": profile_form,
-        "favorites": favorites,
         "orders": orders,
         "user_coupons": user_coupons,
     }
@@ -125,8 +123,12 @@ class NewPasswordResetConfirmView(PasswordResetConfirmView):
 
 def user(request):
     user = User.objects.get(username=request.user.username)
-    feedbacks = Feedback.objects.filter(user_id=user.id)
-    return render(request, "accounts/user.html", {"feedbacks": feedbacks})
+    return render(request, "accounts/user.html")
+
+
+def favorite_list(request):
+    favorites = Favorite.objects.filter(user=request.user)
+    return render(request, "accounts/favorite_list.html", {"favorites": favorites})
 
 
 def favorite_delete(request):

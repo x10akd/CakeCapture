@@ -34,51 +34,77 @@
 </div> {% endcomment %}
 
 <!-- 背景圖片部分 -->
-<div class="min-h-screen flex items-center justify-center"  style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">
-    <a href="{% url 'products:category' category='macarons' %}">
-        <h1
-            class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110"
-        >
-            馬卡龍
-        </h1>
-    </a>
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
+        <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='馬卡龍' %}">
+            <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
+                馬卡龍
+            </h1>
+            <h2 class="font-chenyuluoyan text-center p-4 rounded-lg text-5xl hidden md:block">
+              酥脆外殼包裹絕妙餡料，
+              每一口都是甜蜜的夢境，
+              讓味蕾翩然起舞。
+            </h2>
+        </a>
+    </div> 
 </div>
-
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/poundcake4.jpeg' %}'); background-size: cover; background-position: center;">
-    <a href="{% url 'products:category' category='poundcake' %}">
-        <h1
-            class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110"
-        >
-            磅蛋糕
-        </h1>
-    </a>
+<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/poundcake4.jpeg' %}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
+        <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='磅蛋糕' %}">
+            <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
+                磅蛋糕
+            </h1>
+            <h2 class="font-chenyuluoyan text-center p-4 rounded-lg text-5xl hidden md:block">
+              濃郁香甜，鬆軟細膩，
+              每一口都是溫暖的回憶，
+              如同家的味道，令人沉醉。
+            </h2>
+        </a>
+    </div>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/creamcake.jpeg' %}'); background-size: cover; background-position: center;">
-    <a href="{% url 'products:category' category='freshcreamcake' %}">
-        <h1
-            class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110"
-        >
-            鮮奶油蛋糕
-        </h1>
-    </a>
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/creamcake.jpeg' %}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
+        <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='鮮奶油蛋糕' %}">
+            <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
+              鮮奶油蛋糕
+            </h1>
+            <h2 class="font-chenyuluoyan text-center p-4 rounded-lg text-5xl hidden md:block">
+              輕盈柔滑，
+              每一口都是雲朵的親吻，
+              甜蜜在舌尖綻放，幸福瞬間充盈。
+            </h2>
+        </a>
+    </div>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/pastry.jpeg' %}'); background-size: cover; background-position: center;">
-    <a href="{% url 'products:category' category='frenchpastry' %}">
-        <h1
-            class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110"
-        >
-            法式甜點
-        </h1>
-    </a>
+<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/pastry.jpeg' %}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
+        <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='法式糕點' %}">
+            <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
+              法式糕點
+            </h1>
+            <h2 class="font-chenyuluoyan text-center p-4 rounded-lg text-5xl hidden md:block">
+              精緻典雅，
+              每一口都是藝術的展現，
+              優雅與甜美交織，
+              味蕾的極致享受。
+            </h2>
+        </a>
+    </div>
 </div>
-<div class="min-h-screen flex items-center justify-center" style="background-image: url('{% static 'index_img/chocolate.jpeg' %}'); background-size: cover; background-position: center;">
-    <a href="{% url 'products:category' category='chocolate' %}">
-        <h1
-            class="bg-red-300 bg-opacity-50 p-4 rounded-lg text-7xl text-red-500 transition-transform duration-300 hover:scale-110"
-        >
-            巧克力
-        </h1>
-    </a>
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/chocolate.jpeg' %}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
+        <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='巧克力' %}">
+            <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
+                巧克力
+            </h1>
+            <h2 class="font-chenyuluoyan text-center p-4 rounded-lg text-5xl hidden md:block">
+              絲滑濃郁，
+              每一口都是幸福的甘泉，
+              讓心靈沉醉，
+              甜蜜無限蔓延。
+            </h2>
+        </a>
+    </div>
 </div>
 
 <script>
