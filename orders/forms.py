@@ -1,8 +1,27 @@
 from django import forms
 from .models import Order, OrderMethod
+from accounts.models import UserCoupon
 
 
 class OrderForm(forms.ModelForm):
+
+    coupons = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs["initial"]["user"]
+
+        super(OrderForm, self).__init__(*args, **kwargs)
+
+        if user:
+            user_coupons = UserCoupon.objects.filter(profile_id=user.id)
+            COUPON_CHOICES = [
+                (coupon.id, f"{coupon.coupon.code} - 折價 {coupon.coupon.discount} 元")
+                for coupon in user_coupons
+            ]
+        else:
+            COUPON_CHOICES = []
+        self.fields["coupons"].choices = COUPON_CHOICES
+
     order_name = forms.CharField(
         widget=forms.TextInput(
             attrs={"class": "border-2 border-gray-300 rounded-md p-2"}
@@ -47,7 +66,7 @@ class OrderForm(forms.ModelForm):
         )
     )
 
-    coupon_code = forms.CharField(max_length=20, required=False, label="優惠券代碼")
+    # coupon_code = forms.CharField(max_length=20, required=False, label="優惠券代碼")
 
     class Meta:
         model = OrderMethod

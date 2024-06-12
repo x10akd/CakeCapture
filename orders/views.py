@@ -45,6 +45,7 @@ def order_form(request):
             "order_cell_phone": request.user.profile.phone,
             "order_address": request.user.profile.address,
             "order_email": request.user.email,
+            "user": request.user,
         }
     else:
         initial_data = {}
