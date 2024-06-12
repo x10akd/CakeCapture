@@ -26,6 +26,12 @@ class Order(models.Model):
     name = models.CharField(max_length=10)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     phone = models.CharField(max_length=50)
+    used_coupon = models.ForeignKey(
+        "accounts.UserCoupon",
+        related_name="user_coupon",
+        null=True,
+        on_delete=models.SET_NULL,
+    )
     address = models.CharField(max_length=255)
     total = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
