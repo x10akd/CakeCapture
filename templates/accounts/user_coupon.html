@@ -6,14 +6,18 @@
 				<th class="text-md px-6 py-3">優惠券代碼</th>
 				<th class="text-md px-6 py-3">折扣金額</th>
 				<th class="text-md px-6 py-3">剩餘使用次數</th>
-				<th class="text-md px-6 py-3">到期日</th>
+				<th class="text-md px-6 py-3">備註</th>
 			</tr>
 			{% for user_coupon in user_coupons %}
-			<tr>
-				<td class="text-md px-6 py-3 text-center">{{ user_coupon.coupon.code }}</td>
-				<td class="text-md px-6 py-3 text-center">{{ user_coupon.coupon.discount }}</td>
-				<td class="text-md px-6 py-3 text-center">{{ user_coupon.usage_count }} / {{ user_coupon.coupon.usage_limit }}</td>
-				<td class="text-md px-6 py-3 text-center">{{ user_coupon.expired_at }}</td>
+			<tr class="text-center">
+				<td class="text-md px-6 py-3">{{ user_coupon.coupon.code }}</td>
+				<td class="text-md px-6 py-3">{{ user_coupon.coupon.discount }}</td>
+				<td class="text-md px-6 py-3">{{ user_coupon.usage_count }} / {{ user_coupon.coupon.usage_limit }}</td>
+				{% if user_coupon.usage_count == user_coupon.coupon.usage_limit %}
+				<td class="text-md px-6 py-3 text-red-600 text-xl">已用完</td>
+				{% else %}
+				<td class="text-md px-6 py-3"></td>
+				{% endif %}
 			</tr>
 			{% endfor %}
 		</table>
