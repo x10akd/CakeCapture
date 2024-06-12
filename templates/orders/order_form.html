@@ -67,8 +67,9 @@
       </div>
       <span class="block w-full h-1 bg-red-300"></span>
       <div class="mt-2">
-				<div class="flex items-center rounded-t-xl p-3 bg-gray-200">
-					<select id="id_coupons" name="used_coupon">
+				<div class="flex items-center rounded-t-xl rounded-b-xl p-3 bg-gray-200">
+					優惠代碼
+					<select class="ml-10" id="id_coupons" name="used_coupon">
 						<option value="">請選擇優惠代碼</option>
 						{% for field in form.used_coupon %}
 						{{ field }}
