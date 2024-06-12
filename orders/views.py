@@ -96,12 +96,23 @@ def order_confirm(request):
 
             order = Order()
             order.buyer = request.user if request.user.is_authenticated else None
+
             order.save()
             order.refresh_from_db()
+
             order.name = form.cleaned_data["recipient_name"]
             order.phone = form.cleaned_data["recipient_cell_phone"]
             order.email = form.cleaned_data["recipient_email"]
             order.address = form.cleaned_data["recipient_address"]
+
+            used_coupon_id = form.cleaned_data["used_coupon"]
+            if used_coupon_id:
+                try:
+                    order.used_coupon = UserCoupon.objects.get(pk=used_coupon_id)
+                except UserCoupon.DoesNotExist:
+                    messages.error(request, "選擇的優惠券無效。")
+                    return redirect("orders:order_form")
+
             # 處理購物車
             totals = cart.cart_total()
 
@@ -111,12 +122,13 @@ def order_confirm(request):
             else:
                 shipping_fee = 70
 
-            used_coupon_id = request.POST.get("used_coupon")
-
-            if Coupon.objects.get(pk=used_coupon_id).discount > totals + shipping_fee:
+            if (
+                Coupon.objects.get(code=order.used_coupon).discount
+                > totals + shipping_fee
+            ):
                 coupon_discount = totals + shipping_fee
             else:
-                coupon_discount = Coupon.objects.get(pk=used_coupon_id).discount
+                coupon_discount = Coupon.objects.get(code=order.used_coupon).discount
 
             totals_with_everything = totals + shipping_fee - coupon_discount
             order.total = totals_with_everything
@@ -198,6 +210,14 @@ class ECPayView(TemplateView):
 
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
+
+        used_coupon_id = order.used_coupon.id
+        user_coupon = UserCoupon.objects.get(pk=used_coupon_id)
+
+        user_coupon.order = order
+        user_coupon.used_at = datetime.now()
+        user_coupon.usage_count = user_coupon.usage_count + 1
+        user_coupon.save()
 
         order.confirm()
 
