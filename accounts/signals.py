@@ -29,6 +29,7 @@ def create_coupon_for_new_user(sender, instance, created, **kwargs):
                 "expired_at" : timezone.now() + timedelta(days=30),
             },
         )
+        expired_at = timezone.now() + timedelta(days=30)
 
         profile = Profile.objects.get(user=instance)
         UserCoupon.objects.create(
@@ -36,5 +37,5 @@ def create_coupon_for_new_user(sender, instance, created, **kwargs):
             coupon=coupon,
             order=None,
             usage_count=0,
-            expired_at=timezone.now() + timedelta(days=30),
+            expired_at=expired_at,
         )

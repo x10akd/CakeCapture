@@ -10,7 +10,7 @@ class Coupon(models.Model):
     min_order = models.IntegerField(blank=True, null=True)
     usage_limit = models.IntegerField(blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    expired_at = models.DateTimeField(blank=True)
+    expired_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.code
@@ -18,8 +18,16 @@ class Coupon(models.Model):
 
 class UserCoupon(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE,related_name='usercoupons_coupons')
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True,related_name='usercoupons_coupons')
+    coupon = models.ForeignKey(
+        Coupon, on_delete=models.CASCADE, related_name="usercoupons_coupons"
+    )
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="usercoupons_coupons",
+    )
     used_at = models.DateTimeField(auto_now=True)
     usage_count = models.IntegerField(default=0, blank=False)
 
