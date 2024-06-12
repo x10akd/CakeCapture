@@ -4,7 +4,11 @@
 <div class="mt-28 w-screen max-w-screen-2xl mx-auto px-4">
   <!-- section-title -->
   <div class="m-2 p-2 text-2xl font-semibold text-center sm:text-left">
-    <p>親愛的 {{ user.profile.full_name }} 您好</p>
+		{% if user.user.profile.full_name == None %}
+		<p>親愛的會員您好</p>
+		{% else %}
+		<p>親愛的{{ user.profile.full_name }}您好</p>
+		{% endif %}
   </div>
 	{% if cart_products %}
   <!-- section-order -->
