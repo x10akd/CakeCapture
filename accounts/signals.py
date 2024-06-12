@@ -26,6 +26,7 @@ def create_coupon_for_new_user(sender, instance, created, **kwargs):
                 "discount": 50,
                 "min_order": 0,
                 "usage_limit": 1,
+                "expired_at" : timezone.now() + timedelta(days=30),
             },
         )
 
