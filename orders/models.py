@@ -16,7 +16,7 @@ DELIVERY_CHOICES = [
 
 PAYMENT_CHOICES = [
     ("ECPay", "綠界支付"),
-    ("line_pay", "LINE PAY"),
+    ("line_pay", "LINE Pay"),
 ]
 
 
@@ -66,7 +66,7 @@ class OrderMethod(models.Model):
         max_length=20, choices=DELIVERY_CHOICES, default="home_delivery"
     )
     payment_method = models.CharField(
-        max_length=20, choices=PAYMENT_CHOICES, default="credit_card"
+        max_length=20, choices=PAYMENT_CHOICES, default="ECPay"
     )
     store_name = models.CharField(max_length=100, blank=True)
     store_address = models.CharField(
