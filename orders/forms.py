@@ -14,12 +14,14 @@ class OrderForm(forms.ModelForm):
 
         if user:
             user_coupons = UserCoupon.objects.filter(profile_id=user.id)
+
             COUPON_CHOICES = [
                 (
                     user_coupon.id,
                     f"{user_coupon.coupon.code} - 折價 {user_coupon.coupon.discount} 元",
                 )
                 for user_coupon in user_coupons
+                if user_coupon.usage_count < user_coupon.coupon.usage_limit
             ]
         else:
             COUPON_CHOICES = []
