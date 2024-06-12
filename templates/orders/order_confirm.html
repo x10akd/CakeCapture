@@ -96,7 +96,7 @@
 					<p>NT$&nbsp;</p>
 				</div>
 				<div class="w-1/2 text-right text-xl font-semibold text-red-500">
-					<p>0</p>
+					<p>{{ coupon_discount }}</p>
 				</div>
 				<div class="w-1/4 text-right">
 					<p>元</p>
@@ -115,7 +115,7 @@
           <p>NT$&nbsp;</p>
         </div>
         <div class="w-1/2 text-right text-2xl font-semibold text-white">
-          <p>{{ totals_with_shipping }} </p>
+          <p>{{ totals_with_everything }} </p>
         </div>
         <div class="w-1/4 text-right">
           <p>元</p>
@@ -150,7 +150,7 @@
         </div>
         <div class="w-2/3 p-2 text-left text-xl">
 					{% if order_method.payment_method == "credit_card" %}
-					<p>信用卡</p>
+					<p>綠界支付</p>
 					{% else %}
 					<p>LINE Pay</p>
 					{% endif %}

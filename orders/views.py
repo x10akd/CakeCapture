@@ -79,7 +79,9 @@ def order_form(request):
 
 def order_confirm(request):
     if request.method == "POST":
-        form = OrderForm(request.POST)
+        initial_data = {"user": request.user}
+        form = OrderForm(request.POST, initial=initial_data)
+
         if form.is_valid():
             cart = Cart(request)
             # 此處怕邏輯漏洞, 再次檢查庫存以防萬一
@@ -109,8 +111,15 @@ def order_confirm(request):
             else:
                 shipping_fee = 70
 
-            totals_with_shipping = totals + shipping_fee
-            order.total = totals_with_shipping
+            used_coupon_id = request.POST.get("used_coupon")
+
+            if Coupon.objects.get(pk=used_coupon_id).discount > totals + shipping_fee:
+                coupon_discount = totals + shipping_fee
+            else:
+                coupon_discount = Coupon.objects.get(pk=used_coupon_id).discount
+
+            totals_with_everything = totals + shipping_fee - coupon_discount
+            order.total = totals_with_everything
             order.save()  # 更新金額
 
             for product_id, quantity in cart.get_quants().items():
@@ -151,8 +160,6 @@ def order_confirm(request):
                 return_agreement="return_agreement" in request.POST,
             )
 
-            user_coupons = UserCoupon.objects.all()
-
             # 清空購物車 需再確認
             for key in list(request.session.keys()):
                 if key == "session_key":
@@ -168,8 +175,8 @@ def order_confirm(request):
                     "quantities": cart.get_quants(),
                     "totals": totals,
                     "shipping_fee": shipping_fee,
-                    "totals_with_shipping": totals_with_shipping,
-                    "user_coupons": user_coupons,
+                    "totals_with_everything": totals_with_everything,
+                    "coupon_discount": coupon_discount,
                 },
             )
         else:

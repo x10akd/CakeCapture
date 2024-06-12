@@ -5,7 +5,7 @@ from accounts.models import UserCoupon
 
 class OrderForm(forms.ModelForm):
 
-    coupons = forms.ChoiceField()
+    used_coupon = forms.ChoiceField()
 
     def __init__(self, *args, **kwargs):
         user = kwargs["initial"]["user"]
@@ -15,12 +15,15 @@ class OrderForm(forms.ModelForm):
         if user:
             user_coupons = UserCoupon.objects.filter(profile_id=user.id)
             COUPON_CHOICES = [
-                (coupon.id, f"{coupon.coupon.code} - 折價 {coupon.coupon.discount} 元")
-                for coupon in user_coupons
+                (
+                    user_coupon.id,
+                    f"{user_coupon.coupon.code} - 折價 {user_coupon.coupon.discount} 元",
+                )
+                for user_coupon in user_coupons
             ]
         else:
             COUPON_CHOICES = []
-        self.fields["coupons"].choices = COUPON_CHOICES
+        self.fields["used_coupon"].choices = COUPON_CHOICES
 
     order_name = forms.CharField(
         widget=forms.TextInput(
