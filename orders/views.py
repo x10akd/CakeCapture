@@ -122,13 +122,14 @@ def order_confirm(request):
                 shipping_fee = 70
             
             if used_coupon_id:
+                code = UserCoupon.objects.get(pk=used_coupon_id)
                 if (
-                    Coupon.objects.get(code=order.used_coupon).discount
+                    Coupon.objects.get(code=code).discount
                     > totals + shipping_fee
                 ):
                     coupon_discount = totals + shipping_fee
                 else:
-                    coupon_discount = Coupon.objects.get(code=order.used_coupon).discount
+                    coupon_discount = Coupon.objects.get(code=code).discount
             else:
                 coupon_discount = 0
 
