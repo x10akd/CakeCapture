@@ -67,7 +67,7 @@
           </a>
           <a href="{% url 'carts:summary' %}" class=" text-white hover:text-red-600 relative flex" title="查看購物車">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span class="ml-1 h-6 w-6 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
+            <span class="ml-2 h-5 w-5 bg-red-600 text-white rounded-full flex items-center justify-center" id="cart_quantity">{{ cart|length }}</span>
           </a>
         </div>
         <a href="{% url 'accounts:logout' %}" class=" text-white hover:text-red-600">登出</a>
