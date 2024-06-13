@@ -28,7 +28,6 @@
           <p>總價</p>
         </div>
       </div>
-      <!-- order list -->
       <div class="order-list shadow-lg">
         {% for item in order.orderitem_set.all %}
         <div class="flex mt-2 p-2 h-52 rounded-xl text-xl border-2 border-red-300 cake" data-product-id="{{ item.product.id }}">
@@ -55,12 +54,10 @@
         </div>
         {% endfor %}
       </div>
-      <!-- detail list -->
       <div class="mt-2">
         <div class="flex justify-center">
           <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full">
             <div class="md:flex">
-                <!-- 收件信息 -->
               <div class="md:w-1/2 p-5">
                 <h3 class="text-lg font-semibold text-gray-700">收件資訊</h3>
                 <p class="mt-2 text-gray-600"><strong>購買人:</strong> {{ order.ordermethod.order_name }}</p>
@@ -71,7 +68,6 @@
                 <p class="mt-2 text-gray-600"><strong>收件人電郵:</strong> {{ order.email }}</p>
                 <p class="mt-2 text-gray-600"><strong>收件地址:</strong> {{ order.address }}</p>
               </div>
-              <!-- 購買信息 -->
               <div class="md:w-1/2 p-5 border-l-2 border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-700">購買資訊</h3>
                 <p class="mt-2 text-gray-600"><strong>總金額:</strong> ${{ order.total|intcomma }}</p>

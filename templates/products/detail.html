@@ -11,12 +11,9 @@
 
 
 	<div class="discount-btn w-14 h-14 sm:w-20 sm:h-20 bg-red-100 bottom-4 right-4 absolute rounded-full flex items-center justify-center">
-		{% comment %} <a href="{% url 'chats:home' %}" class="text-white font-semibold">Chat</a> {% endcomment %}
 	</div>
 	<div class="help-btn w-11 h-11 bg-red-100 bottom-4 left-4 absolute rounded-full flex items-center justify-center ">
-		{% comment %} <span class="text-white font-semibold">Top</span> {% endcomment %}
 	</div>
-	<!-- 左邊圖片區 -->
 	<section class="product-photo flex justify-center p-4 sm:p-10">
 
 		<div class="main-photo col-span-2 ml-4">
@@ -26,7 +23,6 @@
 		</div>
 
 	</section>
-	<!-- 右邊文字說明區 -->
 	<section class="product-description p-4 sm:p-10">
 		<div class="product-title">
 			<h1 class="font-bold text-3xl mb-4">{{product.name}}</h1>
@@ -59,7 +55,6 @@
 				<div class="text-lg font-bold leading-relaxed text-gray-900 antialiased">(<span class="reviewsCount">{{ reviews.paginator.count }}</span>)</div>
 			</div>
 			<div class="product-subheading font-medium">
-				<!-- <p>It is really tasty.</p> -->
 			</div>
 			<div class="product-tab-wrapper mt-2" x-data="{}" >
 				<div class="tab-title">
@@ -90,14 +85,12 @@
 			</div>
 		</section>
 	</div>
-		<!-- 加購商品 -->
 		<div class="py-6 flex flex-col items-center">
 			<div class="py-3">
 				<h4 class="text-2xl font-bold">| 加購商品 |</h4>
 			</div>
 			<div class="flex gap-6">
 				{% for upsell_p in upsell_products %}
-				<!-- card -->
 				
 				<div
 					class="relative flex w-full min-w-[15rem] max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
@@ -118,19 +111,15 @@
 					
 						<div class="p-6">
 							<div class="mb-3 flex items-center justify-between">
-								<!-- 產品名稱 -->
 								<h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
 									{{ upsell_p.name }}
 								</h5>
 								<p class="block text-base font-bold text-blue-500">$ {{ upsell_p.price }}</p>
-								<!-- 產品評價 -->
 								<p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
-									
 								</p>
 							</div>
 							
 							<div class="flex items-center justify-between">
-								<!-- 產品價格 -->
 								<div class="product-purchase text-center bg-red-300 px-8 py-2 rounded-2xl mt-3 hover:bg-red-500">
 									<button type="submit" class="add_cart" data-product-id="{{ upsell_p.id }}"><a href="#">放到購物車</a></button>
 								</div>
@@ -197,9 +186,7 @@
 									---
 								{% endif %}</span>)</span>
             </h4>
-            <!-- reviews -->
             <div class="flex flex-col gap-6 comment-list">
-                <!-- review -->
                 {% for review in reviews %}
 									<div class="rounded-xl bg-gray-100 p-5 shadow-lg shadow-blue-gray-500/40" id="review-{{ review.id }}">
 											<div class="flex justify-between">
@@ -207,7 +194,6 @@
 															<p class="text-blue-500">{{ review.user.username|title }}</p>
 															<p class="text-sm text-gray-600">{{ review.date|date:"d M, Y" }}</p>
 													</div>
-													<!-- rating stars -->
 													<div class="flex items-center">
 															{% for i in star_range %}
 																	{% if i <= review.rating %}
@@ -229,7 +215,6 @@
 												</div>
 											{% endif %}
 									</div>
-									<!-- 評論編輯區塊 -->
 									<div class="my-4" style="display:none" id="edit-review-form-{{ review.id }}">
 										<h4 class="mb-5 font-bold text-xl border-b-2 border-red-400">編輯評論</h4>
 										<form action="{% url 'products:edit_review' review.id %}" method="POST" class="flex gap-6 editCommentForm"  data-review-id="{{ review.id }}">
@@ -260,19 +245,16 @@
         </div>
     </div>
 	</div>
-	<!-- 相關商品 -->
 	<div class="py-6 flex flex-col items-center">
 		<div class="py-3">
 			<h4 class="text-2xl font-bold">| 同類型商品 |</h4>
 		</div>
 		<div class="flex flex-wrap md:flex-nowrap justify-center gap-6">
 		{% for product in related_products %}
-			<!-- card -->
 			<div class="relative flex w-full min-w-[10rem] max-w-[15rem] sm:min-w-[15rem] sm:max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg hover:scale-105 transition ease-in duration-300">
         <a href="{% url 'products:detail' product.id %}">
           <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
             <img src="{{ product.image.url }}" class="w-full h-[288px] object-cover"/>
-            <!-- heart -->
             {% if product.is_favorited %}
               <button class="favorite-btn !absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-red-500 transition-all hover:bg-white/90 active:bg-red-500/30"
                 type="button" data-product-id="{{ product.id }}">
@@ -295,7 +277,6 @@
             {% endif %}
 
             {% if product.status is True %}
-              <!-- cart -->
               <button class="!absolute top-14 right-4 h-8 max-h-[32px] w-8 max-w-[32px] bg-white/70 select-none rounded-lg text-center align-middle text-xs font-medium text-blue-500 transition-all hover:bg-white/90 active:bg-blue-500/30 add_cart" type="button"value="{{product.id}}" data-product-id="{{product.id}}">
                 <span class="absolute top-1/2 left-1/2 -translate-y-7 -translate-x-1/2 transform">
                   <svg
@@ -314,11 +295,9 @@
           </div>
           <div class="p-6">
             <div class="mb-3 flex items-center justify-between">
-              <!-- 產品名稱 -->
               <h5 class="block text-xl font-bold leading-snug tracking-normal text-blue-gray-900 antialiased">
               {{ product.name }}
               </h5>
-              <!-- 產品評價 -->
               <p class="flex items-center gap-1.5 text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -337,7 +316,6 @@
               </p>
             </div>
             <div class="flex items-center justify-between">
-              <!-- 產品價格 -->
               {% if product.status is True %}
                 <p class="block text-base font-bold text-blue-500">$ {{ product.price }}</p>
               {% else %}

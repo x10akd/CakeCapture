@@ -146,14 +146,10 @@
 
   $(document).ready(function ()
   {
-    // 監聽 input 元素的值變化
     $('.update').on('change', function ()
     {
-      // 獲取商品 ID
       let productId = $(this).data('index');
-      // 獲取數量
       let quantity = $(this).val();
-      // 向後端發送 AJAX POST 請求
       $.ajax({
         type: 'POST',
         url: "{% url 'carts:update' %}",   
@@ -167,12 +163,9 @@
         {
           console.log(json)
           $('#total_price').text(json.total_price);
-          // location.reload()
-          // 成功處理響應的操作，如果有的話
         },
         error: function (xhr, errmsg, err)
         {
-          // 處理錯誤的操作，如果有的話
         }
       });
     });

@@ -2,9 +2,7 @@
 	<h2 class="font-bold text-2xl leading-10 text-black">個人資訊</h2>
 	<form action="{% url 'accounts:profile_update' %}" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
-		<!-- Assuming `user_form` and `profile_form` are the context variables passed from the view -->
 		<div class="flex flex-wrap -mx-8">
-		<!-- Dynamic form rendering for user_form fields -->
 		{% for field in user_form %}
 		<div class="{% if field.name == 'email' %} w-full {% else %} w-full sm:w-1/2{% endif %} px-8 py-2">
 				<label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
@@ -13,7 +11,6 @@
 				</div>
 		</div>
 		{% endfor %}
-		<!-- Repeat for profile_form if necessary -->
 		{% for field in profile_form %}
 		<div class="{% if field.name == 'address' %} w-full {% else %} w-full sm:w-1/2{% endif %} px-8 py-2">
 				<label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>

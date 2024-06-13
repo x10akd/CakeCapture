@@ -5,14 +5,11 @@
   {% csrf_token %}
 
   <div class="mt-28 w-screen max-w-screen-2xl mx-auto">
-    <!-- section-delivery -->
     <div class="m-2 p-2 text-center text-xl font-semibold">
-      <!-- delivery-tag -->
       <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
         <h3>選擇配送方式</h3>
       </div>
       <span class="block w-full h-1 bg-red-300"></span>
-      <!-- delivery-options -->
       <div class="mt-2">
         {% for field in form.delivery_method %}
         <div
@@ -23,9 +20,7 @@
       </div>
     </div>
   
-    <!-- section-payment -->
     <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-      <!-- payment-tag -->
       <div class="flex justify-between items-center">
         <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
           <h3>選擇付款方式</h3>
@@ -39,7 +34,6 @@
       </div>
 
       <span class="block w-full h-1 bg-red-300"></span>
-      <!-- payment-options -->
       <div class="mt-2 text-center text-xl font-semibold">
 				{% for field in form.payment_method %}
 					<div class="flex {% if forloop.first %}rounded-t-xl{% elif forloop.last %}rounded-b-xl{% endif %}">
@@ -49,7 +43,6 @@
 					</div>
 				{% endfor %}
 			</div>
-      <!-- payment-notice -->
       <div id="payment-notice" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
         <p class="ml-4 text-justify">
           <span>・</span>
@@ -104,14 +97,11 @@
         }
       }
     }">
-    <!-- section-order-info -->
       <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
-        <!-- order-info-tag -->
         <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
           <h3>訂購人資訊</h3>
         </div>
         <span class="block w-full h-1 bg-red-300"></span>
-        <!-- order-info-detail -->
         <div class="mt-2 p-3 rounded-xl border-2 border-red-300" >
           <div class="flex justify-start">
             <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
@@ -161,9 +151,7 @@
         </div>
       </div>
     
-      <!-- section-recipient-info -->
       <div class="mt-12 m-2 p-2 text-center text-xl font-semibold " >
-        <!-- recipient-info-tag -->
         <div class="flex justify-between items-center w-full">
           <div class="flex items-center space-x-4">
             <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
@@ -182,7 +170,6 @@
           </div>
         </div>
         <span class="block w-full h-1 bg-red-300"></span>
-        <!-- recipient-info-detail -->
         <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
           <div class="flex justify-start items-center">
             <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
@@ -233,7 +220,6 @@
             <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
           </div>
         </div>
-        <!-- payment-notice -->
         <div id="recipient-information" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
           <p class="ml-4 text-justify">
             ・為確保品質，線上訂購並完成下單付款後才會進行製作。
@@ -245,7 +231,6 @@
       </div>
     </div>
     
-    <!-- section-return-agreement -->
     <div class="mt-12 m-2 p-2 text-center text-xl font-semibold">
       <div class="w-60 rounded-t-xl p-2 bg-red-300 text-white">
         <h3>購買須知</h3>
@@ -263,7 +248,7 @@
       上一步
     </a>
     <button type="submit" class="block w-1/5 ml-4 rounded-xl bg-red-300 p-4">
-        下一步
+      下一步
     </button>
   </div>
   </div>
