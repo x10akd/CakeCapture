@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="hidden lg:flex lg:space-x-14 text-xl lg:flex-row lg:items-center lg:space-x-14 w-full lg:w-auto mt-4 lg:mt-0">
+    <div class="hidden lg:flex lg:space-x-14 text-xl lg:flex-row lg:items-center w-full lg:w-auto mt-4 lg:mt-0">
       {% if user.is_authenticated and user.is_superuser %}
         <a href="{% url 'managements:product_list' %}" class="text-white hover:text-red-600">後台管理</a>
       {% endif %}
