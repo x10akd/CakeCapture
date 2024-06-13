@@ -2,9 +2,9 @@
 {% load static %}
 {% block title %}Cake Capture - 首頁{% endblock title %}
 {% block content %}
-
-<div x-data="carousel()" class="carousel-container w-full h-screen overflow-hidden relative">       
-  <div class="carousel-wrapper w-full h-full flex transition-transform duration-500" :style="'transform: translateX(-' + currentIndex * 100 + '%)'">
+<!-- 圖片輪播 -->
+<div class="carousel-container w-full h-screen overflow-hidden relative">       
+  <div class="carousel-wrapper flex w-full h-full transition-transform duration-500">  
     <div class="carousel-slide w-full h-full flex-shrink-0">
       <img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="carousel-image w-full h-full object-cover"/>
     </div>
@@ -15,11 +15,13 @@
       <img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="carousel-image w-full h-full object-cover"/>
     </div>
   </div>
-  <button @click="prevSlide" class="carousel-button prev absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">‹</button>
-  <button @click="nextSlide" class="carousel-button next absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">›</button>
+  <!-- 添加導航按鈕 --> 
+  <button class="carousel-button prev absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">‹</button>
+  <button class="carousel-button next absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">›</button>
 </div>
 
-<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">
+<!-- 背景圖片部分 -->
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/macarons02.jpg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='馬卡龍' %}">
             <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
@@ -33,7 +35,7 @@
         </a>
     </div> 
 </div>
-<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/poundcake4.jpeg' %}'); background-size: cover; background-position: center;">
+<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/poundcake04.jpg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='磅蛋糕' %}">
             <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
@@ -47,7 +49,7 @@
         </a>
     </div>
 </div>
-<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/creamcake.jpeg' %}'); background-size: cover; background-position: center;">
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/creamcake02.jpg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='鮮奶油蛋糕' %}">
             <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
@@ -61,7 +63,7 @@
         </a>
     </div>
 </div>
-<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/pastry.jpeg' %}'); background-size: cover; background-position: center;">
+<div class="min-h-screen flex justify-end" style="background-image: url('{% static 'index_img/pastry01.jpg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='法式糕點' %}">
             <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
@@ -76,7 +78,7 @@
         </a>
     </div>
 </div>
-<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/chocolate.jpeg' %}'); background-size: cover; background-position: center;">
+<div class="min-h-screen flex" style="background-image: url('{% static 'index_img/chocolate07.jpg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='巧克力' %}">
             <h1 class="font-chenyuluoyan text-center p-4 rounded-lg text-7xl">
@@ -92,5 +94,54 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const totalSlides = slides.length;
+  const prevButton = document.querySelector('.carousel-button.prev');
+  const nextButton = document.querySelector('.carousel-button.next');
+  const carouselWrapper = document.querySelector('.carousel-wrapper');
+
+  function updateSlidePosition() {
+    const newTransform = `translateX(-${currentIndex * 100}%)`;
+    carouselWrapper.style.transform = newTransform;
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateSlidePosition();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateSlidePosition();
+  }
+
+  nextButton.addEventListener('click', nextSlide);
+  prevButton.addEventListener('click', prevSlide);
+
+  setInterval(nextSlide, 3000); // 自動播放間隔時間（毫秒）
+});
+</script>
+<style>
+.carousel-container {
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-button {
+  z-index: 10;
+}
+</style>
 
 {% endblock %}
