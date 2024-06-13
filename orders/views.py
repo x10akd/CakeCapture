@@ -418,7 +418,7 @@ def create_line_pay_headers(body, uri):
 
     return headers
 
-
+@csrf_exempt
 def line_pay_confirm(request):
     transaction_id = request.GET.get("transactionId")
     order_id = request.GET.get("orderId")
