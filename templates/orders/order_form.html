@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% block title %}Cake Capture - 填寫配送資訊{% endblock title %}
 {% block content %}
 <form action="{% url 'orders:order_confirm' %}" method="post">
   {% csrf_token %}
