@@ -9,7 +9,7 @@ urlpatterns = [
     path("ecpay", views.ECPayView.as_view(), name="ecpay"),
     path("return", views.ReturnView.as_view(), name="return"),
     path("result", views.order_result, name="result"),
-    path("create-payment/", views.create_line_pay_payment, name="create_payment"),
-    path("confirm/", views.confirm_line_pay_payment, name="confirm_payment"),
-    path("cancel/", views.cancel_line_pay_payment, name="cancel_payment"),
+    path("line_pay_request/", views.line_pay_request, name="line_pay_request"),
+    path("line_pay_confirm/", views.line_pay_confirm, name="line_pay_confirm"),
+    path("line_pay_cancel/", views.line_pay_cancel, name="line_pay_cancel"),
 ]

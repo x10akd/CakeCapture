@@ -11,7 +11,6 @@ from products.models import Product, RelationalProduct
 from .forms import OrderForm
 from carts.cart import Cart
 from orders import ecpay_payment_sdk
-from .line_pay import *
 import environ
 import importlib.util
 from accounts.models import *
@@ -321,48 +320,46 @@ def order_result(request):
         return HttpResponse("Invalid request method", status=405)
 
 
-def create_line_pay_payment(request):
+def line_pay_request(request):
+
+    order_id = request.POST.get("order_id")
+    order = Order.objects.get(order_id=order_id)
+
     if request.method == "POST":
-        amount = request.POST["amount"]
-        order_id = request.POST["order_id"]
-        payment_response = request_line_pay(amount, order_id)
-        if payment_response["returnCode"] == "0000":
-            return redirect(payment_response["info"]["paymentUrl"]["web"])
-        else:
-            print(payment_response)
-            return HttpResponse("Payment request failed", status=400)
-    return render(request, "create_payment.html")
+        order_id = order.order_id
+        package_id = order.pk
 
+        payload = {
+            "amount": 1,
+            "currency": "TWD",
+            "orderId": order_id,
+            "packages": [
+                {
+                    "id": package_id,
+                    "amount": 1,
+                    "products": [
+                        {
+                            "id": "1",
+                            "name": "甜點",
+                            "quantity": 1,
+                            "price": order.total,
+                        }
+                    ],
+                }
+            ],
+            "redirectUrls": {
+                "confirmUrl": f"https://{env('NGROK')}/orders/line_pay_confirm",
+                "cancelUrl": f"https://{env('NGROK')}/orders/line_pay_cancel",
+            },
+        }
 
-def confirm_line_pay_payment(request):
-    transaction_id = request.GET.get("transactionId")
-    order_id = request.GET.get("orderId")
-
-    if transaction_id and order_id:
-        # 在這裡你可以處理支付成功的邏輯，例如更新訂單狀態
-        try:
-            order = Order.objects.get(id=order_id)
-            order.status = "Paid"
-            order.transaction_id = transaction_id
-            order.save()
-            return render(request, "payment_success.html", {"order": order})
-        except Order.DoesNotExist:
-            return HttpResponse("Order not found", status=404)
     else:
-        return HttpResponse("Invalid parameters", status=400)
+        return render(request, "orders/line_pay_checkout.html")
 
 
-def cancel_line_pay_payment(request):
-    order_id = request.GET.get("orderId")
+def line_pay_confirm(request):
+    return render(request, "orders/line_pay_confirm.html")
 
-    if order_id:
-        # 在這裡你可以處理支付取消的邏輯，例如更新訂單狀態
-        try:
-            order = Order.objects.get(id=order_id)
-            order.status = "Cancelled"
-            order.save()
-            return render(request, "payment_cancelled.html", {"order": order})
-        except Order.DoesNotExist:
-            return HttpResponse("Order not found", status=404)
-    else:
-        return HttpResponse("Invalid parameters", status=400)
+
+def line_pay_cancel(request):
+    return render(request, "orders/line_pay_cancel.html")
