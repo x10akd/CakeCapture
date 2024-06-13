@@ -220,7 +220,7 @@ def order_list(request):
 def coupon_list(request):
     query = request.GET.get("search", "")
     if query:
-        coupons = Coupon.objects.filter(name__icontains=query).order_by("-id")
+        coupons = Coupon.objects.filter(code__icontains=query).order_by("-id")
     else:
         coupons = Coupon.objects.all().order_by("-id")
 
