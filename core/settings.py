@@ -13,7 +13,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", env("NGROK")]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fa29-61-220-182-115.ngrok-free.app"]
 
 
 INSTALLED_APPS = [
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.line",
-    'django_celery_results',
+    "django_celery_results",
     "accounts",
     "products",
     "django_htmx",
@@ -215,7 +215,7 @@ AWS_S3_VERIFY = True
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 # Payment-related
-CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
+CSRF_TRUSTED_ORIGINS = ["https://fa29-61-220-182-115.ngrok-free.app"]
 
 # LINE-chatbot related
 LINE_CHANNEL_ACCESS_TOKEN = env("LINE_ACCESS_TOKEN")
