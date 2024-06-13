@@ -21,13 +21,6 @@ class CouponForm(forms.ModelForm):
                     "min": "0",
                 }
             ),
-            "min_order": forms.NumberInput(
-                attrs={
-                    "class": "focus:outline-none border-2 border-gray-300 rounded-xl p-2",
-                    "required": "True",
-                    "min": "0",
-                }
-            ),
             "usage_limit": forms.NumberInput(
                 attrs={
                     "class": "focus:outline-none border-2 border-gray-300 rounded-xl p-2",

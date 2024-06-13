@@ -14,7 +14,6 @@
 			<tr>
 					<th class="py-2 px-4 border-b text-center text-xl">優惠券代碼</th>
 					<th class="py-2 px-4 border-b text-center text-xl">折扣金額</th>
-					<th class="py-2 px-4 border-b text-center text-xl">低消限制</th>
 					<th class="py-2 px-4 border-b text-center text-xl">折扣次數</th>
 			</tr>
 	</thead>
@@ -24,7 +23,6 @@
 					<td class="py-2 px-4 border-b text-center text-xl hover:text-red-400">
 						<a href="{% url 'managements:edit_coupon' coupon.pk %}">{{ coupon.code }}</a></td>
 					<td class="py-2 px-4 border-b text-center text-xl">{{ coupon.discount }}</td>
-					<td class="py-2 px-4 border-b text-center text-xl">{{ coupon.min_order }}</td>
 					<td class="py-2 px-4 border-b text-center text-xl">{{ coupon.usage_limit }}</td>
 			</tr>
 			{% endfor %}
