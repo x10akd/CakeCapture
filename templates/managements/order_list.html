@@ -17,7 +17,6 @@
 		<th class="text-md px-6 py-3">訂單狀況</th>
 		<th class="text-md px-6 py-3"></th>
 	</tr>
-	<!-- 渲染訂單start -->
 	{% for order in orders %}
 		<tr x-data="{ open:false }" x-cloak>
 			<td class="text-md px-6 py-3 text-center">{{ order.order_id }}</td>
@@ -30,9 +29,7 @@
 				</button>
 				<div x-show="open" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="order-detail-title" role="dialog" aria-modal="true">
 					<div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-						<!-- 背景遮罩 -->
 						<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="open = false"></div>
-						<!-- 模態框容器 -->
 						<div class="my-28 inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:max-w-7xl sm:w-full">
 							<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 								<div class="sm:flex sm:items-start">
@@ -59,7 +56,6 @@
 											<div class="w-2/12 p-2 border-l-2 border-red-400">
 											</div>
 										</div>
-										<!-- order list -->
 
 										<div class="order-list">
 											{% for item in order.orderitem_set.all %}
@@ -89,12 +85,10 @@
 												</div>
 											{% endfor %}
 										</div>
-										<!-- detail list -->
 										<div class="mt-2">
 											<div class="flex justify-center">
 												<div class="bg-white shadow-lg rounded-lg overflow-hidden w-full">
 													<div class="md:flex">
-															<!-- 收件信息 -->
 														<div class="md:w-1/2 p-5">
 															<h3 class="text-lg font-semibold text-gray-700">收件資訊</h3>
 															<p class="mt-2 text-gray-600"><strong>購買人:</strong> {{ order.ordermethod.order_name }}</p>
@@ -105,7 +99,6 @@
 															<p class="mt-2 text-gray-600"><strong>收件人電郵:</strong> {{ order.email }}</p>
 															<p class="mt-2 text-gray-600"><strong>收件地址:</strong> {{ order.address }}</p>
 														</div>
-														<!-- 購買信息 -->
 														<div class="md:w-1/2 p-5 border-l-2 border-gray-200">
 															<h3 class="text-lg font-semibold text-gray-700">購買資訊</h3>
 															<p class="mt-2 text-gray-600"><strong>總金額:</strong> ${{ order.total }}</p>
