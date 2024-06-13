@@ -333,14 +333,17 @@ def line_pay_request(request):
     if request.method == "POST":
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
+        
 
-        used_coupon_id = order.used_coupon.id
-        user_coupon = UserCoupon.objects.get(pk=used_coupon_id)
+        if order.used_coupon:
+            used_coupon_id = order.used_coupon.id
+            user_coupon = UserCoupon.objects.get(pk=used_coupon_id)
+            user_coupon.order = order
+            user_coupon.used_at = datetime.now()
+            user_coupon.usage_count = user_coupon.usage_count + 1
+            user_coupon.save()
 
-        user_coupon.order = order
-        user_coupon.used_at = datetime.now()
-        user_coupon.usage_count = user_coupon.usage_count + 1
-        user_coupon.save()
+    
         order.confirm()
 
         package_id = order.pk
