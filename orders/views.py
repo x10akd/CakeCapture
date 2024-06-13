@@ -370,8 +370,8 @@ def line_pay_request(request):
                 }
             ],
             "redirectUrls": {
-                "confirmUrl": "https://fa29-61-220-182-115.ngrok-free.app/orders/line_pay_confirm",
-                "cancelUrl": "https://fa29-61-220-182-115.ngrok-free.app/orders/line_pay_cancel",
+                "confirmUrl": f"{env("DOMAIN")}/orders/line_pay_confirm",
+                "cancelUrl": f"{env("DOMAIN")}/orders/line_pay_cancel",
             },
         }
 
