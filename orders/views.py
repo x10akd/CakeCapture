@@ -172,11 +172,6 @@ def order_confirm(request):
                 return_agreement="return_agreement" in request.POST,
             )
 
-            # 清空購物車 需再確認
-            for key in list(request.session.keys()):
-                if key == "session_key":
-                    del request.session[key]
-
             return render(
                 request,
                 "orders/order_confirm.html",
@@ -203,10 +198,6 @@ class ECPayView(TemplateView):
     template_name = "orders/ecpay.html"
 
     def post(self, request, *args, **kwargs):
-
-        for key in list(request.session.keys()):
-            if key == "session_key":
-                del request.session[key]
 
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
