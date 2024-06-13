@@ -12,9 +12,6 @@ urlpatterns = [
     path("line_pay_request/", views.line_pay_request, name="line_pay_request"),
     path("line_pay_confirm/", views.line_pay_confirm, name="line_pay_confirm"),
     path("line_pay_cancel/", views.line_pay_cancel, name="line_pay_cancel"),
-    path(
-        "line_pay_success/<str:order_id>",
-        views.line_pay_success,
-        name="line_pay_success",
-    ),
+    path("line_pay_success/<str:order_id>", views.line_pay_success, name="line_pay_success",),
+    path("ship_order/<int:order_id>/", views.ship_order, name="ship_order"),
 ]

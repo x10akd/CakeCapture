@@ -1,7 +1,9 @@
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from datetime import datetime
 from django.contrib import messages
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, View
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -21,6 +23,8 @@ import hashlib
 import base64
 import requests
 
+
+
 spec = importlib.util.spec_from_file_location(
     "ecpay_payment_sdk", "orders/ecpay_payment_sdk.py"
 )
@@ -38,7 +42,7 @@ def order_form(request):
     for product_id, quantity in cart.get_quants().items():
         product = Product.objects.get(id=product_id)
         if product.quantity < quantity or quantity == 0:
-            messages.error(request, f"{product.name} 的庫存不足。")
+            messages.error(request, f"{product.name} 的庫存不足, 請勿超過庫存數。")
             product_stock_sufficient = False
 
     if not product_stock_sufficient:
@@ -95,7 +99,7 @@ def order_confirm(request):
             for product_id, quantity in cart.get_quants().items():
                 product = Product.objects.get(id=product_id)
                 if product.quantity < quantity or quantity == 0:
-                    messages.error(request, "這段期間內已售出,故庫存不足。")
+                    messages.error(request, "這段期間內已售出,庫存不足。")
                     product_stock_sufficient = False
             if not product_stock_sufficient:
                 return redirect("orders:order_form")
@@ -204,6 +208,8 @@ class ECPayView(TemplateView):
 
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
+        order.refresh_from_db()
+        order.confirm()
 
         if order.used_coupon:
             used_coupon_id = order.used_coupon.id
@@ -213,15 +219,9 @@ class ECPayView(TemplateView):
             user_coupon.usage_count = user_coupon.usage_count + 1
             user_coupon.save()
 
-        order.confirm()
-
         for key in list(request.session.keys()):
             if key == "session_key":
                 del request.session[key]
-
-        from .tasks import check_order_payment_status  # 延遲導入以避免循環導入問題
-
-        check_order_payment_status.apply_async((order.id,), countdown=1200)
 
         product_list = "#".join([product.name for product in order.product.all()])
         order_params = {
@@ -310,16 +310,14 @@ def order_result(request):
         check_mac_value = ecpay_payment_sdk.generate_check_value(res)
         order = Order.objects.get(order_id=order_id)
 
-        if (
-            check_mac_value == back_check_mac_value
-            and rtnmsg == "Succeeded"
-            and rtncode == "1"
-        ):
+        if (check_mac_value == back_check_mac_value and rtnmsg == "Succeeded" and rtncode == "1"):
+            order.refresh_from_db()
             order.pay()
-            return render(request, "orders/order_success.html")
-
+            return render(request, "orders/order_success.html", {"order": order})
+        
+        order.refresh_from_db()
         order.fail()
-        return render(request, "orders/order_fail.html")
+        return render(request, "orders/order_fail.html", {"rtncode": rtncode, "order_id": order_id})
     else:
         return HttpResponse("Invalid request method", status=405)
 
@@ -453,15 +451,27 @@ def line_pay_confirm(request):
         return render(request, "orders/line_pay_fail.html")
 
 
-def line_pay_cancel(request):
+def line_pay_cancel(request, order_id):
+    order = Order.objects.get(order_id=order_id)
+    order.fail()
     return render(request, "orders/line_pay_cancel.html")
 
 
 def line_pay_success(request, order_id):
     order = Order.objects.get(order_id=order_id)
-
+    order.pay()
     context = {
         "order": order,
     }
 
     return render(request, "orders/line_pay_success.html", context=context)
+
+
+
+def ship_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if order.status == 'waiting_for_shipment':
+        order.ship()
+        return HttpResponse(order.get_status_display())
+    else:
+        return JsonResponse({'status': 'error', 'error_message': 'Order is not in the correct state to ship'}, status=400)

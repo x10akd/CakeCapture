@@ -28,7 +28,7 @@ def schedule_order_payment_check(sender, instance, created, **kwargs):
     """創訂單五分鐘後若不確認自動將訂單轉為fail"""
     if created and instance.status == 'waiting_for_check':
         from .tasks import check_order_payment_status
-        check_order_payment_status.apply_async((instance.id,), countdown=30) #300秒五分鐘
+        check_order_payment_status.apply_async((instance.id,), countdown=60) #300秒五分鐘
 
 
 @receiver(post_save, sender=Order)

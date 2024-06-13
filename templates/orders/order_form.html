@@ -45,12 +45,7 @@
 			</div>
       <div id="payment-notice" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">
         <p class="ml-4 text-justify">
-          <span>・</span>
-          信用卡僅限持卡人本人使用，本公司得就本件交易資料向發卡銀行、收單行、及持卡人照會是否屬實，核對無誤後付款才算完成。
-        </p>
-        <p class="ml-4 text-justify">
-          <span>・</span>
-          選擇超商取貨付款前往門市取貨時，僅接受現金付款或5000元(含)以下可用信用卡，適用之信用卡發卡銀行依超商規定(後續如有退款之情事發生，款項將會退至訂購人之會員帳戶餘額內，請參考退款方式相關)。
+          ・信用卡僅限持卡人本人使用，本公司得就本件交易資料向發卡銀行、收單行、及持卡人照會是否屬實，核對無誤後付款才算完成。
         </p>
       </div>
     </div>
@@ -105,7 +100,7 @@
         <div class="mt-2 p-3 rounded-xl border-2 border-red-300" >
           <div class="flex justify-start">
             <label for="order_name" class="w-1/12 p-2 text-left">姓名</label>
-            <input type="text" id="order_name" name="order_name" x-model="order_name" class="border-2 border-gray-300 rounded-md p-2" required>
+            <input type="text" id="order_name" name="order_name" x-model="order_name" class="border-2 border-gray-300 rounded-md p-2" title="請輸入訂購人姓名" maxlength="10" placeholder="此欄不得超過十個字" required>
               {% if form.order_name.errors %}
             <div class="text-red-500">
                 {% for error in form.order_name.errors %}
@@ -116,7 +111,7 @@
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="order_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" placeholder="輸入格式 09XXXXXXXX" required>
+            <input type="text" id="order_cell_phone" name="order_cell_phone" x-model="cell_phone" class="border-2 border-gray-300 rounded-md p-2" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" maxlength="10" placeholder="輸入格式 09XXXXXXXX" required>
               {% if form.order_cell_phone.errors %}
             <div class="text-red-500">
               {% for error in form.order_cell_phone.errors %}
@@ -127,7 +122,7 @@
           </div>
           <div class="flex justify-start items-center mt-2">
               <label for="order_address" class="w-1/12 p-2 text-left">聯絡地址</label>
-              <input type="text" id="order_address" name="order_address" x-model="address" class="border-2 border-gray-300 rounded-md p-2" required>
+              <input type="text" id="order_address" name="order_address" x-model="address" class="border-2 border-gray-300 rounded-md p-2" title="請輸入有效地址" placeholder="請輸入有效地址" required>
               {% if form.order_address.errors %}
             <div class="text-red-500">
                 {% for error in form.order_address.errors %}
@@ -138,7 +133,7 @@
           </div>
           <div class="flex justify-start mt-2">
               <label for="order_email" class="w-1/12 p-2 text-left">E-mail</label>
-              <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
+              <input type="email" id="order_email" name="order_email" x-model="order_email" class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="請輸入有效的電子郵件" placeholder="請輸入有效的電子郵件" required>
               {% if form.order_email.errors %}
             <div class="text-red-500">
                 {% for error in form.order_email.errors %}
@@ -173,7 +168,7 @@
         <div class="mt-2 p-3 rounded-xl border-2 border-red-300">
           <div class="flex justify-start items-center">
             <label for="recipient_name" class="w-1/12 p-2 text-left">收件人</label>
-            <input type="text" id="recipient_name" x-model="recipient_name" name="recipient_name" class="border-2 border-gray-300 rounded-md p-2" required>
+            <input type="text" id="recipient_name" x-model="recipient_name" name="recipient_name" class="border-2 border-gray-300 rounded-md p-2" title="請輸入收件人姓名" maxlength="10" placeholder="此欄不得超過十個字" required>
               {% if form.recipient_name.errors %}
             <div class="text-red-500">
                 {% for error in form.recipient_name.errors %}
@@ -181,11 +176,11 @@
                 {% endfor %}
             </div>
               {% endif %}
-            <p class="ml-7 text-base text-gray-500">若包裹不需付款，與此欄位姓名相同的證件，方可取貨</p>
+            <p class="ml-7 text-base text-gray-500">請輸入宅配或自取時的收取人姓名</p>
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_cell_phone" class="w-1/12 p-2 text-left">手機</label>
-            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" name="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式 09XXXXXXXX" pattern="09\d{8}" title="手機號碼必須以09開頭並且總長度為10位數字。" required>
+            <input type="text" id="recipient_cell_phone" x-model="recipient_cell_phone" name="recipient_cell_phone" class="border-2 border-gray-300 rounded-md p-2" placeholder="輸入格式 09XXXXXXXX" pattern="09\d{8}" maxlength="10" title="手機號碼必須以09開頭並且總長度為10位數字。" required>
               {% if form.recipient_cell_phone.errors %}
             <div class="text-red-500">
                 {% for error in form.recipient_cell_phone.errors %}
@@ -193,11 +188,11 @@
                 {% endfor %}
             </div>
               {% endif %}
-            <p class="ml-7 text-base text-gray-500">將以此資料發送簡訊提醒</p>
+            <p class="ml-7 text-base text-gray-500">若訂單有問題將以此電話聯繫</p>
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_address" class="w-1/12 p-2 text-left">收件地址</label>
-            <input type="text" id="recipient_address" x-model="recipient_address" name="recipient_address" class="border-2 border-gray-300 rounded-md p-2" required>
+            <input type="text" id="recipient_address" x-model="recipient_address" name="recipient_address" class="border-2 border-gray-300 rounded-md p-2" title="請輸入有效地址" placeholder="請輸入有效地址" required>
               {% if form.recipient_address.errors %}
             <div class="text-red-500">
                 {% for error in form.recipient_address.errors %}
@@ -209,7 +204,7 @@
           </div>
           <div class="flex justify-start items-center mt-2">
             <label for="recipient_email" class="w-1/12 p-2 text-left">E-mail</label>
-            <input type="email" id="recipient_email" x-model="recipient_email" name="recipient_email"  class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email must contain an '@' and a dot." required>
+            <input type="email" id="recipient_email" x-model="recipient_email" name="recipient_email"  class="border-2 border-gray-300 rounded-md p-2" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="請輸入有效的電子郵件" placeholder="請輸入有效的電子郵件" required>
               {% if form.recipient_email.errors %}
             <div class="text-red-500">
                 {% for error in form.recipient_email.errors %}
@@ -217,7 +212,7 @@
                 {% endfor %}
             </div>
               {% endif %}
-            <p class="ml-7 text-base text-gray-500">交易通知將會發送到此 E-mail</p>
+            <p class="ml-7 text-base text-gray-500">若有通知將會發送到此 E-mail</p>
           </div>
         </div>
         <div id="recipient-information" class="mt-2 rounded-xl border-2 border-red-300 p-3 text-left text-gray-700 -indent-6" style="display: none;">

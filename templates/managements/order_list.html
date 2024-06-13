@@ -22,7 +22,7 @@
 			<td class="text-md px-6 py-3 text-center">{{ order.order_id }}</td>
 			<td class="text-md px-6 py-3 text-center">{{ order.created }}</td>
 			<td class="text-md px-6 py-3 text-center">$ {{ order.total|intcomma }}</td>
-			<td class="text-md px-6 py-3 text-center">{{ order.status }}</td>
+			<td class="text-md px-6 py-3 text-center">{{ order.get_status_display }}</td>
 			<td class="text-md px-6 py-3">
 				<button @click="open = !open" class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">
 					訂單細節
@@ -99,11 +99,26 @@
 															<p class="mt-2 text-gray-600"><strong>收件人電郵:</strong> {{ order.email }}</p>
 															<p class="mt-2 text-gray-600"><strong>收件地址:</strong> {{ order.address }}</p>
 														</div>
-														<div class="md:w-1/2 p-5 border-l-2 border-gray-200">
+														<!-- 購買信息 -->
+														<div class="md:w-1/2 p-5 border-l-2 border-gray-200 relative">
 															<h3 class="text-lg font-semibold text-gray-700">購買資訊</h3>
 															<p class="mt-2 text-gray-600"><strong>總金額:</strong> ${{ order.total }}</p>
 															<p class="mt-2 text-gray-600"><strong>訂單成立時間:</strong> {{ order.created|date:"Y-m-d H:i" }}</p>
-															<p class="mt-2 text-gray-600"><strong>目前訂單狀態:</strong> {{ order.get_status_display }}</p>
+															<p class="mt-2 text-gray-600" ></p><strong>目前訂單狀態:</strong></p>
+															<p id="order-status-{{ order.id }}">{{ order.get_status_display }}</p>
+															{% if order.status == 'waiting_for_shipment'  %}
+															<form action="{% url 'orders:ship_order' order.id %}" method="post" class="absolute right-4 bottom-0 mb-4 mr-4">
+																{% csrf_token %}
+																<button 
+																	hx-post="{% url 'orders:ship_order' order.id %}"
+																	hx-target="#order-status-{{ order.id }}"
+																	hx-swap="outerHTML" 
+																	class="inline-block rounded-md border border-transparent bg-red-800 px-8 py-3 text-center text-sm font-medium text-white hover:text-black hover:bg-red-200">
+																出貨</button>
+
+
+															</form>
+															{% endif %}
 														</div>
 													</div>
 												</div>
@@ -138,5 +153,35 @@
 		<a href="?search={{ query }}&page={{ orders.paginator.num_pages }}" class="text-gray-600 hover:text-red-400">最後一頁 &raquo</a>
 	{% endif %}
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const shipForm = document.querySelector('form[action*="ship_order"]');
+    
+    shipForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(shipForm);
+        fetch(shipForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const statusElement = document.querySelector('p strong:contains("目前訂單狀態")').nextElementSibling;
+                statusElement.textContent = data.new_status;
+            } else {
+                alert('Failed to update order status');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+
 
 {% endblock %}
+
