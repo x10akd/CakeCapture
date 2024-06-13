@@ -8,7 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>{% block title %}{% endblock title %}</title>
 	<!-- Using alpine / htmx / htmx-ws / hyperscript -->
-	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 	<script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
 	<script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
 	<script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
@@ -18,8 +17,6 @@
 
 	<!-- Using Alpine.js -->
 	<script src="{% static 'scripts/output.js' %}" type="module"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 	<!-- 引入打包 bulid.js -->
 	<script src="{% static 'scripts/output.js' %}" defer></script>

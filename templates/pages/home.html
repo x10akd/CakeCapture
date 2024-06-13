@@ -1,39 +1,24 @@
 {% extends 'shared/base.html' %}
 {% load static %}
-{% block title %}Cake Capture - Home{% endblock title %}
+{% block title %}Cake Capture - 首頁{% endblock title %}
 {% block content %}
-<!-- 圖片輪播 -->
-<div class="carousel-container w-full h-screen overflow-hidden relative">       
-  <div class="carousel-slide w-full h-full">                           
-    <img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
+
+<div x-data="carousel()" class="carousel-container w-full h-screen overflow-hidden relative">       
+  <div class="carousel-wrapper w-full h-full flex transition-transform duration-500" :style="'transform: translateX(-' + currentIndex * 100 + '%)'">
+    <div class="carousel-slide w-full h-full flex-shrink-0">
+      <img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="carousel-image w-full h-full object-cover"/>
+    </div>
+    <div class="carousel-slide w-full h-full flex-shrink-0">
+      <img src="{% static 'index_img/home2.jpg' %}" alt="Image 2" class="carousel-image w-full h-full object-cover"/>
+    </div>
+    <div class="carousel-slide w-full h-full flex-shrink-0">
+      <img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="carousel-image w-full h-full object-cover"/>
+    </div>
   </div>
-  <div class="carousel-slide w-full h-full">
-    <img src="{% static 'index_img/home2.jpg' %}" alt="Image 2" class="carousel-image w-full h-full object-cover"/>
-  </div>
-  <div class="carousel-slide w-full h-full">
-    <img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="carousel-image w-full h-full absolute inset-y-0 right-0 w-1/2"/>
-  </div>
-  <!-- 添加導航按鈕 --> 
-  <button class="carousel-button prev absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">‹</button>
-  <button class="carousel-button next absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">›</button>
+  <button @click="prevSlide" class="carousel-button prev absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">‹</button>
+  <button @click="nextSlide" class="carousel-button next absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-4 text-7xl">›</button>
 </div>
 
-{% comment %} <div class="swiper-container w-full h-screen overflow-hidden text-center sm:flex-col">
-	<div class="swiper-wrapper">
-			<div class="swiper-slide">
-					<img src="{% static 'index_img/home01.png' %}" alt="Image 1" class="w-full h-full absolute inset-y-0 left-0 w-1/2"/>
-			</div>
-			<div class="swiper-slide">
-					<img src="{% static 'index_img/home2.jpg' %}" alt="Image 2" class="w-full h-full object-cover"/>
-			</div>
-			<div class="swiper-slide">
-					<img src="{% static 'index_img/home03.png' %}" alt="Image 3" class="w-full h-full absolute inset-y-0 right-0 w-1/2"/>
-			</div>
-			<!-- 添加更多圖片 -->
-	</div>
-</div> {% endcomment %}
-
-<!-- 背景圖片部分 -->
 <div class="min-h-screen flex" style="background-image: url('{% static 'index_img/macarons.jpeg' %}'); background-size: cover; background-position: center;">
     <div class="min-h-screen w-1/4 bg-white/70 flex items-center">
         <a class="hover:scale-110 flex flex-col transition-transform duration-500" href="{% url 'products:category' category='馬卡龍' %}">
@@ -107,47 +92,5 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  let currentIndex = 0;                                     
-  const slides = document.querySelectorAll('.carousel-slide');   
-  const totalSlides = slides.length;                            
-  const prevButton = document.querySelector('.carousel-button.prev');
-  const nextButton = document.querySelector('.carousel-button.next');  
-
-  function showSlide(index) {                              
-    slides.forEach((slide, i) => {
-      slide.style.display = (i === index) ? 'block' : 'none';
-    });
-  }
-
-  function nextSlide() {                                  
-    currentIndex = (currentIndex + 1) % totalSlides;
-    showSlide(currentIndex);
-  }
-
-  function prevSlide() {                                 
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    showSlide(currentIndex);
-  }
-
-  nextButton.addEventListener('click', nextSlide);
-  prevButton.addEventListener('click', prevSlide);         
-
-  showSlide(currentIndex);
-  setInterval(nextSlide, 3000); // 自動播放間隔時間（毫秒）         
-});
-</script>
-<style>
-.carousel-bullet.active {
-  background-color: #000;
-  width: 12px;
-  height: 12px;
-}
-.carousel-bullet {
-  transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
-}
-
-</style>
 
 {% endblock %}
