@@ -39,7 +39,6 @@
       {% if user.is_authenticated and user.is_superuser %}
         <a href="{% url 'managements:product_list' %}" class="text-white hover:text-red-600">後台管理</a>
       {% endif %}
-        <a href="{% url 'about' %}" class=" text-white hover:text-red-600">關於我們</a>
       <div class="relative" x-data="{show:false}" @click.away="show = false">
         <button class=" text-white hover:text-red-600 focus:outline-none" @click="show= ! show">
           商品
