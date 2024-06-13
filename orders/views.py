@@ -86,6 +86,7 @@ def order_confirm(request):
     if request.method == "POST":
         initial_data = {"user": request.user}
         form = OrderForm(request.POST, initial=initial_data)
+        
 
         if form.is_valid():
             cart = Cart(request)
@@ -109,14 +110,7 @@ def order_confirm(request):
             order.phone = form.cleaned_data["recipient_cell_phone"]
             order.email = form.cleaned_data["recipient_email"]
             order.address = form.cleaned_data["recipient_address"]
-
             used_coupon_id = form.cleaned_data["used_coupon"]
-            if used_coupon_id:
-                try:
-                    order.used_coupon = UserCoupon.objects.get(pk=used_coupon_id)
-                except UserCoupon.DoesNotExist:
-                    messages.error(request, "選擇的優惠券無效。")
-                    return redirect("orders:order_form")
 
             # 處理購物車
             totals = cart.cart_total()
@@ -126,14 +120,17 @@ def order_confirm(request):
                 shipping_fee = 0
             else:
                 shipping_fee = 70
-
-            if (
-                Coupon.objects.get(code=order.used_coupon).discount
-                > totals + shipping_fee
-            ):
-                coupon_discount = totals + shipping_fee
+            
+            if used_coupon_id:
+                if (
+                    Coupon.objects.get(code=order.used_coupon).discount
+                    > totals + shipping_fee
+                ):
+                    coupon_discount = totals + shipping_fee
+                else:
+                    coupon_discount = Coupon.objects.get(code=order.used_coupon).discount
             else:
-                coupon_discount = Coupon.objects.get(code=order.used_coupon).discount
+                coupon_discount = 0
 
             totals_with_everything = totals + shipping_fee - coupon_discount
             order.total = totals_with_everything

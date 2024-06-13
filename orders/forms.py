@@ -5,7 +5,7 @@ from accounts.models import UserCoupon
 
 class OrderForm(forms.ModelForm):
 
-    used_coupon = forms.ChoiceField()
+    used_coupon = forms.ChoiceField(required=False)
 
     def __init__(self, *args, **kwargs):
         user = kwargs["initial"]["user"]
@@ -70,8 +70,6 @@ class OrderForm(forms.ModelForm):
             }
         )
     )
-
-    # coupon_code = forms.CharField(max_length=20, required=False, label="優惠券代碼")
 
     class Meta:
         model = OrderMethod
