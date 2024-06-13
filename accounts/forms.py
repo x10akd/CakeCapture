@@ -16,6 +16,7 @@ class RegisterForm(UserCreationForm):
                 "pattern": r"^[a-zA-Z0-9]+$",
                 "title": "請輸入英文與數字字元",
                 "placeholder": "請輸入英文與數字字元",
+                "autocomplete": "on",
             }
         ),
     )
@@ -25,6 +26,7 @@ class RegisterForm(UserCreationForm):
             attrs={
                 "class": html_class,
                 "placeholder": "請輸入有效的電子信箱",
+                "autocomplete": "on",
             }
         ),
     )
@@ -34,6 +36,7 @@ class RegisterForm(UserCreationForm):
             attrs={
                 "class": html_class,
                 "placeholder": "請輸入至少8碼的英數混合",
+                "autocomplete": "on",
             }
         ),
     )
@@ -43,6 +46,7 @@ class RegisterForm(UserCreationForm):
             attrs={
                 "class": html_class,
                 "placeholder": "請再次輸入與上方相同的密碼",
+                "autocomplete": "on",
             }
         ),
     )
