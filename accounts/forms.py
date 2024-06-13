@@ -22,16 +22,29 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         label="電子郵件",
         widget=forms.EmailInput(
-            attrs={"class": html_class, "placeholder": "請輸入有效的電子信箱", }),
+            attrs={
+                "class": html_class,
+                "placeholder": "請輸入有效的電子信箱",
+            }
+        ),
     )
     password1 = forms.CharField(
         label="密碼",
         widget=forms.PasswordInput(
-            attrs={"class": html_class, "placeholder": "請輸入至少8碼的英數混合", }),
+            attrs={
+                "class": html_class,
+                "placeholder": "請輸入至少8碼的英數混合",
+            }
+        ),
     )
     password2 = forms.CharField(
         label="密碼確認",
-        widget=forms.PasswordInput(attrs={"class": html_class, "placeholder": "請再次輸入與上方相同的密碼", }),
+        widget=forms.PasswordInput(
+            attrs={
+                "class": html_class,
+                "placeholder": "請再次輸入與上方相同的密碼",
+            }
+        ),
     )
 
     class Meta:
@@ -45,12 +58,22 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(
         required=True,
         label="帳號",
-        widget=forms.TextInput(attrs={"class": html_class}),
+        widget=forms.TextInput(
+            attrs={
+                "class": html_class,
+                "autocomplete": "on",
+            }
+        ),
     )
     password = forms.CharField(
         required=True,
         label="密碼",
-        widget=forms.PasswordInput(attrs={"class": html_class}),
+        widget=forms.PasswordInput(
+            attrs={
+                "class": html_class,
+                "autocomplete": "on",
+            }
+        ),
     )
     remember_me = forms.BooleanField(required=False)
 
