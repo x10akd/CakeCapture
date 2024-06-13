@@ -12,4 +12,9 @@ urlpatterns = [
     path("line_pay_request/", views.line_pay_request, name="line_pay_request"),
     path("line_pay_confirm/", views.line_pay_confirm, name="line_pay_confirm"),
     path("line_pay_cancel/", views.line_pay_cancel, name="line_pay_cancel"),
+    path(
+        "line_pay_success/<str:order_id>",
+        views.line_pay_success,
+        name="line_pay_success",
+    ),
 ]

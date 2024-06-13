@@ -5,8 +5,8 @@
 <section class="fail-msg">
   <div class="container mt-28 mx-auto">
     <div class="block text-center">
-      <h2 class="text-center text-4xl font-bold mb-6">付款取消，請重新下單</h2>
-          <p> 您好, LINE Pay 未能成功完成付款, 請使用重新下單, 若持續失敗請由'使用者資訊'的'訊息'與我們聯繫處理</p>
+      <h2 class="text-center text-4xl font-bold mb-6">付款失敗，請重新下單</h2>
+          <p> 您好, LINE Pay 因預期外的原因發生錯誤, 請使用重新下單, 若持續失敗請由'使用者資訊'的'訊息'與我們聯繫處理</p>
     </div>
     <div class="mx-auto flex justify-center">
       <form method="post" action="{% url 'carts:rebuyonfail' order_id=order_id %}">

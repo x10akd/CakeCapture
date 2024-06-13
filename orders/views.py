@@ -328,11 +328,23 @@ def order_result(request):
 
 def line_pay_request(request):
 
-    order_id = request.POST.get("order_id")
-    order = Order.objects.get(order_id=order_id)
+    for key in list(request.session.keys()):
+        if key == "session_key":
+            del request.session[key]
 
     if request.method == "POST":
-        order_id = order.order_id
+        order_id = request.POST.get("order_id")
+        order = Order.objects.get(order_id=order_id)
+
+        used_coupon_id = order.used_coupon.id
+        user_coupon = UserCoupon.objects.get(pk=used_coupon_id)
+
+        user_coupon.order = order
+        user_coupon.used_at = datetime.now()
+        user_coupon.usage_count = user_coupon.usage_count + 1
+        user_coupon.save()
+        order.confirm()
+
         package_id = order.pk
         url = f"{env('LINE_SANDBOX_URL')}{env('LINE_REQUEST_URL')}"
 
@@ -358,8 +370,8 @@ def line_pay_request(request):
                 }
             ],
             "redirectUrls": {
-                "confirmUrl": f"https://{env('NGROK')}/orders/line_pay_confirm",
-                "cancelUrl": f"https://{env('NGROK')}/orders/line_pay_cancel",
+                "confirmUrl": "https://fa29-61-220-182-115.ngrok-free.app/orders/line_pay_confirm",
+                "cancelUrl": "https://fa29-61-220-182-115.ngrok-free.app/orders/line_pay_cancel",
             },
         }
 
@@ -407,8 +419,48 @@ def create_line_pay_headers(body, uri):
 
 
 def line_pay_confirm(request):
-    return render(request, "orders/line_pay_confirm.html")
+    transaction_id = request.GET.get("transactionId")
+    order_id = request.GET.get("orderId")
+    order = Order.objects.get(order_id=order_id)
+    uri = f"{env('LINE_SANDBOX_URL')}/v3/payments/{transaction_id}/confirm"
+
+    products = [
+        {
+            "id": "1",
+            "name": "甜點",
+            "quantity": 1,
+            "price": order.total,
+        }
+    ]
+    amount = sum([product["quantity"] * product["price"] for product in products])
+
+    payload = {
+        "amount": amount,
+        "currency": "TWD",
+    }
+
+    signature_uri = f"/v3/payments/{transaction_id}/confirm"
+    headers = create_line_pay_headers(payload, signature_uri)
+    body = json.dumps(payload)
+    response = requests.post(uri, headers=headers, data=body)
+
+    data = response.json()
+    if data["returnCode"] == "0000":
+        return redirect("orders:line_pay_success", order_id=order_id)
+    else:
+        print(data["returnMessage"])
+        return render(request, "orders/line_pay_fail.html")
 
 
 def line_pay_cancel(request):
     return render(request, "orders/line_pay_cancel.html")
+
+
+def line_pay_success(request, order_id):
+    order = Order.objects.get(order_id=order_id)
+
+    context = {
+        "order": order,
+    }
+
+    return render(request, "orders/line_pay_success.html", context=context)
