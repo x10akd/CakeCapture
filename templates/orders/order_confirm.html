@@ -200,7 +200,7 @@
       &#10094;&nbsp;&nbsp;上一步
     </a>
 		{% if order_method.payment_method == "line_pay" %}
-		<form action="{% url 'orders:create_payment' %}" method="post" class="w-1/4 ml-10">
+		<form action="{% url 'orders:line_pay_request' %}" method="post" class="w-1/4 ml-10">
       {% csrf_token %}
       <input type="hidden" name="order_id" value="{{ order.order_id }}">
       <input type="hidden" name="amount" value="{{ totals }}">
