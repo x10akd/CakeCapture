@@ -127,6 +127,7 @@ def order_confirm(request):
             
             if used_coupon_id:
                 code = UserCoupon.objects.get(pk=used_coupon_id)
+                order.used_coupon = UserCoupon.objects.get(pk=used_coupon_id)
                 if (
                     Coupon.objects.get(code=code).discount
                     > totals + shipping_fee
@@ -331,7 +332,6 @@ def line_pay_request(request):
     if request.method == "POST":
         order_id = request.POST.get("order_id")
         order = Order.objects.get(order_id=order_id)
-        
 
         if order.used_coupon:
             used_coupon_id = order.used_coupon.id
