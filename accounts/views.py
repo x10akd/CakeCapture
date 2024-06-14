@@ -70,7 +70,7 @@ def logout(request):
 def profile(request):
 
     user_coupons = UserCoupon.objects.filter(profile=request.user.pk)
-    orders = Order.objects.filter(buyer=request.user)
+    orders = Order.objects.filter(buyer=request.user).order_by("-id")
     relational_product = RelationalProduct.objects.filter(order__in=orders)
 
     if request.method == "POST":
