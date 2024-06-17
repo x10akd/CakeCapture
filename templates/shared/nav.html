@@ -1,5 +1,5 @@
 <nav class="bg-red-300 py-6 fixed w-screen max-w-screen-2xl top-0 mx-auto left-0 right-0 px-6 z-20"
-  x-data="{ open: false cartQuantity: {{ cart|length }} }">
+  x-data="{ open: false, cartQuantity: {{ cart|length }} }">
   <div class="container mx-auto flex justify-between items-center">
     <a href="{% url 'home' %}" class="text-white text-2xl font-bold">Cake Capture</a>
     <div class="block lg:hidden relative">
