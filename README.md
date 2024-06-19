@@ -42,6 +42,7 @@ CakeCapture 是一個結合 Django 和前端技術的 Web 應用，旨在提供�
 - Node.js
 - PostgreSQL
 - Django
+- Redis
 
 ### 安裝步驟
 
